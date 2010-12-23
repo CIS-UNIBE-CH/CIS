@@ -1,0 +1,27 @@
+# do not commit all the eclipse stuff
+/.metadata
+/pcg/.buildpath
+/pcg/.classpath
+/pcg/.project
+/pcg/.settings
+/pcg/cache
+/pcg/log
+/pcg/eclipse
+
+# do not commit all temporary play stuff
+/pcg/cobertura.ser
+/pcg/logs
+/pcg/server.pid
+/pcg/tmp
+/pcg/test-result
+
+# and do not commit the stuff from mac users
+.DS_Store
+
+# do not commit files that are created while merging
+*.orig
+
+#do not commit temp files
+*~
+*.*~
+*.log
