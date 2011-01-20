@@ -16,7 +16,7 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 /** This class plots a JgraphT graph with an adapterr with JGraph */
-public class PlotterJGraphT extends JApplet {
+public class Plotter extends JApplet {
 
 	private static final long serialVersionUID = 1L;
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
@@ -24,7 +24,7 @@ public class PlotterJGraphT extends JApplet {
 	private JGraphModelAdapter<String, DefaultEdge> jgAdapter;
 
 	public static void main(String[] args) {
-		PlotterJGraphT applet = new PlotterJGraphT();
+		Plotter applet = new Plotter();
 		applet.init();
 
 		JFrame frame = new JFrame();
