@@ -15,7 +15,7 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-/** This class plots a JgraphT graph with an adapter with JGraph */
+/** This class plots a JgraphT graph with an adapterr with JGraph */
 public class PlotterJGraphT extends JApplet {
 
 	private static final long serialVersionUID = 1L;
