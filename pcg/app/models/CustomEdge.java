@@ -1,6 +1,6 @@
 package models;
 
-import org.jgrapht.graph.DefaultEdge;
+import org.jgraph.graph.DefaultEdge;
 
 /**
  * This class provides labeling of cause bundles with a number for every cause
