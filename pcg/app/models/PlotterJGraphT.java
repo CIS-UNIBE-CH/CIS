@@ -99,7 +99,6 @@ public class PlotterJGraphT extends JApplet {
 		adjustDisplaySettings(jgraph);
 		getContentPane().add(jgraph);
 		resize(DEFAULT_SIZE);
-		// Adding the graph to the applet
 	}
 
 	private void positionNode(Object node, int x, int y) {
