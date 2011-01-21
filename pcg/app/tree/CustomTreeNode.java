@@ -1,4 +1,4 @@
-package Tree;
+package tree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
