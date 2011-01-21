@@ -12,6 +12,7 @@
 /pcg/eclipse/.project
 /pcg/eclipse/tree
 /pcg/eclipse/controllers
+/pcg/eclipse/*
 
 # do not commit all temporary play stuff
 /pcg/cobertura.ser
