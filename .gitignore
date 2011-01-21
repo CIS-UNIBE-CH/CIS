@@ -12,7 +12,8 @@
 /pcg/eclipse/.project
 /pcg/eclipse/tree
 /pcg/eclipse/controllers
-/pcg/eclipse/*
+#Ignores eclipse and all subfolders and files
+/pcg/eclipse/**/*
 
 # do not commit all temporary play stuff
 /pcg/cobertura.ser
