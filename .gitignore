@@ -6,14 +6,8 @@
 /pcg/.settings
 /pcg/cache
 /pcg/log
-/pcg/eclipse/.settings
-/pcg/eclipse/.launch
-/pcg/eclipse/.classpath
-/pcg/eclipse/.project
-/pcg/eclipse/tree
-/pcg/eclipse/controllers
-/pcg/eclipse/Classes
-/pcg/eclipse
+!/pcg/eclipse/classes/models
+
 
 #Ignores eclipse and all subfolders and files
 /pcg/eclipse/*
