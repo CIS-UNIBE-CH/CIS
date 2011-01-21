@@ -15,7 +15,6 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
-/** Plots a JGraphT Graph in a Java Applet */
 public class Plotter {
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
@@ -23,9 +22,7 @@ public class Plotter {
 	private static Dimension appletSize;
 	private static JFrame frame;
 
-	public static void main(String[] args) {
-		// Plotter plotter = new Plotter();
-
+	public Plotter() {
 		frame = new JFrame();
 		frame.getContentPane();
 		frame.setTitle("JGraphT Adapter to JGraph Demo");
@@ -64,9 +61,9 @@ public class Plotter {
 		frame.getContentPane().add(jgraph);
 		frame.setSize(appletSize);
 
-		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 0);
+		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
 		try {
-			ImageIO.write(img, "png", new File("picture.png"));
+			ImageIO.write(img, "png", new File("picture9000.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,11 +76,6 @@ public class Plotter {
 
 		Color c = DEFAULT_BG_COLOR;
 		String colorStr = null;
-
-		try {
-			// colorStr = getParameter("bgcolor");
-		} catch (Exception e) {
-		}
 
 		if (colorStr != null) {
 			c = Color.decode(colorStr);
