@@ -8,7 +8,9 @@
 /pcg/log
 
 /pcg/eclipse/.settings/
-/pcg/eclipse/*.launch
+/pcg/eclipse/Connect\ JPDA\ to\ pcg.launch
+/pcg/eclipse/pcg.launch
+/pcg/eclipse/Test\ pcg.launch
 /pcg/eclipse/.classpath
 /pcg/eclipse/.project
 /pcg/eclipse/classes/java.policy.applet
