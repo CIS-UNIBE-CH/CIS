@@ -2,33 +2,37 @@ package models;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.JApplet;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
+import org.jgraph.JGraph;
+import org.jgrapht.ext.JGraphModelAdapter;
 
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
-/** Plots a JGraphT Graph in a Java Applet */
-public class Plotter extends JApplet {
+public class Plotter {
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
-	private JGraphModelAdapter<CustomTreeNode, CustomEdge> jgAdapter;
-	private Dimension appletSize;
+	private static JGraphModelAdapter<CustomTreeNode, CustomEdge> jgAdapter;
+	private static Dimension appletSize;
+	private static JFrame frame;
 
-	public static void main(String[] args) {
-		Plotter applet = new Plotter();
-		applet.init();
-
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(applet);
+	public Plotter() {
+		frame = new JFrame();
+		frame.getContentPane();
 		frame.setTitle("JGraphT Adapter to JGraph Demo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(false);
+		init();
 	}
 
-	public void init() {
+	public static void init() {
 
 		CustomTree tree = CustomTree.getInstance();
 		CustomTreeNode root = new CustomTreeNode("root");
@@ -54,21 +58,24 @@ public class Plotter extends JApplet {
 		JGraph jgraph = new JGraph(jgAdapter);
 
 		adjustDisplaySettings(jgraph);
-		getContentPane().add(jgraph);
-		resize(appletSize);
+		frame.getContentPane().add(jgraph);
+		frame.setSize(appletSize);
+
+		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
+		try {
+			ImageIO.write(img, "png", new File("picture.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/** Will only be used for displaying applet */
-	private void adjustDisplaySettings(JGraph jg) {
+	private static void adjustDisplaySettings(JGraph jg) {
 		jg.setPreferredSize(appletSize);
 
 		Color c = DEFAULT_BG_COLOR;
 		String colorStr = null;
-
-		try {
-			colorStr = getParameter("bgcolor");
-		} catch (Exception e) {
-		}
 
 		if (colorStr != null) {
 			c = Color.decode(colorStr);
