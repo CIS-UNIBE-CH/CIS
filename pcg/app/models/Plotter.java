@@ -6,9 +6,6 @@ import java.awt.Dimension;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-import org.jgraph.JGraph;
-import org.jgrapht.ext.JGraphModelAdapter;
-
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
