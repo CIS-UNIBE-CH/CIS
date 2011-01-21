@@ -10,8 +10,9 @@ import org.jgraph.JGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultEdge;
 
-import Tree.CustomTree;
-import Tree.CustomTreeNode;
+import tree.CustomTree;
+import tree.CustomTreeNode;
+
 
 /** Plots a JGraphT Graph in a Java Applet */
 public class Plotter extends JApplet {
