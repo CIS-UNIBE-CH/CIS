@@ -12,6 +12,8 @@
 /pcg/eclipse/.project
 /pcg/eclipse/tree
 /pcg/eclipse/controllers
+/pcg/eclipse/Classes
+/pcg/eclipse
 
 #Ignores eclipse and all subfolders and files
 /pcg/eclipse/*
