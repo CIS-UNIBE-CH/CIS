@@ -11,9 +11,8 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import tree.CustomTree;
-import tree.CustomTreeNode;
-
+import Tree.CustomTree;
+import Tree.CustomTreeNode;
 
 /** Builds out of the tree JGraphT nodes and edges */
 public class Parser {
