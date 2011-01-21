@@ -6,13 +6,10 @@ import java.awt.Dimension;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-import org.jgraph.JGraph;
-import org.jgrapht.ext.JGraphModelAdapter;
-
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
-/** Plots a JGraphT Graph in a Java Applet */
+/** Plots a JGraphT Graph in a Java Applet ajsdkflajsdflkajsföl */
 public class Plotter extends JApplet {
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
