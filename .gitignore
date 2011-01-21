@@ -6,7 +6,7 @@
 /pcg/.settings
 /pcg/cache
 /pcg/log
-!/pcg/eclipse/classes/models
+!/pcg/eclipse/classes/models/*.class
 
 
 #Ignores eclipse and all subfolders and files
