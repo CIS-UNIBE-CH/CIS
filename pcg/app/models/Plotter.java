@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
-/** Plots a JGraphT Graph in a Java Applet ajsdkflajsdflkajsföl */
+/** Plots a JGraphT Graph in a Java Applet */
 public class Plotter extends JApplet {
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
