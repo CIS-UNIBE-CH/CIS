@@ -6,8 +6,12 @@
 /pcg/.settings
 /pcg/cache
 /pcg/log
-/pcg/eclipse
-/pcg/eclupse/Connect
+/pcg/eclipse/.settings
+/pcg/eclipse/.launch
+/pcg/eclipse/.classpath
+/pcg/eclipse/.project
+/pcg/eclipse/tree
+/pcg/eclipse/controllers
 
 # do not commit all temporary play stuff
 /pcg/cobertura.ser
