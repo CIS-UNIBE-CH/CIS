@@ -6,8 +6,15 @@
 /pcg/.settings
 /pcg/cache
 /pcg/log
-/pcg/eclipse/classes/
-!/pcg/eclipse/classes/models/*
+
+/pcg/eclipse/.settings/
+/pcg/eclipse/*.launch
+/pcg/eclipse/.classpath
+/pcg/eclipse/.project
+/pcg/eclipse/classes/java.policy.applet
+/pcg/eclipse/classes/controllers/
+/pcg/eclipse/classes/tree
+
 
 # do not commit all temporary play stuff
 /pcg/cobertura.ser
