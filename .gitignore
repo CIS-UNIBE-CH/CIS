@@ -7,6 +7,7 @@
 /pcg/cache
 /pcg/log
 /pcg/eclipse
+/pcg/eclupse/Connect
 
 # do not commit all temporary play stuff
 /pcg/cobertura.ser
