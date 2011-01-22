@@ -6,16 +6,7 @@
 /pcg/.settings
 /pcg/cache
 /pcg/log
-
-/pcg/eclipse/.settings/
-/pcg/eclipse/Connect\ JPDA\ to\ pcg.launch
-/pcg/eclipse/pcg.launch
-/pcg/eclipse/Test\ pcg.launch
-/pcg/eclipse/.classpath
-/pcg/eclipse/.project
-/pcg/eclipse/classes/java.policy.applet
-/pcg/eclipse/classes/controllers/
-/pcg/eclipse/classes/tree
+/pcg/eclipse/classes/
 
 
 # do not commit all temporary play stuff

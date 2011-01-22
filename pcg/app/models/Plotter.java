@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.security.Timestamp;
+import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -12,15 +14,18 @@ import javax.swing.JFrame;
 import org.jgraph.JGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 
+import play.libs.Time;
+
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
 public class Plotter {
 
-	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
+	private static final Color DEFAULT_BG_COLOR = Color.decode("#ffffff");
 	private static JGraphModelAdapter<CustomTreeNode, CustomEdge> jgAdapter;
 	private static Dimension appletSize;
 	private static JFrame frame;
+	private static java.sql.Timestamp timestamp;
 
 	public Plotter() {
 		frame = new JFrame();
@@ -56,14 +61,18 @@ public class Plotter {
 		jgAdapter = parser.getJgAdapter();
 
 		JGraph jgraph = new JGraph(jgAdapter);
+		
 
-		adjustDisplaySettings(jgraph);
 		frame.getContentPane().add(jgraph);
 		frame.setSize(appletSize);
 
 		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
+		
+		timestamp = new java.sql.Timestamp(new GregorianCalendar().getTimeInMillis());
+		String imagePath = "./pcg/public/images/graphs/" + timestamp.toString() + ".png";
+		
 		try {
-			ImageIO.write(img, "png", new File("picture9000.png"));
+			ImageIO.write(img, "png", new File(imagePath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,5 +91,9 @@ public class Plotter {
 		}
 
 		jg.setBackground(c);
+	}
+	
+	public String getImageSource() {
+		return "/public/images/graphs/" + timestamp.toString() + ".png";
 	}
 }

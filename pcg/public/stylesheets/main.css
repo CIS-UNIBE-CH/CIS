@@ -9,9 +9,8 @@ body {
 headings
 ************************/
 h1 {
-	color: #ff8400;
-	font-size: 1.3em;
-	margin-top: 20px;
+	color: #000;
+	font-size: 2.3em;
 }
 h1:first-child {
 	margin-top: 0px;
@@ -29,7 +28,7 @@ h3 {
 links
 ************************/
 a {
-	color: #ff8400;
+	color: #6666FF;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -40,7 +39,7 @@ a:hover {
 links
 ************************/
 hr {
-	color: #6666FF;	
+	color: #c71c1c;	
 }
 /*---------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------*/
@@ -68,6 +67,7 @@ navigation
 div.navigation {
 	padding: 10px;
 	color: #222222;
+	border-bottom: solid 1px #6666FF;
 }
 
 /*********************** 

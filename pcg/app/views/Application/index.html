@@ -1,4 +1,19 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+#{form @Application.calcQuadroTestGraph()}
+<table>
+  <tr>
+    <td></td><td>B</td><td>¬B</td>
+  </tr>
+  <tr>
+  	<td>A</td><td><input type="number" name="i" value="0" /></td><td><input type="number" name="ii" value="0" /></td>
+  </tr>
+    <tr>
+  	<td>B</td><td><input type="number" name="l" value="0" /></td><td><input type="number" name="ll" value="0" /></td>
+  </tr>
+    <tr>
+  	<td></td><td><input type="submit" name="go" value="get graph" /></td><td></td>
+  </tr>
+</table>
+#{/form}
 
-#{welcome /}

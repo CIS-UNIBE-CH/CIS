@@ -26,6 +26,7 @@ public class Parser {
 	public Parser() {
 		graph = new DefaultDirectedGraph<CustomTreeNode, CustomEdge>(
 				CustomEdge.class);
+		
 		tree.getInstance();
 		createGraphNodes();
 		createGraphEdges();
