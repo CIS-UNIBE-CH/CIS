@@ -39,14 +39,23 @@ public class CustomTree {
 		root.add(child);
 	}
 
-	/** gets the childs of the root node in the tree */
+	/**
+	 * gets the childs of the root node in the tree
+	 * 
+	 * @return ArrayList with all childs of the root node in the tree
+	 */
 	public static ArrayList<CustomTreeNode> getChildren() {
 		childs.clear();
 		traverse(tree);
 		return childs;
 	}
 
-	/** Übernommen von Internet, macht tree walk */
+	/**
+	 * Übernommen von Internet, macht tree walk
+	 * 
+	 * @param model
+	 *            the tree data structure
+	 */
 	private static void traverse(DefaultTreeModel model) {
 		CustomTreeNode root;
 		if (model != null) {
@@ -57,7 +66,14 @@ public class CustomTree {
 		}
 	}
 
-	/** Übernommen von Internet, macht tree walk */
+	/**
+	 * Übernommen von Internet, macht tree walk
+	 * 
+	 * @param model
+	 *            the tree data structure
+	 * @param root
+	 *            the root node in the tree
+	 */
 	private static void walk(DefaultTreeModel model, CustomTreeNode root) {
 		int childCount;
 		childCount = model.getChildCount(root);

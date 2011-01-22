@@ -78,8 +78,8 @@ public class Parser {
 	private void calculateJGraphNodePosition() {
 		ArrayList<DefaultGraphCell> graphNodes = listOfJGraphTNodes();
 		// Values for Child Nodes
-		int leftBorder = 30;
-		int x = leftBorder;
+		int leftOffset = 30;
+		int x = leftOffset;
 		int y = 30;
 		int gapBetweenNodes = 50;
 
@@ -97,8 +97,8 @@ public class Parser {
 				// x-coordinate-middle of the causes.
 
 				xRoot = ((nodeWidth * (graphNodes.size() - 1))
-						+ (gapBetweenNodes * (graphNodes.size() - 2)) + leftBorder)
-						/ 2 - (nodeWidth / 2) + (leftBorder / 2);
+						+ (gapBetweenNodes * (graphNodes.size() - 2)) + leftOffset)
+						/ 2 - (nodeWidth / 2) + (leftOffset / 2);
 				yRoot = 300;
 
 				positionJGraphNode(curCell, xRoot, yRoot);
@@ -110,11 +110,20 @@ public class Parser {
 				x = x + nodeWidth + gapBetweenNodes;
 			}
 		}
-		calculateJFrameSize(gapBetweenNodes, leftBorder, yRoot,
+		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot,
 				graphNodes.size(), y);
 	}
 
-	/** Positions the given JgraphT cell in the JGraphModelAdapter */
+	/**
+	 * Positions the given JgraphT cell in the JGraphModelAdapter
+	 * 
+	 * @param cell
+	 *            a cell of JGraphModelAdapter, equals a node
+	 * @param x
+	 *            x coordinate of node as integer
+	 * @param y
+	 *            y coordinate of node as integer
+	 */
 	private void positionJGraphNode(DefaultGraphCell cell, int x, int y) {
 		AttributeMap attr = cell.getAttributes();
 		Rectangle2D bounds = GraphConstants.getBounds(attr);
@@ -131,17 +140,30 @@ public class Parser {
 	/**
 	 * This Method calculates the size of the Jframe window with respect to
 	 * number of causes in the graph.
+	 * 
+	 * @param gapBetweenNodes
+	 *            size of gap between two graph nodes
+	 * @param leftOffset
+	 *            offset between left border of JFrame and first node
+	 * @param yRoot
+	 *            y coordinate for tree root
+	 * @param numberOfNodes
+	 *            total number of nodes in tree
+	 * @param topOffset
+	 *            y coordinate of causes in graph
 	 */
-	private void calculateJFrameSize(int xGap, int initXValue, int yRoot,
-			int numberOfNodes, int y) {
+	private void calculateJFrameSize(int gapBetweenNodes, int leftOffset,
+			int yRoot, int numberOfNodes, int topOffset) {
 		sizeAppletX = ((nodeWidth * (numberOfNodes - 1))
-				+ (xGap * (numberOfNodes - 2)) + 2 * initXValue);
-		sizeAppletY = yRoot + nodeHeight + y;
+				+ (gapBetweenNodes * (numberOfNodes - 2)) + 2 * leftOffset);
+		sizeAppletY = yRoot + nodeHeight + topOffset;
 	}
 
 	/**
 	 * Because jgAdapter.getRoot() gives back a list with Nodes and Edges this
 	 * method filters out all Edges
+	 * 
+	 * @return ArrayList with all nodes in the JGraphT Graph
 	 */
 	private ArrayList<DefaultGraphCell> listOfJGraphTNodes() {
 		List all = jgAdapter.getRoots();

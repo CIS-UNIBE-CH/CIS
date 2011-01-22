@@ -39,6 +39,7 @@ public class Plotter {
 	// TODO When algorithm implemented remove example data and move init method
 	// to constructor
 	public static void init() {
+		// ***** Sample data *****
 		CustomTree tree = CustomTree.getInstance();
 		CustomTreeNode root = new CustomTreeNode("root");
 		CustomTreeNode child1 = new CustomTreeNode("child1");
@@ -58,18 +59,24 @@ public class Plotter {
 		tree.addChildtoRootX(child4, root);
 		tree.addChildtoRootX(child5, root);
 		tree.addChildtoRootX(child6, root);
+		// ***** Sample data *****
 
 		Parser parser = new Parser();
+
+		// get calculated applet size from parser
 		appletSize = new Dimension(parser.getSizeAppletx(),
 				parser.getSizeApplety());
+
 		jgAdapter = parser.getJgAdapter();
 
+		// Add JgraphModelAdapter to Jgraph
 		JGraph jgraph = new JGraph(jgAdapter);
 
-		adjustDisplaySettings(jgraph);
+		adjustImageSettings(jgraph);
 		frame.getContentPane().add(jgraph);
 		frame.setSize(appletSize);
 
+		// Write image to file
 		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
 		try {
 			ImageIO.write(img, "png", new File("picture9000.png"));
@@ -79,15 +86,15 @@ public class Plotter {
 		}
 	}
 
-	/** Will be used to set background color of image */
-	private static void adjustDisplaySettings(JGraph jg) {
-		jg.setPreferredSize(appletSize);
-
+	/**
+	 * Will be used to set background color of generated image
+	 * 
+	 * @param jgraph
+	 *            the generated JGraph
+	 */
+	private static void adjustImageSettings(JGraph jgraph) {
+		jgraph.setPreferredSize(appletSize);
 		Color c = DEFAULT_BG_COLOR;
-		String colorStr = null;
-
-		c = Color.decode(colorStr);
-
-		jg.setBackground(c);
+		jgraph.setBackground(c);
 	}
 }
