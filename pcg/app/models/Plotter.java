@@ -33,14 +33,17 @@ public class Plotter {
 	}
 
 	public static void init() {
-
 		CustomTree tree = CustomTree.getInstance();
 		CustomTreeNode root = new CustomTreeNode("root");
 		CustomTreeNode child1 = new CustomTreeNode("child1");
+		child1.setBundle("1");
 		CustomTreeNode child2 = new CustomTreeNode("child2");
+		child2.setBundle("1");
 		CustomTreeNode child3 = new CustomTreeNode("child3");
 		CustomTreeNode child4 = new CustomTreeNode("child4");
+		child4.setBundle("2");
 		CustomTreeNode child5 = new CustomTreeNode("child5");
+		child5.setBundle("2");
 		CustomTreeNode child6 = new CustomTreeNode("child6");
 		tree.setRoot(root);
 		tree.addChildtoRootX(child1, root);

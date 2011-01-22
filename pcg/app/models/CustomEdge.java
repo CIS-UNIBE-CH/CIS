@@ -10,7 +10,7 @@ public class CustomEdge extends DefaultEdge {
 
 	String number;
 
-	public void setNumber(String number) {
+	public void setBundleNumber(String number) {
 		this.number = number;
 	}
 

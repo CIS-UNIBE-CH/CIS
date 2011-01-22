@@ -47,8 +47,14 @@ public class Parser {
 		ArrayList<CustomTreeNode> children = tree.getChildren();
 
 		for (int i = 0; i < children.size(); i++) {
+			CustomTreeNode curNode = children.get(i);
 			CustomEdge edge = new CustomEdge();
-			graph.addEdge(children.get(i), root, edge);
+
+			if (curNode.isPartOfBundle()) {
+				edge.setBundleNumber(curNode.getBundle());
+			}
+
+			graph.addEdge(curNode, root, edge);
 		}
 
 	}
