@@ -15,6 +15,10 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
+/**
+ * Plots form a given JGraphModelAdapter a JGraph in a Jframe and generates a
+ * image file out of the Jgraph.
+ */
 public class Plotter {
 
 	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
@@ -32,6 +36,8 @@ public class Plotter {
 		init();
 	}
 
+	// TODO When algorithm implemented remove example data and move init method
+	// to constructor
 	public static void init() {
 		CustomTree tree = CustomTree.getInstance();
 		CustomTreeNode root = new CustomTreeNode("root");
@@ -68,21 +74,19 @@ public class Plotter {
 		try {
 			ImageIO.write(img, "png", new File("picture9000.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Sorry image couldn't be generated!");
 			e.printStackTrace();
 		}
 	}
 
-	/** Will only be used for displaying applet */
+	/** Will be used to set background color of image */
 	private static void adjustDisplaySettings(JGraph jg) {
 		jg.setPreferredSize(appletSize);
 
 		Color c = DEFAULT_BG_COLOR;
 		String colorStr = null;
 
-		if (colorStr != null) {
-			c = Color.decode(colorStr);
-		}
+		c = Color.decode(colorStr);
 
 		jg.setBackground(c);
 	}

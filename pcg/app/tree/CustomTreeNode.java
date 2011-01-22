@@ -2,7 +2,7 @@ package tree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-/** A custom Tree Node inherits from DefaultMutableTreeNode */
+/** Custom Tree Node inherits from DefaultMutableTreeNode */
 public class CustomTreeNode extends DefaultMutableTreeNode {
 	private String bundle;
 
@@ -18,6 +18,7 @@ public class CustomTreeNode extends DefaultMutableTreeNode {
 		this.bundle = bundle;
 	}
 
+	/** Checks if the tree node is part of cause bundle */
 	public boolean isPartOfBundle() {
 		if (bundle != null) {
 			return true;

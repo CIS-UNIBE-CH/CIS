@@ -8,15 +8,15 @@ import org.jgraph.graph.DefaultEdge;
  */
 public class CustomEdge extends DefaultEdge {
 
-	String number;
+	String bundleLabel;
 
-	public void setBundleNumber(String number) {
-		this.number = number;
+	public void setBundleNumber(String bundleLabel) {
+		this.bundleLabel = bundleLabel;
 	}
 
 	public String toString() {
-		if (number != null) {
-			return number;
+		if (bundleLabel != null) {
+			return bundleLabel;
 		} else {
 
 			return "";

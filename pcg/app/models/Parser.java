@@ -13,27 +13,39 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
-/** Builds out of the tree JGraphT nodes and edges */
+/**
+ * Builds out of the tree a JGraphT and adds everything to a JGraphModelAdapter,
+ * also known as parsing a tree to a JGraphT.
+ */
 public class Parser {
+	// A JGraphT directed Graph
 	private static DefaultDirectedGraph<CustomTreeNode, CustomEdge> graph;
+	// The tree (internal data structure)
 	private CustomTree tree;
+	// The Adapter used for displaying JGraphT in JGraph
 	private JGraphModelAdapter<CustomTreeNode, CustomEdge> jgAdapter;
-	private int nodeWidth = 100;
-	private int nodeHeight = 30;
+
+	private int nodeWidth;
+	private int nodeHeight;
 	private int sizeAppletX;
 	private int sizeAppletY;
 
 	public Parser() {
+		nodeWidth = 100;
+		nodeHeight = 30;
+
 		graph = new DefaultDirectedGraph<CustomTreeNode, CustomEdge>(
 				CustomEdge.class);
 		tree.getInstance();
-		createGraphNodes();
-		createGraphEdges();
+
+		// Initialize creating JGraphT and position node procedure
+		createJGraphTNodes();
+		createJGraphTEdges();
 		jgAdapter = new JGraphModelAdapter<CustomTreeNode, CustomEdge>(graph);
-		calculateNodePosition();
+		calculateJGraphNodePosition();
 	}
 
-	private void createGraphNodes() {
+	private void createJGraphTNodes() {
 		ArrayList<CustomTreeNode> childs = tree.getChildren();
 
 		graph.addVertex(tree.getRoot());
@@ -42,7 +54,7 @@ public class Parser {
 		}
 	}
 
-	private void createGraphEdges() {
+	private void createJGraphTEdges() {
 		CustomTreeNode root = tree.getRoot();
 		ArrayList<CustomTreeNode> children = tree.getChildren();
 
@@ -60,29 +72,11 @@ public class Parser {
 	}
 
 	/**
-	 * Because jgAdapter.getRoot() gives back a list with Nodes and Edges this
-	 * method filters out all Edges
-	 */
-	private ArrayList<DefaultGraphCell> listOfGraphNodes() {
-		List all = jgAdapter.getRoots();
-		ArrayList<DefaultGraphCell> graphNodes = new ArrayList<DefaultGraphCell>();
-
-		for (int i = 0; i < all.size(); i++) {
-			DefaultGraphCell cell = (DefaultGraphCell) all.get(i);
-			if (cell.getUserObject() instanceof CustomTreeNode) {
-				graphNodes.add(cell);
-			}
-		}
-		return graphNodes;
-
-	}
-
-	/**
-	 * Calculates the Position for all nodes in the Graph, currently only with X
+	 * Calculates the Position for all nodes in the Graph, currently only with x
 	 * causes and one consequence (Wirkung).
 	 */
-	private void calculateNodePosition() {
-		ArrayList<DefaultGraphCell> graphNodes = listOfGraphNodes();
+	private void calculateJGraphNodePosition() {
+		ArrayList<DefaultGraphCell> graphNodes = listOfJGraphTNodes();
 		// Values for Child Nodes
 		int leftBorder = 30;
 		int x = leftBorder;
@@ -107,32 +101,21 @@ public class Parser {
 						/ 2 - (nodeWidth / 2) + (leftBorder / 2);
 				yRoot = 300;
 
-				positionNode(curCell, xRoot, yRoot);
+				positionJGraphNode(curCell, xRoot, yRoot);
 
 			} else {
-				positionNode(curCell, x, y);
+				positionJGraphNode(curCell, x, y);
 
 				// Count x Value up
 				x = x + nodeWidth + gapBetweenNodes;
 			}
 		}
-		calculateAppletSize(gapBetweenNodes, leftBorder, yRoot,
+		calculateJFrameSize(gapBetweenNodes, leftBorder, yRoot,
 				graphNodes.size(), y);
 	}
 
-	/**
-	 * This Method calculates the size of the applet window with respect to
-	 * number of causes in the graph
-	 */
-	private void calculateAppletSize(int xGap, int initXValue, int yRoot,
-			int numberOfNodes, int y) {
-		sizeAppletX = ((nodeWidth * (numberOfNodes - 1))
-				+ (xGap * (numberOfNodes - 2)) + 2 * initXValue);
-		sizeAppletY = yRoot + nodeHeight + y;
-	}
-
 	/** Positions the given JgraphT cell in the JGraphModelAdapter */
-	private void positionNode(DefaultGraphCell cell, int x, int y) {
+	private void positionJGraphNode(DefaultGraphCell cell, int x, int y) {
 		AttributeMap attr = cell.getAttributes();
 		Rectangle2D bounds = GraphConstants.getBounds(attr);
 
@@ -143,6 +126,35 @@ public class Parser {
 		AttributeMap cellAttr = new AttributeMap();
 		cellAttr.put(cell, attr);
 		jgAdapter.edit(cellAttr, null, null, null);
+	}
+
+	/**
+	 * This Method calculates the size of the Jframe window with respect to
+	 * number of causes in the graph.
+	 */
+	private void calculateJFrameSize(int xGap, int initXValue, int yRoot,
+			int numberOfNodes, int y) {
+		sizeAppletX = ((nodeWidth * (numberOfNodes - 1))
+				+ (xGap * (numberOfNodes - 2)) + 2 * initXValue);
+		sizeAppletY = yRoot + nodeHeight + y;
+	}
+
+	/**
+	 * Because jgAdapter.getRoot() gives back a list with Nodes and Edges this
+	 * method filters out all Edges
+	 */
+	private ArrayList<DefaultGraphCell> listOfJGraphTNodes() {
+		List all = jgAdapter.getRoots();
+		ArrayList<DefaultGraphCell> graphNodes = new ArrayList<DefaultGraphCell>();
+
+		for (int i = 0; i < all.size(); i++) {
+			DefaultGraphCell cell = (DefaultGraphCell) all.get(i);
+			if (cell.getUserObject() instanceof CustomTreeNode) {
+				graphNodes.add(cell);
+			}
+		}
+		return graphNodes;
+
 	}
 
 	public static DefaultDirectedGraph<CustomTreeNode, CustomEdge> getGraph() {
