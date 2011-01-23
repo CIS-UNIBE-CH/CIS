@@ -70,10 +70,8 @@ public class CustomTree {
 		for (int i = 0; i < childCount; i++) {
 			CustomTreeNode child = (CustomTreeNode) model.getChild(root, i);
 			if (model.isLeaf(child)) {
-				System.out.println(child);
 				childs.add(child);
 			} else {
-				System.out.println(child);
 				childs.add(child);
 				walk(model, child);
 			}

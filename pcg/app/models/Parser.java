@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +134,8 @@ public class Parser {
 				nodeHeight);
 
 		GraphConstants.setBounds(attr, newBounds);
+		GraphConstants.setBackground(attr, new Color(102, 102, 255));
+
 		AttributeMap cellAttr = new AttributeMap();
 		cellAttr.put(cell, attr);
 		jgAdapter.edit(cellAttr, null, null, null);

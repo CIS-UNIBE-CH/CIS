@@ -9,7 +9,6 @@ import util.QuadroTest;
 
 public class Application extends Controller {
 
-	private static Plotter plotter = new Plotter();
 	private static CustomTree tree = null;
 
 	public static void index() {
@@ -61,6 +60,8 @@ public class Application extends Controller {
 			params.flash();
 			quadroTest(1, f1, f2);
 		}
+		Plotter plotter = new Plotter();
+
 		plotter.plot(new Parser(tree));
 		String graphPath = plotter.getImageSource();
 		showGraph(graphPath);

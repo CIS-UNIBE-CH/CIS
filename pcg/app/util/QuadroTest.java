@@ -85,6 +85,8 @@ public class QuadroTest {
 				if (field[0][0] == 0) {
 					tree.addChildtoRootX(nb, root);
 					nb.setBundle("1");
+					tree.addChildtoRootX(b, root);
+					b.setBundle("2");
 					tree.addChildtoRootX(na, root);
 					na.setBundle("2");
 				} else {
