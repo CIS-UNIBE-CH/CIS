@@ -28,7 +28,6 @@ public class QuadroTest {
 		CustomTreeNode x2 = new CustomTreeNode("X2");
 
 		int sum = calcSumAll();
-		System.out.println(sum);
 		switch (sum) {
 		case 0:
 			System.out.println("error: 0");
