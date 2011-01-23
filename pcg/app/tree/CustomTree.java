@@ -6,23 +6,13 @@ import javax.swing.tree.DefaultTreeModel;
 
 /** Represents a graph in a tree datastructure */
 public class CustomTree {
+
 	private static DefaultTreeModel tree;
 	private static ArrayList<CustomTreeNode> childs;
-	private static CustomTree INSTANCE = new CustomTree();
 
-	/** Custom Tree is a singelton */
-	public static CustomTree getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new CustomTree();
-		}
-		return INSTANCE;
-
-	}
-
-	private CustomTree() {
+	public CustomTree() {
 		CustomTreeNode root = new CustomTreeNode("DefaultRoot");
 		tree = new DefaultTreeModel(root);
-
 		childs = new ArrayList<CustomTreeNode>();
 	}
 

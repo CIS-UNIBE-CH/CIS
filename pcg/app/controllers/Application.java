@@ -1,32 +1,74 @@
 package controllers;
 
-
+import models.News;
+import models.Parser;
 import models.Plotter;
-
 import play.mvc.Controller;
+import tree.CustomTree;
 import util.QuadroTest;
 
 public class Application extends Controller {
 
+	private static Plotter plotter = new Plotter();
+	private static CustomTree tree = null;
+
 	public static void index() {
-		Plotter plotter = new Plotter();
-		
-		render(plotter);
+		News news = new News(
+				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
+				"@{Application.quadroTest(0)}", "Quadro Test implemented");
+
+		render(news);
 	}
-	
-	public static void calcQuadroTestGraph(String i, String ii, String l, String ll) {
+
+	public static void quadroTest(int step, String f1, String f2) {
+		tree = null;
+		render(step, f1, f2);
+	}
+
+	public static void calcQuadroTestGraph(String f1, String f2, String i,
+			String ii, String l, String ll) {
 		int[][] field = new int[2][2];
-		field[0][0] = Integer.parseInt(i);
-		field[0][1] = Integer.parseInt(ii);
-		field[1][0] = Integer.parseInt(l);
-		field[1][1] = Integer.parseInt(ll);
-		
-		QuadroTest quadroTest = new QuadroTest(field);
-		
-		showGraph();
+		int[] numbers = new int[4];
+
+		try {
+			numbers[0] = Integer.parseInt(i);
+			numbers[1] = Integer.parseInt(ii);
+			numbers[2] = Integer.parseInt(l);
+			numbers[3] = Integer.parseInt(ll);
+		} catch (Exception e) {
+			flash.error(e.toString());
+			params.flash();
+		}
+		if (numbers[0] < 0 || numbers[0] > 1 || numbers[1] < 0
+				|| numbers[1] > 1 || numbers[2] < 0 || numbers[2] > 1
+				|| numbers[3] < 0 || numbers[3] > 1) {
+			flash.error("Please insert only 1 or 0.");
+			params.flash();
+			quadroTest(1, f1, f2);
+		}
+
+		field[0][0] = numbers[0];
+		field[0][1] = numbers[1];
+		field[1][0] = numbers[2];
+		field[1][1] = numbers[3];
+
+		QuadroTest quadroTest = new QuadroTest(field, f1, f2);
+		tree = quadroTest.creatGraph();
+
+		if (tree == null) {
+			flash
+					.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+			params.flash();
+			quadroTest(1, f1, f2);
+		}
+		plotter.plot(new Parser(tree));
+		String graphPath = plotter.getImageSource();
+		showGraph(graphPath);
 	}
-	
-	public static void showGraph() {
-		
+
+	public static void showGraph(String graphPath) {
+		render(graphPath);
+
 	}
+
 }

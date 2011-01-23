@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.security.Timestamp;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
@@ -14,9 +13,6 @@ import javax.swing.JFrame;
 import org.jgraph.JGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 
-import play.libs.Time;
-
-import tree.CustomTree;
 import tree.CustomTreeNode;
 
 /**
@@ -38,45 +34,19 @@ public class Plotter {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(false);
-		init();
 	}
 
-	// TODO When algorithm implemented remove example data and move init method
-	// to constructor
-	public static void init() {
-		// ***** Sample data *****
-		CustomTree tree = CustomTree.getInstance();
-		CustomTreeNode root = new CustomTreeNode("root");
-		CustomTreeNode child1 = new CustomTreeNode("child1");
-		child1.setBundle("1");
-		CustomTreeNode child2 = new CustomTreeNode("child2");
-		child2.setBundle("1");
-		CustomTreeNode child3 = new CustomTreeNode("child3");
-		CustomTreeNode child4 = new CustomTreeNode("child4");
-		child4.setBundle("2");
-		CustomTreeNode child5 = new CustomTreeNode("child5");
-		child5.setBundle("2");
-		CustomTreeNode child6 = new CustomTreeNode("child6");
-		tree.setRoot(root);
-		tree.addChildtoRootX(child1, root);
-		tree.addChildtoRootX(child2, root);
-		tree.addChildtoRootX(child3, root);
-		tree.addChildtoRootX(child4, root);
-		tree.addChildtoRootX(child5, root);
-		tree.addChildtoRootX(child6, root);
-		// ***** Sample data *****
-
-		Parser parser = new Parser();
+	public static void plot(Parser parser) {
 
 		// get calculated applet size from parser
-		appletSize = new Dimension(parser.getSizeAppletx(),
-				parser.getSizeApplety());
+		appletSize = new Dimension(parser.getSizeAppletx(), parser
+				.getSizeApplety());
 
 		jgAdapter = parser.getJgAdapter();
 
 		// Add JgraphModelAdapter to Jgraph
 		JGraph jgraph = new JGraph(jgAdapter);
-		
+
 		adjustImageSettings(jgraph);
 
 		frame.getContentPane().add(jgraph);
@@ -84,10 +54,12 @@ public class Plotter {
 
 		// Write image to file
 		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
-		
-		timestamp = new java.sql.Timestamp(new GregorianCalendar().getTimeInMillis());
-		String imagePath = "./pcg/public/images/graphs/" + timestamp.toString() + ".png";
-		
+
+		timestamp = new java.sql.Timestamp(new GregorianCalendar()
+				.getTimeInMillis());
+		String imagePath = "./pcg/public/images/graphs/" + timestamp.toString()
+				+ ".png";
+
 		try {
 			ImageIO.write(img, "png", new File(imagePath));
 		} catch (IOException e) {
@@ -107,7 +79,7 @@ public class Plotter {
 		Color c = DEFAULT_BG_COLOR;
 		jgraph.setBackground(c);
 	}
-	
+
 	public String getImageSource() {
 		return "/public/images/graphs/" + timestamp.toString() + ".png";
 	}

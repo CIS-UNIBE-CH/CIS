@@ -30,14 +30,14 @@ public class Parser {
 	private int sizeAppletX;
 	private int sizeAppletY;
 
-	public Parser() {
+	public Parser(CustomTree tree) {
 		nodeWidth = 100;
 		nodeHeight = 30;
 
 		graph = new DefaultDirectedGraph<CustomTreeNode, CustomEdge>(
 				CustomEdge.class);
-		
-		tree.getInstance();
+
+		this.tree = tree;
 
 		// Initialize creating JGraphT and position node procedure
 		createJGraphTNodes();
@@ -111,8 +111,8 @@ public class Parser {
 				x = x + nodeWidth + gapBetweenNodes;
 			}
 		}
-		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot,
-				graphNodes.size(), y);
+		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot, graphNodes
+				.size(), y);
 	}
 
 	/**

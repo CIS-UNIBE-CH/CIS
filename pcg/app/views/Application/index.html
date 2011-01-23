@@ -1,19 +1,21 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-#{form @Application.calcQuadroTestGraph()}
-<table>
-  <tr>
-    <td></td><td>B</td><td>¬B</td>
-  </tr>
-  <tr>
-  	<td>A</td><td><input type="number" name="i" value="0" /></td><td><input type="number" name="ii" value="0" /></td>
-  </tr>
-    <tr>
-  	<td>B</td><td><input type="number" name="l" value="0" /></td><td><input type="number" name="ll" value="0" /></td>
-  </tr>
-    <tr>
-  	<td></td><td><input type="submit" name="go" value="get graph" /></td><td></td>
-  </tr>
-</table>
-#{/form}
 
+<div class="con">
+	<h2>Welcome</h2>
+	<p>This page was created in the scope of a bachelor thesis. The main goal was the automated creation of causal graphs. The user of these page can put it a number of differnce test and get then a nice causal graph. </p>
+	<h3>Causal theory</h3>
+	<p>All the algorithms which are implemented base on the causal theory of Michael Baumgartner and Gerd Graßhoff. The approach of this theory is based on the INUS-conditions of J. L. Mackie. (more) </p>
+	<h3>Who can use this page</h3>
+	<p>This page is created to show you the benefits of the causal theory of the University of Berne. So if you want to isolate a causal graph for your experiment, then use this page.</p>
+	<h3>How can I use this page</h3>
+	<p>The usage of these page is simple, but it can be difficult to understood the causal theory. We will add a simple tutorial soon and you can find texts about the theory.</p>
+	<center><img alt="simple graph" src="@{'/public/images/graph.png'}" /><br /> Fig. 1. A simple causal graph</center>
+</div><!--  end con -->
+<div class="news">
+	<h2>News</h2>
+	<h3><a href="@{Application.quadroTest(0)}" />${news.getTitle()}</a></h3>
+	<date>${news.getTimestamp()}</date>
+	<p>${news.getMessage()}</p>
+	<hr />
+</div><!-- end news -->
