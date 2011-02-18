@@ -138,6 +138,7 @@ public class QuadroTest {
 
 		tree.setRoot(root);
 		tree.addChildtoRootX(y, root);
+		System.out.println(tree.toString());
 		return tree;
 
 	}
