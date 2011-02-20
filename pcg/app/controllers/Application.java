@@ -72,7 +72,8 @@ public class Application extends Controller {
 	}
 
 	public static void showGraph(String graphPath) {
-		render(graphPath);
+		String stringGraph = tree.toString();
+		render(graphPath, stringGraph);
 
 	}
 
