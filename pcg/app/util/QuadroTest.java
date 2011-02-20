@@ -5,8 +5,8 @@ import tree.CustomTreeNode;
 
 public class QuadroTest {
 
-	int[][] field = new int[2][2];
-	String f1, f2;
+	private int[][] field = new int[2][2];
+	private String f1, f2;
 
 	public QuadroTest(int[][] field, String f1, String f2) {
 		this.field = field;

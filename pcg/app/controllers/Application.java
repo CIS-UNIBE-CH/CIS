@@ -15,7 +15,7 @@ public class Application extends Controller {
 	public static void index() {
 
 		/* Move this to a new method for graph generating */
-		GraphGenerator gen = new GraphGenerator(2, 6);
+		GraphGenerator gen = new GraphGenerator(1, 3);
 
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",

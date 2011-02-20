@@ -18,6 +18,7 @@ import tree.CustomTreeNode;
 public class GraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
+
 	private CustomTree tree;
 
 	private ArrayList<CustomTreeNode> nodes;
@@ -111,7 +112,8 @@ public class GraphGenerator {
 		plotter.setPath("./pcg/public/images/generated-graphs/");
 		plotter.plot(new TreeToJgraph(tree));
 
-		TreeToTable parser = new TreeToTable(tree);
+		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
+				numberOfBundles);
 
 	}
 
