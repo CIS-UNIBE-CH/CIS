@@ -57,7 +57,7 @@ public class GraphGenerator {
 		CustomTreeNode root = new CustomTreeNode("W");
 		tree.setRoot(root);
 
-		int factorCounter = 0;
+		int factorCounter = 1;
 		int xfactorNumber = 1;
 		Integer bundleNumber = 1;
 
