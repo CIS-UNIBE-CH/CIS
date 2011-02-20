@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import parser.TreeToJgraph;
+import parser.TreeToTable;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
@@ -61,23 +62,23 @@ public class GraphGenerator {
 
 		// Generate Bundles
 		for (int i = 0; i < numberOfBundles; i++) {
+			ArrayList<CustomTreeNode> curBundle = new ArrayList<CustomTreeNode>();
 			int factorsInBundle = 2; // X1 factors will not be counted.
 
 			for (int j = 0; j < factorsInBundle; j++) {
-				ArrayList<CustomTreeNode> curBundle = new ArrayList<CustomTreeNode>();
 				Random generator = new Random();
 				int randomIndex = generator.nextInt(nodes.size());
-				CustomTreeNode curNode = nodes.get(randomIndex);
-				curNode.setBundle(bundleNumber.toString());
 
-				if (j > 0
-						&& avoidSameNegativeAndPositiveFactorInBundle(
-								curBundle, curNode)) {
+				CustomTreeNode curNode = nodes.get(randomIndex);
+
+				if (avoidSameNegativeAndPositiveFactorInBundle(curBundle,
+						curNode)) {
 					// When Positive or Negative of Factor is already in
-					// Bundle, then decrement j, so a new attempt can be
+					// Bundle, then decrement j, so a new attemp can be
 					// made.
 					j = j - 1;
 				} else {
+					curNode.setBundle(bundleNumber.toString());
 					curBundle.add(curNode);
 					tree.addChildtoRootX(curNode, root);
 
@@ -97,11 +98,11 @@ public class GraphGenerator {
 		// Generate Co-Factors
 		for (; factorCounter <= numberOfFactors; factorCounter++) {
 			Random generator = new Random();
-			int randomIndex = generator.nextInt(nodes.size());
+			int randomIndex1 = generator.nextInt(nodes.size());
 
-			CustomTreeNode curNode = nodes.get(randomIndex);
+			CustomTreeNode curNode = nodes.get(randomIndex1);
 			tree.addChildtoRootX(curNode, root);
-			nodes.remove(randomIndex);
+			nodes.remove(randomIndex1);
 		}
 		CustomTreeNode y = new CustomTreeNode("Y");
 		tree.addChildtoRootX(y, root);
@@ -110,21 +111,27 @@ public class GraphGenerator {
 		plotter.setPath("./pcg/public/images/generated-graphs/");
 		plotter.plot(new TreeToJgraph(tree));
 
+		TreeToTable parser = new TreeToTable(tree);
+
 	}
 
 	private boolean avoidSameNegativeAndPositiveFactorInBundle(
 			ArrayList<CustomTreeNode> curBundle, CustomTreeNode checkNode) {
 		String checkNodeName = checkNode.toString();
+		if (checkNodeName.length() == 2) {
+			checkNodeName = checkNodeName.substring(1, checkNodeName.length());
+		}
 
 		for (int j = 0; j < curBundle.size(); j++) {
 			String curNodeName = curBundle.get(j).toString();
-			if (curNodeName.equals(checkNodeName.substring(1,
-					checkNodeName.length() - 1))) {
-				return true;
-			} else if (checkNodeName.equals(curNodeName.substring(1,
-					curNodeName.length() - 1))) {
+			if (curNodeName.length() == 2) {
+				curNodeName = curNodeName.substring(1, curNodeName.length());
+			}
+
+			if (curNodeName.equals(checkNodeName)) {
 				return true;
 			}
+
 		}
 		return false;
 
