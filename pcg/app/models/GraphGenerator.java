@@ -7,6 +7,13 @@ import parser.TreeToJgraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
+/**
+ * Generates random Graph out of a pre given number of factors and bundles.
+ * 
+ * TODO: Die möglichkeit, dass ein Faktor in mehren Bündeln vorkommt ist noch
+ * nicht abgedeckt. (Siehe Kommentar Zeile: 86)
+ * 
+ */
 public class GraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
@@ -25,6 +32,7 @@ public class GraphGenerator {
 		randomTreeGenerator();
 	}
 
+	/** Generates the letters for the nodes and the CustomTreeNodes */
 	private void nodeGenerator() {
 		for (int i = 65; i <= (65 + numberOfFactors); i++) {
 			String curFactorLetter = "" + (char) i;
@@ -42,18 +50,20 @@ public class GraphGenerator {
 		}
 	}
 
+	/** Generates the the bundles, the co-factors and adds them to the tree */
 	private void randomTreeGenerator() {
 		// Create Tree and Root Node
 		tree = new CustomTree();
 		CustomTreeNode root = new CustomTreeNode("W");
 		tree.setRoot(root);
-		int totalFactors = 0;
+
+		int factorCounter = 0;
 		int xfactorNumber = 1;
 		Integer bundleNumber = 1;
 
 		// Generate Bundles
 		for (int i = 0; i < numberOfBundles; i++) {
-			int factorsInBundle = 2; // X1 factors will be counted separate
+			int factorsInBundle = 2; // X1 factors will not be counted.
 
 			for (int j = 0; j < factorsInBundle; j++) {
 				ArrayList<CustomTreeNode> curBundle = new ArrayList<CustomTreeNode>();
@@ -63,8 +73,8 @@ public class GraphGenerator {
 				curNode.setBundle(bundleNumber.toString());
 
 				if (j > 0
-						&& avoidNegativeAndPositiveFactorInBundle(curBundle,
-								curNode)) {
+						&& avoidSameNegativeAndPositiveFactorInBundle(
+								curBundle, curNode)) {
 					// When Positive or Negative of Factor is already in
 					// Bundle, then decrement j, so a new attempt can be
 					// made.
@@ -73,10 +83,10 @@ public class GraphGenerator {
 					curBundle.add(curNode);
 					tree.addChildtoRootX(curNode, root);
 
-					// TODO Stimmt das? Kann ein Faktor nicht in mehren Bündeln
-					// vorkommen?
+					// Remove entfernen, fall gleicher Faktor in meheren Bündlen
+					// vorkommen kann.
 					nodes.remove(randomIndex);
-					totalFactors = totalFactors + 1;
+					factorCounter = factorCounter + 1;
 				}
 			}
 			CustomTreeNode x = new CustomTreeNode("X" + xfactorNumber);
@@ -87,7 +97,7 @@ public class GraphGenerator {
 		}
 
 		// Generate Co-Factors
-		for (; totalFactors <= numberOfFactors; totalFactors++) {
+		for (; factorCounter <= numberOfFactors; factorCounter++) {
 			Random generator = new Random();
 			int randomIndex = generator.nextInt(nodes.size());
 
@@ -104,7 +114,7 @@ public class GraphGenerator {
 
 	}
 
-	private boolean avoidNegativeAndPositiveFactorInBundle(
+	private boolean avoidSameNegativeAndPositiveFactorInBundle(
 			ArrayList<CustomTreeNode> curBundle, CustomTreeNode checkNode) {
 		String checkNodeName = checkNode.toString();
 
