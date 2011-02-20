@@ -18,6 +18,7 @@ public class GraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
 	private CustomTree tree;
+
 	private ArrayList<CustomTreeNode> nodes;
 
 	public GraphGenerator(int numberOfBundles, int numberOfFactors) {
