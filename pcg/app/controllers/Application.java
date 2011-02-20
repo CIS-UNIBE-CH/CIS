@@ -2,8 +2,8 @@ package controllers;
 
 import models.GraphGenerator;
 import models.News;
-import models.Parser;
 import models.Plotter;
+import parser.TreeToJgraph;
 import play.mvc.Controller;
 import tree.CustomTree;
 import util.QuadroTest;
@@ -66,7 +66,7 @@ public class Application extends Controller {
 		}
 		Plotter plotter = new Plotter();
 
-		plotter.plot(new Parser(tree));
+		plotter.plot(new TreeToJgraph(tree));
 		String graphPath = plotter.getImageSource();
 		showGraph(graphPath);
 	}

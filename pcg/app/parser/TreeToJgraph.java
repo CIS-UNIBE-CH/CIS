@@ -1,9 +1,11 @@
-package models;
+package parser;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import models.CustomEdge;
 
 import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.DefaultGraphCell;
@@ -18,7 +20,7 @@ import tree.CustomTreeNode;
  * Builds out of the tree a JGraphT and adds everything to a JGraphModelAdapter,
  * also known as parsing a tree to a JGraphT.
  */
-public class Parser {
+public class TreeToJgraph {
 	// A JGraphT directed Graph
 	private static DefaultDirectedGraph<CustomTreeNode, CustomEdge> graph;
 	// The tree (internal data structure)
@@ -31,7 +33,7 @@ public class Parser {
 	private int sizeAppletX;
 	private int sizeAppletY;
 
-	public Parser(CustomTree tree) {
+	public TreeToJgraph(CustomTree tree) {
 		nodeWidth = 100;
 		nodeHeight = 30;
 
@@ -112,8 +114,8 @@ public class Parser {
 				x = x + nodeWidth + gapBetweenNodes;
 			}
 		}
-		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot, graphNodes
-				.size(), y);
+		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot,
+				graphNodes.size(), y);
 	}
 
 	/**

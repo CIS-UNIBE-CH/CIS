@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import org.jgraph.JGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 
+import parser.TreeToJgraph;
 import tree.CustomTreeNode;
 
 /**
@@ -43,7 +44,7 @@ public class Plotter {
 		path = "./pcg/public/images/graphs/";
 	}
 
-	public static void plot(Parser parser) {
+	public static void plot(TreeToJgraph parser) {
 
 		// get calculated applet size from parser
 		appletSize = new Dimension(parser.getSizeAppletx(),

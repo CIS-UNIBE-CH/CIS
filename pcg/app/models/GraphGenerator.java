@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.Random;
 
+import parser.TreeToJgraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
@@ -99,7 +100,7 @@ public class GraphGenerator {
 
 		Plotter plotter = new Plotter();
 		plotter.setPath("./pcg/public/images/generated-graphs/");
-		plotter.plot(new Parser(tree));
+		plotter.plot(new TreeToJgraph(tree));
 
 	}
 
