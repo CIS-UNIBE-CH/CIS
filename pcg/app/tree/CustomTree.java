@@ -78,28 +78,28 @@ public class CustomTree {
 			}
 		}
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		childs = getChildren();
 		HashMap<Integer, String> bundles = new HashMap<Integer, String>();
-		String treeString ="";
+		String treeString = "";
 		int key;
-		for(CustomTreeNode child : childs){
-			if(child.getBundle() != null)
+		for (CustomTreeNode child : childs) {
+			if (child.getBundle() != null)
 				key = Integer.parseInt(child.getBundle());
 			else
 				key = 0;
-			if(bundles.get(key) != null)
+			if (bundles.get(key) != null)
 				bundles.put(key, bundles.get(key) + child.toString());
 			else
 				bundles.put(key, child.toString());
 		}
-		for(int i = 1; i < bundles.size(); i++) {
-			treeString += bundles.get(i).toString() + " ∧ ";
-			}
+		for (int i = 1; i < bundles.size(); i++) {
+			treeString += bundles.get(i).toString() + " ∨ ";
+		}
 		treeString += bundles.get(0);
 
-		return "("+treeString +")";
+		return "(" + treeString + ")";
 	}
 
 }
