@@ -38,9 +38,6 @@ public class GraphGenerator {
 		for (int i = 65; i <= (65 + numberOfFactors); i++) {
 			String curFactorLetter = "" + (char) i;
 			String curFactorLetterNegative = "-" + (char) i;
-			System.out.println("curFactorLetter" + curFactorLetter);
-			System.out.println("curFactorLetterNegative"
-					+ curFactorLetterNegative);
 
 			CustomTreeNode curNode = new CustomTreeNode(curFactorLetter);
 			nodes.add(curNode);
