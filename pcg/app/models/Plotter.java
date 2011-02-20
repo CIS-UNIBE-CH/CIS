@@ -19,7 +19,7 @@ import tree.CustomTreeNode;
 
 /**
  * Plots form a given JGraphModelAdapter a JGraph in a Jframe and generates a
- * image file out of the Jgraph.
+ * image file out of the JGraph.
  */
 public class Plotter {
 
