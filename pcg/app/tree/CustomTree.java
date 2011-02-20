@@ -10,11 +10,17 @@ public class CustomTree {
 
 	private static DefaultTreeModel tree;
 	private static ArrayList<CustomTreeNode> childs;
+	private HashMap<Integer, String> bundles;
 
 	public CustomTree() {
+		bundles = new HashMap<Integer, String>();
 		CustomTreeNode root = new CustomTreeNode("DefaultRoot");
 		tree = new DefaultTreeModel(root);
 		childs = new ArrayList<CustomTreeNode>();
+	}
+
+	public HashMap<Integer, String> getBundles() {
+		return bundles;
 	}
 
 	public static CustomTreeNode getRoot() {
@@ -81,7 +87,6 @@ public class CustomTree {
 
 	public String toString() {
 		childs = getChildren();
-		HashMap<Integer, String> bundles = new HashMap<Integer, String>();
 		String treeString = "";
 		int key;
 		for (CustomTreeNode child : childs) {
