@@ -28,6 +28,7 @@ public class Plotter {
 	private static JFrame frame;
 	private static Date now;
 	private static SimpleDateFormat dateFormat;
+	private static String path;
 
 	public Plotter() {
 		frame = new JFrame();
@@ -38,6 +39,8 @@ public class Plotter {
 		frame.setVisible(false);
 		now = new Date();
 		dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
+
+		path = "./pcg/public/images/graphs/";
 	}
 
 	public static void plot(Parser parser) {
@@ -59,8 +62,7 @@ public class Plotter {
 		// Write image to file
 		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
 
-		String imagePath = "./pcg/public/images/graphs/"
-				+ dateFormat.format(now).toString() + ".png";
+		String imagePath = path + dateFormat.format(now).toString() + ".png";
 
 		try {
 			ImageIO.write(img, "png", new File(imagePath));
@@ -85,5 +87,9 @@ public class Plotter {
 	public String getImageSource() {
 		return "/public/images/graphs/" + dateFormat.format(now).toString()
 				+ ".png";
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.GraphGenerator;
 import models.News;
 import models.Parser;
 import models.Plotter;
@@ -12,6 +13,10 @@ public class Application extends Controller {
 	private static CustomTree tree = null;
 
 	public static void index() {
+
+		/* Move this to a new method for graph generating */
+		GraphGenerator gen = new GraphGenerator(2, 6);
+
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
 				"@{Application.quadroTest(0)}", "Quadro Test implemented");
@@ -55,8 +60,7 @@ public class Application extends Controller {
 		tree = quadroTest.creatGraph();
 
 		if (tree == null) {
-			flash
-					.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+			flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
 			params.flash();
 			quadroTest(1, f1, f2);
 		}
