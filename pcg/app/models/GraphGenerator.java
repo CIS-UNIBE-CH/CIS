@@ -1,5 +1,7 @@
 package models;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -76,8 +78,7 @@ public class GraphGenerator {
 
 				CustomTreeNode curNode = nodes.get(randomIndex);
 
-				if (avoidPositiveNegativeFactorInBundle(curBundle,
-						curNode)) {
+				if (avoidPositiveNegativeFactorInBundle(curBundle, curNode)) {
 					// When Positive or Negative of Factor is already in
 					// Bundle, then decrement j, so a new attempt can be
 					// made.

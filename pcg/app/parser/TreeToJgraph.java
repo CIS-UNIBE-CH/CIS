@@ -1,5 +1,7 @@
 package parser;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;

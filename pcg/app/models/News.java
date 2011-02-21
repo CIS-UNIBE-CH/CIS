@@ -1,5 +1,7 @@
 package models;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.util.GregorianCalendar;
 
 public class News {
@@ -11,8 +13,8 @@ public class News {
 	private String title;
 
 	public News(String message, String link, String title) {
-		timestamp = new java.sql.Timestamp(new GregorianCalendar()
-				.getTimeInMillis());
+		timestamp = new java.sql.Timestamp(
+				new GregorianCalendar().getTimeInMillis());
 		this.message = message;
 		this.link = link;
 		this.title = title;

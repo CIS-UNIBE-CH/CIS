@@ -1,5 +1,7 @@
 package models;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import org.jgraph.graph.DefaultEdge;
 
 /**

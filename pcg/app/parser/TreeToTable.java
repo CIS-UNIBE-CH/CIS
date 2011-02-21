@@ -1,5 +1,7 @@
 package parser;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

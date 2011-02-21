@@ -1,5 +1,7 @@
 package tree;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /** Custom Tree Node inherits from DefaultMutableTreeNode */
