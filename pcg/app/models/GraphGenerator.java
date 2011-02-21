@@ -12,7 +12,8 @@ import tree.CustomTreeNode;
  * Generates random Graph out of a pre given number of factors and bundles.
  * 
  * TODO: Die möglichkeit, dass ein Faktor in mehren Bündeln vorkommt ist noch
- * nicht abgedeckt. (Siehe Kommentar Zeile: 86)
+ * nicht abgedeckt. (Siehe Kommentar Zeile: 86) TODO: Abfangen, dass nicht mehr
+ * Bündel als Faktoren vorgegeben werden können.
  * 
  */
 public class GraphGenerator {
@@ -27,15 +28,18 @@ public class GraphGenerator {
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
 		nodes = new ArrayList<CustomTreeNode>();
-
-		// TODO Abfangen, dass nicht mehr Bündel als Faktoren vorgegeben
-		// werden können.
-
 		nodeGenerator();
 		randomTreeGenerator();
+
+		Plotter plotter = new Plotter();
+		plotter.setPath("./pcg/public/images/generated-graphs/");
+		plotter.plot(new TreeToJgraph(tree));
+
+		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
+				numberOfBundles);
 	}
 
-	/** Generates the letters for the nodes and the CustomTreeNodes */
+	/** Generates the letters of the nodes and the CustomTreeNodes */
 	private void nodeGenerator() {
 		for (int i = 65; i <= (65 + numberOfFactors); i++) {
 			String curFactorLetter = "" + (char) i;
@@ -72,10 +76,10 @@ public class GraphGenerator {
 
 				CustomTreeNode curNode = nodes.get(randomIndex);
 
-				if (avoidSameNegativeAndPositiveFactorInBundle(curBundle,
+				if (avoidPositiveNegativeFactorInBundle(curBundle,
 						curNode)) {
 					// When Positive or Negative of Factor is already in
-					// Bundle, then decrement j, so a new attemp can be
+					// Bundle, then decrement j, so a new attempt can be
 					// made.
 					j = j - 1;
 				} else {
@@ -83,8 +87,8 @@ public class GraphGenerator {
 					curBundle.add(curNode);
 					tree.addChildtoRootX(curNode, root);
 
-					// Remove entfernen, fall gleicher Faktor in meheren Bündlen
-					// vorkommen kann.
+					// "remove" entfernen, falls gleicher Faktor in meheren
+					// Bündeln können soll.
 					nodes.remove(randomIndex);
 					factorCounter = factorCounter + 1;
 				}
@@ -105,19 +109,12 @@ public class GraphGenerator {
 			tree.addChildtoRootX(curNode, root);
 			nodes.remove(randomIndex1);
 		}
+
 		CustomTreeNode y = new CustomTreeNode("Y");
 		tree.addChildtoRootX(y, root);
-
-		Plotter plotter = new Plotter();
-		plotter.setPath("./pcg/public/images/generated-graphs/");
-		plotter.plot(new TreeToJgraph(tree));
-
-		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
-				numberOfBundles);
-
 	}
 
-	private boolean avoidSameNegativeAndPositiveFactorInBundle(
+	private boolean avoidPositiveNegativeFactorInBundle(
 			ArrayList<CustomTreeNode> curBundle, CustomTreeNode checkNode) {
 		String checkNodeName = checkNode.toString();
 		if (checkNodeName.length() == 2) {
@@ -136,6 +133,5 @@ public class GraphGenerator {
 
 		}
 		return false;
-
 	}
 }

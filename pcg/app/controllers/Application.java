@@ -14,8 +14,10 @@ public class Application extends Controller {
 
 	public static void index() {
 
-		/* Move this to a new method for graph generating */
-		GraphGenerator gen = new GraphGenerator(1, 3);
+		// Generate a Graph with n bundles and a total of k factors
+		int n = 2;
+		int k = 4;
+		GraphGenerator generator = new GraphGenerator(n, k);
 
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
