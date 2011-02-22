@@ -26,8 +26,9 @@ public class Application extends Controller {
 		render(step, f1, f2);
 	}
 
-	public static void complexTest(int step, String f1, ArrayList<String> table) {
-		render(step, f1, table);
+	public static void complexTest(int step, String f1,
+			ArrayList<String> table, String tree) {
+		render(step, f1, table, tree);
 	}
 
 	public static void generateGraph(String numberOfFactors,
@@ -38,14 +39,15 @@ public class Application extends Controller {
 		int k = Integer.parseInt(numberOfFactors);
 		GraphGenerator generator = new GraphGenerator(n, k);
 		String source = generator.getGraphicSource();
+		String tree = generator.getTree().toString();
 		ArrayList<String> table = generator.getTable();
 		if (k >= 2 * n) {
-			complexTest(1, source, table);
+			complexTest(1, source, table, tree);
 		} else {
 			flash
 					.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
 			params.flash();
-			complexTest(0, source, table);
+			complexTest(0, source, table, tree);
 		}
 	}
 

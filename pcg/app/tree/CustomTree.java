@@ -90,23 +90,33 @@ public class CustomTree {
 	public String toString() {
 		childs = getChildren();
 		String treeString = "";
-		int key;
+		bundles.clear();
+		int key, k = 0;
 		for (CustomTreeNode child : childs) {
 			if (child.getBundle() != null)
 				key = Integer.parseInt(child.getBundle());
-			else
-				key = 0;
+			else {
+				key = k;
+				k--;
+			}
 			if (bundles.get(key) != null)
 				bundles.put(key, bundles.get(key) + child.toString());
 			else
 				bundles.put(key, child.toString());
 		}
-		for (int i = 1; i < bundles.size(); i++) {
+		System.out.println(k);
+		System.out.println(bundles.size());
+
+		for (int i = 1; i <= bundles.size() + k; i++) {
 			treeString += bundles.get(i).toString() + " ∨ ";
 		}
-		treeString += bundles.get(0);
+
+		for (int i = 0; i > (k + 1); i--) {
+			treeString += bundles.get(i) + " v ";
+		}
+
+		treeString += bundles.get(k + 1);
 
 		return "(" + treeString + ")";
 	}
-
 }
