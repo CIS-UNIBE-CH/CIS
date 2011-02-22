@@ -13,12 +13,6 @@ public class Application extends Controller {
 	private static CustomTree tree = null;
 
 	public static void index() {
-
-		// Generate a Graph with n bundles and a total of k factors
-		int n = 2;
-		int k = 4;
-		GraphGenerator generator = new GraphGenerator(n, k);
-
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
 				"@{Application.quadroTest(0)}", "Quadro Test implemented");
@@ -29,11 +23,13 @@ public class Application extends Controller {
 	public static void quadroTest(int step, String f1, String f2) {
 		render(step, f1, f2);
 	}
-	
+
 	public static void complexTest() {
-		/* Move this to a new method for graph generating */
-		GraphGenerator gen = new GraphGenerator(1, 3);
-		String graphicSource = gen.getGraphicSource();
+		// Generate a Graph with n bundles and a total of k factors
+		int n = 2;
+		int k = 4;
+		GraphGenerator generator = new GraphGenerator(n, k);
+		String graphicSource = generator.getGraphicSource();
 		render(graphicSource);
 	}
 
