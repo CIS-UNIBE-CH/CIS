@@ -93,7 +93,8 @@ public class TreeToTable {
 					table[r][table[r].length - 1] = "1";
 
 					// Do a break because, every "1" more is a overdetermination
-					break;
+					i = numberOfBundles * bundleSize;
+
 				} else if (bundleSizeCounter == bundleSize) {
 					bundleSizeCounter = 0;
 					relevanceCounter = 0;
@@ -108,23 +109,22 @@ public class TreeToTable {
 			}
 
 			// Co-Factors
-			for (int i = numberOfBundles * bundleSize; i < table[r].length - 1; i++) {
-				relevanceCounter = relevanceCounter
-						+ Integer.parseInt(table[r][i]);
-			}
 			if (!table[r][table[r].length - 1].equals("1")) {
-				if (relevanceCounter > 0) {
-					table[r][table[r].length - 1] = "1";
+				for (int i = numberOfBundles * bundleSize; i < table[r].length - 1; i++) {
+					relevanceCounter = relevanceCounter
+							+ Integer.parseInt(table[r][i]);
+					if (relevanceCounter > 0) {
+						table[r][table[r].length - 1] = "1";
 
-					// Do a break because, every "1" more is a overdetermination
-					break;
-				} else {
-					table[r][table[r].length - 1] = "0";
+						// Do a break because, every "1" more is a
+						i = table[r].length - 1;
+					} else {
+						table[r][table[r].length - 1] = "0";
+					}
 				}
 			}
 			relevanceCounter = 0;
 		}
-
 	}
 
 	public String toString() {
@@ -133,7 +133,6 @@ public class TreeToTable {
 		for (int i = 0; i < table[0].length; i++) {
 			print += table[0][i] = nodes.get(i).toString();
 		}
-
 		// Print Coincidences
 		for (int r = 0; r < table.length; r++) {
 			print += r + "  ";
@@ -141,7 +140,6 @@ public class TreeToTable {
 				print += "  " + table[r][c];
 			}
 			print += "\n";
-			;
 		}
 		return print;
 	}

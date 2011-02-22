@@ -30,15 +30,23 @@ public class Application extends Controller {
 		render(step, f1, table);
 	}
 
-	public static void generateGraph(String number) {
+	public static void generateGraph(String numberOfFactors,
+			String numberOfBundls) {
+
 		// Generate a Graph with n bundles and a total of k factors
-		int n = 2;
-		int k = Integer.parseInt(number);
+		int n = Integer.parseInt(numberOfBundls);
+		int k = Integer.parseInt(numberOfFactors);
 		GraphGenerator generator = new GraphGenerator(n, k);
 		String source = generator.getGraphicSource();
 		ArrayList<String> table = generator.getTable();
-		System.out.println(table);
-		complexTest(1, source, table);
+		if (k >= 2 * n) {
+			complexTest(1, source, table);
+		} else {
+			flash
+					.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
+			params.flash();
+			complexTest(0, source, table);
+		}
 	}
 
 	public static void calcQuadroTestGraph(String f1, String f2, String i,
