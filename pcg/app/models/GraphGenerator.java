@@ -18,15 +18,20 @@ import tree.CustomTreeNode;
 public class GraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
+	
 
 	private CustomTree tree;
 
 	private ArrayList<CustomTreeNode> nodes;
+	private String fileName;
+	private String path;
+	private Plotter plotter;
 
 	public GraphGenerator(int numberOfBundles, int numberOfFactors) {
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
-		nodes = new ArrayList<CustomTreeNode>();
+		this.nodes = new ArrayList<CustomTreeNode>();
+		this.plotter = new Plotter();
 
 		// TODO Abfangen, dass nicht mehr Bündel als Faktoren vorgegeben
 		// werden können.
@@ -107,10 +112,9 @@ public class GraphGenerator {
 		}
 		CustomTreeNode y = new CustomTreeNode("Y");
 		tree.addChildtoRootX(y, root);
-
-		Plotter plotter = new Plotter();
-		plotter.setPath("./pcg/public/images/generated-graphs/");
-		plotter.plot(new TreeToJgraph(tree));
+		
+		this.fileName = plotter.generateFileName();
+		plotter.plot(new TreeToJgraph(tree), fileName);
 
 		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
 				numberOfBundles);
@@ -138,4 +142,13 @@ public class GraphGenerator {
 		return false;
 
 	}
+	
+	public String getFileName(){
+		return this.fileName;
+	}
+
+	public String getGraphicSource() {
+		return plotter.getImageSource();
+	}
+	
 }

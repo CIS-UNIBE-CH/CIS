@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h2>Complex Test</h2>
+	#{if flash.error}
+		<div class="error">
+			${flash.error}
+		</div>
+	#{/if}
+<center>
+<img src="${graphicSource}" />
+</center>

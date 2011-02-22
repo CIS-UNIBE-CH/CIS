@@ -14,9 +14,6 @@ public class Application extends Controller {
 
 	public static void index() {
 
-		/* Move this to a new method for graph generating */
-		GraphGenerator gen = new GraphGenerator(1, 3);
-
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
 				"@{Application.quadroTest(0)}", "Quadro Test implemented");
@@ -25,8 +22,14 @@ public class Application extends Controller {
 	}
 
 	public static void quadroTest(int step, String f1, String f2) {
-		tree = null;
 		render(step, f1, f2);
+	}
+	
+	public static void complexTest() {
+		/* Move this to a new method for graph generating */
+		GraphGenerator gen = new GraphGenerator(1, 3);
+		String graphicSource = gen.getGraphicSource();
+		render(graphicSource);
 	}
 
 	public static void calcQuadroTestGraph(String f1, String f2, String i,
@@ -66,7 +69,7 @@ public class Application extends Controller {
 		}
 		Plotter plotter = new Plotter();
 
-		plotter.plot(new TreeToJgraph(tree));
+		plotter.plot(new TreeToJgraph(tree), plotter.generateFileName());
 		String graphPath = plotter.getImageSource();
 		showGraph(graphPath);
 	}
