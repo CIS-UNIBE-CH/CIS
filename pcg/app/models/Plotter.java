@@ -46,11 +46,11 @@ public class Plotter {
 		this.path = "./pcg/public/images/graphs/";
 	}
 
-	public static void plot(TreeToJgraph parser, String fileName) {
+	public static void plot(TreeToJgraph parser) {
 
 		// get calculated applet size from parser
-		appletSize = new Dimension(parser.getSizeAppletx(),
-				parser.getSizeApplety());
+		appletSize = new Dimension(parser.getSizeAppletx(), parser
+				.getSizeApplety());
 
 		jgAdapter = parser.getJgAdapter();
 
@@ -66,7 +66,7 @@ public class Plotter {
 		BufferedImage img = jgraph.getImage(jgraph.getBackground(), 10);
 
 		try {
-			ImageIO.write(img, "png", new File(fileName));
+			ImageIO.write(img, "png", new File(generateFileName()));
 		} catch (IOException e) {
 			System.out.println("Sorry image couldn't be generated!");
 			e.printStackTrace();
@@ -93,8 +93,8 @@ public class Plotter {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
-	public String generateFileName() {
-		return this.path + dateFormat.format(now).toString() + ".png";
+
+	public static String generateFileName() {
+		return path + dateFormat.format(now).toString() + ".png";
 	}
 }

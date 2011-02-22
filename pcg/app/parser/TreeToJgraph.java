@@ -116,8 +116,8 @@ public class TreeToJgraph {
 				x = x + nodeWidth + gapBetweenNodes;
 			}
 		}
-		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot,
-				graphNodes.size(), y);
+		calculateJFrameSize(gapBetweenNodes, leftOffset, yRoot, graphNodes
+				.size(), y);
 	}
 
 	/**

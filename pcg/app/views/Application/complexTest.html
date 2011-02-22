@@ -6,6 +6,40 @@
 			${flash.error}
 		</div>
 	#{/if}
-<center>
-<img src="${graphicSource}" />
-</center>
+#{if step == 0}
+	<div class="steps">
+	Step 1/3
+	</div>
+	<p>Please insert the numbers of factors.</p>
+	#{form @Application.generateGraph()}
+	<table>
+		<tr>
+	  	<td>Numbers of Factors</td><td><input type="text" name="number" value="4"/></td>
+	  	</tr>
+	  	<tr>
+	  	<td><input type="submit" name="go" value="generate Graph" /></td><td></td>
+	  	</tr>
+	</table>
+	#{/form}
+#{/if}	
+#{if step == 1}
+	<div class="steps">
+	Step 2/3
+	</div>
+	<center>
+		<img src="${f1}" />
+	</center>
+	<center>
+		<table>
+		#{list items:table, as:'l'}
+			#{if l == "/n"}<tr>
+			#{/if}
+			#{else}
+			<td>${l}</td>
+			#{/else}
+			#{if l == "/n"}</tr>#{/if}
+		#{/list}
+		</table>
+	</center>
+	
+#{/if}

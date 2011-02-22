@@ -25,14 +25,14 @@ public class TreeToTable {
 
 		System.out.println("Generated Tree to String: " + tree.toString());
 		tree.toString(); // getBundles() needs a toString() for initalize
-							// HashMap
+		// HashMap
 		bundles = tree.getBundles();
 
 		// Init the Process
 		filterXAndYFactors();
 		generateCoincidenceTable();
 		generateEffectColumn();
-		printTable();
+		System.out.println(toString());
 	}
 
 	private void filterXAndYFactors() {
@@ -127,20 +127,34 @@ public class TreeToTable {
 
 	}
 
-	public void printTable() {
+	public String toString() {
+		String print = "";
 		// Print factor names
 		for (int i = 0; i < table[0].length; i++) {
-			table[0][i] = nodes.get(i).toString();
+			print += table[0][i] = nodes.get(i).toString();
 		}
-		System.out.println("");
 
 		// Print Coincidences
 		for (int r = 0; r < table.length; r++) {
-			System.out.print(r + "  ");
+			print += r + "  ";
 			for (int c = 0; c < table[r].length; c++) {
-				System.out.print("  " + table[r][c]);
+				print += "  " + table[r][c];
 			}
-			System.out.println("");
+			print += "\n";
+			;
 		}
+		return print;
+	}
+
+	public ArrayList<String> getTable() {
+		ArrayList<String> tables = new ArrayList<String>();
+
+		for (int r = 0; r < table.length; r++) {
+			for (int c = 0; c < table[r].length; c++) {
+				tables.add("" + table[r][c]);
+			}
+			tables.add("/n");
+		}
+		return tables;
 	}
 }

@@ -21,29 +21,27 @@ import tree.CustomTreeNode;
 public class GraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
-	
 
 	private CustomTree tree;
 
 	private ArrayList<CustomTreeNode> nodes;
 	private String fileName;
-	private String path;
-	private Plotter plotter;
+	private String imageSource;
+	private TreeToTable parser;
 
 	public GraphGenerator(int numberOfBundles, int numberOfFactors) {
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
 
 		this.nodes = new ArrayList<CustomTreeNode>();
-		this.plotter = new Plotter();
 
 		nodeGenerator();
 		randomTreeGenerator();
 
-		plotter.plot(new TreeToJgraph(tree),plotter.generateFileName());
-
-		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
-				numberOfBundles);
+		Plotter plotter = new Plotter();
+		plotter.plot(new TreeToJgraph(tree));
+		this.imageSource = plotter.getImageSource();
+		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles);
 	}
 
 	/** Generates the letters of the nodes and the CustomTreeNodes */
@@ -118,9 +116,9 @@ public class GraphGenerator {
 
 		CustomTreeNode y = new CustomTreeNode("Y");
 		tree.addChildtoRootX(y, root);
-		
-		this.fileName = plotter.generateFileName();
-		plotter.plot(new TreeToJgraph(tree), fileName);
+
+		Plotter plotter = new Plotter();
+		plotter.plot(new TreeToJgraph(tree));
 
 		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
 				numberOfBundles);
@@ -147,13 +145,16 @@ public class GraphGenerator {
 		}
 		return false;
 	}
-	
-	public String getFileName(){
-		return this.fileName;
-	}
 
 	public String getGraphicSource() {
-		return plotter.getImageSource();
+		return this.imageSource;
 	}
-	
+
+	public String toString() {
+		return parser.toString();
+	}
+
+	public ArrayList<String> getTable() {
+		return parser.getTable();
+	}
 }

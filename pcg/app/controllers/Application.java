@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import models.GraphGenerator;
 import models.News;
 import models.Plotter;
@@ -13,12 +15,6 @@ public class Application extends Controller {
 	private static CustomTree tree = null;
 
 	public static void index() {
-
-		// Generate a Graph with n bundles and a total of k factors
-		int n = 2;
-		int k = 4;
-		GraphGenerator generator = new GraphGenerator(n, k);
-
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
 				"@{Application.quadroTest(0)}", "Quadro Test implemented");
@@ -29,12 +25,20 @@ public class Application extends Controller {
 	public static void quadroTest(int step, String f1, String f2) {
 		render(step, f1, f2);
 	}
-	
-	public static void complexTest() {
-		/* Move this to a new method for graph generating */
-		GraphGenerator gen = new GraphGenerator(1, 3);
-		String graphicSource = gen.getGraphicSource();
-		render(graphicSource);
+
+	public static void complexTest(int step, String f1, ArrayList<String> table) {
+		render(step, f1, table);
+	}
+
+	public static void generateGraph(String number) {
+		// Generate a Graph with n bundles and a total of k factors
+		int n = 2;
+		int k = Integer.parseInt(number);
+		GraphGenerator generator = new GraphGenerator(n, k);
+		String source = generator.getGraphicSource();
+		ArrayList<String> table = generator.getTable();
+		System.out.println(table);
+		complexTest(1, source, table);
 	}
 
 	public static void calcQuadroTestGraph(String f1, String f2, String i,
@@ -68,13 +72,14 @@ public class Application extends Controller {
 		tree = quadroTest.creatGraph();
 
 		if (tree == null) {
-			flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+			flash
+					.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
 			params.flash();
 			quadroTest(1, f1, f2);
 		}
 		Plotter plotter = new Plotter();
 
-		plotter.plot(new TreeToJgraph(tree), plotter.generateFileName());
+		plotter.plot(new TreeToJgraph(tree));
 		String graphPath = plotter.getImageSource();
 		showGraph(graphPath);
 	}
@@ -82,7 +87,5 @@ public class Application extends Controller {
 	public static void showGraph(String graphPath) {
 		String stringGraph = tree.toString();
 		render(graphPath, stringGraph);
-
 	}
-
 }
