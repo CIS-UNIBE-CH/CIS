@@ -8,6 +8,7 @@ import models.Plotter;
 import parser.TreeToJgraph;
 import play.mvc.Controller;
 import tree.CustomTree;
+import util.ComplexTest;
 import util.QuadroTest;
 
 public class Application extends Controller {
@@ -15,6 +16,13 @@ public class Application extends Controller {
 	private static CustomTree tree = null;
 
 	public static void index() {
+		/* Move This to new Method for generating Graph out of tables */
+		int n = 1;
+		int k = 3;
+		GraphGenerator generator = new GraphGenerator(n, k);
+		ComplexTest complexTest = new ComplexTest(generator.getTableAsArray());
+		/* Move This to new Method for generating Graph out of tables */
+
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
 				"@{Application.quadroTest(0)}", "Quadro Test implemented");
@@ -44,8 +52,7 @@ public class Application extends Controller {
 		if (k >= 2 * n) {
 			complexTest(1, source, table, tree);
 		} else {
-			flash
-					.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
+			flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
 			params.flash();
 			complexTest(0, source, table, tree);
 		}
@@ -82,8 +89,7 @@ public class Application extends Controller {
 		tree = quadroTest.creatGraph();
 
 		if (tree == null) {
-			flash
-					.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+			flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
 			params.flash();
 			quadroTest(1, f1, f2);
 		}

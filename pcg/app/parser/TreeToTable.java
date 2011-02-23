@@ -131,7 +131,8 @@ public class TreeToTable {
 		String print = "";
 		// Print factor names
 		for (int i = 0; i < table[0].length; i++) {
-			print += table[0][i] = nodes.get(i).toString();
+			table[0][i] = nodes.get(i).toString();
+			print += table[0][i];
 		}
 		// Print Coincidences
 		for (int r = 0; r < table.length; r++) {
@@ -142,6 +143,10 @@ public class TreeToTable {
 			print += "\n";
 		}
 		return print;
+	}
+
+	public String[][] getTableAsArray() {
+		return table;
 	}
 
 	public ArrayList<String> getTable() {

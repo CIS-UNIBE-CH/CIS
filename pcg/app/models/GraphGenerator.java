@@ -161,4 +161,8 @@ public class GraphGenerator {
 	public ArrayList<String> getTable() {
 		return parser.getTable();
 	}
+
+	public String[][] getTableAsArray() {
+		return parser.getTableAsArray();
+	}
 }
