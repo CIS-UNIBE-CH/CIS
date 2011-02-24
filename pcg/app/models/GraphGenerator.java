@@ -24,7 +24,6 @@ public class GraphGenerator {
 	private CustomTree tree;
 
 	private ArrayList<CustomTreeNode> nodes;
-	private String fileName;
 	private String imageSource;
 	private TreeToTable parser;
 

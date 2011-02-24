@@ -14,14 +14,9 @@ import util.QuadroTest;
 public class Application extends Controller {
 
 	private static CustomTree tree = null;
+	private static Plotter plotter;
 
 	public static void index() {
-		/* Move This to new Method for generating Graph out of tables */
-		int n = 2;
-		int k = 8;
-		GraphGenerator generator = new GraphGenerator(n, k);
-		ComplexTest complexTest = new ComplexTest(generator.getTableAsArray());
-		/* Move This to new Method for generating Graph out of tables */
 
 		News news = new News(
 				"The first algorithmen to pursuit of a causal graph is implemented. Now you can do simple tests with two factors. Have fun!",
@@ -34,27 +29,43 @@ public class Application extends Controller {
 		render(step, f1, f2);
 	}
 
-	public static void complexTest(int step, String f1,
-			ArrayList<String> table, String tree) {
-		render(step, f1, table, tree);
+	public static void complexTest(int step, String generatedGraphPath,
+			ArrayList<String> table, String generatedGraph,
+			String calculatedGraphPath) {
+		render(step, generatedGraphPath, table, generatedGraph,
+				calculatedGraphPath);
 	}
 
 	public static void generateGraph(String numberOfFactors,
 			String numberOfBundls) {
-
 		// Generate a Graph with n bundles and a total of k factors
 		int n = Integer.parseInt(numberOfBundls);
 		int k = Integer.parseInt(numberOfFactors);
-		GraphGenerator generator = new GraphGenerator(n, k);
-		String source = generator.getGraphicSource();
-		String tree = generator.getTree().toString();
-		ArrayList<String> table = generator.getTable();
-		if (k >= 2 * n) {
-			complexTest(1, source, table, tree);
+		String generatedGraphPath = "";
+		String calculatedGraphPath = "";
+		String generatedGraph = "";
+		ArrayList<String> table = new ArrayList<String>();
+		ComplexTest complexTest;
+		;
+
+		if (k >= (2 * n)) {
+			GraphGenerator generator = new GraphGenerator(n, k);
+			calculatedGraphPath = generator.getGraphicSource();
+			generatedGraph = generator.getTree().toString();
+			table = generator.getTable();
+			complexTest = new ComplexTest(generator.getTableAsArray());
+			tree = complexTest.createTree();
+			plotter = new Plotter();
+			plotter.plot(new TreeToJgraph(tree));
+			generatedGraphPath = plotter.getImageSource();
+			complexTest(1, generatedGraphPath, table, generatedGraph,
+					calculatedGraphPath);
 		} else {
-			flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
+			flash
+					.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
 			params.flash();
-			complexTest(0, source, table, tree);
+			complexTest(0, generatedGraphPath, table, generatedGraph,
+					calculatedGraphPath);
 		}
 	}
 
@@ -89,7 +100,8 @@ public class Application extends Controller {
 		tree = quadroTest.creatGraph();
 
 		if (tree == null) {
-			flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+			flash
+					.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
 			params.flash();
 			quadroTest(1, f1, f2);
 		}

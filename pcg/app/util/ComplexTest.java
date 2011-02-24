@@ -41,7 +41,6 @@ public class ComplexTest {
 		identifyCoFactors();
 		removeCoFactors();
 		identifyBundles();
-		createTree();
 	}
 
 	private void identifyCoFactors() {
@@ -153,7 +152,7 @@ public class ComplexTest {
 
 	}
 
-	private void createTree() {
+	public CustomTree createTree() {
 		tree = new CustomTree();
 		CustomTreeNode root = new CustomTreeNode("W");
 		tree.setRoot(root);
@@ -190,8 +189,7 @@ public class ComplexTest {
 			tree.addChildtoRootX(y, root);
 		}
 
-		Plotter plotter = new Plotter();
-		plotter.plot(new TreeToJgraph(tree));
+		return tree;
 	}
 
 	/** This helper method converts a line in the table to a binary int value */

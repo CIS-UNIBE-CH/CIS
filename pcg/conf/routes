@@ -3,11 +3,15 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET		/index/{index}							Application.index
+GET    	/                                       Application.index
+GET		/complexTest/{step} 					Application.complexTest
+
 
 # Map static resources from the /app/public folder to the /public path
 
 GET     /public/                                staticDir:public
+
 
 
 # Catch all
