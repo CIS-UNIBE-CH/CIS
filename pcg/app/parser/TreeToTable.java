@@ -44,6 +44,10 @@ public class TreeToTable {
 			}
 		}
 		nodes.add(new CustomTreeNode("W"));
+
+		for (int i = 0; i < table[0].length; i++) {
+			table[0][i] = nodes.get(i).toString();
+		}
 	}
 
 	private void generateCoincidenceTable() {
@@ -129,11 +133,6 @@ public class TreeToTable {
 
 	public String toString() {
 		String print = "";
-		// Print factor names
-		for (int i = 0; i < table[0].length; i++) {
-			table[0][i] = nodes.get(i).toString();
-			print += table[0][i];
-		}
 		// Print Coincidences
 		for (int r = 0; r < table.length; r++) {
 			print += r + "  ";

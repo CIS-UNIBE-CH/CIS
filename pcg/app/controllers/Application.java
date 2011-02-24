@@ -17,8 +17,8 @@ public class Application extends Controller {
 
 	public static void index() {
 		/* Move This to new Method for generating Graph out of tables */
-		int n = 1;
-		int k = 3;
+		int n = 2;
+		int k = 8;
 		GraphGenerator generator = new GraphGenerator(n, k);
 		ComplexTest complexTest = new ComplexTest(generator.getTableAsArray());
 		/* Move This to new Method for generating Graph out of tables */

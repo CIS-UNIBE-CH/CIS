@@ -14,8 +14,7 @@ import tree.CustomTreeNode;
  * Generates random Graph out of a pre given number of factors and bundles.
  * 
  * TODO: Die möglichkeit, dass ein Faktor in mehren Bündeln vorkommt ist noch
- * nicht abgedeckt. (Siehe Kommentar Zeile: 86) TODO: Abfangen, dass nicht mehr
- * Bündel als Faktoren vorgegeben werden können.
+ * nicht abgedeckt. (Siehe Kommentar Zeile: 86)
  * 
  */
 public class GraphGenerator {
