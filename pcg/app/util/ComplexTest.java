@@ -4,31 +4,29 @@ package util;
 
 import java.util.ArrayList;
 
-import models.Plotter;
-import parser.TreeToJgraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
 /**
  * TODO: Erkennung der Wirkung! TODO: Currently work only with number of bundles
- * <= 2 and x CoFactors
+ * <= 2 and x alternativeFactors
  */
 public class ComplexTest {
+	private CustomTree tree;
 	private String[][] table;
-	private ArrayList<Integer> colIndexesCoFactors;
+	private ArrayList<Integer> colIndexesAlterFactors;
 	private ArrayList<Integer> rowIndexesBundles;
 	private ArrayList<ArrayList<String>> tableAsList;
-	private CustomTree tree;
 
 	public ComplexTest(String[][] table) {
 		this.table = table;
-		colIndexesCoFactors = new ArrayList<Integer>();
+		colIndexesAlterFactors = new ArrayList<Integer>();
 		rowIndexesBundles = new ArrayList<Integer>();
 		tableAsList = new ArrayList<ArrayList<String>>();
 
 		// Fill in 2D-ArrayList, remove all "Zero Lines"
 		// Attention: table.length-1 means that the last line will no be added
-		// because it's the line with only ones.
+		// because it's the line with only ones in it.
 		for (int r = 0; r < table.length - 1; r++) {
 			if (r == 0 || table[r][table[r].length - 1].equals("1")) {
 				tableAsList.add(new ArrayList<String>());
@@ -37,14 +35,15 @@ public class ComplexTest {
 				}
 			}
 		}
+
 		// Init Stuff, do not change order!
-		identifyCoFactors();
-		removeCoFactors();
+		identifyAlterFactors();
+		removeAlterFactors();
 		identifyBundles();
 	}
 
-	private void identifyCoFactors() {
-		int colIndexCoFactor = 0;
+	private void identifyAlterFactors() {
+		int colIndexAlterFactor = 0;
 
 		for (int r = 1; r < tableAsList.size(); r++) {
 			boolean isTheFirst1 = true;
@@ -54,15 +53,20 @@ public class ComplexTest {
 				rowCounter = rowCounter
 						+ Integer.parseInt(tableAsList.get(r).get(c));
 
-				// Die erste in der Zeile aufgetrende 1 sich merken, denn sie
-				// könnte Index für Co-Factor sein. (Spart Schlaufendurchläufe).
+				// Der Index der ersten in der Zeile aufgetrenden "1" sich
+				// merken, denn ist Index von potentiellem alternativ faktor.
+				// (Spart Schlaufendurchläufe).
 				if (tableAsList.get(r).get(c).equals("1") && isTheFirst1) {
-					colIndexCoFactor = c;
+					colIndexAlterFactor = c;
 					isTheFirst1 = false;
 				}
 			}
+			// Wenn in einer Reihe nur zwei 1 vorkommen, dann ist es eine Reihe
+			// wo nur ein alternativ Faktor und die Wirkung instantiiert sind.
+			// Achtung: Funktioniert nur, da schon zuvor alle Zeilen wo Wirkung
+			// nicht intantiiert ist ausgefiltert wurden.
 			if (rowCounter == 2) {
-				colIndexesCoFactors.add(colIndexCoFactor);
+				colIndexesAlterFactors.add(colIndexAlterFactor);
 				rowCounter = 0;
 			}
 
@@ -70,25 +74,27 @@ public class ComplexTest {
 	}
 
 	/**
-	 * Will remove all Lines in the table where a co factor and the "Wirkung are
-	 * instantiate, because they aren't needed any longer. Furthermore the
-	 * collumns of the co-factors will be removed from the table
+	 * Will remove all Lines in the table where a alternative factor and the
+	 * "Wirkung" are instantiate, because they aren't needed any longer and
+	 * would made it impossible to identify bundles with the "binary" method.
+	 * Furthermore the columns of the alternative factors will be removed from
+	 * the table.
 	 */
-	private void removeCoFactors() {
+	private void removeAlterFactors() {
 		int colIndex = 0;
 		ArrayList<ArrayList<String>> tableListTemp = new ArrayList<ArrayList<String>>();
 
+		// A row where a alternativ factor is instantiated
 		boolean badRow = false;
 
 		// Add to temp table the first line
 		tableListTemp.add(new ArrayList<String>());
 		tableListTemp.get(0).addAll(tableAsList.get(0));
 
-		// Filters out all rows where a Co-Factor and the "Wirkung" is
-		// instantiated
+		// Filters out all rows where a alternative Factor is instantiated.
 		for (int i = 1; i < tableAsList.size(); i++) {
-			for (int j = 0; j < colIndexesCoFactors.size(); j++) {
-				colIndex = colIndexesCoFactors.get(j);
+			for (int j = 0; j < colIndexesAlterFactors.size(); j++) {
+				colIndex = colIndexesAlterFactors.get(j);
 
 				if (tableAsList.get(i).get(colIndex).equals("1")) {
 					badRow = true;
@@ -105,16 +111,22 @@ public class ComplexTest {
 		}
 		tableAsList = tableListTemp;
 
-		// Filter out all Columns of the Co-Factors
+		// Filter out all columns of the alternative factors
 		for (int i = 0; i < tableAsList.size(); i++) {
-			for (int j = 0; j < colIndexesCoFactors.size(); j++) {
-				int index = colIndexesCoFactors.get(j);
+			for (int j = 0; j < colIndexesAlterFactors.size(); j++) {
+				int index = colIndexesAlterFactors.get(j);
 				tableAsList.get(i).remove(index);
 			}
 		}
 
 	}
 
+	/**
+	 * Identifies bundles via the binary method. Means when to lines are a
+	 * complementary of each other this means when a binary OR of both lines
+	 * gives back a lines with only ones in it, the both lines are the ones
+	 * which hold the bundles.
+	 */
 	private void identifyBundles() {
 		int actualRow = 0;
 		int rowToTest = 0;
@@ -123,7 +135,7 @@ public class ComplexTest {
 		for (int k = 0; k < tableAsList.get(0).size() - 1; k++) {
 			referenceBinary = referenceBinary + "1";
 		}
-		// Für Spezialfall, wenn nur 1 Bündel und 1 Faktor
+		// Für Spezialfall, wenn nur 1 Bündel und 1 Faktor instantiiert sind.
 		// Warning: Works only with Bundles of size=2
 		if (referenceBinary.equals("11")) {
 			tableAsList.add(new ArrayList<String>());
@@ -141,6 +153,9 @@ public class ComplexTest {
 				// Do a binary OR
 				int result = actualRow ^ rowToTest;
 
+				// When reference binary which means the result of the binary OR
+				// we search for is equal to actual result of binary OR then add
+				// the index of the rows to arrayList.
 				if (referenceBinary.equals(Integer.toBinaryString(result))) {
 					rowIndexesBundles.add(i);
 					if (referenceBinary.equals("11")) {
@@ -149,9 +164,9 @@ public class ComplexTest {
 				}
 			}
 		}
-
 	}
 
+	/** Creates the CustomTree which will be plotted as a Graph */
 	public CustomTree createTree() {
 		tree = new CustomTree();
 		CustomTreeNode root = new CustomTreeNode("W");
@@ -176,15 +191,15 @@ public class ComplexTest {
 			bundleCounter = bundleCounter + 1;
 		}
 
-		// Co-factors
-		boolean hasCoFactors = false;
-		for (int i = 0; i < colIndexesCoFactors.size(); i++) {
-			int curIndex = colIndexesCoFactors.get(i);
+		// alternative factors
+		boolean hasAlterFactors = false;
+		for (int i = 0; i < colIndexesAlterFactors.size(); i++) {
+			int curIndex = colIndexesAlterFactors.get(i);
 			CustomTreeNode curNode = new CustomTreeNode(table[0][curIndex]);
 			tree.addChildtoRootX(curNode, root);
-			hasCoFactors = true;
+			hasAlterFactors = true;
 		}
-		if (hasCoFactors) {
+		if (hasAlterFactors) {
 			CustomTreeNode y = new CustomTreeNode("Y");
 			tree.addChildtoRootX(y, root);
 		}
@@ -202,7 +217,7 @@ public class ComplexTest {
 		return actualRowInt;
 	}
 
-	public void listToString() {
+	private void listToString() {
 		for (int i = 0; i < tableAsList.size(); i++) {
 			for (int j = 0; j < tableAsList.get(i).size(); j++) {
 				System.out.print("  " + tableAsList.get(i).get(j));

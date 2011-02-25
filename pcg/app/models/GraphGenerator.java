@@ -11,18 +11,16 @@ import tree.CustomTree;
 import tree.CustomTreeNode;
 
 /**
- * Generates random Graph out of a pre given number of factors and bundles.
+ * Generates a random graph out of a given number of factors and bundles.
  * 
- * TODO: Die möglichkeit, dass ein Faktor in mehren Bündeln vorkommt ist noch
- * nicht abgedeckt. (Siehe Kommentar Zeile: 86)
+ * TODO: Die möglichkeit, dass der gleiche Faktor in mehreren Bündeln vorkommt
+ * ist noch nicht abgedeckt. (Siehe Kommentar Zeile: 86)
  * 
  */
 public class GraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
-
 	private CustomTree tree;
-
 	private ArrayList<CustomTreeNode> nodes;
 	private String imageSource;
 	private TreeToTable parser;
@@ -30,9 +28,9 @@ public class GraphGenerator {
 	public GraphGenerator(int numberOfBundles, int numberOfFactors) {
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
-
 		this.nodes = new ArrayList<CustomTreeNode>();
 
+		// Init process
 		nodeGenerator();
 		randomTreeGenerator();
 
@@ -42,8 +40,9 @@ public class GraphGenerator {
 		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles);
 	}
 
-	/** Generates the letters of the nodes and the CustomTreeNodes */
+	/** Generates the names of the nodes and the CustomTreeNodes. */
 	private void nodeGenerator() {
+		// i = 65 because char 65 = A
 		for (int i = 65; i <= (65 + numberOfFactors); i++) {
 			String curFactorLetter = "" + (char) i;
 			String curFactorLetterNegative = "¬" + (char) i;
@@ -57,7 +56,7 @@ public class GraphGenerator {
 		}
 	}
 
-	/** Generates the the bundles, the co-factors and adds them to the tree */
+	/** Generates the the bundles with their factors and adds them to the tree. */
 	private void randomTreeGenerator() {
 		// Create Tree and Root Node
 		tree = new CustomTree();
@@ -76,22 +75,23 @@ public class GraphGenerator {
 			for (int j = 0; j < factorsInBundle; j++) {
 				Random generator = new Random();
 				int randomIndex = generator.nextInt(nodes.size());
-
 				CustomTreeNode curNode = nodes.get(randomIndex);
 
 				if (avoidPositiveNegativeFactorInBundle(curBundle, curNode)) {
-					// When Positive or Negative of Factor is already in
-					// Bundle, then decrement j, so a new attempt can be
-					// made.
+					// When positive or negative of a factor is already in
+					// bundle, then decrement j, so a new attempt of adding a
+					// factor can be made.
 					j = j - 1;
 				} else {
 					curNode.setBundle(bundleNumber.toString());
 					curBundle.add(curNode);
 					tree.addChildtoRootX(curNode, root);
 
-					// "remove" entfernen, falls gleicher Faktor in meheren
-					// Bündeln können soll.
+					// Falls ein gleicher ein bestimmter Faktor in mehreren
+					// Bündeln vorkommen können soll muss das die nächste Zeile
+					// entfernt werden.
 					nodes.remove(randomIndex);
+
 					factorCounter = factorCounter + 1;
 				}
 			}
@@ -99,10 +99,11 @@ public class GraphGenerator {
 			xfactorNumber = xfactorNumber + 1;
 			x.setBundle(bundleNumber.toString());
 			tree.addChildtoRootX(x, root);
+
 			bundleNumber = bundleNumber + 1;
 		}
 
-		// Generate Co-Factors
+		// Generate alternative factors, take factor counter value from above.
 		for (; factorCounter <= numberOfFactors; factorCounter++) {
 			Random generator = new Random();
 			int randomIndex1 = generator.nextInt(nodes.size());
@@ -111,35 +112,34 @@ public class GraphGenerator {
 			tree.addChildtoRootX(curNode, root);
 			nodes.remove(randomIndex1);
 		}
-
 		CustomTreeNode y = new CustomTreeNode("Y");
 		tree.addChildtoRootX(y, root);
-
-		Plotter plotter = new Plotter();
-		plotter.plot(new TreeToJgraph(tree));
-
-		TreeToTable parser = new TreeToTable(tree, numberOfFactors,
-				numberOfBundles);
-
 	}
 
+	/**
+	 * Avoids that in one bundle is the negative and positive of the same factor
+	 */
 	private boolean avoidPositiveNegativeFactorInBundle(
-			ArrayList<CustomTreeNode> curBundle, CustomTreeNode checkNode) {
-		String checkNodeName = checkNode.toString();
-		if (checkNodeName.length() == 2) {
-			checkNodeName = checkNodeName.substring(1, checkNodeName.length());
+			ArrayList<CustomTreeNode> curBundle, CustomTreeNode node) {
+
+		String curNode = node.toString();
+		// Remove the negative symbol
+		if (curNode.length() == 2) {
+			curNode = curNode.substring(1, curNode.length());
 		}
 
 		for (int j = 0; j < curBundle.size(); j++) {
-			String curNodeName = curBundle.get(j).toString();
-			if (curNodeName.length() == 2) {
-				curNodeName = curNodeName.substring(1, curNodeName.length());
+			String verificationNode = curBundle.get(j).toString();
+
+			// Remove the negative symbol
+			if (verificationNode.length() == 2) {
+				verificationNode = verificationNode.substring(1,
+						verificationNode.length());
 			}
 
-			if (curNodeName.equals(checkNodeName)) {
+			if (verificationNode.equals(curNode)) {
 				return true;
 			}
-
 		}
 		return false;
 	}
