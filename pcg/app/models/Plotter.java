@@ -49,8 +49,8 @@ public class Plotter {
 	public static void plot(TreeToJgraph parser) {
 
 		// get calculated applet size from parser
-		appletSize = new Dimension(parser.getSizeAppletx(), parser
-				.getSizeApplety());
+		appletSize = new Dimension(parser.getSizeAppletx(),
+				parser.getSizeApplety());
 
 		jgAdapter = parser.getJgAdapter();
 

@@ -11,14 +11,14 @@ import tree.CustomTreeNode;
  * TODO: Erkennung der Wirkung! TODO: Currently work only with number of bundles
  * <= 2 and x alternativeFactors
  */
-public class ComplexTest {
+public class BinaryTest {
 	private CustomTree tree;
 	private String[][] table;
 	private ArrayList<Integer> colIndexesAlterFactors;
 	private ArrayList<Integer> rowIndexesBundles;
 	private ArrayList<ArrayList<String>> tableAsList;
 
-	public ComplexTest(String[][] table) {
+	public BinaryTest(String[][] table) {
 		this.table = table;
 		colIndexesAlterFactors = new ArrayList<Integer>();
 		rowIndexesBundles = new ArrayList<Integer>();

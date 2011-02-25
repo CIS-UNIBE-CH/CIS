@@ -8,7 +8,7 @@ import models.Plotter;
 import parser.TreeToJgraph;
 import play.mvc.Controller;
 import tree.CustomTree;
-import util.ComplexTest;
+import util.BinaryTest;
 import util.QuadroTest;
 
 public class Application extends Controller {
@@ -45,7 +45,7 @@ public class Application extends Controller {
 		String calculatedGraphPath = "";
 		String generatedGraph = "";
 		ArrayList<String> table = new ArrayList<String>();
-		ComplexTest complexTest;
+		BinaryTest complexTest;
 		;
 
 		if (k >= (2 * n)) {
@@ -53,7 +53,7 @@ public class Application extends Controller {
 			calculatedGraphPath = generator.getGraphicSource();
 			generatedGraph = generator.getTree().toString();
 			table = generator.getTable();
-			complexTest = new ComplexTest(generator.getTableAsArray());
+			complexTest = new BinaryTest(generator.getTableAsArray());
 			tree = complexTest.createTree();
 			plotter = new Plotter();
 			plotter.plot(new TreeToJgraph(tree));
@@ -61,8 +61,7 @@ public class Application extends Controller {
 			complexTest(1, generatedGraphPath, table, generatedGraph,
 					calculatedGraphPath);
 		} else {
-			flash
-					.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
+			flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
 			params.flash();
 			complexTest(0, generatedGraphPath, table, generatedGraph,
 					calculatedGraphPath);
@@ -100,8 +99,7 @@ public class Application extends Controller {
 		tree = quadroTest.creatGraph();
 
 		if (tree == null) {
-			flash
-					.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+			flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
 			params.flash();
 			quadroTest(1, f1, f2);
 		}
