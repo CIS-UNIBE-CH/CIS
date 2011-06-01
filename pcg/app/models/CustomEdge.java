@@ -2,13 +2,11 @@ package models;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import org.jgraph.graph.DefaultEdge;
-
 /**
  * This class provides labeling of cause bundles with a number for every cause
  * in a bundle. Inherited from: org.jgrapht.graph.DefaultEdge
  */
-public class CustomEdge extends DefaultEdge {
+public class CustomEdge {
 
 	String bundleLabel;
 

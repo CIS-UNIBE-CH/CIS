@@ -5,7 +5,6 @@ package models;
 import java.util.ArrayList;
 import java.util.Random;
 
-import parser.TreeToJgraph;
 import parser.TreeToTable;
 import tree.CustomTree;
 import tree.CustomTreeNode;
@@ -34,9 +33,9 @@ public class GraphGenerator {
 		nodeGenerator();
 		randomTreeGenerator();
 
-		Plotter plotter = new Plotter();
-		plotter.plot(new TreeToJgraph(tree));
-		this.imageSource = plotter.getImageSource();
+		// Plotter plotter = new Plotter();
+		// plotter.plot(new TreeToJgraph(tree));
+		// this.imageSource = plotter.getImageSource();
 		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles);
 	}
 
