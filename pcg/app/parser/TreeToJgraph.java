@@ -35,14 +35,14 @@ public class TreeToJgraph {
 		this.tree = tree;
 
 		// Initialize creating JGraphT and position node procedure
-		createJGraphTNodes();
-		createJGraphTEdges();
+		createNodes();
+		createEdges();
 		// jgAdapter = new JGraphModelAdapter<CustomTreeNode,
 		// CustomEdge>(graph);
 		// calculateJGraphNodePosition();
 	}
 
-	private void createJGraphTNodes() {
+	private void createNodes() {
 		ArrayList<CustomTreeNode> childs = tree.getChildren();
 
 		graph.addVertex(tree.getRoot());
@@ -51,7 +51,7 @@ public class TreeToJgraph {
 		}
 	}
 
-	private void createJGraphTEdges() {
+	private void createEdges() {
 		CustomTreeNode root = tree.getRoot();
 		ArrayList<CustomTreeNode> children = tree.getChildren();
 
@@ -63,7 +63,7 @@ public class TreeToJgraph {
 				edge.setBundleNumber(curNode.getBundle());
 			}
 
-			graph.addEdge(edge, root, curNode);
+			graph.addEdge(edge, curNode, root);
 		}
 
 	}

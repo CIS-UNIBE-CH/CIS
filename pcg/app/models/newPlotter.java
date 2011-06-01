@@ -12,6 +12,8 @@ import util.BinaryTest;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 
 public class newPlotter {
 	private static CustomTree tree = null;
@@ -39,8 +41,12 @@ public class newPlotter {
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<CustomTreeNode, CustomEdge> vv = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(
 				layout);
-		vv.setPreferredSize(new Dimension(350, 350)); // Sets the viewing area
-														// size
+		vv.setPreferredSize(new Dimension(350, 350));
+
+		vv.getRenderer().setVertexRenderer(new Renderer());
+		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
 
 		JFrame frame = new JFrame("Simple Graph View");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

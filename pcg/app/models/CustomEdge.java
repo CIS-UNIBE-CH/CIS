@@ -18,7 +18,6 @@ public class CustomEdge {
 		if (bundleLabel != null) {
 			return bundleLabel;
 		} else {
-
 			return "";
 		}
 	}
