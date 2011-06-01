@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import parser.TreeToJgraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 import util.BinaryTest;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
@@ -34,7 +36,7 @@ public class newPlotter {
 		tree = complexTest.createTree();
 		TreeToJgraph graphing = new TreeToJgraph(tree);
 		// The Layout<V, E> is parameterized by the vertex and edge types
-		Layout<CustomTreeNode, CustomEdge> layout = new CircleLayout<CustomTreeNode, CustomEdge>(
+		Layout<CustomTreeNode, CustomEdge> layout = new KKLayout<CustomTreeNode, CustomEdge>(
 				graphing.getGraph());
 		layout.setSize(new Dimension(350, 350)); // sets the initial size of the
 													// space
@@ -59,11 +61,12 @@ public class newPlotter {
 			e.printStackTrace();
 		}
 
-		/*
-		 * JFrame frame = new JFrame("Simple Graph View");
-		 * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 * frame.setSize(350, 350); frame.getContentPane().add(vv);
-		 * frame.pack(); frame.setVisible(true);
-		 */
+		JFrame frame = new JFrame("Simple Graph View");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(350, 350);
+		frame.getContentPane().add(vv);
+		frame.pack();
+		frame.setVisible(true);
+
 	}
 }
