@@ -7,12 +7,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import parser.TreeToJgraph;
+import parser.TreeToGraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 import util.BinaryTest;
-import edu.uci.ics.jung.algorithms.layout.KKLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
@@ -34,12 +33,14 @@ public class newPlotter {
 		table = generator.getTable();
 		complexTest = new BinaryTest(generator.getTableAsArray());
 		tree = complexTest.createTree();
-		TreeToJgraph graphing = new TreeToJgraph(tree);
-		// The Layout<V, E> is parameterized by the vertex and edge types
-		Layout<CustomTreeNode, CustomEdge> layout = new KKLayout<CustomTreeNode, CustomEdge>(
-				graphing.getGraph());
-		layout.setSize(new Dimension(350, 350)); // sets the initial size of the
-													// space
+		TreeToGraph graphing = new TreeToGraph(tree);
+
+		Transformer locationTransformer = new Transformer(); // {
+
+		// Need a static layout so nodes will positioned evertime the same
+		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
+				graphing.getGraph(), locationTransformer);
+		layout.setSize(new Dimension(350, 350));
 
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<CustomTreeNode, CustomEdge> vv = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(
@@ -52,7 +53,8 @@ public class newPlotter {
 		// Position the labels in the center of node
 		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
 		vv.getRenderer().setVertexRenderer(new Renderer());
-		vv.setSize(350, 350);
+		// Size a the picture which will be dumped.
+		vv.setSize(600, 600);
 
 		PNGDump dumper = new PNGDump();
 		try {

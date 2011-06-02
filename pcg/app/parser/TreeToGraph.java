@@ -13,7 +13,7 @@ import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
  * Builds out of the tree a JGraphT and adds everything to a JGraphModelAdapter,
  * also known as parsing a tree to a JGraphT.
  */
-public class TreeToJgraph {
+public class TreeToGraph {
 	// A JGraphT directed Graph
 	private static DirectedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
 	// The tree (internal data structure)
@@ -26,7 +26,7 @@ public class TreeToJgraph {
 	private int sizeAppletX;
 	private int sizeAppletY;
 
-	public TreeToJgraph(CustomTree tree) {
+	public TreeToGraph(CustomTree tree) {
 		nodeWidth = 100;
 		nodeHeight = 30;
 
