@@ -3,6 +3,8 @@ package models;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JFrame;
 
@@ -32,6 +34,9 @@ public class newPlotter {
 		complexTest = new BinaryTest(generator.getTableAsArray());
 		tree = complexTest.createTree();
 		TreeToGraph graphing = new TreeToGraph(tree);
+		Collection<CustomEdge> typedEdges = new ArrayList<CustomEdge>();
+		typedEdges = graphing.getGraph().getEdges();
+		System.out.println(typedEdges.toString());
 
 		LocationTransformer locationTransformer = new LocationTransformer();
 
@@ -39,6 +44,10 @@ public class newPlotter {
 		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
 				graphing.getGraph(), locationTransformer);
 		layout.setSize(new Dimension(350, 350));
+		System.out.println(graphing.getGraph().toString());
+		// ArrayList<CustomEdge> edges = new ArrayList<CustomEdge>();
+		// edges = (ArrayList<CustomEdge>) graphing.getGraph().getEdges();
+		// System.out.println(edges.toString());
 
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<CustomTreeNode, CustomEdge> vv = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(

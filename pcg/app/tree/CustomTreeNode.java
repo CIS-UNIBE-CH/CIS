@@ -2,18 +2,16 @@ package tree;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import java.util.Random;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /** Custom Tree Node inherits from DefaultMutableTreeNode */
 public class CustomTreeNode extends DefaultMutableTreeNode {
 	private String bundle;
-	Random randomGenerator = new Random();
-	private int test = randomGenerator.nextInt(10);
+	private String name;
 
 	public CustomTreeNode(Object o) {
 		super(o);
+		name = (String) o;
 	}
 
 	public String getBundle() {
@@ -24,8 +22,8 @@ public class CustomTreeNode extends DefaultMutableTreeNode {
 		this.bundle = bundle;
 	}
 
-	public int getTest() {
-		return test;
+	public String getName() {
+		return name;
 	}
 
 	/** Checks if the tree node is part of cause bundle */

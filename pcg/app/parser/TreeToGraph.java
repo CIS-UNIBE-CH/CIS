@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import models.CustomEdge;
 import tree.CustomTree;
 import tree.CustomTreeNode;
-import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.OrderedSparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 
 /**
@@ -16,7 +16,10 @@ import edu.uci.ics.jung.graph.util.EdgeType;
  */
 public class TreeToGraph {
 	// A JGraphT directed Graph
-	private static DirectedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
+	// Used ordered Sparse multigraph, this order nodes after their adding time.
+	// So make shure the nodes will be generated in right oder in the method
+	// createsNodes()
+	private static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
 	// The tree (internal data structure)
 	private CustomTree tree;
 	// The Adapter used for displaying JGraphT in JGraph
@@ -31,7 +34,7 @@ public class TreeToGraph {
 		nodeWidth = 100;
 		nodeHeight = 30;
 
-		graph = new DirectedSparseMultigraph<CustomTreeNode, CustomEdge>();
+		graph = new OrderedSparseMultigraph<CustomTreeNode, CustomEdge>();
 
 		this.tree = tree;
 
@@ -61,6 +64,7 @@ public class TreeToGraph {
 
 		for (int i = 0; i < children.size(); i++) {
 			CustomTreeNode curNode = children.get(i);
+			// System.out.println("CurNode: " + curNode.getName());
 			CustomEdge edge = new CustomEdge();
 
 			if (curNode.isPartOfBundle()) {
@@ -162,7 +166,7 @@ public class TreeToGraph {
 	 * }
 	 */
 
-	public static DirectedSparseMultigraph<CustomTreeNode, CustomEdge> getGraph() {
+	public static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> getGraph() {
 		return graph;
 	}
 
