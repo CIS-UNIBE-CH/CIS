@@ -21,8 +21,8 @@ public class Renderer implements Vertex<CustomTreeNode, CustomEdge> {
 		Shape shape = null;
 		Color color = null;
 
-		shape = new Ellipse2D.Double(center.getX() - 10, center.getY() - 10,
-				20, 20);
+		shape = new Ellipse2D.Double(center.getX() - 20, center.getY() - 20,
+				40, 40);
 		color = new Color(184, 0, 138);
 
 		graphicsContext.setPaint(color);

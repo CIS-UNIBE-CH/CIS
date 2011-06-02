@@ -8,6 +8,7 @@ import models.CustomEdge;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
 
 /**
  * Builds out of the tree a JGraphT and adds everything to a JGraphModelAdapter,
@@ -44,6 +45,9 @@ public class TreeToGraph {
 
 	private void createNodes() {
 		ArrayList<CustomTreeNode> childs = tree.getChildren();
+		for (int i = 0; i < childs.size(); i++) {
+			System.out.println("Child: " + childs.get(i));
+		}
 
 		graph.addVertex(tree.getRoot());
 		for (int i = 0; i < childs.size(); i++) {
@@ -63,7 +67,7 @@ public class TreeToGraph {
 				edge.setBundleNumber(curNode.getBundle());
 			}
 
-			graph.addEdge(edge, curNode, root);
+			graph.addEdge(edge, curNode, root, EdgeType.DIRECTED);
 		}
 
 	}

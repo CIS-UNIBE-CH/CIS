@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import models.GraphGenerator;
 import models.News;
 import models.Plotter;
-import parser.TreeToJgraph;
 import play.mvc.Controller;
 import tree.CustomTree;
 import util.BinaryTest;

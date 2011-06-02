@@ -3,7 +3,6 @@ package models;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -13,6 +12,7 @@ import tree.CustomTreeNode;
 import util.BinaryTest;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import edu.uci.ics.screencap.PNGDump;
@@ -27,15 +27,13 @@ public class newPlotter {
 		// String generatedGraphPath = "";
 		// String calculatedGraphPath = "";
 		// String generatedGraph = "";
-		ArrayList<String> table = new ArrayList<String>();
 		BinaryTest complexTest;
 		GraphGenerator generator = new GraphGenerator(n, k);
-		table = generator.getTable();
 		complexTest = new BinaryTest(generator.getTableAsArray());
 		tree = complexTest.createTree();
 		TreeToGraph graphing = new TreeToGraph(tree);
 
-		Transformer locationTransformer = new Transformer(); // {
+		LocationTransformer locationTransformer = new LocationTransformer();
 
 		// Need a static layout so nodes will positioned evertime the same
 		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
@@ -48,6 +46,9 @@ public class newPlotter {
 
 		// Labels for nodes
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+		// Set Edge Shape to a line.
+		vv.getRenderContext().setEdgeShapeTransformer(
+				new EdgeShape.Line<CustomTreeNode, CustomEdge>());
 		// Labels for edges
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
 		// Position the labels in the center of node
