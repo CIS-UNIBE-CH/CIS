@@ -1,4 +1,4 @@
-package util;
+package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 

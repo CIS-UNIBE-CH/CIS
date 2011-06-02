@@ -15,7 +15,7 @@ import org.apache.commons.collections15.functors.ConstantTransformer;
 import parser.TreeToGraph;
 import tree.CustomTree;
 import tree.CustomTreeNode;
-import util.BinaryTest;
+import algorithms.BinaryTest;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -23,9 +23,9 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import edu.uci.ics.screencap.PNGDump;
 
-public class newPlotter {
+public class GraphConfigurator {
 	private static CustomTree tree = null;
-	protected static VertexShapeSizeAspect<CustomTreeNode, Shape> vssa;
+	protected static VertexLookTransformer<CustomTreeNode, Shape> vssa;
 
 	public static void main(String[] args) {
 
@@ -35,7 +35,7 @@ public class newPlotter {
 		// String calculatedGraphPath = "";
 		// String generatedGraph = "";
 		BinaryTest complexTest;
-		GraphGenerator generator = new GraphGenerator(n, k);
+		RandomGraphGenerator generator = new RandomGraphGenerator(n, k);
 		complexTest = new BinaryTest(generator.getTableAsArray());
 		tree = complexTest.createTree();
 		TreeToGraph graphing = new TreeToGraph(tree);
@@ -45,14 +45,14 @@ public class newPlotter {
 
 		// final PluggableRenderer pr = new PluggableRenderer();
 
-		LocationTransformer locationTransformer = new LocationTransformer();
+		VertexLocationTransformer locationTransformer = new VertexLocationTransformer();
 
 		// Need a static layout so nodes will positioned evertime the same
 		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
 				graphing.getGraph(), locationTransformer);
 		layout.setSize(new Dimension(350, 350));
 		System.out.println(graphing.getGraph().toString());
-		vssa = new VertexShapeSizeAspect<CustomTreeNode, Shape>();
+		vssa = new VertexLookTransformer<CustomTreeNode, Shape>();
 
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<CustomTreeNode, CustomEdge> vv = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(

@@ -16,7 +16,7 @@ import tree.CustomTreeNode;
  * ist noch nicht abgedeckt. (Siehe Kommentar Zeile: 86)
  * 
  */
-public class GraphGenerator {
+public class RandomGraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
 	private CustomTree tree;
@@ -24,7 +24,7 @@ public class GraphGenerator {
 	private String imageSource;
 	private TreeToTable parser;
 
-	public GraphGenerator(int numberOfBundles, int numberOfFactors) {
+	public RandomGraphGenerator(int numberOfBundles, int numberOfFactors) {
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
 		this.nodes = new ArrayList<CustomTreeNode>();
