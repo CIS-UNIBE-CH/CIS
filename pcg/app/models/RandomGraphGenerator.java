@@ -33,8 +33,6 @@ public class RandomGraphGenerator {
 		nodeGenerator();
 		randomTreeGenerator();
 
-		// Plotter plotter = new Plotter();
-		// plotter.plot(new TreeToJgraph(tree));
 		// this.imageSource = plotter.getImageSource();
 		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles);
 	}

@@ -1,5 +1,6 @@
 package models;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 import java.awt.Shape;
 
 import org.apache.commons.collections15.Transformer;
@@ -8,8 +9,8 @@ import edu.uci.ics.jung.visualization.decorators.AbstractVertexShapeTransformer;
 
 /**
  * Controls the shape, size, and aspect ratio for each vertex.
- * 
  */
+@SuppressWarnings("hiding")
 public class VertexLookTransformer<CustomTreeNode, CustomEdge> extends
 		AbstractVertexShapeTransformer<CustomTreeNode> implements
 		Transformer<CustomTreeNode, Shape> {
@@ -30,7 +31,7 @@ public class VertexLookTransformer<CustomTreeNode, CustomEdge> extends
 		});
 	}
 
-	// trandform shape
+	// transform shape
 	public Shape transform(CustomTreeNode v) {
 		return factory.getEllipse(v);
 	}

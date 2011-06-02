@@ -1,5 +1,6 @@
 package models;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 import java.awt.geom.Point2D;
 
 import tree.CustomTreeNode;
