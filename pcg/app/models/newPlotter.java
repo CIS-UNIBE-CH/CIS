@@ -53,9 +53,6 @@ public class newPlotter {
 		layout.setSize(new Dimension(350, 350));
 		System.out.println(graphing.getGraph().toString());
 		vssa = new VertexShapeSizeAspect<CustomTreeNode, Shape>();
-		// ArrayList<CustomEdge> edges = new ArrayList<CustomEdge>();
-		// edges = (ArrayList<CustomEdge>) graphing.getGraph().getEdges();
-		// System.out.println(edges.toString());
 
 		// The BasicVisualizationServer<V,E> is parameterized by the edge types
 		BasicVisualizationServer<CustomTreeNode, CustomEdge> vv = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(
