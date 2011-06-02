@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
 import java.io.File;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JFrame;
+
+import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import parser.TreeToGraph;
 import tree.CustomTree;
@@ -69,6 +72,11 @@ public class newPlotter {
 		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
 		// vv.getRenderer().setVertexRenderer(new Renderer());
 		vv.getRenderContext().setVertexShapeTransformer(vssa);
+
+		// Change node color
+		Color color = new Color(184, 0, 138);
+		vv.getRenderContext().setVertexFillPaintTransformer(
+				new ConstantTransformer(color));
 		// Size a the picture which will be dumped.
 		vv.setSize(600, 600);
 
