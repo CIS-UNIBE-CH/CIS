@@ -1,6 +1,7 @@
 package models;
 
 import java.awt.Dimension;
+import java.awt.Shape;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import edu.uci.ics.screencap.PNGDump;
 
 public class newPlotter {
 	private static CustomTree tree = null;
+	protected static VertexShapeSizeAspect<CustomTreeNode, Shape> vssa;
 
 	public static void main(String[] args) {
 
@@ -38,6 +40,8 @@ public class newPlotter {
 		typedEdges = graphing.getGraph().getEdges();
 		System.out.println(typedEdges.toString());
 
+		// final PluggableRenderer pr = new PluggableRenderer();
+
 		LocationTransformer locationTransformer = new LocationTransformer();
 
 		// Need a static layout so nodes will positioned evertime the same
@@ -45,6 +49,7 @@ public class newPlotter {
 				graphing.getGraph(), locationTransformer);
 		layout.setSize(new Dimension(350, 350));
 		System.out.println(graphing.getGraph().toString());
+		vssa = new VertexShapeSizeAspect<CustomTreeNode, Shape>();
 		// ArrayList<CustomEdge> edges = new ArrayList<CustomEdge>();
 		// edges = (ArrayList<CustomEdge>) graphing.getGraph().getEdges();
 		// System.out.println(edges.toString());
@@ -62,7 +67,8 @@ public class newPlotter {
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
 		// Position the labels in the center of node
 		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
-		vv.getRenderer().setVertexRenderer(new Renderer());
+		// vv.getRenderer().setVertexRenderer(new Renderer());
+		vv.getRenderContext().setVertexShapeTransformer(vssa);
 		// Size a the picture which will be dumped.
 		vv.setSize(600, 600);
 
