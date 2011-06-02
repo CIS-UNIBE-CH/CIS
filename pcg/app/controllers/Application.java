@@ -2,13 +2,13 @@ package controllers;
 
 import java.util.ArrayList;
 
-import models.GraphGenerator;
 import models.News;
-import models.Plotter;
+import models.RandomGraphGenerator;
+import parser.TreeToGraph;
 import play.mvc.Controller;
 import tree.CustomTree;
-import util.BinaryTest;
-import util.QuadroTest;
+import algorithms.BinaryTest;
+import algorithms.QuadroTest;
 
 public class Application extends Controller {
 
@@ -48,14 +48,14 @@ public class Application extends Controller {
 		;
 
 		if (k >= (2 * n)) {
-			GraphGenerator generator = new GraphGenerator(n, k);
+			RandomGraphGenerator generator = new RandomGraphGenerator(n, k);
 			calculatedGraphPath = generator.getGraphicSource();
 			generatedGraph = generator.getTree().toString();
 			table = generator.getTable();
 			complexTest = new BinaryTest(generator.getTableAsArray());
 			tree = complexTest.createTree();
 			plotter = new Plotter();
-			plotter.plot(new TreeToJgraph(tree));
+			plotter.plot(new TreeToGraph(tree));
 			generatedGraphPath = plotter.getImageSource();
 			complexTest(1, generatedGraphPath, table, generatedGraph,
 					calculatedGraphPath);
@@ -104,7 +104,7 @@ public class Application extends Controller {
 		}
 		Plotter plotter = new Plotter();
 
-		plotter.plot(new TreeToJgraph(tree));
+		plotter.plot(new TreeToGraph(tree));
 		String graphPath = plotter.getImageSource();
 		showGraph(graphPath);
 	}
