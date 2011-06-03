@@ -46,7 +46,6 @@ public class Application extends Controller {
 		String generatedGraph = "";
 		ArrayList<String> table = new ArrayList<String>();
 		BinaryTest complexTest;
-		;
 
 		if (k >= (2 * n)) {
 			RandomGraphGenerator generator = new RandomGraphGenerator(n, k);

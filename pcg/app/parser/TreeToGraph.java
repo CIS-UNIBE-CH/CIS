@@ -14,7 +14,7 @@ import edu.uci.ics.jung.graph.util.EdgeType;
  * Builds out of the tree a JUNG Graph's nodes and edges.
  */
 public class TreeToGraph {
-	// Used ordered Sparse multigraph, this order nodes after their adding time.
+	// Used OrderedSparseMultigraph, this order nodes after their adding time.
 	// So make sure the nodes will be generated in right oder in the method
 	// createsNodes()
 	private static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
@@ -32,9 +32,6 @@ public class TreeToGraph {
 
 	private void createNodes() {
 		ArrayList<CustomTreeNode> childs = tree.getChildren();
-		for (int i = 0; i < childs.size(); i++) {
-			System.out.println("Child: " + childs.get(i));
-		}
 
 		graph.addVertex(tree.getRoot());
 		for (int i = 0; i < childs.size(); i++) {

@@ -10,6 +10,7 @@ import edu.uci.ics.jung.visualization.decorators.AbstractVertexShapeTransformer;
 /**
  * Controls the shape, size, and aspect ratio for each vertex.
  */
+@SuppressWarnings("hiding")
 public class VertexLookTransformer<CustomTreeNode, CustomEdge> extends
 		AbstractVertexShapeTransformer<CustomTreeNode> implements
 		Transformer<CustomTreeNode, Shape> {

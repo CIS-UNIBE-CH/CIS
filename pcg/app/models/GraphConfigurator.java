@@ -28,7 +28,6 @@ import edu.uci.ics.screencap.PNGDump;
  * VetexLookTransformer you can config shape, apsect ratio and size of vertex.
  */
 public class GraphConfigurator {
-	//private static CustomTree tree = null;
 	private static Date now;
 	private static SimpleDateFormat dateFormat;
 	private static String path;
@@ -40,18 +39,6 @@ public class GraphConfigurator {
 		this.path = "./pcg/public/images/graphs/";
 	}
 
-	// ********* REMOVE
-	//int n = 1;
-	//int k = 3;
-
-	//BinaryTest complexTest;
-	//RandomGraphGenerator generator = new RandomGraphGenerator(n, k);
-	//complexTest = new BinaryTest(generator.getTableAsArray());
-	//tree = complexTest.createTree();
-	//TreeToGraph graphing = new TreeToGraph(tree);
-
-	// ********* REMOVE
-
 	public void config(TreeToGraph parser) {
 
 		// Transformer which will set node positions
@@ -61,7 +48,11 @@ public class GraphConfigurator {
 		// place
 		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
 				parser.getGraph(), locationTransformer);
-		layout.setSize(new Dimension(350, 350));
+		layout.setSize(new Dimension(600, 600));
+
+		locationTransformer.reset();
+
+		System.out.println(parser.getGraph().toString());
 
 		// Transformer which will set shape, size, aspect ratio of vertexes
 		VertexLookTransformer<CustomTreeNode, Shape> vertexLookTransformer = new VertexLookTransformer<CustomTreeNode, Shape>();
@@ -114,15 +105,4 @@ public class GraphConfigurator {
 	public static String generateFileName() {
 		return path + dateFormat.format(now).toString() + ".png";
 	}
-
-	// ******** REMOVE
-
-	// JFrame frame = new JFrame("Simple Graph View");
-	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	// frame.setSize(350, 350);
-	// frame.getContentPane().add(visServer);
-	// frame.pack();
-	// frame.setVisible(true);
-
-	// ********* REMOVE
 }
