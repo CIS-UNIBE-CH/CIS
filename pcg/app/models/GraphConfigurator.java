@@ -21,88 +21,119 @@ import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import edu.uci.ics.screencap.PNGDump;
 
 /**
- * Holds all the configurations for the JUNG Graph rendering. Furthermore all
+ * 1. Holds all the configurations for the JUNG Graph rendering. Furthermore all
  * configs which are in the Transformer will here be called and applyed to the
  * graphs config (For example the vertex positions will be applied from
- * VertexLocationTransformer). Here you can configure vetex color, in the
+ * VertexLocationTransformer). Here you can configure vertex color, in the
  * VetexLookTransformer you can config shape, apsect ratio and size of vertex.
+ * 2. Makes dumping of graph in a PNG
  */
 public class GraphConfigurator {
-	private static Date now;
-	private static SimpleDateFormat dateFormat;
-	private static String path;
+    private static Date now;
+    private static SimpleDateFormat dateFormat;
+    private static String path;
+    private static int xPicSize;
+    private static int yPicSize;
+    // Transformer which will set node positions
+    private VertexLocationTransformer locationTransformer;
+    private TreeToGraph parser;
 
-	public GraphConfigurator() {
-		now = new Date();
-		dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
+    public GraphConfigurator() {
+	now = new Date();
+	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
+	this.path = "./pcg/public/images/graphs/";
+	xPicSize = 0;
+	yPicSize = 0;
+	locationTransformer = new VertexLocationTransformer();
+    }
 
-		this.path = "./pcg/public/images/graphs/";
+    public void config(TreeToGraph parser) {
+	this.parser = parser;
+
+	// Calculate Size of Pictures according to number of vertexes.
+	calculatePictureSize();
+
+	// Set x Coordinate of Location of the Wirkung
+	locationTransformer
+	.setxRootPosition(parser.getGraph().getVertexCount());
+
+	// Use a static layout so vertexes will positioned ever time at the same
+	// place
+	StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
+		this.parser.getGraph(), locationTransformer);
+	layout.setSize(new Dimension(xPicSize, yPicSize));
+
+	// Do a reset of vertex location tranformation after every graph, else
+	// tranformation WON'T work properly.
+	locationTransformer.reset();
+
+	//Print out the graph in console for development only used
+	System.out.println("*****************");
+	System.out.println(this.parser.getGraph().toString());
+	System.out.println("*****************");
+
+	// Transformer which will set shape, size, aspect ratio of vertexes
+	VertexLookTransformer<CustomTreeNode, Shape> vertexLookTransformer = new VertexLookTransformer<CustomTreeNode, Shape>();
+
+	// The BasicVisualizationServer<V,E> is parameterized by the edge types
+	BasicVisualizationServer<CustomTreeNode, CustomEdge> visServer = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(
+		layout);
+
+	// *************Configure BasicVisualizationServer*********
+	// Labels for Vertexes
+	visServer.getRenderContext().setVertexLabelTransformer(
+		new ToStringLabeller());
+	// Labels for edges
+	visServer.getRenderContext().setEdgeLabelTransformer(
+		new ToStringLabeller());
+	// Position the labels in the center of vertex
+	visServer.getRenderer().getVertexLabelRenderer()
+	.setPosition(Position.CNTR);
+	// Edge shape as line
+	visServer.getRenderContext().setEdgeShapeTransformer(
+		new EdgeShape.Line<CustomTreeNode, CustomEdge>());
+	// Set VertexLookTranformer changes
+	visServer.getRenderContext().setVertexShapeTransformer(
+		vertexLookTransformer);
+	// Set vertex color
+	Color vertexColor = new Color(255, 153, 0);
+	visServer.getRenderContext().setVertexFillPaintTransformer(
+		new ConstantTransformer(vertexColor));
+	// Set background color
+	Color backgroundColor = new Color(255, 255, 255);
+	visServer.setBackground(backgroundColor);
+
+	// ************ PNG Dumping ****************
+	// Size the PNG picture will have which will be dumped.
+	visServer.setSize(xPicSize, yPicSize);
+
+	PNGDump dumper = new PNGDump();
+	try {
+	    dumper.dumpComponent(new File(generateFileName()), visServer);
+	} catch (IOException e) {
+	    System.out.println("Image couldn't be generated!");
+	    e.printStackTrace();
 	}
+    }
 
-	public void config(TreeToGraph parser) {
+    private void calculatePictureSize() {
+	// Get Number of nodes -1 (Wirkung)
+	int numberOfNodes = this.parser.getGraph().getVertexCount() - 1;
+	xPicSize = numberOfNodes * locationTransformer.getSpace()
+	+ locationTransformer.getSpace();
+	yPicSize = 30 + locationTransformer.getyRoot();
+    }
 
-		// Transformer which will set node positions
-		VertexLocationTransformer locationTransformer = new VertexLocationTransformer();
+    public String getImageSource() {
+	return "/public/images/graphs/" + dateFormat.format(now).toString()
+	+ ".png";
+    }
 
-		// Use a static layout so vertexes will positioned ever time at the same
-		// place
-		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
-				parser.getGraph(), locationTransformer);
-		layout.setSize(new Dimension(600, 600));
+    public void setPath(String path) {
+	this.path = path;
+    }
 
-		locationTransformer.reset();
-
-		System.out.println(parser.getGraph().toString());
-
-		// Transformer which will set shape, size, aspect ratio of vertexes
-		VertexLookTransformer<CustomTreeNode, Shape> vertexLookTransformer = new VertexLookTransformer<CustomTreeNode, Shape>();
-
-		// The BasicVisualizationServer<V,E> is parameterized by the edge types
-		BasicVisualizationServer<CustomTreeNode, CustomEdge> visServer = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(
-				layout);
-
-		// ***Configure BasicVisualizationServer***
-		// Labels for Vertexes
-		visServer.getRenderContext().setVertexLabelTransformer(
-				new ToStringLabeller());
-		// Labels for edges
-		visServer.getRenderContext().setEdgeLabelTransformer(
-				new ToStringLabeller());
-		// Position the labels in the center of vertex
-		visServer.getRenderer().getVertexLabelRenderer()
-				.setPosition(Position.CNTR);
-		// Edge shape as line
-		visServer.getRenderContext().setEdgeShapeTransformer(
-				new EdgeShape.Line<CustomTreeNode, CustomEdge>());
-		// Set VertexLookTranformer changes
-		visServer.getRenderContext().setVertexShapeTransformer(
-				vertexLookTransformer);
-		// Change vertex color
-		Color color = new Color(184, 0, 138);
-		visServer.getRenderContext().setVertexFillPaintTransformer(
-				new ConstantTransformer(color));
-
-		// Size the PNG picture will have which will be dumped.
-		visServer.setSize(600, 600);
-
-		PNGDump dumper = new PNGDump();
-		try {
-			dumper.dumpComponent(new File(generateFileName()), visServer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public String getImageSource() {
-		return "/public/images/graphs/" + dateFormat.format(now).toString()
-				+ ".png";
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public static String generateFileName() {
-		return path + dateFormat.format(now).toString() + ".png";
-	}
+    public static String generateFileName() {
+	return path + dateFormat.format(now).toString() + ".png";
+    }
 }

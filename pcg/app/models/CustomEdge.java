@@ -8,17 +8,18 @@ package models;
  */
 public class CustomEdge {
 
-	String bundleLabel;
+    String bundleLabel;
 
-	public void setBundleNumber(String bundleLabel) {
-		this.bundleLabel = bundleLabel;
-	}
+    public void setBundleNumber(String bundleLabel) {
+	this.bundleLabel = bundleLabel;
+    }
 
-	public String toString() {
-		if (bundleLabel != null) {
-			return bundleLabel;
-		} else {
-			return "";
-		}
+    @Override
+    public String toString() {
+	if (bundleLabel != null) {
+	    return bundleLabel;
+	} else {
+	    return "";
 	}
+    }
 }

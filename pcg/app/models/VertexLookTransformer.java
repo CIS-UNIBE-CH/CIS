@@ -12,27 +12,30 @@ import edu.uci.ics.jung.visualization.decorators.AbstractVertexShapeTransformer;
  */
 @SuppressWarnings("hiding")
 public class VertexLookTransformer<CustomTreeNode, CustomEdge> extends
-		AbstractVertexShapeTransformer<CustomTreeNode> implements
-		Transformer<CustomTreeNode, Shape> {
+AbstractVertexShapeTransformer<CustomTreeNode> implements
+Transformer<CustomTreeNode, Shape> {
 
-	public VertexLookTransformer() {
-		// transform size of vertex
-		setSizeTransformer(new Transformer<CustomTreeNode, Integer>() {
-			public Integer transform(CustomTreeNode v) {
-				return 40;
-			}
-		});
-		// transform aspect ratio
-		setAspectRatioTransformer(new Transformer<CustomTreeNode, Float>() {
+    public VertexLookTransformer() {
+	// transform size of vertex
+	setSizeTransformer(new Transformer<CustomTreeNode, Integer>() {
+	    @Override
+	    public Integer transform(CustomTreeNode v) {
+		return 40;
+	    }
+	});
+	// transform aspect ratio
+	setAspectRatioTransformer(new Transformer<CustomTreeNode, Float>() {
 
-			public Float transform(CustomTreeNode v) {
-				return 1.0f;
-			}
-		});
-	}
+	    @Override
+	    public Float transform(CustomTreeNode v) {
+		return 1.0f;
+	    }
+	});
+    }
 
-	// transform shape
-	public Shape transform(CustomTreeNode v) {
-		return factory.getEllipse(v);
-	}
+    // transform shape
+    @Override
+    public Shape transform(CustomTreeNode v) {
+	return factory.getEllipse(v);
+    }
 }
