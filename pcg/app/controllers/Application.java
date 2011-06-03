@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 
+import models.GraphConfigurator;
 import models.News;
 import models.RandomGraphGenerator;
 import parser.TreeToGraph;
@@ -13,7 +14,7 @@ import algorithms.QuadroTest;
 public class Application extends Controller {
 
 	private static CustomTree tree = null;
-	private static Plotter plotter;
+	private static GraphConfigurator configurator;
 
 	public static void index() {
 
@@ -54,9 +55,9 @@ public class Application extends Controller {
 			table = generator.getTable();
 			complexTest = new BinaryTest(generator.getTableAsArray());
 			tree = complexTest.createTree();
-			plotter = new Plotter();
-			plotter.plot(new TreeToGraph(tree));
-			generatedGraphPath = plotter.getImageSource();
+			configurator = new GraphConfigurator();
+			configurator.config(new TreeToGraph(tree));
+			generatedGraphPath = configurator.getImageSource();
 			complexTest(1, generatedGraphPath, table, generatedGraph,
 					calculatedGraphPath);
 		} else {
@@ -102,10 +103,10 @@ public class Application extends Controller {
 			params.flash();
 			quadroTest(1, f1, f2);
 		}
-		Plotter plotter = new Plotter();
+		GraphConfigurator configurator = new GraphConfigurator();
 
-		plotter.plot(new TreeToGraph(tree));
-		String graphPath = plotter.getImageSource();
+		configurator.config(new TreeToGraph(tree));
+		String graphPath = configurator.getImageSource();
 		showGraph(graphPath);
 	}
 

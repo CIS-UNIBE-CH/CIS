@@ -3,18 +3,20 @@ package models;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 import java.awt.geom.Point2D;
 
-import tree.CustomTreeNode;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.apache.commons.collections15.Transformer;
 
 /** New Class for node positioning */
-public class VertexLocationTransformer implements
-		org.apache.commons.collections15.Transformer<CustomTreeNode, Point2D> {
+public class VertexLocationTransformer<CustomTreeNode> implements
+		Transformer<CustomTreeNode, Point2D> {
 	static int xOther = 0;
 	static int yOther = 30;
 
 	@Override
 	public Point2D transform(CustomTreeNode vertex) {
 		// for (int i = 0; i < graphNodes.size(); i++) {
-		CustomTreeNode curNode = vertex;
+		DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) vertex;
 
 		if (curNode.isRoot()) {
 			int xRoot = 300;

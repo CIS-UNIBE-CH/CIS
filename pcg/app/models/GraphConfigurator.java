@@ -6,17 +6,13 @@ import java.awt.Dimension;
 import java.awt.Shape;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.swing.JFrame;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import parser.TreeToGraph;
-import tree.CustomTree;
 import tree.CustomTreeNode;
-import algorithms.BinaryTest;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
@@ -32,23 +28,31 @@ import edu.uci.ics.screencap.PNGDump;
  * VetexLookTransformer you can config shape, apsect ratio and size of vertex.
  */
 public class GraphConfigurator {
-	private static CustomTree tree = null;
+	//private static CustomTree tree = null;
+	private static Date now;
+	private static SimpleDateFormat dateFormat;
+	private static String path;
 
-	public static void main(String[] args) {
+	public GraphConfigurator() {
+		now = new Date();
+		dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
 
-		// ********* REMOVE
-		int n = 1;
-		int k = 3;
+		this.path = "./pcg/public/images/graphs/";
+	}
 
-		BinaryTest complexTest;
-		RandomGraphGenerator generator = new RandomGraphGenerator(n, k);
-		complexTest = new BinaryTest(generator.getTableAsArray());
-		tree = complexTest.createTree();
-		TreeToGraph graphing = new TreeToGraph(tree);
-		Collection<CustomEdge> typedEdges = new ArrayList<CustomEdge>();
-		typedEdges = graphing.getGraph().getEdges();
+	// ********* REMOVE
+	//int n = 1;
+	//int k = 3;
 
-		// ********* REMOVE
+	//BinaryTest complexTest;
+	//RandomGraphGenerator generator = new RandomGraphGenerator(n, k);
+	//complexTest = new BinaryTest(generator.getTableAsArray());
+	//tree = complexTest.createTree();
+	//TreeToGraph graphing = new TreeToGraph(tree);
+
+	// ********* REMOVE
+
+	public void config(TreeToGraph parser) {
 
 		// Transformer which will set node positions
 		VertexLocationTransformer locationTransformer = new VertexLocationTransformer();
@@ -56,7 +60,7 @@ public class GraphConfigurator {
 		// Use a static layout so vertexes will positioned ever time at the same
 		// place
 		StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
-				graphing.getGraph(), locationTransformer);
+				parser.getGraph(), locationTransformer);
 		layout.setSize(new Dimension(350, 350));
 
 		// Transformer which will set shape, size, aspect ratio of vertexes
@@ -92,20 +96,33 @@ public class GraphConfigurator {
 
 		PNGDump dumper = new PNGDump();
 		try {
-			dumper.dumpComponent(new File("public/images/test.png"), visServer);
+			dumper.dumpComponent(new File(generateFileName()), visServer);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// ******** REMOVE
-
-		JFrame frame = new JFrame("Simple Graph View");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(350, 350);
-		frame.getContentPane().add(visServer);
-		frame.pack();
-		frame.setVisible(true);
-
-		// ********* REMOVE
 	}
+
+	public String getImageSource() {
+		return "/public/images/graphs/" + dateFormat.format(now).toString()
+				+ ".png";
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public static String generateFileName() {
+		return path + dateFormat.format(now).toString() + ".png";
+	}
+
+	// ******** REMOVE
+
+	// JFrame frame = new JFrame("Simple Graph View");
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	// frame.setSize(350, 350);
+	// frame.getContentPane().add(visServer);
+	// frame.pack();
+	// frame.setVisible(true);
+
+	// ********* REMOVE
 }
