@@ -17,6 +17,7 @@ import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.renderers.EdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import edu.uci.ics.screencap.PNGDump;
 
@@ -80,6 +81,10 @@ public class GraphConfigurator {
 		layout);
 
 	// *************Configure BasicVisualizationServer*********
+	// Edge Labels will be displayed in right orientation.
+	EdgeLabelRenderer edgeLabelRenderer = visServer.getRenderContext().getEdgeLabelRenderer();
+	edgeLabelRenderer.setRotateEdgeLabels(false);
+
 	// Labels for Vertexes
 	visServer.getRenderContext().setVertexLabelTransformer(
 		new ToStringLabeller());
