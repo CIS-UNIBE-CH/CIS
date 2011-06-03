@@ -15,14 +15,11 @@ import edu.uci.ics.jung.graph.util.EdgeType;
  */
 public class TreeToGraph {
 	// Used ordered Sparse multigraph, this order nodes after their adding time.
-	// So make shure the nodes will be generated in right oder in the method
+	// So make sure the nodes will be generated in right oder in the method
 	// createsNodes()
 	private static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
 	// The tree (internal data structure)
 	private CustomTree tree;
-
-	private int sizeAppletX;
-	private int sizeAppletY;
 
 	public TreeToGraph(CustomTree tree) {
 		graph = new OrderedSparseMultigraph<CustomTreeNode, CustomEdge>();
