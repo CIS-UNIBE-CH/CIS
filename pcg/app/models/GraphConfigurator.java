@@ -81,10 +81,12 @@ public class GraphConfigurator {
 		layout);
 
 	// *************Configure BasicVisualizationServer*********
+	//Positioning of Edge Labels
+	visServer.getRenderContext().setEdgeLabelClosenessTransformer(new EdgeLabelCloseness());
+
 	// Edge Labels will be displayed in right orientation.
 	EdgeLabelRenderer edgeLabelRenderer = visServer.getRenderContext().getEdgeLabelRenderer();
 	edgeLabelRenderer.setRotateEdgeLabels(false);
-
 	// Labels for Vertexes
 	visServer.getRenderContext().setVertexLabelTransformer(
 		new ToStringLabeller());

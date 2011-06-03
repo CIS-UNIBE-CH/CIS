@@ -14,6 +14,16 @@ public class CustomEdge {
 	this.bundleLabel = bundleLabel;
     }
 
+    public int getBundleNumber(){
+	if (bundleLabel != null) {
+	    System.out.println("bundle" + Integer.parseInt(bundleLabel));
+	    return Integer.parseInt(bundleLabel);
+	}
+	else{
+	    return 1;
+	}
+    }
+
     @Override
     public String toString() {
 	if (bundleLabel != null) {
