@@ -2,19 +2,19 @@ package models;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class News {
-
-    private java.sql.Timestamp timestamp;
-
+    private Date timestamp = new Date();
+    private SimpleDateFormat format = new SimpleDateFormat(
+    "dd/MM/yyyy kk:mm:ss z");
     private String message;
     private String link;
     private String title;
 
     public News(String message, String link, String title) {
-	timestamp = new java.sql.Timestamp(
-		new GregorianCalendar().getTimeInMillis());
+
 	this.message = message;
 	this.link = link;
 	this.title = title;
@@ -37,7 +37,7 @@ public class News {
     }
 
     public String getTimestamp() {
-	return timestamp.toLocaleString();
+	return format.format(timestamp);
     }
 
     public String getTitle() {

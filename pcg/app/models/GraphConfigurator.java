@@ -64,11 +64,11 @@ public class GraphConfigurator {
 		this.parser.getGraph(), locationTransformer);
 	layout.setSize(new Dimension(xPicSize, yPicSize));
 
-	// Do a reset of vertex location tranformation after every graph, else
-	// tranformation WON'T work properly.
+	// Do a reset of vertex location transformation after every graph, else
+	// transformation WON'T work properly.
 	locationTransformer.reset();
 
-	//Print out the graph in console for development only used
+	// Print out the graph in console for development only used
 	System.out.println("*****************");
 	System.out.println(this.parser.getGraph().toString());
 	System.out.println("*****************");
@@ -81,11 +81,15 @@ public class GraphConfigurator {
 		layout);
 
 	// *************Configure BasicVisualizationServer*********
-	//Positioning of Edge Labels
-	visServer.getRenderContext().setEdgeLabelClosenessTransformer(new EdgeLabelCloseness());
 
+	// Offset of Edge Labels to Edge
+	visServer.getRenderContext().setLabelOffset(15);
+	// TODO Positioning of Edge Labels (Not finished)
+	visServer.getRenderContext().setEdgeLabelClosenessTransformer(
+		new EdgeLabelCloseness());
 	// Edge Labels will be displayed in right orientation.
-	EdgeLabelRenderer edgeLabelRenderer = visServer.getRenderContext().getEdgeLabelRenderer();
+	EdgeLabelRenderer edgeLabelRenderer = visServer.getRenderContext()
+	.getEdgeLabelRenderer();
 	edgeLabelRenderer.setRotateEdgeLabels(false);
 	// Labels for Vertexes
 	visServer.getRenderContext().setVertexLabelTransformer(

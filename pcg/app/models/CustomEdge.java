@@ -14,12 +14,11 @@ public class CustomEdge {
 	this.bundleLabel = bundleLabel;
     }
 
-    public int getBundleNumber(){
+    public int getBundleNumber() {
 	if (bundleLabel != null) {
 	    System.out.println("bundle" + Integer.parseInt(bundleLabel));
 	    return Integer.parseInt(bundleLabel);
-	}
-	else{
+	} else {
 	    return 1;
 	}
     }

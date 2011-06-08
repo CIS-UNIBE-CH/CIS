@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import tree.CustomTree;
 import tree.CustomTreeNode;
 
-/**
- * TODO: Erkennung der Wirkung! TODO: Currently work only with number of bundles
- * <= 2 and x alternativeFactors
- */
+//TODO: Erkennung der Wirkung! 
+//TODO: Currently work only with number of bundles <= 2 and x alternativeFactors
+//TODO: Fix github issue #16
+
 public class BinaryTest {
     private CustomTree tree;
     private String[][] table;
