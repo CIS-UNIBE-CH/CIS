@@ -35,6 +35,7 @@
 		<img src="${generatedGraphPath}" />
 		<p>${generatedGraph}</p>
 	</center>
+	#{if showTable}
 	<h3>Table</h3>
 	<center>
 		<table>
@@ -48,6 +49,7 @@
 		#{/list}
 		</table>
 	</center>
+	#{/if}
 	<h3>Chose an alogorithm</h3>
 	#{form @Application.calcBinGraph()}
 		<input type="submit" name="binTest" value="Binary Test"/></td>
