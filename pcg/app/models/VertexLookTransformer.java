@@ -12,8 +12,8 @@ import edu.uci.ics.jung.visualization.decorators.AbstractVertexShapeTransformer;
  */
 @SuppressWarnings("hiding")
 public class VertexLookTransformer<CustomTreeNode, CustomEdge> extends
-AbstractVertexShapeTransformer<CustomTreeNode> implements
-Transformer<CustomTreeNode, Shape> {
+	AbstractVertexShapeTransformer<CustomTreeNode> implements
+	Transformer<CustomTreeNode, Shape> {
 
     public VertexLookTransformer() {
 	// transform size of vertex

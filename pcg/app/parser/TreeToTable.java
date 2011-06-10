@@ -24,7 +24,7 @@ public class TreeToTable {
 	// Calculate right size of table
 	table = new String[(int) (Math.pow(2, numberOfFactors)) + 1][numberOfFactors + 1];
 
-	//System.out.println("Generated Tree to String: " + tree.toString());
+	// System.out.println("Generated Tree to String: " + tree.toString());
 	tree.toString(); // getBundles() needs a toString() for initialization.
 
 	// Init the Process
@@ -108,7 +108,7 @@ public class TreeToTable {
 	    // Faktoren.
 	    for (int i = 0; i < numberOfBundles * bundleSize; i++) {
 		relevanceCounter = relevanceCounter
-		+ Integer.parseInt(table[r][i]);
+			+ Integer.parseInt(table[r][i]);
 
 		bundleSizeCounter++;
 
@@ -142,7 +142,7 @@ public class TreeToTable {
 		// nicht mehr angeschaut!
 		for (int i = numberOfBundles * bundleSize; i < table[r].length - 1; i++) {
 		    relevanceCounter = relevanceCounter
-		    + Integer.parseInt(table[r][i]);
+			    + Integer.parseInt(table[r][i]);
 		    if (relevanceCounter > 0) {
 			table[r][table[r].length - 1] = "1";
 

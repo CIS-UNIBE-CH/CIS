@@ -1,5 +1,7 @@
 package controllers;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.util.ArrayList;
 
 import models.GraphConfigurator;

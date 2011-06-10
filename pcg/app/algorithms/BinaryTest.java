@@ -51,7 +51,7 @@ public class BinaryTest {
 
 	    for (int c = 0; c < tableAsList.get(r).size(); c++) {
 		rowCounter = rowCounter
-		+ Integer.parseInt(tableAsList.get(r).get(c));
+			+ Integer.parseInt(tableAsList.get(r).get(c));
 
 		// Der Index der ersten in der Zeile aufgetrenden "1" sich
 		// merken, denn ist Index von potentiellem alternativ faktor.

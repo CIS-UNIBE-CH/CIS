@@ -45,7 +45,7 @@ public class TreeToGraph {
 
 	for (int i = 0; i < children.size(); i++) {
 	    CustomTreeNode curNode = children.get(i);
-	    CustomEdge edge = new CustomEdge();
+	    CustomEdge edge = new CustomEdge(curNode, root);
 
 	    if (curNode.isPartOfBundle()) {
 		edge.setBundleNumber(curNode.getBundle());

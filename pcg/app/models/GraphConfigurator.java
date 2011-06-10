@@ -33,6 +33,7 @@ public class GraphConfigurator {
     private static Date now;
     private static SimpleDateFormat dateFormat;
     private static String path;
+    // X and Y Size of picture which will be dumped
     private static int xPicSize;
     private static int yPicSize;
     // Transformer which will set node positions
@@ -56,7 +57,7 @@ public class GraphConfigurator {
 
 	// Set x Coordinate of Location of the Wirkung
 	locationTransformer
-	.setxRootPosition(parser.getGraph().getVertexCount());
+		.setxRootPosition(parser.getGraph().getVertexCount());
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
@@ -84,12 +85,13 @@ public class GraphConfigurator {
 
 	// Offset of Edge Labels to Edge
 	visServer.getRenderContext().setLabelOffset(15);
-	// TODO Positioning of Edge Labels (Not finished)
+	// Position Edge Labels according to Edge Length
 	visServer.getRenderContext().setEdgeLabelClosenessTransformer(
-		new EdgeLabelCloseness());
-	// Edge Labels will be displayed in right orientation.
+		new EdgeLabelClosenessTransformer());
+	// Edge Labels will be displayed in right orientation. true = parallel
+	// to Edge, false = horizontal
 	EdgeLabelRenderer edgeLabelRenderer = visServer.getRenderContext()
-	.getEdgeLabelRenderer();
+		.getEdgeLabelRenderer();
 	edgeLabelRenderer.setRotateEdgeLabels(false);
 	// Labels for Vertexes
 	visServer.getRenderContext().setVertexLabelTransformer(
@@ -99,7 +101,7 @@ public class GraphConfigurator {
 		new ToStringLabeller());
 	// Position the labels in the center of vertex
 	visServer.getRenderer().getVertexLabelRenderer()
-	.setPosition(Position.CNTR);
+		.setPosition(Position.CNTR);
 	// Edge shape as line
 	visServer.getRenderContext().setEdgeShapeTransformer(
 		new EdgeShape.Line<CustomTreeNode, CustomEdge>());
@@ -131,13 +133,13 @@ public class GraphConfigurator {
 	// Get Number of nodes -1 (Wirkung)
 	int numberOfNodes = this.parser.getGraph().getVertexCount() - 1;
 	xPicSize = numberOfNodes * locationTransformer.getSpace()
-	+ locationTransformer.getSpace();
+		+ locationTransformer.getSpace();
 	yPicSize = 30 + locationTransformer.getyRoot();
     }
 
     public String getImageSource() {
 	return "/public/images/graphs/" + dateFormat.format(now).toString()
-	+ ".png";
+		+ ".png";
     }
 
     public void setPath(String path) {

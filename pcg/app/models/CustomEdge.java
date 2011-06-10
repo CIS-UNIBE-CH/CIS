@@ -1,5 +1,9 @@
 package models;
 
+import java.util.ArrayList;
+
+import tree.CustomTreeNode;
+
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 /**
@@ -8,7 +12,31 @@ package models;
  */
 public class CustomEdge {
 
-    String bundleLabel;
+    private String bundleLabel;
+    private ArrayList<CustomTreeNode> nodes;
+
+    public CustomEdge(CustomTreeNode source, CustomTreeNode destination) {
+	nodes = new ArrayList<CustomTreeNode>();
+	nodes.add(source);
+	nodes.add(destination);
+    }
+
+    public double calcEdgeLength() {
+	CustomTreeNode firstNode = nodes.get(0);
+	CustomTreeNode secondNode = nodes.get(1);
+	int firstX = firstNode.getxCoordinate();
+	int firstY = firstNode.getyCoordinate();
+	int secondX = secondNode.getxCoordinate();
+	int secondY = secondNode.getyCoordinate();
+
+	// Do some pythagoras
+	double cathetusX = Math.abs(firstX - secondX);
+	double cathetusY = Math.abs(firstY - secondY);
+	double hypotenuse = Math.sqrt(Math.pow(cathetusX, 2)
+		+ Math.pow(cathetusY, 2));
+
+	return hypotenuse;
+    }
 
     public void setBundleNumber(String bundleLabel) {
 	this.bundleLabel = bundleLabel;

@@ -8,6 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class CustomTreeNode extends DefaultMutableTreeNode {
     private String bundle;
     private String name;
+    private int xCoordinate;
+    private int yCoordinate;
 
     public CustomTreeNode(Object o) {
 	super(o);
@@ -34,4 +36,21 @@ public class CustomTreeNode extends DefaultMutableTreeNode {
 	    return false;
 	}
     }
+
+    public int getxCoordinate() {
+	return xCoordinate;
+    }
+
+    public void setxCoordinate(int xCoordinate) {
+	this.xCoordinate = xCoordinate;
+    }
+
+    public int getyCoordinate() {
+	return yCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+	this.yCoordinate = yCoordinate;
+    }
+
 }

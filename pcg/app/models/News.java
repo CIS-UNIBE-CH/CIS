@@ -8,7 +8,7 @@ import java.util.Date;
 public class News {
     private Date timestamp = new Date();
     private SimpleDateFormat format = new SimpleDateFormat(
-    "dd/MM/yyyy kk:mm:ss z");
+	    "dd/MM/yyyy kk:mm:ss z");
     private String message;
     private String link;
     private String title;

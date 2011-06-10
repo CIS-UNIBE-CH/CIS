@@ -9,7 +9,7 @@ import tree.CustomTreeNode;
 
 /** Responsible for node positioning */
 public class VertexLocationTransformer implements
-Transformer<CustomTreeNode, Point2D> {
+	Transformer<CustomTreeNode, Point2D> {
     // x coordinate of Wirkung
     static int xRoot = 0;
     // y coordinaate of Wirkung
@@ -17,7 +17,7 @@ Transformer<CustomTreeNode, Point2D> {
     // start coordinate of Ursache
     static int xOther = 0;
     // Left offset and space between Ursachen
-    static int space = 70;
+    static int space = 80;
     // y coordinate for Ursachen.
     static int yOther = 30;
 
@@ -26,9 +26,13 @@ Transformer<CustomTreeNode, Point2D> {
 	CustomTreeNode curNode = vertex;
 
 	if (curNode.isRoot()) {
+	    curNode.setxCoordinate(xRoot);
+	    curNode.setyCoordinate(yRoot);
 	    return new Point2D.Double(xRoot, yRoot);
 	} else {
 	    xOther = xOther + space;
+	    curNode.setxCoordinate(xOther);
+	    curNode.setyCoordinate(yOther);
 	    return new Point2D.Double(xOther, yOther);
 	}
     }
