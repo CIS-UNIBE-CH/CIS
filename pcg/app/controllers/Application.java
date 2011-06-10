@@ -37,7 +37,8 @@ public class Application extends Controller {
 	    ArrayList<String> table, String generatedGraphPath,
 	    String generatedGraph, String calculatedGraphPath,
 	    String algorithmName, String time) {
-	render(step, showTable, generatedGraphPath, table, generatedGraph,
+
+	render(step, showTable, table, generatedGraphPath, generatedGraph,
 		calculatedGraphPath, algorithmName, time);
     }
 
@@ -45,20 +46,21 @@ public class Application extends Controller {
 	    String numberOfBundls) {
 
 	// Generate a Graph with n bundles and a total of k factors
-	int n = Integer.parseInt(numberOfBundls);
-	int k = Integer.parseInt(numberOfFactors);
+	int numBundles = Integer.parseInt(numberOfBundls);
+	int numFactors = Integer.parseInt(numberOfFactors);
 	renderer = new Renderer();
 	table = new ArrayList<String>();
 
-	if (k >= (2 * n)) {
-	    generator = new RandomGraphGenerator(n, k);
+	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
+	    generator = new RandomGraphGenerator(numBundles, numFactors);
 	    generatedGraph = generator.getTree().toString();
 	    table = generator.getTable();
 	    generatedGraphPath = generator.getGraphicSource();
 
-	    if (n <= 5) {
+	    if (numFactors <= 5) {
 		complexTesting(1, true, table, generatedGraphPath,
 			generatedGraph, "", "", "");
+
 	    } else {
 		complexTesting(1, false, null, generatedGraphPath,
 			generatedGraph, "", "", "");
