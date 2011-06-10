@@ -29,7 +29,7 @@ import edu.uci.ics.screencap.PNGDump;
  * VetexLookTransformer you can config shape, apsect ratio and size of vertex.
  * 2. Makes dumping of graph in a PNG
  */
-public class GraphConfigurator {
+public class Renderer {
     private static Date now;
     private static SimpleDateFormat dateFormat;
     private static String path;
@@ -40,7 +40,7 @@ public class GraphConfigurator {
     private VertexLocationTransformer locationTransformer;
     private TreeToGraph parser;
 
-    public GraphConfigurator() {
+    public Renderer() {
 	now = new Date();
 	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
 	this.path = "./pcg/public/images/graphs/";

@@ -4,9 +4,9 @@ package controllers;
 
 import java.util.ArrayList;
 
-import models.GraphConfigurator;
 import models.News;
 import models.RandomGraphGenerator;
+import models.Renderer;
 import parser.TreeToGraph;
 import play.mvc.Controller;
 import tree.CustomTree;
@@ -16,7 +16,7 @@ import algorithms.QuadroTest;
 public class Application extends Controller {
 
     private static CustomTree tree = null;
-    private static GraphConfigurator configurator;
+    private static Renderer renderer;
 
     public static void index() {
 
@@ -56,9 +56,9 @@ public class Application extends Controller {
 	    table = generator.getTable();
 	    complexTest = new BinaryTest(generator.getTableAsArray());
 	    tree = complexTest.createTree();
-	    configurator = new GraphConfigurator();
-	    configurator.config(new TreeToGraph(tree));
-	    generatedGraphPath = configurator.getImageSource();
+	    renderer = new Renderer();
+	    renderer.config(new TreeToGraph(tree));
+	    generatedGraphPath = renderer.getImageSource();
 	    complexTest(1, generatedGraphPath, table, generatedGraph,
 		    calculatedGraphPath);
 	} else {
@@ -104,10 +104,10 @@ public class Application extends Controller {
 	    params.flash();
 	    quadroTest(1, f1, f2);
 	}
-	GraphConfigurator configurator = new GraphConfigurator();
+	Renderer renderer = new Renderer();
 
-	configurator.config(new TreeToGraph(tree));
-	String graphPath = configurator.getImageSource();
+	renderer.config(new TreeToGraph(tree));
+	String graphPath = renderer.getImageSource();
 	showGraph(graphPath);
     }
 

@@ -34,7 +34,7 @@ public class RandomGraphGenerator {
 	nodeGenerator();
 	randomTreeGenerator();
 
-	GraphConfigurator configurator = new GraphConfigurator();
+	Renderer configurator = new Renderer();
 	configurator.config(new TreeToGraph(tree));
 	this.imageSource = configurator.getImageSource();
 	this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles);
