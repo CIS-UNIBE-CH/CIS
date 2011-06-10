@@ -75,16 +75,16 @@ div.navigation {
 content
 ************************/	
 div.content {
-	padding: 5px 10px;
+	padding: 10px 10px;
 	font-size: 10pt;
 	color: #000;
-	min-height: 600px;
+	min-height: 650px;
 }
 
 div.con {
 	float:left;
 	font-size: 10pt; 
-	width: 740px;
+	width: 940px;
 }
 	
 div.news{

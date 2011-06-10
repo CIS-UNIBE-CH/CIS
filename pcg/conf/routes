@@ -5,7 +5,7 @@
 # Home page
 GET		/index/{index}							Application.index
 GET    	/                                       Application.index
-GET		/complexTest/{step} 					Application.complexTest
+GET		/testing/{step} 						Application.complexTesting
 
 
 # Map static resources from the /app/public folder to the /public path
