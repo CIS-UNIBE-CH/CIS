@@ -52,7 +52,8 @@ public class Application extends Controller {
 	table = new ArrayList<String>();
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
-	    generator = new RandomGraphGenerator(numBundles, numFactors);
+	    int bundleSize = 3;
+	    generator = new RandomGraphGenerator(numBundles, numFactors, bundleSize);
 	    generatedGraph = generator.getTree().toString();
 	    table = generator.getTable();
 	    generatedGraphPath = generator.getGraphicSource();

@@ -20,14 +20,17 @@ import tree.CustomTreeNode;
 public class RandomGraphGenerator {
 	private int numberOfBundles;
 	private int numberOfFactors;
+	private int factorsInBundle;
 	private CustomTree tree;
 	private ArrayList<CustomTreeNode> nodes;
 	private String imageSource;
 	private TreeToTable parser;
 
-	public RandomGraphGenerator(int numberOfBundles, int numberOfFactors) {
+	public RandomGraphGenerator(int numberOfBundles, int numberOfFactors, int bundleSize) {
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
+		// X1,X2,etc factors will not be counted.
+		this.factorsInBundle = bundleSize;
 		this.nodes = new ArrayList<CustomTreeNode>();
 
 		// Init process
@@ -37,7 +40,7 @@ public class RandomGraphGenerator {
 		Renderer configurator = new Renderer();
 		configurator.config(new TreeToGraph(tree));
 		this.imageSource = configurator.getImageSource();
-		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles);
+		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles, bundleSize);
 	}
 
 	/** Generates the names of the nodes and the CustomTreeNodes. */
@@ -70,7 +73,6 @@ public class RandomGraphGenerator {
 		// Generate Bundles
 		for (int i = 0; i < numberOfBundles; i++) {
 			ArrayList<CustomTreeNode> curBundle = new ArrayList<CustomTreeNode>();
-			int factorsInBundle = 2; // X1 factors will not be counted.
 
 			for (int j = 0; j < factorsInBundle; j++) {
 				Random generator = new Random();

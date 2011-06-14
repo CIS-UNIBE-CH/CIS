@@ -13,19 +13,20 @@ public class TreeToTable {
 	private String table[][];
 	private static ArrayList<CustomTreeNode> nodes;
 	// TODO Bündelgrösse momentan noch fix. Auf variabel erweitern.
-	private int bundleSize = 2;
+	private int bundleSize;
 	private int numberOfFactors;
 	private int numberOfBundles;
 
-	public TreeToTable(CustomTree tree, int numberOfFactors, int numberOfBundles) {
+	public TreeToTable(CustomTree tree, int numberOfFactors, int numberOfBundles, int bundleSize) {
 		this.tree = tree;
 		this.numberOfBundles = numberOfBundles;
 		this.numberOfFactors = numberOfFactors;
+		this.bundleSize = bundleSize;
 		// Calculate right size of table
 		table = new String[(int) (Math.pow(2, numberOfFactors)) + 1][numberOfFactors + 1];
 
-		// System.out.println("Generated Tree to String: " + tree.toString());
-		tree.toString(); // getBundles() needs a toString() for initialization.
+		// getBundles() needs a toString() for initialization. DO NOT DELETE THIS LINE
+		tree.toString();
 
 		// Init the Process
 		addFactorNamesToTable();
