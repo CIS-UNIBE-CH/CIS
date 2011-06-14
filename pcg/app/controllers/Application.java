@@ -36,8 +36,8 @@ public class Application extends Controller {
 
     public static void complexTesting(int step, boolean showTable,
 	    ArrayList<String> table, String generatedGraphPath,
-	    String generatedGraph, String calculatedGraphPath, String calculatedGraph,
-	    String algorithmName, String time) {
+	    String generatedGraph, String calculatedGraphPath,
+	    String calculatedGraph, String algorithmName, String time) {
 
 	render(step, showTable, table, generatedGraphPath, generatedGraph,
 		calculatedGraphPath, calculatedGraph, time, algorithmName);
@@ -53,14 +53,16 @@ public class Application extends Controller {
 	table = new ArrayList<String>();
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
-		timer = new Timer();
-	    generator = new RandomGraphGenerator(numBundles, numFactors);
+	    timer = new Timer();
+	    int bundleSize = 2;
+	    generator = new RandomGraphGenerator(numBundles, numFactors,
+		    bundleSize);
 	    generatedGraph = generator.getTree().toString();
 	    table = generator.getTable();
 	    generatedGraphPath = generator.getGraphicSource();
-	    
+
 	    Long time = timer.timeElapsed();
-		String elapsedTime = time.toString() + " ms";
+	    String elapsedTime = time.toString() + " ms";
 
 	    if (numFactors <= 5) {
 		complexTesting(1, true, table, generatedGraphPath,
@@ -72,8 +74,7 @@ public class Application extends Controller {
 	    }
 
 	} else {
-	    flash
-		    .error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
+	    flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
 	    params.flash();
 	    complexTesting(0, false, null, generatedGraphPath, generatedGraph,
 		    "", "", "", "");
@@ -81,16 +82,17 @@ public class Application extends Controller {
     }
 
     public static void calcBinGraph() {
-		timer = new Timer();
-		BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
-		tree = binaryTest.createTree();
-		renderer.config(new TreeToGraph(tree));
-		calculatedGraph = tree.toString();
-		calculatedGraphPath = renderer.getImageSource();
-		Long time = timer.timeElapsed();
-		String elapsedTime = time.toString() + " ms";
-		complexTesting(2, false, null, generatedGraphPath, generatedGraph, calculatedGraphPath, calculatedGraph, "Binary Testing",
-			elapsedTime);
+	timer = new Timer();
+	BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
+	tree = binaryTest.createTree();
+	renderer.config(new TreeToGraph(tree));
+	calculatedGraph = tree.toString();
+	calculatedGraphPath = renderer.getImageSource();
+	Long time = timer.timeElapsed();
+	String elapsedTime = time.toString() + " ms";
+	complexTesting(2, false, null, generatedGraphPath, generatedGraph,
+		calculatedGraphPath, calculatedGraph, "Binary Testing",
+		elapsedTime);
     }
 
     public static void calccalcEQuadroGraph() {
@@ -136,8 +138,7 @@ public class Application extends Controller {
 	tree = quadroTest.creatGraph();
 
 	if (tree == null) {
-	    flash
-		    .error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+	    flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
 	    params.flash();
 	    quadroTest(1, f1, f2);
 	}
