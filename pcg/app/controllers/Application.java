@@ -38,38 +38,39 @@ public class Application extends Controller {
 	    ArrayList<String> table, String generatedGraphPath,
 	    String generatedGraph, String calculatedGraphPath,
 	    String calculatedGraph, String algorithmName, String time) {
-
+    	
 	render(step, showTable, table, generatedGraphPath, generatedGraph,
 		calculatedGraphPath, calculatedGraph, time, algorithmName);
     }
-
+    
     public static void generateGraph(String numberOfFactors,
-	    String numberOfBundls) {
+	    String numberOfBundles, String sizeOfBundles) {
 
 	// Generate a Graph with n bundles and a total of k factors
-	int numBundles = Integer.parseInt(numberOfBundls);
+	int numBundles = Integer.parseInt(numberOfBundles);
 	int numFactors = Integer.parseInt(numberOfFactors);
+	int sizeBundles = Integer.parseInt(sizeOfBundles);
 	renderer = new Renderer();
 	table = new ArrayList<String>();
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
 	    timer = new Timer();
-	    int bundleSize = 2;
-	    generator = new RandomGraphGenerator(numBundles, numFactors, bundleSize);
+	    generator = new RandomGraphGenerator(numBundles, numFactors, sizeBundles);
 	    generatedGraph = generator.getTree().toString();
-	    table = generator.getTable();
-	    generatedGraphPath = generator.getGraphicSource();
-
 	    Long time = timer.timeElapsed();
+	    table = generator.getTable();
+	    renderer.config(new TreeToGraph(generator.getTree()));
+	    generatedGraphPath = renderer.getImageSource();
+
 	    String elapsedTime = time.toString() + " ms";
 
 	    if (numFactors <= 5) {
 		complexTesting(1, true, table, generatedGraphPath,
-			generatedGraph, "", "", elapsedTime, "");
+				generatedGraph, " ", " ", " ", elapsedTime);
 
 	    } else {
 		complexTesting(1, false, null, generatedGraphPath,
-			generatedGraph, "", "", elapsedTime, "");
+			generatedGraph, "", "", "", elapsedTime);
 	    }
 
 	} else {
@@ -82,12 +83,13 @@ public class Application extends Controller {
 
     public static void calcBinGraph() {
 	timer = new Timer();
+	renderer = new Renderer();
 	BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
 	tree = binaryTest.createTree();
+	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));
 	calculatedGraph = tree.toString();
 	calculatedGraphPath = renderer.getImageSource();
-	Long time = timer.timeElapsed();
 	String elapsedTime = time.toString() + " ms";
 	complexTesting(2, false, null, generatedGraphPath, generatedGraph,
 		calculatedGraphPath, calculatedGraph, "Binary Testing",

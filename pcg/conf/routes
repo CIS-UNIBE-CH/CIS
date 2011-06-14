@@ -5,8 +5,9 @@
 # Home page
 GET		/index/{index}							Application.index
 GET    	/                                       Application.index
-GET		/testing/{step} 						Application.complexTesting
 
+
+GET		/testing/{step} 						Application.complexTesting
 
 # Map static resources from the /app/public folder to the /public path
 
@@ -16,3 +17,6 @@ GET     /public/                                staticDir:public
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+
+
+#/testing/{step}/{showTable}/{table}/{generatedGraphPath}/{generatedGraph}/{calculatedGraphPath}/{calculatedGraph}/{time}/{algorithmName}

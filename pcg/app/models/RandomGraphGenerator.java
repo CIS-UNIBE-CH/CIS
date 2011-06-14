@@ -36,10 +36,7 @@ public class RandomGraphGenerator {
 		// Init process
 		nodeGenerator();
 		randomTreeGenerator();
-
-		Renderer configurator = new Renderer();
-		configurator.config(new TreeToGraph(tree));
-		this.imageSource = configurator.getImageSource();
+		
 		this.parser = new TreeToTable(tree, numberOfFactors, numberOfBundles, bundleSize);
 	}
 
@@ -144,10 +141,6 @@ public class RandomGraphGenerator {
 			}
 		}
 		return false;
-	}
-
-	public String getGraphicSource() {
-		return this.imageSource;
 	}
 
 	@Override
