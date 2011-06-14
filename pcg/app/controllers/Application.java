@@ -21,6 +21,7 @@ public class Application extends Controller {
     private static String generatedGraphPath = "";
     private static String generatedGraph = "";
     private static String calculatedGraphPath = "";
+    private static String calculatedGraph = "";
     private static ArrayList<String> table;
     private static RandomGraphGenerator generator;
     private static Timer timer;
@@ -35,11 +36,11 @@ public class Application extends Controller {
 
     public static void complexTesting(int step, boolean showTable,
 	    ArrayList<String> table, String generatedGraphPath,
-	    String generatedGraph, String calculatedGraphPath,
+	    String generatedGraph, String calculatedGraphPath, String calculatedGraph,
 	    String algorithmName, String time) {
 
 	render(step, showTable, table, generatedGraphPath, generatedGraph,
-		calculatedGraphPath, algorithmName, time);
+		calculatedGraphPath, calculatedGraph, time, algorithmName);
     }
 
     public static void generateGraph(String numberOfFactors,
@@ -52,19 +53,22 @@ public class Application extends Controller {
 	table = new ArrayList<String>();
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
-	    int bundleSize = 2;
-	    generator = new RandomGraphGenerator(numBundles, numFactors, bundleSize);
+		timer = new Timer();
+	    generator = new RandomGraphGenerator(numBundles, numFactors);
 	    generatedGraph = generator.getTree().toString();
 	    table = generator.getTable();
 	    generatedGraphPath = generator.getGraphicSource();
+	    
+	    Long time = timer.timeElapsed();
+		String elapsedTime = time.toString() + " ms";
 
 	    if (numFactors <= 5) {
 		complexTesting(1, true, table, generatedGraphPath,
-			generatedGraph, "", "", "");
+			generatedGraph, "", "", elapsedTime, "");
 
 	    } else {
 		complexTesting(1, false, null, generatedGraphPath,
-			generatedGraph, "", "", "");
+			generatedGraph, "", "", elapsedTime, "");
 	    }
 
 	} else {
@@ -72,20 +76,21 @@ public class Application extends Controller {
 		    .error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
 	    params.flash();
 	    complexTesting(0, false, null, generatedGraphPath, generatedGraph,
-		    "", "", "");
+		    "", "", "", "");
 	}
     }
 
     public static void calcBinGraph() {
-	timer = new Timer();
-	BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
-	tree = binaryTest.createTree();
-	renderer.config(new TreeToGraph(tree));
-	calculatedGraphPath = renderer.getImageSource();
-	Long time = timer.timeElapsed();
-	String elapsedTime = time.toString() + " ms";
-	complexTesting(2, false, null, "", "", calculatedGraphPath,
-		elapsedTime, "Binary Testing");
+		timer = new Timer();
+		BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
+		tree = binaryTest.createTree();
+		renderer.config(new TreeToGraph(tree));
+		calculatedGraph = tree.toString();
+		calculatedGraphPath = renderer.getImageSource();
+		Long time = timer.timeElapsed();
+		String elapsedTime = time.toString() + " ms";
+		complexTesting(2, false, null, generatedGraphPath, generatedGraph, calculatedGraphPath, calculatedGraph, "Binary Testing",
+			elapsedTime);
     }
 
     public static void calccalcEQuadroGraph() {
