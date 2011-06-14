@@ -55,8 +55,7 @@ public class Application extends Controller {
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
 	    timer = new Timer();
 	    int bundleSize = 2;
-	    generator = new RandomGraphGenerator(numBundles, numFactors,
-		    bundleSize);
+	    generator = new RandomGraphGenerator(numBundles, numFactors, bundleSize);
 	    generatedGraph = generator.getTree().toString();
 	    table = generator.getTable();
 	    generatedGraphPath = generator.getGraphicSource();
