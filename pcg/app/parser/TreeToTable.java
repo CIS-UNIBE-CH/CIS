@@ -25,7 +25,7 @@ public class TreeToTable {
 		// Calculate right size of table
 		table = new String[(int) (Math.pow(2, numberOfFactors)) + 1][numberOfFactors + 1];
 
-		// DO NOT DELETE THIS LINE getBundles() Method needs a toString() for initialization.
+		// DO NOT DELETE NEXT LINE getBundles() Method needs a toString() for initialization.
 		tree.toString();
 
 		// Init the Process
