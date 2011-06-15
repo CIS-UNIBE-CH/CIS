@@ -5,7 +5,6 @@ package models;
 import java.util.ArrayList;
 import java.util.Random;
 
-import parser.TreeToGraph;
 import parser.TreeToTable;
 import tree.CustomTree;
 import tree.CustomTreeNode;
@@ -14,7 +13,7 @@ import tree.CustomTreeNode;
  * Generates a random graph out of a given number of factors and bundles.
  * 
  * TODO: Die möglichkeit, dass der gleiche Faktor in mehreren Bündeln vorkommt
- * ist noch nicht abgedeckt. (Siehe Kommentar Zeile: 86)
+ * ist noch nicht abgedeckt. (Siehe Kommentar Zeile: 90)
  * 
  */
 public class RandomGraphGenerator {
