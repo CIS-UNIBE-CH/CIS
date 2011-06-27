@@ -22,7 +22,6 @@ public class RandomGraphGenerator {
 	private int factorsInBundle;
 	private CustomTree tree;
 	private ArrayList<CustomTreeNode> nodes;
-	private String imageSource;
 	private TreeToTable parser;
 
 	public RandomGraphGenerator(int numberOfBundles, int numberOfFactors, int bundleSize) {

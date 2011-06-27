@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.collections15.functors.ConstantTransformer;
-
 import parser.TreeToGraph;
 import tree.CustomTreeNode;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
@@ -109,9 +107,7 @@ public class Renderer {
 		visServer.getRenderContext().setVertexShapeTransformer(
 				vertexLookTransformer);
 		// Set vertex color
-		Color vertexColor = new Color(255, 153, 0);
-		visServer.getRenderContext().setVertexFillPaintTransformer(
-				new ConstantTransformer(vertexColor));
+		visServer.getRenderContext().setVertexFillPaintTransformer(new VertexColorTransformer());
 		// Set background color
 		Color backgroundColor = new Color(255, 255, 255);
 		visServer.setBackground(backgroundColor);
