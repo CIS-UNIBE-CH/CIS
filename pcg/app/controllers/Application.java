@@ -12,6 +12,7 @@ import parser.TreeToGraph;
 import play.mvc.Controller;
 import tree.CustomTree;
 import algorithms.BinaryTest;
+import algorithms.BooleanTest;
 import algorithms.QuadroTest;
 
 public class Application extends Controller {
@@ -100,6 +101,8 @@ public class Application extends Controller {
     }
 
     public static void calcBooleanGraph() {
+    	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray());
+    	
     }
 
     public static void calcEQuadroGraph() {
