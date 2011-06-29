@@ -17,7 +17,8 @@ public class BooleanTest {
 	private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
 	private ArrayList<String> msuf = new ArrayList<String>();
 	private ArrayList<ArrayList<String>> sufTable;
-	private ArrayList<ArrayList<String>> temp;
+	private ArrayList<ArrayList<String>> tempTable;
+	private ArrayList<ArrayList<String>> tempSufTable;
 	
 	public BooleanTest(String[][] table){
 		this.table = ArrayToArrayList(table);
@@ -47,47 +48,46 @@ public class BooleanTest {
 	
 	/** Step 3 **/
 	public void identifyMSUF() {
-		ArrayList<String> tester = new ArrayList<String>();
-		temp = clone2DArrayList(table);
-		Boolean found;
-		for(int col = 0; col < table.get(0).size(); col++){
-			for(int zeroPos = col; zeroPos < temp.get(0).size(); zeroPos++) {
-				tester = calcTester(temp.get(0).size(), zeroPos);
-				System.out.println(tester);
-				System.out.println(tableToString(temp));
-				found = true;
-				for(int min = 0; min < temp.get(0).size() && found; min++){
-					System.out.println("in");
-					for(int row = 1; row < temp.size(); row++){
-						if(tester.equals(temp.get(row))){
-							removeCol(temp, zeroPos);
-							System.out.println(tableToString(temp));
-							tester.remove(zeroPos);
-							System.out.println(tester);
-							found = true;
-							break;
-						}
-						found = false;
+		tempTable = clone2DArrayList(table);
+		sufTable = effectsToZero(sufTable);
+		System.out.println("SufTable:\n" + tableToString(sufTable));
+		/** sufTable bottom up **/
+		for(int row = sufTable.size()-1; row > 0; row --){
+					/** go throw cols of sufTable **/
+					for(int col = 0; col < sufTable.get(row).size(); col++){
+							if(compareTables(sufTable.get(row), tempTable)){
+								removeCol(sufTable, col);
+								removeCol(tempTable, col);
+								System.out.println(tableToString(sufTable));
+						}		
 					}
-					
 				}
-			}
-			temp = clone2DArrayList(table);
-		}
+		/** add factor to msuf **/
+		for(int i = 0; i < sufTable.get(0).size()-1;i++)
+			msuf.add(sufTable.get(0).get(i));
 		System.out.println(msuf);
 	}
 	
 
-	private ArrayList<String> calcTester(int size, int zeroPos) {
-		ArrayList<String> tester = new ArrayList<String>();
-		for(int i = 0; i < size; i++) {
-			if(i == zeroPos)
-				tester.add("0");
-			else
-				tester.add("1");
-		}
-		return tester;
+
+	private ArrayList<ArrayList<String>> effectsToZero(
+			ArrayList<ArrayList<String>> sufTable2) {
+			for(int i = 0; i < sufTable2.size(); i++){
+				sufTable2.get(i).set(sufTable2.get(i).size()-1,"0");
+			}
+		return sufTable2;
 	}
+
+	private boolean compareTables(ArrayList<String> line,
+			ArrayList<ArrayList<String>> tempTable2) {
+		for(int i = 0; i < tempTable2.size(); i++){
+			if(tempTable2.get(i).equals(line)){
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	private ArrayList<ArrayList<String>> clone2DArrayList(ArrayList<ArrayList<String>> toClone){
 		ArrayList<ArrayList<String>> copy = new ArrayList<ArrayList<String>>();
