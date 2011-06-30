@@ -3,7 +3,6 @@ package algorithms;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class BooleanTest {
 
@@ -97,7 +96,7 @@ public class BooleanTest {
 	eigthRow.add("1");
 	eigthRow.add("1");
 	eigthRow.add("0");
-	sampleTable.add(eigthRow);
+	// sampleTable.add(eigthRow);
 
 	ArrayList<String> ninethRow = new ArrayList<String>();
 	ninethRow.add("0");
@@ -105,7 +104,7 @@ public class BooleanTest {
 	ninethRow.add("0");
 	ninethRow.add("0");
 	ninethRow.add("0");
-	sampleTable.add(ninethRow);
+	// sampleTable.add(ninethRow);
 
 	/*
 	 * for(int i = 0; i< sampleTable.size(); i++){
@@ -126,89 +125,107 @@ public class BooleanTest {
 
     /** Step 3 **/
     public void identifyMSUF() {
+	System.out.println("***************££££££££££££££££££££££££");
 	System.out.println("SufTable:\n" + tableToString(sufTable));
 	ArrayList<ArrayList<String>> permutationsOfActualRow = new ArrayList<ArrayList<String>>();
 
 	// Iterate over the whole SUF table
 	for (int l = 1; l < sampleTable.size(); l++) {
 	    ArrayList<String> actualRow = sampleTable.get(l);
+	    dPermutationSorter(getDLines(actualRow));
 	    // Holds the indexes of the zeros in one row. Will be needed to find
 	    // the permutations of that row.
-	    ArrayList<Integer> indexesOfZeros = new ArrayList<Integer>();
+	    /*ArrayList<Integer> indexesOfZeros = new ArrayList<Integer>();
 	    ArrayList<String> msufRow = new ArrayList<String>();
 
 	    // First Line has only 1, is a special case, because
 	    // getCoincidenceLines() can't handle that line.
 	    // TODO Implement erkennung von einer Line.
+	    System.out.println("ActualRow " + actualRow);
 	    if (l == 1) {
 		for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
 		    permutationsOfActualRow.add(generatedFullCoincidenceTable
 			    .get(i));
 		}
+		System.out.println("Permutations \n"
+			+ tableToString(permutationsOfActualRow));
 	    } else {
 		for (int j = 0; j < actualRow.size(); j++) {
 		    if (actualRow.get(j).equals("0")) {
 			indexesOfZeros.add(j);
 		    }
 		}
-		permutationsOfActualRow = getCoincidenceLines(indexesOfZeros);
+		permutationsOfActualRow = getDLines(indexesOfZeros);
+		System.out.println("Permutations \n"
+			+ tableToString(permutationsOfActualRow));
 	    }
 
 	    // Compare permutations with table and find min factors row.
 	    for (int k = permutationsOfActualRow.size() - 1; k >= 0; k--) {
 		ArrayList<String> curLine = permutationsOfActualRow.get(k);
+		
 		for (int i = 1; i < sampleTable.size() - 1; i++) {
 		    ArrayList<String> curRow = sampleTable.get(i);
-		    if (curLine.equals(curRow)) {
-			msufRow = curRow;
-		    }
+		    
 		}
 	    }
+	
 	    // Add the found min factors row do finalList
-	    msuf.add(msufRow);
+	   // msuf.add(msufRow);
 
 	    // Clear some arraylists
 	    indexesOfZeros.clear();
-	    permutationsOfActualRow.clear();
+	    permutationsOfActualRow.clear();*/
 	}
-	// Filter out duplicated min factors rows.
-	HashSet swap = new HashSet(msuf);
-	msuf.clear();
-	msuf.addAll(swap);
-	System.out.println("MSUF's: " + msuf);
+	/*// Filter out duplicated min factors rows.
+	//HashSet swap = new HashSet(msuf);
+	//msuf.clear();
+	//msuf.addAll(swap);
+	System.out.println("MSUF's: " + msuf);*/
     }
 
     /**
      * Gets all permutations of specific row of sufTable, based on a generated
      * full coincidence table
      */
-    public ArrayList<ArrayList<String>> getCoincidenceLines(
-	    ArrayList<Integer> indexesOfZeros) {
-	ArrayList<ArrayList<String>> permutations = new ArrayList<ArrayList<String>>();
-
-	// i = 1 because first line is not relevant because in first line are
-	// only zeros.
-	for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
-	    int zeroCounter = 0;
-	    ArrayList<String> curRow = generatedFullCoincidenceTable.get(i);
-
-	    for (int k = 0; k < indexesOfZeros.size(); k++) {
-		if (curRow.get(indexesOfZeros.get(k)).equals("0")) {
-		    zeroCounter++;
-		}
-	    }
-	    if (zeroCounter == indexesOfZeros.size()) {
-		// Set effect manually to 1, needed for MSUF condition
-		curRow.set(curRow.size() - 1, "1");
-		permutations.add(curRow);
-	    }
+    public ArrayList<ArrayList<String>> getDLines(
+	    ArrayList<String> suffTableLine) {
+	
+	generateCoincidenceTable();
+	ArrayList<ArrayList<String>> coincidenceTableCopy = (ArrayList<ArrayList<String>>) generatedFullCoincidenceTable.clone();
+	for (int l = 0; l < coincidenceTableCopy.size(); l++) {
+	   ArrayList<String> curRow = coincidenceTableCopy.get(l);
+	   
+	   //Set 1 to D
+	   for(int i = 0; i< curRow.size(); i++){
+	       if(curRow.get(i).equals("1")){
+		   curRow.set(i, "D");
+	       }
+	   }
+	   
+	  for(int i = 0; i< curRow.size(); i++){
+	      if(curRow.get(i).equals("0")){
+		  curRow.set(i, suffTableLine.get(i));
+	      }
+	   }
+	   //Dpermutations = (ArrayList<ArrayList<String>>) coincidenceTableCopy.clone();
 	}
-	return permutations;
+	System.out.println("ActRow: \n" + suffTableLine);
+	System.out.println("DPermutations: \n" + tableToString(coincidenceTableCopy));
+	return coincidenceTableCopy;
+    }
+    
+    public ArrayList<ArrayList<String>> dPermutationSorter(ArrayList<ArrayList<String>> list){
+	
+	
+	return list;
+	
     }
 
     /** Generates a full coincidence table with binary-counting method */
     private void generateCoincidenceTable() {
 	// Generate Binary Numbers
+	 generatedFullCoincidenceTable.clear();
 	for (Integer i = 0; i < coincidenceTableSize; i++) {
 	    ArrayList<String> number = new ArrayList<String>();
 	    String binaryNumber = Integer.toBinaryString(i);
@@ -221,7 +238,7 @@ public class BooleanTest {
 		}
 	    }
 	    // Set effect for every row to 1
-	    binaryNumber = binaryNumber + "1";
+	    //binaryNumber = binaryNumber + "1";
 
 	    // Add to 2D ArrayList
 	    for (int k = 0; k < binaryNumber.length(); k++) {
