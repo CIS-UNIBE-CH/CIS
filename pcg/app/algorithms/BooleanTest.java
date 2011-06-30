@@ -2,34 +2,28 @@ package algorithms;
 
 import java.util.ArrayList;
 
-import tree.CustomTree;
-import tree.CustomTreeNode;
-
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 public class BooleanTest {
 
-    private CustomTree tree;
     private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> generatedFullCoincidenceTable = new ArrayList<ArrayList<String>>();
     private ArrayList<String> msuf = new ArrayList<String>();
     private ArrayList<ArrayList<String>> sufTable;
     private ArrayList<ArrayList<String>> tempTable;
     private ArrayList<ArrayList<String>> tempSufTable;
+    private int numberOfFactors = 0;
+    private int countTo = 0;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
+	this.countTo = (int) Math.pow(2, (this.table.get(0).size() - 1));
+	this.numberOfFactors = (this.table.get(0).size() - 1);
 
+	generateCoincidenceTable();
 	identifySUF();
 	identifyMSUF();
 
-    }
-
-    public CustomTree creatTree() {
-	tree = new CustomTree();
-	CustomTreeNode root = new CustomTreeNode("W");
-	tree.setRoot(root);
-
-	return tree;
     }
 
     /** Step 2 **/
@@ -39,106 +33,109 @@ public class BooleanTest {
 	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0"))
 		sufTable.remove(r);
 	}
-	System.out.println(tableToString(sufTable));
     }
 
     /** Step 3 **/
     public void identifyMSUF() {
-	// tempTable = clone2DArrayList(table);
-	// sufTable = effectsToZero(sufTable);
-	tempTable = clone2DArrayList(table);
+	System.out.println("**************");
 	System.out.println("SufTable:\n" + tableToString(sufTable));
-	int size = sufTable.get(0).size();
+	ArrayList<ArrayList<String>> goodLines = null;
 
-	ArrayList<Integer> zeroPos = new ArrayList<Integer>();
-	// test.add(1);
-	// test.add(3);
+	for (int x = 1; x < sufTable.size(); x++) {
+	    ArrayList<String> testRow = (ArrayList<String>) sufTable.get(x).clone();
 
-	// getCoincidenceLines(test);
-	// for (int i = size; i >= 0; i--) {
-	ArrayList<String> curRow = sufTable.get(sufTable.size() - 2);
-	System.out.println("CurRow" + curRow);
-	for (int j = 0; j < curRow.size(); j++) {
-	    if (curRow.get(j).equals("0")) {
-		zeroPos.add(j);
-	    }
-	}
-	ArrayList<ArrayList<String>> goodLines = getCoincidenceLines(zeroPos);
-	zeroPos.clear();
-	// System.out.println("Good" + goodLines);
-	ArrayList<ArrayList<String>> finalList = new ArrayList<ArrayList<String>>();
-
-	for (int k = goodLines.size() - 1; k >= 0; k--) {
-	    // System.out.println(goodLines.get(k));
-	    ArrayList<String> curLine = (ArrayList<String>) goodLines.get(k)
-		    .clone();
-	    for (int i = 1; i < table.size(); i++) {
-		ArrayList<String> curRow1 = (ArrayList<String>) table.get(i)
-			.clone();
-		// String curLineS = curLine.toString();
-		boolean equal = true;
-		for (int g = 0; g < curLine.size(); g++) {
-		    if (g == curLine.size()-1) {
-			if (!curLine.get(g).equals(curRow1)) {
-			    equal = false;
-			    break;
-			}
-		    } else {
-			if (curLine.get(g).equals("1")) {
-			    System.out.println("Line " + curLine);
-			    // System.out.println("curLine " + curLine.get(g));
-			    System.out.println("Row1 " + curRow1);
-			    // System.out.println("curRow1 " + curRow1.get(g));
-			    if (!curLine.get(g).equals(curRow1.get(g))) {
-				equal = false;
-				break;
-			    }
-			}
+	    ArrayList<Integer> zeroPos = new ArrayList<Integer>();
+	    // System.out.println("Selected Row" + testRow);
+	    if (x == sufTable.size() - 1) {
+		for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
+		    goodLines.add((ArrayList<String>) generatedFullCoincidenceTable.get(i).clone());
+		}
+	    } else {
+		for (int j = 0; j < testRow.size(); j++) {
+		    if (testRow.get(j).equals("0")) {
+			zeroPos.add(j);
+			System.out.println("ZeroPos " + j);
 		    }
-		    System.out.println("Boolean " + equal);
-		    equal = true;
 		}
-		if (equal) {
-		    finalList.add(table.get(i));
-		}
-
-		/*
-		 * if(table.get(i).equals(goodLines.get(k))){ if(i == 1){
-		 * //System.out.println("i" + i +"  " + table.get(i));
-		 * finalList.add(table.get(i)); break; } else{
-		 * 
-		 * //System.out.println("ielse" + i +"  " + table.get(i-1));
-		 * finalList.add(table.get(i)); break; }
-		 * 
-		 * }
-		 */
-		// System.out.println(table.get(i));
+		goodLines = getCoincidenceLines(zeroPos);
 	    }
+	    // System.out.println("All Good Lines" + goodLines);
+	    ArrayList<ArrayList<String>> finalList = new ArrayList<ArrayList<String>>();
+	    ArrayList<String> candidateRow = null;
+
+	    for (int k = goodLines.size() - 1; k >= 0; k--) {
+		ArrayList<String> curLine = (ArrayList<String>) goodLines
+			.get(k).clone();
+		// System.out.println("Cur Good Line " + curLine);
+		for (int i = 1; i < table.size(); i++) {
+		    ArrayList<String> curRow = (ArrayList<String>) table.get(i)
+			    .clone();
+		    if (curLine.equals(curRow)) {
+			candidateRow = (ArrayList<String>) curRow.clone();
+			System.out.println("candidate " + candidateRow);
+		    }
+		}
+	    }
+	    finalList.add(candidateRow);
+	    System.out.println("Final Rows " + finalList);
+	    zeroPos.clear();
+	    goodLines.clear();
 	}
-	System.out.println("Final" + finalList);
-	// }
     }
 
     public ArrayList<ArrayList<String>> getCoincidenceLines(
 	    ArrayList<Integer> zeroPos) {
 	ArrayList<ArrayList<String>> lines = new ArrayList<ArrayList<String>>();
-	tempTable = clone2DArrayList(table);
-	for (int i = 1; i < tempTable.size(); i++) {
-	    ArrayList<String> curRow = tempTable.get(i);
+
+	// i = 1 first line is the zero row which is not relevant.
+	for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
+	    ArrayList<String> curRow = (ArrayList<String>) generatedFullCoincidenceTable
+		    .get(i).clone();
 	    int counter = 0;
 	    for (int k = 0; k < zeroPos.size(); k++) {
+		System.out.println("Current Row " + curRow +curRow.toString().length());
+		System.out.println(zeroPos.size());
 		if (curRow.get(zeroPos.get(k)).equals("0")) {
 		    counter++;
 		}
 	    }
 	    if (counter == zeroPos.size()) {
-		System.out.println(curRow);
+		// System.out.println(curRow);
 		curRow.set(curRow.size() - 1, "1");
 		lines.add(curRow);
 	    }
 	}
 	return lines;
+    }
 
+    /** Generates the coincidence table with binary-counting method */
+    private void generateCoincidenceTable() {
+
+	// Generate Binary Numbers
+	for (Integer i = 0; i < countTo; i++) {
+	    ArrayList<String> number = new ArrayList<String>();
+	    String binaryNumber = Integer.toBinaryString(i);
+	    int binaryNumberLength = binaryNumber.length();
+
+	    // Add Pre-Zeros, so all binary numbers have the same length
+	    if (binaryNumberLength != (numberOfFactors)) {
+		while (binaryNumber.length() < numberOfFactors) {
+		    binaryNumber = "0" + binaryNumber;
+		}
+	    }
+	    binaryNumber = binaryNumber + "1";
+	    for(int k = 0; k< binaryNumber.length(); k++){
+		char oneBit = binaryNumber.charAt(k);
+		number.add(Character.toString(oneBit));
+	    }
+	    number.add(binaryNumber);
+	    generatedFullCoincidenceTable.add(number);
+	}
+
+	for (int j = 0; j < generatedFullCoincidenceTable.size(); j++) {
+	    System.out.println("Generated "
+		    + generatedFullCoincidenceTable.get(j));
+	}
     }
 
     private ArrayList<ArrayList<String>> effectsToZero(
