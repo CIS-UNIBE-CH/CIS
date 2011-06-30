@@ -9,18 +9,21 @@ public class BooleanTest {
 
     private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> generatedFullCoincidenceTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msuf = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
     // How many factors are in given coincidence table
     private int numberOfFactors = 0;
     // How many rows must be generated in generateCoincidenceTable()
-    private int countTo = 0;
+    private int coincidenceTableSize = 0;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
-	this.countTo = (int) Math.pow(2, (this.table.get(0).size() - 1));
+	this.coincidenceTableSize = (int) Math.pow(2,
+		(this.table.get(0).size() - 1));
 	this.numberOfFactors = (this.table.get(0).size() - 1);
 
+	sampleTable();
 	// DO NOT DELETE NEXT LINE
 	generateCoincidenceTable();
 
@@ -28,31 +31,116 @@ public class BooleanTest {
 	identifyMSUF();
     }
 
+    public void sampleTable() {
+	coincidenceTableSize = (int) Math.pow(2, 4);
+	numberOfFactors = 4;
+	
+	ArrayList<String> firstRow = new ArrayList<String>();
+	firstRow.add("A");
+	firstRow.add("B");
+	firstRow.add("D");
+	firstRow.add("E");
+	firstRow.add("C");
+	sampleTable.add(firstRow);
+
+	ArrayList<String> secondRow = new ArrayList<String>();
+	secondRow.add("1");
+	secondRow.add("1");
+	secondRow.add("1");
+	secondRow.add("1");
+	secondRow.add("1");
+	sampleTable.add(secondRow);
+
+	ArrayList<String> thirdRow = new ArrayList<String>();
+	thirdRow.add("1");
+	thirdRow.add("1");
+	thirdRow.add("0");
+	thirdRow.add("1");
+	thirdRow.add("1");
+	sampleTable.add(thirdRow);
+
+	ArrayList<String> fourthRow = new ArrayList<String>();
+	fourthRow.add("1");
+	fourthRow.add("0");
+	fourthRow.add("1");
+	fourthRow.add("1");
+	fourthRow.add("1");
+	sampleTable.add(fourthRow);
+
+	ArrayList<String> fifthRow = new ArrayList<String>();
+	fifthRow.add("0");
+	fifthRow.add("1");
+	fifthRow.add("1");
+	fifthRow.add("1");
+	fifthRow.add("1");
+	sampleTable.add(fifthRow);
+
+	ArrayList<String> sixthRow = new ArrayList<String>();
+	sixthRow.add("0");
+	sixthRow.add("1");
+	sixthRow.add("0");
+	sixthRow.add("1");
+	sixthRow.add("1");
+	sampleTable.add(sixthRow);
+
+	ArrayList<String> seventhRow = new ArrayList<String>();
+	seventhRow.add("1");
+	seventhRow.add("0");
+	seventhRow.add("0");
+	seventhRow.add("0");
+	seventhRow.add("1");
+	sampleTable.add(seventhRow);
+
+	ArrayList<String> eigthRow = new ArrayList<String>();
+	eigthRow.add("0");
+	eigthRow.add("0");
+	eigthRow.add("1");
+	eigthRow.add("1");
+	eigthRow.add("0");
+	sampleTable.add(eigthRow);
+
+	ArrayList<String> ninethRow = new ArrayList<String>();
+	ninethRow.add("0");
+	ninethRow.add("0");
+	ninethRow.add("0");
+	ninethRow.add("0");
+	ninethRow.add("0");
+	sampleTable.add(ninethRow);
+
+	/*
+	 * for(int i = 0; i< sampleTable.size(); i++){
+	 * System.out.println("SampleTableRow\n " + sampleTable.get(i)); }
+	 */
+    }
+
     /** Step 2 **/
     public void identifySUF() {
-	sufTable = clone2DArrayList(table);
-	for (int r = 1; r < sufTable.size(); r++) {
-	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0"))
+	//sufTable = clone2DArrayList(table);
+	sufTable = (ArrayList<ArrayList<String>>) sampleTable.clone();
+	for (int r = sufTable.size()-1; r >= 0; r--) {
+	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0")){
+		System.out.println("Remove" + r);
 		sufTable.remove(r);
+	    }
 	}
     }
 
     /** Step 3 **/
     public void identifyMSUF() {
 	System.out.println("SufTable:\n" + tableToString(sufTable));
-	ArrayList<ArrayList<String>> permutationsOfActualRow = null;
+	ArrayList<ArrayList<String>> permutationsOfActualRow = new ArrayList<ArrayList<String>>();
 
 	// Iterate over the whole SUF table
-	for (int l = 1; l < sufTable.size(); l++) {
-	    ArrayList<String> actualRow = sufTable.get(l);
+	for (int l = 1; l < sampleTable.size()-1; l++) {
+	    ArrayList<String> actualRow = sampleTable.get(l);
 	    // Holds the indexes of the zeros in one row. Will be needed to find
 	    // the permutations of that row.
 	    ArrayList<Integer> indexesOfZeros = new ArrayList<Integer>();
-	    ArrayList<String> msufRow = null;
+	    ArrayList<String> msufRow = new ArrayList<String>();
 
 	    // First Line has only 1, is a special case, because
 	    // getCoincidenceLines() can't handle that line.
-	    if (l == sufTable.size() - 1) {
+	    if (l == 1) {
 		for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
 		    permutationsOfActualRow.add(generatedFullCoincidenceTable
 			    .get(i));
@@ -69,8 +157,8 @@ public class BooleanTest {
 	    // Compare permutations with table and find min factors row.
 	    for (int k = permutationsOfActualRow.size() - 1; k >= 0; k--) {
 		ArrayList<String> curLine = permutationsOfActualRow.get(k);
-		for (int i = 1; i < table.size(); i++) {
-		    ArrayList<String> curRow = table.get(i);
+		for (int i = 1; i < sampleTable.size()-1; i++) {
+		    ArrayList<String> curRow = sampleTable.get(i);
 		    if (curLine.equals(curRow)) {
 			msufRow = curRow;
 		    }
@@ -121,7 +209,7 @@ public class BooleanTest {
     /** Generates a full coincidence table with binary-counting method */
     private void generateCoincidenceTable() {
 	// Generate Binary Numbers
-	for (Integer i = 0; i < countTo; i++) {
+	for (Integer i = 0; i < coincidenceTableSize; i++) {
 	    ArrayList<String> number = new ArrayList<String>();
 	    String binaryNumber = Integer.toBinaryString(i);
 	    int binaryNumberLength = binaryNumber.length();
@@ -140,6 +228,7 @@ public class BooleanTest {
 		char oneBit = binaryNumber.charAt(k);
 		number.add(Character.toString(oneBit));
 	    }
+	   // System.out.println("Coincidence " + number);
 	    generatedFullCoincidenceTable.add(number);
 	}
     }
