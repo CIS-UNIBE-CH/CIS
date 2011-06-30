@@ -1,7 +1,5 @@
 package algorithms;
 
-import helper.CombinationGenerator;
-
 import java.util.ArrayList;
 
 import tree.CustomTree;
@@ -23,7 +21,6 @@ public class BooleanTest {
 
 	identifySUF();
 	identifyMSUF();
-	permutation();
 
     }
 
@@ -47,37 +44,100 @@ public class BooleanTest {
 
     /** Step 3 **/
     public void identifyMSUF() {
+	// tempTable = clone2DArrayList(table);
+	// sufTable = effectsToZero(sufTable);
 	tempTable = clone2DArrayList(table);
-	sufTable = effectsToZero(sufTable);
 	System.out.println("SufTable:\n" + tableToString(sufTable));
-	/** sufTable bottom up **/
-	for (int row = sufTable.size() - 1; row > 0; row--) {
-	    /** go throw cols of sufTable **/
-	    for (int col = 0; col < sufTable.get(row).size(); col++) {
-		if (compareTables(sufTable.get(row), tempTable)) {
-		    removeCol(sufTable, col);
-		    removeCol(tempTable, col);
-		    System.out.println(tableToString(sufTable));
-		}
+	int size = sufTable.get(0).size();
+
+	ArrayList<Integer> zeroPos = new ArrayList<Integer>();
+	// test.add(1);
+	// test.add(3);
+
+	// getCoincidenceLines(test);
+	// for (int i = size; i >= 0; i--) {
+	ArrayList<String> curRow = sufTable.get(sufTable.size() - 2);
+	System.out.println("CurRow" + curRow);
+	for (int j = 0; j < curRow.size(); j++) {
+	    if (curRow.get(j).equals("0")) {
+		zeroPos.add(j);
 	    }
 	}
-	/** add factor to msuf **/
-	for (int i = 0; i < sufTable.get(0).size() - 1; i++)
-	    msuf.add(sufTable.get(0).get(i));
-	System.out.println(msuf);
+	ArrayList<ArrayList<String>> goodLines = getCoincidenceLines(zeroPos);
+	zeroPos.clear();
+	// System.out.println("Good" + goodLines);
+	ArrayList<ArrayList<String>> finalList = new ArrayList<ArrayList<String>>();
+
+	for (int k = goodLines.size() - 1; k >= 0; k--) {
+	    // System.out.println(goodLines.get(k));
+	    ArrayList<String> curLine = (ArrayList<String>) goodLines.get(k)
+		    .clone();
+	    for (int i = 1; i < table.size(); i++) {
+		ArrayList<String> curRow1 = (ArrayList<String>) table.get(i)
+			.clone();
+		// String curLineS = curLine.toString();
+		boolean equal = true;
+		for (int g = 0; g < curLine.size(); g++) {
+		    if (g == curLine.size()-1) {
+			if (!curLine.get(g).equals(curRow1)) {
+			    equal = false;
+			    break;
+			}
+		    } else {
+			if (curLine.get(g).equals("1")) {
+			    System.out.println("Line " + curLine);
+			    // System.out.println("curLine " + curLine.get(g));
+			    System.out.println("Row1 " + curRow1);
+			    // System.out.println("curRow1 " + curRow1.get(g));
+			    if (!curLine.get(g).equals(curRow1.get(g))) {
+				equal = false;
+				break;
+			    }
+			}
+		    }
+		    System.out.println("Boolean " + equal);
+		    equal = true;
+		}
+		if (equal) {
+		    finalList.add(table.get(i));
+		}
+
+		/*
+		 * if(table.get(i).equals(goodLines.get(k))){ if(i == 1){
+		 * //System.out.println("i" + i +"  " + table.get(i));
+		 * finalList.add(table.get(i)); break; } else{
+		 * 
+		 * //System.out.println("ielse" + i +"  " + table.get(i-1));
+		 * finalList.add(table.get(i)); break; }
+		 * 
+		 * }
+		 */
+		// System.out.println(table.get(i));
+	    }
+	}
+	System.out.println("Final" + finalList);
+	// }
     }
 
-    private void permutation() {
-	ArrayList<String> test = new ArrayList<String>();
-	test.add("A");
-	test.add("B");
-	test.add("C");
-	// List<Character> set = Arrays.asList('A', 'B', 'C');
-	CombinationGenerator<String> cg = new CombinationGenerator<String>(
-		test, 2);
-	for (ArrayList<String> combination : cg) {
-	    System.out.println(combination);
+    public ArrayList<ArrayList<String>> getCoincidenceLines(
+	    ArrayList<Integer> zeroPos) {
+	ArrayList<ArrayList<String>> lines = new ArrayList<ArrayList<String>>();
+	tempTable = clone2DArrayList(table);
+	for (int i = 1; i < tempTable.size(); i++) {
+	    ArrayList<String> curRow = tempTable.get(i);
+	    int counter = 0;
+	    for (int k = 0; k < zeroPos.size(); k++) {
+		if (curRow.get(zeroPos.get(k)).equals("0")) {
+		    counter++;
+		}
+	    }
+	    if (counter == zeroPos.size()) {
+		System.out.println(curRow);
+		curRow.set(curRow.size() - 1, "1");
+		lines.add(curRow);
+	    }
 	}
+	return lines;
 
     }
 
