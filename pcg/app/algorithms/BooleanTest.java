@@ -34,7 +34,7 @@ public class BooleanTest {
     public void sampleTable() {
 	coincidenceTableSize = (int) Math.pow(2, 4);
 	numberOfFactors = 4;
-	
+
 	ArrayList<String> firstRow = new ArrayList<String>();
 	firstRow.add("A");
 	firstRow.add("B");
@@ -115,11 +115,10 @@ public class BooleanTest {
 
     /** Step 2 **/
     public void identifySUF() {
-	//sufTable = clone2DArrayList(table);
+	// sufTable = clone2DArrayList(table);
 	sufTable = (ArrayList<ArrayList<String>>) sampleTable.clone();
-	for (int r = sufTable.size()-1; r >= 0; r--) {
-	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0")){
-		System.out.println("Remove" + r);
+	for (int r = sufTable.size() - 1; r >= 0; r--) {
+	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0")) {
 		sufTable.remove(r);
 	    }
 	}
@@ -131,7 +130,7 @@ public class BooleanTest {
 	ArrayList<ArrayList<String>> permutationsOfActualRow = new ArrayList<ArrayList<String>>();
 
 	// Iterate over the whole SUF table
-	for (int l = 1; l < sampleTable.size()-1; l++) {
+	for (int l = 1; l < sampleTable.size(); l++) {
 	    ArrayList<String> actualRow = sampleTable.get(l);
 	    // Holds the indexes of the zeros in one row. Will be needed to find
 	    // the permutations of that row.
@@ -140,6 +139,7 @@ public class BooleanTest {
 
 	    // First Line has only 1, is a special case, because
 	    // getCoincidenceLines() can't handle that line.
+	    // TODO Implement erkennung von einer Line.
 	    if (l == 1) {
 		for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
 		    permutationsOfActualRow.add(generatedFullCoincidenceTable
@@ -157,7 +157,7 @@ public class BooleanTest {
 	    // Compare permutations with table and find min factors row.
 	    for (int k = permutationsOfActualRow.size() - 1; k >= 0; k--) {
 		ArrayList<String> curLine = permutationsOfActualRow.get(k);
-		for (int i = 1; i < sampleTable.size()-1; i++) {
+		for (int i = 1; i < sampleTable.size() - 1; i++) {
 		    ArrayList<String> curRow = sampleTable.get(i);
 		    if (curLine.equals(curRow)) {
 			msufRow = curRow;
@@ -228,7 +228,7 @@ public class BooleanTest {
 		char oneBit = binaryNumber.charAt(k);
 		number.add(Character.toString(oneBit));
 	    }
-	   // System.out.println("Coincidence " + number);
+	    // System.out.println("Coincidence " + number);
 	    generatedFullCoincidenceTable.add(number);
 	}
     }
