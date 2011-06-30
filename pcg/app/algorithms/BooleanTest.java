@@ -1,6 +1,7 @@
 package algorithms;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
@@ -36,16 +37,17 @@ public class BooleanTest {
     }
 
     /** Step 3 **/
-    public void identifyMSUF() {
-	System.out.println("**************");
+    public void identifyMSUF(){
 	System.out.println("SufTable:\n" + tableToString(sufTable));
 	ArrayList<ArrayList<String>> goodLines = null;
+	ArrayList<ArrayList<String>> finalList = new ArrayList<ArrayList<String>>();
 
 	for (int x = 1; x < sufTable.size(); x++) {
 	    ArrayList<String> testRow = (ArrayList<String>) sufTable.get(x).clone();
-
 	    ArrayList<Integer> zeroPos = new ArrayList<Integer>();
-	    // System.out.println("Selected Row" + testRow);
+	    ArrayList<String> candidateRow = null;
+	    
+	    //First Line has only 1, is a special case, because getCoincidenceLines() can't handle that line.
 	    if (x == sufTable.size() - 1) {
 		for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
 		    goodLines.add((ArrayList<String>) generatedFullCoincidenceTable.get(i).clone());
@@ -54,53 +56,52 @@ public class BooleanTest {
 		for (int j = 0; j < testRow.size(); j++) {
 		    if (testRow.get(j).equals("0")) {
 			zeroPos.add(j);
-			System.out.println("ZeroPos " + j);
 		    }
 		}
 		goodLines = getCoincidenceLines(zeroPos);
 	    }
-	    // System.out.println("All Good Lines" + goodLines);
-	    ArrayList<ArrayList<String>> finalList = new ArrayList<ArrayList<String>>();
-	    ArrayList<String> candidateRow = null;
 
+	    //Compare permutations with table and find min factors row.
 	    for (int k = goodLines.size() - 1; k >= 0; k--) {
 		ArrayList<String> curLine = (ArrayList<String>) goodLines
 			.get(k).clone();
-		// System.out.println("Cur Good Line " + curLine);
 		for (int i = 1; i < table.size(); i++) {
 		    ArrayList<String> curRow = (ArrayList<String>) table.get(i)
 			    .clone();
 		    if (curLine.equals(curRow)) {
 			candidateRow = (ArrayList<String>) curRow.clone();
-			System.out.println("candidate " + candidateRow);
 		    }
 		}
 	    }
+	    // Add the found min factors row do finalList
 	    finalList.add(candidateRow);
 	    System.out.println("Final Rows " + finalList);
 	    zeroPos.clear();
 	    goodLines.clear();
 	}
+	//Filter out doubled min factors rows.
+	HashSet removeDuplicated = new HashSet(finalList);
+	finalList.clear();
+	finalList.addAll(removeDuplicated);
+	System.out.println("Final Rows without duplicated" + finalList);
+	
     }
 
     public ArrayList<ArrayList<String>> getCoincidenceLines(
 	    ArrayList<Integer> zeroPos) {
 	ArrayList<ArrayList<String>> lines = new ArrayList<ArrayList<String>>();
 
-	// i = 1 first line is the zero row which is not relevant.
+	// i = 1 because first line is the zero row which is not relevant.
 	for (int i = 1; i < generatedFullCoincidenceTable.size(); i++) {
 	    ArrayList<String> curRow = (ArrayList<String>) generatedFullCoincidenceTable
 		    .get(i).clone();
 	    int counter = 0;
 	    for (int k = 0; k < zeroPos.size(); k++) {
-		System.out.println("Current Row " + curRow +curRow.toString().length());
-		System.out.println(zeroPos.size());
 		if (curRow.get(zeroPos.get(k)).equals("0")) {
 		    counter++;
 		}
 	    }
 	    if (counter == zeroPos.size()) {
-		// System.out.println(curRow);
 		curRow.set(curRow.size() - 1, "1");
 		lines.add(curRow);
 	    }
@@ -128,14 +129,13 @@ public class BooleanTest {
 		char oneBit = binaryNumber.charAt(k);
 		number.add(Character.toString(oneBit));
 	    }
-	    number.add(binaryNumber);
 	    generatedFullCoincidenceTable.add(number);
 	}
 
-	for (int j = 0; j < generatedFullCoincidenceTable.size(); j++) {
+	/*for (int j = 0; j < generatedFullCoincidenceTable.size(); j++) {
 	    System.out.println("Generated "
 		    + generatedFullCoincidenceTable.get(j));
-	}
+	}*/
     }
 
     private ArrayList<ArrayList<String>> effectsToZero(
