@@ -2,7 +2,11 @@ package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
+import helper.SufTreeNode;
+
 import java.util.ArrayList;
+
+import javax.swing.tree.DefaultTreeModel;
 
 public class BooleanTest {
 
@@ -11,6 +15,7 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msuf = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
+    private DefaultTreeModel tree;
     // How many factors are in given coincidence table
     private int numberOfFactors = 0;
     // How many rows must be generated in generateCoincidenceTable()
@@ -46,7 +51,45 @@ public class BooleanTest {
 	ArrayList<ArrayList<String>> tempSufTable = (ArrayList<ArrayList<String>>) sufTable
 		.clone();
 
+	// for (int row = 1; row < sufTable.size(); row++) {
+	ArrayList<String> sufLine = sufTable.get(0);
+
 	// Üse schön rekursiv algorithmus...
+
+	ArrayList<String> t = new ArrayList<String>();
+	t.add("1");
+	t.add("1");
+	t.add("1");
+
+	SufTreeNode node = new SufTreeNode(t);
+	tree = new DefaultTreeModel(node);
+	fillUpTree(node);
+	// }
+
+    }
+
+    private void fillUpTree(SufTreeNode node) {
+	if (node.hasOneCare()) {
+	    // döner
+	} else {
+	    ArrayList<String> data = node.getData();
+	    ArrayList<Integer> places = node.getCarePlace();
+	    SufTreeNode newNode;
+	    for (int i = 0; i < places.size(); i++) {
+		ArrayList<String> tmp = permutation(
+			(ArrayList<String>) data.clone(), places.get(i));
+		newNode = new SufTreeNode(tmp);
+		// newNode.setParent(node);
+		tree.insertNodeInto(newNode, node, i);
+		System.out.println(tmp);
+		fillUpTree(newNode);
+	    }
+	}
+    }
+
+    private ArrayList<String> permutation(ArrayList<String> data, int place) {
+	data.set(place, "$");
+	return data;
     }
 
     /** Generates a full coincidence table with binary-counting method */
