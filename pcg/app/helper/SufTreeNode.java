@@ -34,7 +34,12 @@ public class SufTreeNode extends DefaultMutableTreeNode {
 	return places;
     }
 
+    @Override
     public String toString() {
 	return data.toString();
+    }
+    
+    public void setEffect(String effectValue){
+	data.add(effectValue);
     }
 }

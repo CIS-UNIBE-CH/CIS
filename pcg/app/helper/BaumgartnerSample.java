@@ -3,8 +3,6 @@ package helper;
 import java.util.ArrayList;
 
 public class BaumgartnerSample {
-    private int coincidenceTableSize = (int) Math.pow(2, 4);
-    private int numberOfFactors = 4;
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
 
     public BaumgartnerSample() {
@@ -80,10 +78,15 @@ public class BaumgartnerSample {
 	ninethRow.add("0");
 	ninethRow.add("0");
 	sampleTable.add(ninethRow);
+
+	//for (int i = 0; i < sampleTable.size(); i++) {
+	//    System.out.println("SampleTableRow\n " + sampleTable.get(i));
+	//}
+
     }
 
     public ArrayList<ArrayList<String>> getSampleTable() {
-        return sampleTable;
+	return sampleTable;
     }
-    
+
 }
