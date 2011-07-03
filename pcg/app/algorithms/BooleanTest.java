@@ -17,6 +17,7 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> msuf = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
     private DefaultTreeModel tree;
+    ArrayList<String> sufLine;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
@@ -44,7 +45,7 @@ public class BooleanTest {
 	System.out.println("SufTable:\n" + tableToString(sufTable));
 
 	// for (int row = 1; row < sufTable.size(); row++) {
-	ArrayList<String> sufLine = sufTable.get(0);
+	sufLine = sufTable.get(0);
 
 	ArrayList<String> test = new ArrayList<String>();
 	test.add("1");
@@ -54,9 +55,11 @@ public class BooleanTest {
 	SufTreeNode root = new SufTreeNode(test);
 	tree = new DefaultTreeModel(root);
 	fillUpTree(root);
-	System.out.println("Traversed Tree*********************");
-	traverse(tree);
-	System.out.println("Traversed Tree*********************");
+	specTraverse(tree);
+
+	// System.out.println("Traversed Tree*********************");
+	// traverse(tree);
+	// System.out.println("Traversed Tree*********************");
 	// }
 
     }
@@ -74,6 +77,52 @@ public class BooleanTest {
 		tree.insertNodeInto(newNode, parent, i);
 		// System.out.println(tmp);
 		fillUpTree(newNode);
+	    }
+	}
+    }
+
+    private boolean compare(ArrayList<String> suffTableLine,
+	    ArrayList<String> curLine) {
+	boolean ok = false;
+	for (int i = 0; i < curLine.size(); i++) {
+	    if (curLine.get(i).equals("1") || curLine.get(i).equals("0")) {
+		if (curLine.get(i).equals(suffTableLine.get(i))) {
+		    ok = true;
+		} else {
+		    ok = false;
+		}
+	    }
+	}
+	if(ok){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+
+    public void specTraverse(DefaultTreeModel model) {
+	if (model != null) {
+	    SufTreeNode root = (SufTreeNode) model.getRoot();
+	    System.out.println("Root: " + root.toString());
+	    System.out.println("Compare: " + compare(sufLine, root.getData()));
+	    specWalk(model, root);
+	} else
+	    System.out.println("Tree is empty.");
+    }
+
+    protected void specWalk(TreeModel model, SufTreeNode parent) {
+	int cc;
+	cc = model.getChildCount(parent);
+	for (int i = 0; i < cc; i++) {
+	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
+	    if (model.isLeaf(child)){
+		System.out.println("Leaf: " + child.toString());
+	    	System.out.println("Compare: " + compare(sufLine, child.getData()));
+	    }
+	    else {
+		System.out.println(child.toString());
+		System.out.println("Compare: " + compare(sufLine, child.getData()));
+		specWalk(model, child);
 	    }
 	}
     }
