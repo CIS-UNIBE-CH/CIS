@@ -96,7 +96,7 @@ public class BooleanTest {
 	    for (int y = msufNodes.size() - 1; y >= 0; y--) {
 		ArrayList<String> msufRow = msufNodes.get(y).getData();
 		ArrayList<Integer> places = msufNodes.get(y).getCarePlace();
-		for (int i = places.size()-1; i >=0 ; i--) {
+		for (int i = places.size() - 1; i >= 0; i--) {
 		    int curPlace = places.get(i);
 		    if (curRow.get(curRow.size() - 1).equals("0")) {
 			if (msufRow.get(curPlace).equals(curRow.get(curPlace))) {
@@ -110,12 +110,12 @@ public class BooleanTest {
 		if (ok) {
 		    System.out.println("Removed " + msufNodes.get(y));
 		    msufNodes.remove(y);
-		    
+
 		    // msuf.add(msufRow);
 		}
 		System.out.println(ok + "\n*******************");
 	    }
-	   
+
 	    System.out.println(ok + "\n*******************");
 	}
 	System.out.println(msufNodes.size());
@@ -168,7 +168,7 @@ public class BooleanTest {
     }
 
     private void compareWalk(TreeModel tree, SufTreeNode parent,
-	    ArrayList<String> origLine) {
+	    ArrayList<String> origTableLine) {
 	int cc;
 	cc = tree.getChildCount(parent);
 	boolean firstTrue = false;
@@ -179,10 +179,10 @@ public class BooleanTest {
 
 	    if (tree.isLeaf(child)) {
 		if (!firstTrue) {
-		    firstTrue = compare(origLine, child.getData());
+		    firstTrue = compare(origTableLine, child.getData());
 		}
 		if (firstTrue && firstFalse) {
-		    firstFalse = compare(origLine, child.getData());
+		    firstFalse = compare(origTableLine, child.getData());
 		    // System.out.println("Leaf: " + child.toString());
 		    // System.out.println("Compare: "
 		    // + compare(origLine, child.getData()));
@@ -193,46 +193,40 @@ public class BooleanTest {
 		// }
 	    } else {
 		if (!firstTrue) {
-		    firstTrue = compare(origLine, child.getData());
+		    firstTrue = compare(origTableLine, child.getData());
 		}
 		if (firstTrue && firstFalse) {
-		    firstFalse = compare(origLine, child.getData());
+		    firstFalse = compare(origTableLine, child.getData());
 		    // System.out.println(child.toString());
 		    // System.out.println("Compare: "
 		    // + compare(origLine, child.getData()));
 		    msufNodes.add(child);
 		}
-		// if (!compare(sufLine, child.getData())) {
-		// break;
-		// }
-		compareWalk(tree, child, origLine);
+		compareWalk(tree, child, origTableLine);
 	    }
 	}
     }
 
-    private boolean compare(ArrayList<String> suffTableLine,
+    /**
+     * Used to compare if a line off original table and data of a node are
+     * equal, $ will be ignored
+     */
+    private boolean compare(ArrayList<String> origTableLine,
 	    ArrayList<String> curLine) {
-	// System.out.println("Compare1: " + suffTableLine);
-	// System.out.println("Compare2: " + curLine);
 
-	boolean ok = false;
+	boolean areEqual = false;
 	for (int i = 0; i < curLine.size(); i++) {
 	    if (curLine.get(i).equals("1") || curLine.get(i).equals("0")) {
-		if (curLine.get(i).equals(suffTableLine.get(i))) {
-		    ok = true;
+		if (curLine.get(i).equals(origTableLine.get(i))) {
+		    areEqual = true;
 		} else {
-		    ok = false;
+		    areEqual = false;
 		}
 	    }
 	}
-
-	if (ok) {
-	    // System.out.println("true");
-	    // System.out.println("*****************");
+	if (areEqual) {
 	    return true;
 	} else {
-	    // System.out.println("false");
-	    // System.out.println("*****************");
 	    return false;
 	}
     }
@@ -258,6 +252,54 @@ public class BooleanTest {
 	return data;
     }
 
+    /**
+     * Those both methods are used, to set effect collumn in all nodes of tree
+     * to 1 or 0
+     */
+    private void traverseSetEffect(DefaultTreeModel model, String effect) {
+	if (model != null) {
+	    SufTreeNode root = (SufTreeNode) model.getRoot();
+	    root.setEffect(effect);
+	    walkSetEffect(model, root, effect);
+	} else
+	    System.out.println("Tree is empty.");
+    }
+
+    private void walkSetEffect(TreeModel model, SufTreeNode parent,
+	    String effect) {
+	int cc;
+	cc = model.getChildCount(parent);
+	for (int i = 0; i < cc; i++) {
+	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
+	    child.setEffect(effect);
+	    walkSetEffect(model, child, effect);
+	}
+    }
+
+    /** Use those both methods to print tree in syso. */
+    private void treeToString(DefaultTreeModel model) {
+	if (model != null) {
+	    SufTreeNode root = (SufTreeNode) model.getRoot();
+	    System.out.println("Root: " + root.toString());
+	    treeToStringHelper(model, root);
+	} else
+	    System.out.println("Tree is empty.");
+    }
+
+    private void treeToStringHelper(TreeModel model, SufTreeNode parent) {
+	int cc;
+	cc = model.getChildCount(parent);
+	for (int i = 0; i < cc; i++) {
+	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
+	    if (model.isLeaf(child))
+		System.out.println("Leaf: " + child.toString());
+	    else {
+		System.out.print(child.toString() + " --\n");
+		treeToStringHelper(model, child);
+	    }
+	}
+    }
+
     public ArrayList<ArrayList<String>> ArrayToArrayList(String[][] table) {
 	ArrayList<ArrayList<String>> tableList = new ArrayList<ArrayList<String>>();
 	for (int r = 0; r < table.length; r++) {
@@ -278,49 +320,5 @@ public class BooleanTest {
 	    print += "\n";
 	}
 	return print;
-    }
-
-    private void traverseSetEffect(DefaultTreeModel model, String effect) {
-	if (model != null) {
-	    SufTreeNode root = (SufTreeNode) model.getRoot();
-	    System.out.println("Root: " + root.toString());
-	    root.setEffect(effect);
-	    walkRoot(model, root, effect);
-	} else
-	    System.out.println("Tree is empty.");
-    }
-
-    private void walkRoot(TreeModel model, SufTreeNode parent, String effect) {
-	int cc;
-	cc = model.getChildCount(parent);
-	for (int i = 0; i < cc; i++) {
-	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
-	    child.setEffect(effect);
-	    walkRoot(model, child, effect);
-
-	}
-    }
-
-    private void traverse(DefaultTreeModel model) {
-	if (model != null) {
-	    Object root = model.getRoot();
-	    System.out.println("Root: " + root.toString());
-	    walk(model, root);
-	} else
-	    System.out.println("Tree is empty.");
-    }
-
-    private void walk(TreeModel model, Object o) {
-	int cc;
-	cc = model.getChildCount(o);
-	for (int i = 0; i < cc; i++) {
-	    Object child = model.getChild(o, i);
-	    if (model.isLeaf(child))
-		System.out.println(child.toString());
-	    else {
-		System.out.print("------------\n" + child.toString() + " --\n");
-		walk(model, child);
-	    }
-	}
     }
 }
