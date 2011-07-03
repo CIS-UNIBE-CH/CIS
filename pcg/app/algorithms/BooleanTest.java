@@ -18,6 +18,7 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> sufTable;
     private DefaultTreeModel tree;
     ArrayList<String> sufLine;
+    ArrayList<String> test;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
@@ -45,9 +46,9 @@ public class BooleanTest {
 	System.out.println("SufTable:\n" + tableToString(sufTable));
 
 	// for (int row = 1; row < sufTable.size(); row++) {
-	sufLine = sufTable.get(0);
+	sufLine = sufTable.get(1);
 
-	ArrayList<String> test = new ArrayList<String>();
+	test = new ArrayList<String>();
 	test.add("1");
 	test.add("1");
 	test.add("1");
@@ -86,6 +87,9 @@ public class BooleanTest {
 	boolean ok = false;
 	for (int i = 0; i < curLine.size(); i++) {
 	    if (curLine.get(i).equals("1") || curLine.get(i).equals("0")) {
+		//System.out.println("Character Suff: " + suffTableLine.get(i));
+		//System.out.println("Character CurLine: " + curLine.get(i));
+
 		if (curLine.get(i).equals(suffTableLine.get(i))) {
 		    ok = true;
 		} else {
@@ -93,9 +97,9 @@ public class BooleanTest {
 		}
 	    }
 	}
-	if(ok){
+	if (ok) {
 	    return true;
-	}else{
+	} else {
 	    return false;
 	}
     }
@@ -104,8 +108,10 @@ public class BooleanTest {
 	if (model != null) {
 	    SufTreeNode root = (SufTreeNode) model.getRoot();
 	    System.out.println("Root: " + root.toString());
-	    System.out.println("Compare: " + compare(sufLine, root.getData()));
-	    specWalk(model, root);
+	    //System.out.println("Compare: " + compare(sufLine, root.getData()));
+	    //if (compare(sufLine, root.getData())) {
+		specWalk(model, root);
+	    //}
 	} else
 	    System.out.println("Tree is empty.");
     }
@@ -115,13 +121,20 @@ public class BooleanTest {
 	cc = model.getChildCount(parent);
 	for (int i = 0; i < cc; i++) {
 	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
-	    if (model.isLeaf(child)){
+	    if (model.isLeaf(child)) {
 		System.out.println("Leaf: " + child.toString());
-	    	System.out.println("Compare: " + compare(sufLine, child.getData()));
-	    }
-	    else {
+		System.out.println("Compare: "
+			+ compare(sufLine, child.getData()));
+		if (!compare(sufLine, child.getData())) {
+		    break;
+		}
+	    } else {
 		System.out.println(child.toString());
-		System.out.println("Compare: " + compare(sufLine, child.getData()));
+		System.out.println("Compare: "
+			+ compare(sufLine, child.getData()));
+		if (!compare(sufLine, child.getData())) {
+		    break;
+		}
 		specWalk(model, child);
 	    }
 	}
