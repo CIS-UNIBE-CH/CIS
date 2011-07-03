@@ -10,7 +10,7 @@ import models.RandomGraphGenerator;
 import models.Renderer;
 import parser.TreeToGraph;
 import play.mvc.Controller;
-import tree.CustomTree;
+import trees.CustomTree;
 import algorithms.BinaryTest;
 import algorithms.BooleanTest;
 import algorithms.QuadroTest;

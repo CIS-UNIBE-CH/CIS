@@ -2,8 +2,8 @@ package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import tree.CustomTree;
-import tree.CustomTreeNode;
+import trees.CustomTree;
+import trees.CustomTreeNode;
 
 public class QuadroTest {
 

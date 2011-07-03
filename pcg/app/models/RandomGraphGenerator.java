@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import parser.TreeToTable;
-import tree.CustomTree;
-import tree.CustomTreeNode;
+import trees.CustomTree;
+import trees.CustomTreeNode;
 
 /**
  * Generates a random graph out of a given number of factors and bundles.

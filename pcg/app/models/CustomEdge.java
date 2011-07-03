@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-import tree.CustomTreeNode;
+import trees.CustomTreeNode;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 

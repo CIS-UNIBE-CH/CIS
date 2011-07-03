@@ -1,5 +1,7 @@
 package helper;
 
+/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.util.ArrayList;
 
 public class BaumgartnerSample {
@@ -79,14 +81,14 @@ public class BaumgartnerSample {
 	ninethRow.add("0");
 	sampleTable.add(ninethRow);
 
-	//for (int i = 0; i < sampleTable.size(); i++) {
-	//    System.out.println("SampleTableRow\n " + sampleTable.get(i));
-	//}
-
+	System.out.println("\nBaumgartner original Table:");
+	for (int i = 0; i < sampleTable.size(); i++) {
+	    System.out.println(sampleTable.get(i));
+	}
+	System.out.println("\n");
     }
 
     public ArrayList<ArrayList<String>> getSampleTable() {
 	return sampleTable;
     }
-
 }

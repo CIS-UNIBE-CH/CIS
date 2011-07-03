@@ -1,6 +1,6 @@
 package helper;
 
-/** Souce an (C) by: http://big-o.nl/demos/math/combinationgenerator/index.html*/
+/** Source an (C) by: http://big-o.nl/demos/math/combinationgenerator/index.html*/
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;

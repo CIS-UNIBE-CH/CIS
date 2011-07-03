@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 import org.apache.commons.collections15.Transformer;
 
-import tree.CustomTreeNode;
+import trees.CustomTreeNode;
 
 /** Responsible for node positioning */
 public class VertexLocationTransformer implements

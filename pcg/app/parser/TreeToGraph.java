@@ -5,8 +5,8 @@ package parser;
 import java.util.ArrayList;
 
 import models.CustomEdge;
-import tree.CustomTree;
-import tree.CustomTreeNode;
+import trees.CustomTree;
+import trees.CustomTreeNode;
 import edu.uci.ics.jung.graph.OrderedSparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 

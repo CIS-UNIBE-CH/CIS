@@ -4,8 +4,8 @@ package parser;
 
 import java.util.ArrayList;
 
-import tree.CustomTree;
-import tree.CustomTreeNode;
+import trees.CustomTree;
+import trees.CustomTreeNode;
 
 /** Parses a CustomTree to Coincidence Table */
 public class TreeToTable {

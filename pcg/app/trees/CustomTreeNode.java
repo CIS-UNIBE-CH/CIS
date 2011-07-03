@@ -1,4 +1,4 @@
-package tree;
+package trees;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 

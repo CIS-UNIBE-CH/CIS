@@ -1,4 +1,4 @@
-package helper;
+package trees;
 
 import javax.swing.tree.DefaultTreeModel;
 
