@@ -3,6 +3,7 @@ package algorithms;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import helper.BaumgartnerSample;
+import helper.CustomSample;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,8 +27,10 @@ public class BooleanTest {
 	this.table = ArrayToArrayList(table);
 
 	BaumgartnerSample sample = new BaumgartnerSample();
-	sampleTable = sample.getSampleTable();
+	CustomSample customSample = new CustomSample();
+	// sampleTable = ArrayToArrayList(table);
 
+	sampleTable = customSample.getSampleTable();
 	identifySUF();
 	identifyMSUF();
     }
@@ -74,23 +77,23 @@ public class BooleanTest {
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    // System.out.println(childCount);
-	    System.out.println("---" + child.getData());
+	    // System.out.println("---" + child.getData());
 	    if (shouldBreak(child.getData())) {
 		breaks++;
 	    }
 	}
 	if (breaks == childCount) {
-	    System.out.println("AAAAAAAAAAAAAAAAAAAAAA" + parent.getData());
+	    // System.out.println("AAAAAAAAAAAAAAAAAAAAAA" + parent.getData());
 	    if (!shouldBreak(parent.getData()))
 		msuf.add(parent.getData());
 	}
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    if (child.isLeaf() && !(shouldBreak(child.getData()))) {
-		System.out.println("Leaf: " + child.toString());
+		// System.out.println("Leaf: " + child.toString());
 		msuf.add(child.getData());
 	    } else {
-		System.out.print(child.toString() + " --\n");
+		// System.out.print(child.toString() + " --\n");
 		newWalk(child);
 	    }
 	}
@@ -117,8 +120,8 @@ public class BooleanTest {
 	    if (isEqual) {
 		if (sampleTable.get(r).get(sampleTable.get(r).size() - 1)
 			.equals("0")) {
-		    System.out.println("o" + sampleTable.get(r) + "= C "
-			    + curLine);
+		    // System.out.println("o" + sampleTable.get(r) + "= C "
+		    // + curLine);
 		    return true;
 		}
 	    }
