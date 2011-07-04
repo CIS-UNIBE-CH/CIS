@@ -5,7 +5,6 @@ package algorithms;
 import helper.BaumgartnerSample;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
@@ -47,23 +46,55 @@ public class BooleanTest {
 
     /** Step 3 **/
     private void identifyMSUF() {
-	for (int k = 1; k < sufTable.size(); k++) {
-	    canAdd = true;
-	    sufLine = sufTable.get(k);
+	sufLine = sufTable.get(1);
 
-	    // IMPORTANT: Remove effect column of suffLine, based on which a
-	    // tree will be generated.
-	    sufLine.remove(sufLine.size() - 1);
+	// IMPORTANT: Remove effect column of suffLine, based on which a
+	// tree will be generated.
+	sufLine.remove(sufLine.size() - 1);
 
-	    SufTreeNode root = new SufTreeNode(sufLine);
-	    tree = new DefaultTreeModel(root);
-	    fillUpTree(root);
-	    compareTraverse(tree);
+	SufTreeNode root = new SufTreeNode(sufLine);
+	tree = new DefaultTreeModel(root);
+	fillUpTree(root);
+	newWalk(root, false);
+	// compareTraverse(tree);
+
+    }
+
+    private void newWalk(SufTreeNode parent, boolean breaking) {
+	int childCount;
+	childCount = parent.getChildCount();
+	boolean braked = false;
+
+	for (int i = 0; i < childCount; i++) {
+	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    for (int row = 1; row < sampleTable.size(); row++) {
+		ArrayList<String> curRow = sampleTable.get(row);
+		if (shouldBreak(curRow, child.getData())) {
+		    braked = true;
+		} else {
+		    braked = false;
+		    break;
+		}
+	    }
+	    if (!braked) {
+		break;
+	    }
+
 	}
-	HashSet removeDuplicated = new HashSet(msuf);
-	msuf.clear();
-	msuf.addAll(removeDuplicated);
-	System.out.println("MSUF's" + msuf);
+	if (braked) {
+	    msuf.add(parent.getData());
+	    System.out.println("We found a break");
+	} else {
+	    for (int i = 0; i < childCount; i++) {
+		SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+		if (child.isLeaf() && !breaking) {
+		    System.out.println("Leaf: " + child.toString());
+		} else {
+		    System.out.print(child.toString() + " --\n");
+		    newWalk(child, false);
+		}
+	    }
+	}
     }
 
     /**
@@ -116,7 +147,7 @@ public class BooleanTest {
 		    ArrayList<String> curRow = sampleTable.get(row);
 		    if (shouldBreak(curRow, child.getData())) {
 			if (canAdd) {
-			    
+
 			    System.out.println("node " + child.getData());
 			    System.out.println("origLine: " + curRow);
 			    msuf.add(parent.getData());
@@ -150,7 +181,7 @@ public class BooleanTest {
 	    }
 	}
 	if (origTableLine.get(origTableLine.size() - 1).equals("0")) {
-	    //System.out.println("FLAAAAAAAAAAAAAG");
+	    // System.out.println("FLAAAAAAAAAAAAAG");
 	    return true;
 	} else {
 	    return false;
