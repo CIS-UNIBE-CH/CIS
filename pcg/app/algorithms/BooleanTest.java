@@ -15,22 +15,20 @@ import trees.SufTreeNode;
 
 public class BooleanTest {
     private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
-    private static ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msuf = new ArrayList<ArrayList<String>>();
-    private ArrayList<ArrayList<String>> msufFinal = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
     private DefaultTreeModel tree;
     private ArrayList<String> sufLine;
-    private boolean canAdd = true;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
 
 	BaumgartnerSample sample = new BaumgartnerSample();
+	sampleTable = sample.getSampleTable();
 	CustomSample customSample = new CustomSample();
-	// sampleTable = ArrayToArrayList(table);
+	//sampleTable = customSample.getSampleTable();
 
-	sampleTable = customSample.getSampleTable();
 	identifySUF();
 	identifyMSUF();
     }
@@ -58,58 +56,54 @@ public class BooleanTest {
 
 	    SufTreeNode root = new SufTreeNode(sufLine);
 	    tree = new DefaultTreeModel(root);
+	    
 	    fillUpTree(root);
 	    newWalk(root);
+	    
+	    //Very interesting we got duplicated entries!
 	    HashSet removeDuplicated = new HashSet(msuf);
 	    msuf.clear();
 	    msuf.addAll(removeDuplicated);
-	    System.out.println(msuf);
 	}
-
-	// compareTraverse(tree);
-
+	System.out.println("MSUF's" + msuf);
     }
 
+    /** Makes a pre order tree walk and detects msuf's*/
     private void newWalk(SufTreeNode parent) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
+	//Count how many "broken" childs current parent has.
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
-	    // System.out.println(childCount);
-	    // System.out.println("---" + child.getData());
 	    if (shouldBreak(child.getData())) {
 		breaks++;
 	    }
 	}
-	if (breaks == childCount) {
-	    // System.out.println("AAAAAAAAAAAAAAAAAAAAAA" + parent.getData());
-	    if (!shouldBreak(parent.getData()))
+	//If every child of current parent breaks and parent itself does not break, we got a msuf!
+	if (breaks == childCount && !shouldBreak(parent.getData())) {
 		msuf.add(parent.getData());
 	}
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    //Special condition for leaves, when they itself not break they are a msuf!
 	    if (child.isLeaf() && !(shouldBreak(child.getData()))) {
-		// System.out.println("Leaf: " + child.toString());
 		msuf.add(child.getData());
 	    } else {
-		// System.out.print(child.toString() + " --\n");
 		newWalk(child);
 	    }
 	}
-
     }
 
-    /**
-     * Used to compare if a line off original table and data of a node are
-     * equal, $ will be ignored
-     */
+    /** Used to compare data of a tree node with every tow of given original coincidence table.*/
     private boolean shouldBreak(ArrayList<String> curLine) {
 	boolean isEqual = false;
 	for (int r = 1; r < sampleTable.size(); r++) {
+	    ArrayList<String> curRow = sampleTable.get(r);
 	    for (int i = 0; i < curLine.size(); i++) {
+		//Only if there is a 1 or 0 in nodes data compare, when a dollar do nothing.
 		if (curLine.get(i).equals("1") || curLine.get(i).equals("0")) {
-		    if (curLine.get(i).equals(sampleTable.get(r).get(i))) {
+		    if (curLine.get(i).equals(curRow.get(i))) {
 			isEqual = true;
 		    } else {
 			isEqual = false;
@@ -117,11 +111,10 @@ public class BooleanTest {
 		    }
 		}
 	    }
+	    //Check if there is a line in sample table with effect = 0 which matches nodes data.
 	    if (isEqual) {
-		if (sampleTable.get(r).get(sampleTable.get(r).size() - 1)
+		if (curRow.get(curRow.size() - 1)
 			.equals("0")) {
-		    // System.out.println("o" + sampleTable.get(r) + "= C "
-		    // + curLine);
 		    return true;
 		}
 	    }
