@@ -40,15 +40,20 @@ public class CustomSample {
 	ninethRow.add("0");
 	ninethRow.add("0");
 	sampleTable.add(ninethRow);
-
-	System.out.println("\nBaumgartner original Table:");
-	for (int i = 0; i < sampleTable.size(); i++) {
-	    System.out.println(sampleTable.get(i));
-	}
-	System.out.println("\n");
     }
 
     public ArrayList<ArrayList<String>> getSampleTable() {
 	return sampleTable;
+    }
+    
+    @Override
+    public String toString(){
+	String output;
+	output = "\nCustom Sample Table:";
+	for (int i = 0; i < sampleTable.size(); i++) {
+	    output += "\n" + sampleTable.get(i);
+	}
+	output += "\n";
+	return output;
     }
 }
