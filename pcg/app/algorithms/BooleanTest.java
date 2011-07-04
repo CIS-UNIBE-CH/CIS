@@ -17,9 +17,11 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<SufTreeNode> msufCandidates = new ArrayList<SufTreeNode>();
     private ArrayList<ArrayList<String>> msuf = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> msufFinal = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
     private DefaultTreeModel tree;
     private ArrayList<String> sufLine;
+    private boolean canAdd = true;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
@@ -34,7 +36,7 @@ public class BooleanTest {
     /** Step 2 **/
     private void identifySUF() {
 	// sufTable = clone2DArrayList(table);
-	sufTable = (ArrayList<ArrayList<String>>) sampleTable.clone();
+	sufTable = clone2DArrayList(sampleTable);
 	for (int r = sufTable.size() - 1; r >= 0; r--) {
 	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0")) {
 		sufTable.remove(r);
@@ -45,157 +47,110 @@ public class BooleanTest {
 
     /** Step 3 **/
     private void identifyMSUF() {
-	// for (int k = 1; k < sufTable.size(); k++) {
-	sufLine = sufTable.get(3);
+	for (int k = 1; k < sufTable.size(); k++) {
+	    canAdd = true;
+	    sufLine = sufTable.get(k);
 
-	// IMPORTANT: Remove effect column of suffLine, based on which a tree
-	// will be generated.
-	sufLine.remove(sufLine.size() - 1);
+	    // IMPORTANT: Remove effect column of suffLine, based on which a
+	    // tree will be generated.
+	    sufLine.remove(sufLine.size() - 1);
 
-	SufTreeNode root = new SufTreeNode(sufLine);
-	tree = new DefaultTreeModel(root);
-	fillUpTree(root);
-
-	// After filling up the tree set the effect columns manually to 1. This
-	// is needed for first comparison.
-	traverseSetEffect(tree, "1");
-
-	// Compare tree nodes data with all lines of original table.
-	for (int row = 1; row < sampleTable.size(); row++) {
-	    ArrayList<String> curRow = sampleTable.get(row);
-	    compareTraverse(tree, curRow);
+	    SufTreeNode root = new SufTreeNode(sufLine);
+	    tree = new DefaultTreeModel(root);
+	    fillUpTree(root);
+	    compareTraverse(tree);
 	}
-
-	// Preparation for the following for-loop monster, set effect of all
-	// candidates to "Zero"
-	for (int y = 0; y < msufCandidates.size(); y++) {
-	    msufCandidates.get(y).getData()
-		    .set(msufCandidates.get(y).getData().size() - 1, "0");
-	}
-
-	// This for-loop monster filters all candidates which fullfill the
-	// following condition: It should not be that there is a row in
-	// original table which has effect not instantiated and is equal with
-	// candidate line.
-	boolean equal = false;
-	for (int row = 1; row < sampleTable.size(); row++) {
-	    ArrayList<String> curRow = sampleTable.get(row);
-
-	    for (int y = msufCandidates.size() - 1; y >= 0; y--) {
-		ArrayList<String> msufCandidate = msufCandidates.get(y)
-			.getData();
-		ArrayList<Integer> careIndexes = msufCandidates.get(y)
-			.getCareIndexes();
-
-		for (int i = careIndexes.size() - 1; i >= 0; i--) {
-		    int curCareIndex = careIndexes.get(i);
-		    if (curRow.get(curRow.size() - 1).equals("0")) {
-			if (msufCandidate.get(curCareIndex).equals(
-				curRow.get(curCareIndex))) {
-			    equal = true;
-			} else {
-			    equal = false;
-			}
-		    }
-
-		}
-		if (equal) {
-		    msufCandidates.remove(y);
-		}
-	    }
-	}
-
-	// Only consider nodes which have least number of cares, which means
-	// which are the most minimalized
-	// TODO Implementieren was tun, wenn mehrere Nodes mit gleich viel
-	// cares, ACHTUNG wichtig, damit algo richtig funktioniert.
-	int caresOld = 10000000;
-	int caresCur = 0;
-	SufTreeNode leastCares = null;
-
-	for (int i = 0; i < msufCandidates.size(); i++) {
-	    SufTreeNode curNode = msufCandidates.get(i);
-	    caresCur = curNode.getCareIndexes().size();
-	    if (caresCur < caresOld) {
-		leastCares = curNode;
-		caresOld = caresCur;
-	    }
-	}
-	msuf.add(leastCares.getData());
-
-	// Remove Duplicated
 	HashSet removeDuplicated = new HashSet(msuf);
 	msuf.clear();
 	msuf.addAll(removeDuplicated);
-	// }
-
-	System.out.println("MSUF's: " + msuf);
+	System.out.println("MSUF's" + msuf);
     }
 
     /**
      * Those two methods walk trough tree and compare according to compare()
      * method
      */
-    private void compareTraverse(DefaultTreeModel tree,
-	    ArrayList<String> origLine) {
+    private void compareTraverse(DefaultTreeModel tree) {
 	if (tree != null) {
 	    SufTreeNode root = (SufTreeNode) tree.getRoot();
-	    compareWalk(tree, root, origLine);
+	    boolean stop = false;
+	    for (int row = 1; row < sampleTable.size(); row++) {
+		ArrayList<String> curRow = sampleTable.get(row);
+		if (shouldBreak(curRow, root.getData())) {
+		    stop = true;
+		}
+	    }
+	    if (!stop) {
+		compareWalk(tree, root);
+	    }
 	} else
 	    System.out.println("Tree is empty.");
     }
 
-    private void compareWalk(TreeModel tree, SufTreeNode parent,
-	    ArrayList<String> origTableLine) {
+    private void compareWalk(TreeModel tree, SufTreeNode parent) {
 	int childCount;
 	childCount = tree.getChildCount(parent);
 	// Those boolean make sure only nodes will be added to msuf candidate
 	// list, which are equal according to compare() method.
-	boolean firstEqual = false;
-	boolean firstNotEqual = true;
-
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) tree.getChild(parent, i);
-
 	    if (tree.isLeaf(child)) {
-		if (!firstEqual) {
-		    firstEqual = compare(origTableLine, child.getData());
-		}
-		if (firstEqual && firstNotEqual) {
-		    firstNotEqual = compare(origTableLine, child.getData());
-		    msufCandidates.add(child);
+		// System.out.println(child.getData());
+
+		for (int row = 1; row < sampleTable.size(); row++) {
+		    ArrayList<String> curRow = sampleTable.get(row);
+		    if (shouldBreak(curRow, child.getData())) {
+			// System.out.println("CurrentParent: " +
+			// parent.getData());
+			if (canAdd) {
+			    System.out.println("parent " + parent.getData());
+			    System.out.println("node " + child.getData());
+			    System.out.println("origLine: " + curRow);
+			    msuf.add(parent.getData());
+			}
+			canAdd = false;
+		    }
 		}
 	    } else {
-		if (!firstEqual) {
-		    firstEqual = compare(origTableLine, child.getData());
+		for (int row = 1; row < sampleTable.size(); row++) {
+		    ArrayList<String> curRow = sampleTable.get(row);
+		    if (shouldBreak(curRow, child.getData())) {
+			if (canAdd) {
+			    
+			    System.out.println("node " + child.getData());
+			    System.out.println("origLine: " + curRow);
+			    msuf.add(parent.getData());
+			}
+			canAdd = false;
+		    }
 		}
-		if (firstEqual && firstNotEqual) {
-		    firstNotEqual = compare(origTableLine, child.getData());
-		    msufCandidates.add(child);
-		}
-		compareWalk(tree, child, origTableLine);
+		// System.out.println(child.getData());
+		// System.out.println("****************");
+		compareWalk(tree, child);
 	    }
 	}
+
     }
 
     /**
      * Used to compare if a line off original table and data of a node are
      * equal, $ will be ignored
      */
-    private boolean compare(ArrayList<String> origTableLine,
+    private boolean shouldBreak(ArrayList<String> origTableLine,
 	    ArrayList<String> curLine) {
+	// System.out.println("origTableLine: " + origTableLine);
+	// System.out.println("curLine " + curLine);
 
-	boolean areEqual = false;
 	for (int i = 0; i < curLine.size(); i++) {
 	    if (curLine.get(i).equals("1") || curLine.get(i).equals("0")) {
 		if (curLine.get(i).equals(origTableLine.get(i))) {
-		    areEqual = true;
 		} else {
-		    areEqual = false;
+		    return false;
 		}
 	    }
 	}
-	if (areEqual) {
+	if (origTableLine.get(origTableLine.size() - 1).equals("0")) {
+	    //System.out.println("FLAAAAAAAAAAAAAG");
 	    return true;
 	} else {
 	    return false;
@@ -204,6 +159,12 @@ public class BooleanTest {
 
     private void fillUpTree(SufTreeNode parent) {
 	if (parent.hasOneCare()) {
+	    ArrayList<String> list = new ArrayList<String>();
+	    for (int i = 0; i < parent.getData().size(); i++) {
+		list.add("$");
+	    }
+	    SufTreeNode newNode = new SufTreeNode(list);
+	    tree.insertNodeInto(newNode, parent, 0);
 	} else {
 	    ArrayList<String> data = parent.getData();
 	    ArrayList<Integer> places = parent.getCareIndexes();
@@ -291,5 +252,16 @@ public class BooleanTest {
 	    print += "\n";
 	}
 	return print;
+    }
+
+    private ArrayList<ArrayList<String>> clone2DArrayList(
+	    ArrayList<ArrayList<String>> toClone) {
+	ArrayList<ArrayList<String>> copy = new ArrayList<ArrayList<String>>();
+	ArrayList<String> col;
+	for (int i = 0; i < toClone.size(); i++) {
+	    col = (ArrayList<String>) toClone.get(i).clone();
+	    copy.add(col);
+	}
+	return copy;
     }
 }
