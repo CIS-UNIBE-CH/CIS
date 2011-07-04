@@ -15,6 +15,7 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> necTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
     private DefaultTreeModel msufTree;
 
@@ -23,6 +24,7 @@ public class BooleanTest {
 
 	BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
 	sampleTable = baumgartnerSample.getSampleTable();
+	//sampleTable = ArrayToArrayList(table);
 	System.out.println(baumgartnerSample);
 
 	// CustomSample customSample = new CustomSample();
@@ -58,7 +60,7 @@ public class BooleanTest {
 	    msufTree = new DefaultTreeModel(root);
 
 	    fillUpTree(root);
-	    newWalk(root);
+	    msufWalk(root);
 
 	    // Very interesting we got duplicated entries!
 	    HashSet removeDuplicated = new HashSet(msufTable);
@@ -67,17 +69,80 @@ public class BooleanTest {
 	}
 	System.out.println("MSUF Table:\n" + tableToString(msufTable));
     }
-    
-    /**Step 5 (Step 4 is not necessary, because we know where effect column is)*/
-    private void identifyNEC(){
-	
+
+    /** Step 5 (Step 4 is not necessary, because we know where effect column is) */
+    private void identifyNEC() {
+	// Create NEC
+	String nec = "";
+	for (int i = 0; i < msufTable.size(); i++) {
+	    nec += msufTable.get(i).toString();
+	}
+	// Filter not used characters from ArrayList to String transformation.
+	nec = nec.replace("[", "");
+	nec = nec.replace("]", "");
+	nec = nec.replace(" ", "");
+	nec = nec.replace("$", "");
+	nec = nec.replace(",", "");
+
+	// Switch from NEC to ¬NEC
+	nec = nec.replace("1", "3");
+	nec = nec.replace("0", "1");
+	nec = nec.replace("3", "0");
+	nec += "1";
+
+	ArrayList<String> necTemp = new ArrayList<String>();
+	for (int k = 0; k < nec.length(); k++) {
+	    char current = nec.charAt(k);
+	    necTemp.add(Character.toString(current));
+	}
+
+	// Check if ¬NEC exists in original coincidence table, if not, NEC is a
+	// NEC.
+	boolean necOK = true;
+	for (int i = 0; i < sampleTable.size(); i++) {
+	    ArrayList<String> curRow = sampleTable.get(i);
+	    if (curRow.equals(necTemp)) {
+		necOK = false;
+		System.out.println("No nec found!!!");
+	    }
+	}
+	if (necOK) {
+	    System.out.println("NEC is OK!\n");
+	    necTable = clone2DArrayList(msufTable);
+	   
+	    System.out.println("NEC Table:\n" + tableToString(necTable));
+	    System.out.println("NEC as String:\n" + necToString(necTable));
+	}
     }
-    
+
+    /**
+     * Helper Step 5: Transformation of necTable in a more human readable
+     * representation
+     */
+    private String necToString(ArrayList<ArrayList<String>> necTable) {
+	ArrayList<String> factorNames = sampleTable.get(0);
+	String output = "";
+	for (int i = 0; i < necTable.size(); i++) {
+	    ArrayList<String> curRow = necTable.get(i);
+	    for (int j = 0; j < curRow.size(); j++) {
+		if (curRow.get(j).equals("1")) {
+		    output += factorNames.get(j);
+		}
+		if (curRow.get(j).equals("0")) {
+		    output += "¬" + factorNames.get(j);
+		}
+	    }
+	    if (i < necTable.size() - 1) {
+		output += " ∨ ";
+	    }
+	}
+	return output;
+    }
 
     /**
      * Core Algorithm of Step 3: Makes a pre order tree walk and detects msuf's
      */
-    private void newWalk(SufTreeNode parent) {
+    private void msufWalk(SufTreeNode parent) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
@@ -100,7 +165,7 @@ public class BooleanTest {
 	    if (child.isLeaf() && !(shouldBreak(child.getData()))) {
 		msufTable.add(child.getData());
 	    } else {
-		newWalk(child);
+		msufWalk(child);
 	    }
 	}
     }
