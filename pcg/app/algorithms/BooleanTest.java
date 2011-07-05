@@ -29,13 +29,13 @@ public class BooleanTest {
 	this.table = ArrayToArrayList(table);
 
 	BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
-	// sampleTable = baumgartnerSample.getSampleTable();
-	// System.out.println(baumgartnerSample);
+	sampleTable = baumgartnerSample.getSampleTable();
+	System.out.println(baumgartnerSample);
 
 	// CustomSample customSample = new CustomSample();
 	// sampleTable = customSample.getSampleTable();
 	// System.out.println(customSample);
-	sampleTable = ArrayToArrayList(table);
+	// sampleTable = ArrayToArrayList(table);
 
 	identifySUF();
 	identifyMSUF();
@@ -100,7 +100,6 @@ public class BooleanTest {
 	System.out.println("NEC Line: " + necLine);
 
 	// Do the negate necLine
-
 	for (int k = 0; k < necLine.size(); k++) {
 	    String cur = necLine.get(k);
 	    cur = cur.replace("1", "3");
@@ -126,6 +125,7 @@ public class BooleanTest {
 	}
 	if (necOK) {
 	    System.out.println("NEC Line is OK!");
+	    System.out.println("nec " + necToString(necTable));
 	    identifyMNEC();
 	}
 
@@ -153,6 +153,7 @@ public class BooleanTest {
 	    }
 	}
 	System.out.println("MNEC Table:\n" + tableToString(mnecTable));
+	System.out.println(mnecToString(mnecTable, newSampleTable.get(0)));
     }
 
     private void necWalk(SufTreeNode parent,
@@ -256,23 +257,24 @@ public class BooleanTest {
      * Helper Step 5: Transformation of necTable in a more human readable
      * representation
      */
-    private String necToString(ArrayList<ArrayList<String>> necTable) {
-	ArrayList<String> factorNames = sampleTable.get(0);
+    private String mnecToString(ArrayList<ArrayList<String>> necTable,
+	    ArrayList<String> names) {
+	ArrayList<String> factorNames = names;
+	System.out.println(names);
 	String output = "";
-	for (int i = 0; i < necTable.size(); i++) {
-	    ArrayList<String> curRow = necTable.get(i);
-	    for (int j = 0; j < curRow.size(); j++) {
-		if (curRow.get(j).equals("1")) {
-		    output += factorNames.get(j);
-		}
-		if (curRow.get(j).equals("0")) {
-		    output += "¬" + factorNames.get(j);
+	for (int row = 0; row < necTable.size(); row++)
+	    for (int col = 0; col < necTable.get(row).size(); col++) {
+		if (!necTable.get(row).get(col).equals("$")) {
+		    factorNames.add(names.get(col));
 		}
 	    }
-	    if (i < necTable.size() - 1) {
-		output += " ∨ ";
-	    }
+	for (int i = 0; i < factorNames.size() - 1; i++) {
+	    if (i == factorNames.size() - 2)
+		output += factorNames.get(i);
+	    else
+		output += factorNames.get(i) + " v ";
 	}
+
 	return output;
     }
 
@@ -420,5 +422,29 @@ public class BooleanTest {
 	    copy.add(col);
 	}
 	return copy;
+    }
+
+    /**
+     * Helper Step 5: Transformation of necTable in a more human readable
+     * representation
+     */
+    private String necToString(ArrayList<ArrayList<String>> necTable) {
+	ArrayList<String> factorNames = sampleTable.get(0);
+	String output = "";
+	for (int i = 0; i < necTable.size(); i++) {
+	    ArrayList<String> curRow = necTable.get(i);
+	    for (int j = 0; j < curRow.size(); j++) {
+		if (curRow.get(j).equals("1")) {
+		    output += factorNames.get(j);
+		}
+		if (curRow.get(j).equals("0")) {
+		    output += "¬" + factorNames.get(j);
+		}
+	    }
+	    if (i < necTable.size() - 1) {
+		output += " ∨ ";
+	    }
+	}
+	return output;
     }
 }
