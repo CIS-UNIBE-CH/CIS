@@ -26,6 +26,8 @@ public class Application extends Controller {
     private static ArrayList<String> table;
     private static RandomGraphGenerator generator;
     private static Timer timer;
+    private static boolean showColourRenderer;
+    private static boolean showBundleNumRenderer;
 
     public static void index() {
 	render();
@@ -34,6 +36,8 @@ public class Application extends Controller {
     public static void calcBooleanGraph() {
 	timer = new Timer();
 	renderer = new Renderer();
+	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.setChangingVertexColors(showColourRenderer);
 	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray());
 	tree = booleanTest.getCnaTree();
 	Long time = timer.timeElapsed();
@@ -53,6 +57,8 @@ public class Application extends Controller {
     public static void calcBinGraph() {
 	timer = new Timer();
 	renderer = new Renderer();
+	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.setChangingVertexColors(showColourRenderer);
 	BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
 	tree = binaryTest.createTree();
 	Long time = timer.timeElapsed();
@@ -85,8 +91,11 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	table = new ArrayList<String>();
 
-	renderer.setEdgeLabels(showBundleNum != null);
-	renderer.setChangingVertexColors(showColour != null);
+	showColourRenderer = (showColour != null);
+	showBundleNumRenderer = (showBundleNum != null);
+
+	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.setChangingVertexColors(showColourRenderer);
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
 	    timer = new Timer();
