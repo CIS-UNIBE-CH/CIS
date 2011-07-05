@@ -75,7 +75,8 @@ public class Application extends Controller {
     }
 
     public static void generateGraph(String numberOfFactors,
-	    String numberOfBundles, String sizeOfBundles) {
+	    String numberOfBundles, String sizeOfBundles, String showBundleNum,
+	    String showColour) {
 
 	// Generate a Graph with n bundles and a total of k factors
 	int numBundles = Integer.parseInt(numberOfBundles);
@@ -83,6 +84,9 @@ public class Application extends Controller {
 	int sizeBundles = Integer.parseInt(sizeOfBundles);
 	renderer = new Renderer();
 	table = new ArrayList<String>();
+
+	renderer.setEdgeLabels(showBundleNum != null);
+	renderer.setChangingVertexColors(showColour != null);
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
 	    timer = new Timer();
