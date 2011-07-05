@@ -22,22 +22,26 @@ public class BooleanTest {
     private ArrayList<String> necLine = new ArrayList<String>();
     private DefaultTreeModel msufTree;
     private DefaultTreeModel mnecTree;
+    private ArrayList<String> negatedNecLine = new ArrayList<String>();
+    private ArrayList<ArrayList<String>> newSampleTable;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
 
 	BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
-	sampleTable = baumgartnerSample.getSampleTable();
-	System.out.println(baumgartnerSample);
+	// sampleTable = baumgartnerSample.getSampleTable();
+	// System.out.println(baumgartnerSample);
 
 	// CustomSample customSample = new CustomSample();
 	// sampleTable = customSample.getSampleTable();
+	// System.out.println(customSample);
+	sampleTable = ArrayToArrayList(table);
 
 	identifySUF();
 	identifyMSUF();
 	identifyNEC();
 	System.out.println(tableToString(necTable));
-	// identifyMNEC();
+
     }
 
     /** Step 2 **/
@@ -78,7 +82,7 @@ public class BooleanTest {
     /** Step 5 (Step 4 is not necessary, because we know where effect column is) */
     private void identifyNEC() {
 	// Dini Table wode wotsch
-	ArrayList<ArrayList<String>> newSampleTable = createNewSampleTable(msufTable);
+	newSampleTable = createNewSampleTable(msufTable);
 	System.out
 		.println("New SampleTable:\n" + tableToString(newSampleTable));
 
@@ -96,7 +100,7 @@ public class BooleanTest {
 	System.out.println("NEC Line: " + necLine);
 
 	// Do the negate necLine
-	ArrayList<String> negatedNecLine = new ArrayList<String>();
+
 	for (int k = 0; k < necLine.size(); k++) {
 	    String cur = necLine.get(k);
 	    cur = cur.replace("1", "3");
@@ -122,11 +126,99 @@ public class BooleanTest {
 	}
 	if (necOK) {
 	    System.out.println("NEC Line is OK!");
+	    identifyMNEC();
 	}
 
-	// minimalizeTable(msufTable, necTable);
-	// System.out.println(necLine);
-	// minTable2(msufTable, newSampleTable);
+    }
+
+    private void identifyMNEC() {
+	negatedNecLine.remove(negatedNecLine.size() - 1);
+	SufTreeNode root = new SufTreeNode(negatedNecLine);
+	mnecTree = new DefaultTreeModel(root);
+
+	fillUpTree(root, mnecTree);
+	// treeToString(mnecTree);
+	necWalk(root, mnecTable);
+
+	HashSet removeDuplicated = new HashSet(mnecTable);
+	mnecTable.clear();
+	mnecTable.addAll(removeDuplicated);
+	for (int row = 0; row < mnecTable.size(); row++) {
+	    for (int col = 0; col < mnecTable.get(row).size(); col++) {
+		String cur = mnecTable.get(row).get(col);
+		cur = cur.replace("1", "3");
+		cur = cur.replace("0", "1");
+		cur = cur.replace("3", "0");
+		mnecTable.get(row).set(col, cur);
+	    }
+	}
+	System.out.println("MNEC Table:\n" + tableToString(mnecTable));
+    }
+
+    private void necWalk(SufTreeNode parent,
+	    ArrayList<ArrayList<String>> mnecTable2) {
+	int breaks = 0;
+	int childCount = parent.getChildCount();
+
+	// Count how many "broken" childs current parent has.
+	for (int i = 0; i < childCount; i++) {
+	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    if (shouldNecBreak(child.getData())) {
+		breaks++;
+		// System.out.println(breaks);
+	    }
+	}
+	// If every child of current parent breaks and parent itself does not
+	// break, we got a msuf!
+	if (breaks == childCount && !shouldNecBreak(parent.getData())) {
+	    // System.out.println("braeksadd " + parent.getData());
+	    mnecTable2.add(parent.getData());
+	}
+	for (int i = 0; i < childCount; i++) {
+	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    // Special condition for leaves, when they itself not break they are
+	    // a msuf!
+	    if (child.isLeaf() && (!shouldNecBreak(child.getData()))) {
+		mnecTable2.add(child.getData());
+		// System.out.println("leafadd " + child.getData());
+	    } else {
+		necWalk(child, mnecTable2);
+	    }
+	}
+
+    }
+
+    private boolean shouldNecBreak(ArrayList<String> curLine) {
+	boolean isEqual = false;
+	// System.out.println("curLine " + curLine);
+	for (int r = 1; r < newSampleTable.size(); r++) {
+	    ArrayList<String> curRow = newSampleTable.get(r);
+	    for (int i = 0; i < curLine.size(); i++) {
+		// Only if there is a 1 or 0 in nodes data compare, when a
+		// dollar do nothing.
+		if (curLine.get(i).equals("1") || curLine.get(i).equals("0")
+			|| curLine.get(i).length() > 1) {
+		    // System.out.println("::::: " + curLine.get(i) + " "
+		    // + curRow.get(i));
+		    if (curLine.get(i).equals(curRow.get(i))) {
+			// System.out.println(" ----");
+			isEqual = true;
+		    } else {
+			isEqual = false;
+			break;
+		    }
+		}
+	    }
+	    // Check if there is a line in sample table with effect = 0 which
+	    // matches nodes data.
+	    if (isEqual) {
+		if (curRow.get(curRow.size() - 1).equals("1")) {
+		    // System.out.println("L " + curLine + " R " + curRow);
+		    return false;
+		}
+	    }
+	}
+	return true;
     }
 
     /**
@@ -182,43 +274,6 @@ public class BooleanTest {
 	    }
 	}
 	return output;
-    }
-
-    private void minimalizeTable(ArrayList<ArrayList<String>> msufTable2,
-	    ArrayList<ArrayList<String>> necTable2) {
-	for (int row = 0; row < msufTable.size(); row++) {
-	    String swap = new String();
-	    ArrayList<String> tempList = new ArrayList<String>();
-	    for (int col = 0; col < msufTable.get(row).size(); col++) {
-		if (!msufTable.get(row).get(col).equals("$")) {
-		    swap += msufTable.get(row).get(col);
-		}
-	    }
-	    for (int col = 0; col < msufTable.size(); col++) {
-		if (msufTable.get(row).get(col).equals("$")) {
-		    tempList.add("$");
-		} else {
-		    tempList.add(swap);
-		    col += swap.length() - 1;
-		}
-	    }
-	    necTable.add(tempList);
-	}
-    }
-
-    private void identifyMNEC() {
-
-	SufTreeNode root = new SufTreeNode(necTable.get(0));
-	mnecTree = new DefaultTreeModel(root);
-
-	fillUpTree(root, mnecTree);
-	treeToString(mnecTree);
-	newWalk(root, mnecTable);
-	HashSet removeDuplicated = new HashSet(mnecTable);
-	mnecTable.clear();
-	mnecTable.addAll(removeDuplicated);
-
-	System.out.println("MNEC Table:\n" + tableToString(mnecTable));
     }
 
     /** Use those both methods to print tree in syso. */

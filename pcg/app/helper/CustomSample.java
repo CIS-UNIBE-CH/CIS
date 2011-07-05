@@ -21,7 +21,7 @@ public class CustomSample {
 	secondRow.add("1");
 	secondRow.add("1");
 	secondRow.add("1");
-	secondRow.add("0");
+	secondRow.add("1");
 	secondRow.add("1");
 	sampleTable.add(secondRow);
 
@@ -32,6 +32,46 @@ public class CustomSample {
 	thirdRow.add("1");
 	thirdRow.add("1");
 	sampleTable.add(thirdRow);
+
+	ArrayList<String> fourthRow = new ArrayList<String>();
+	fourthRow.add("1");
+	fourthRow.add("0");
+	fourthRow.add("1");
+	fourthRow.add("1");
+	fourthRow.add("1");
+	sampleTable.add(fourthRow);
+
+	ArrayList<String> fifthRow = new ArrayList<String>();
+	fifthRow.add("0");
+	fifthRow.add("1");
+	fifthRow.add("1");
+	fifthRow.add("1");
+	fifthRow.add("1");
+	sampleTable.add(fifthRow);
+
+	ArrayList<String> sixthRow = new ArrayList<String>();
+	sixthRow.add("0");
+	sixthRow.add("1");
+	sixthRow.add("0");
+	sixthRow.add("1");
+	sixthRow.add("1");
+	sampleTable.add(sixthRow);
+
+	ArrayList<String> seventhRow = new ArrayList<String>();
+	seventhRow.add("1");
+	seventhRow.add("0");
+	seventhRow.add("0");
+	seventhRow.add("0");
+	seventhRow.add("1");
+	sampleTable.add(seventhRow);
+
+	ArrayList<String> eigthRow = new ArrayList<String>();
+	eigthRow.add("0");
+	eigthRow.add("0");
+	eigthRow.add("1");
+	eigthRow.add("0");
+	eigthRow.add("1");
+	sampleTable.add(eigthRow);
 
 	ArrayList<String> ninethRow = new ArrayList<String>();
 	ninethRow.add("0");
@@ -45,9 +85,9 @@ public class CustomSample {
     public ArrayList<ArrayList<String>> getSampleTable() {
 	return sampleTable;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
 	String output;
 	output = "\nCustom Sample Table:";
 	for (int i = 0; i < sampleTable.size(); i++) {

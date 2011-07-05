@@ -28,7 +28,8 @@ public class SufTreeNode extends DefaultMutableTreeNode {
     public ArrayList<Integer> getCareIndexes() {
 	ArrayList<Integer> places = new ArrayList<Integer>();
 	for (int i = 0; i < data.size(); i++) {
-	    if (data.get(i).equals("1") || data.get(i).equals("0"))
+	    if (data.get(i).equals("1") || data.get(i).equals("0")
+		    || (data.get(i).length() > 1))
 		places.add(i);
 	}
 	return places;
