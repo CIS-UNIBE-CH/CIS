@@ -30,6 +30,11 @@ public class Application extends Controller {
     public static void index() {
 	render();
     }
+    
+    public static void calcBooleanGraph() {
+    	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray());
+    	
+    }
 
     public static void quadroTest(int step, String f1, String f2) {
 	render(step, f1, f2);
@@ -98,11 +103,6 @@ public class Application extends Controller {
     }
 
     public static void calccalcEQuadroGraph() {
-    }
-
-    public static void calcBooleanGraph() {
-    	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray());
-    	
     }
 
     public static void calcEQuadroGraph() {
