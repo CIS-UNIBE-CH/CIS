@@ -14,7 +14,8 @@ public class SufTreeNode extends DefaultMutableTreeNode {
     public boolean hasOneCare() {
 	int counter = 0;
 	for (int i = 0; i < data.size(); i++) {
-	    if (data.get(i).equals("1") || data.get(i).equals("0"))
+	    if (data.get(i).equals("1") || data.get(i).equals("0")
+		    || (data.get(i).length() > 1))
 		counter++;
 	}
 	return counter == 1;
@@ -32,8 +33,8 @@ public class SufTreeNode extends DefaultMutableTreeNode {
 	}
 	return places;
     }
-    
-    public void setEffectValue(String effectValue){
+
+    public void setEffectValue(String effectValue) {
 	data.add(effectValue);
     }
 

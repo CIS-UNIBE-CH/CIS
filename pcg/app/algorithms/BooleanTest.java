@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 import trees.SufTreeNode;
 
@@ -15,17 +16,18 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
-    private ArrayList<ArrayList<String>> necTable = new ArrayList<ArrayList<String>>();
-    private ArrayList<ArrayList<String>> necTableTemp = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> mnecTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
+    private ArrayList<ArrayList<String>> necTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<String> necLine = new ArrayList<String>();
     private DefaultTreeModel msufTree;
+    private DefaultTreeModel mnecTree;
 
     public BooleanTest(String[][] table) {
 	this.table = ArrayToArrayList(table);
 
 	BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
 	sampleTable = baumgartnerSample.getSampleTable();
-	// sampleTable = ArrayToArrayList(table);
 	System.out.println(baumgartnerSample);
 
 	// CustomSample customSample = new CustomSample();
@@ -33,10 +35,9 @@ public class BooleanTest {
 
 	identifySUF();
 	identifyMSUF();
-	createNec(msufTable);
-	System.out
-		.println("asldfkajsdflkasjdf: " + tableToString(necTableTemp));
 	identifyNEC();
+	System.out.println(tableToString(necTable));
+	// identifyMNEC();
     }
 
     /** Step 2 **/
@@ -63,8 +64,8 @@ public class BooleanTest {
 	    SufTreeNode root = new SufTreeNode(sufLine);
 	    msufTree = new DefaultTreeModel(root);
 
-	    fillUpTree(root);
-	    msufWalk(root);
+	    fillUpTree(root, msufTree);
+	    newWalk(root, msufTable);
 
 	    // Very interesting we got duplicated entries!
 	    HashSet removeDuplicated = new HashSet(msufTable);
@@ -76,59 +77,72 @@ public class BooleanTest {
 
     /** Step 5 (Step 4 is not necessary, because we know where effect column is) */
     private void identifyNEC() {
-	// Create NEC
-	String nec = "";
+	// Dini Table wode wotsch
+	ArrayList<ArrayList<String>> newSampleTable = createNewSampleTable(msufTable);
+	System.out
+		.println("New SampleTable:\n" + tableToString(newSampleTable));
+
+	// GetNecLine
 	for (int i = 0; i < msufTable.size(); i++) {
-	    nec += msufTable.get(i).toString();
+	    String line = "";
+	    ArrayList<String> curMsuf = msufTable.get(i);
+	    for (int j = 0; j < curMsuf.size(); j++) {
+		if (curMsuf.get(j).equals("1") || curMsuf.get(j).equals("0")) {
+		    line += curMsuf.get(j);
+		}
+	    }
+	    necLine.add(line);
 	}
-	// Filter not used characters from ArrayList to String transformation.
-	nec = nec.replace("[", "");
-	nec = nec.replace("]", "");
-	nec = nec.replace(" ", "");
-	nec = nec.replace("$", "");
-	nec = nec.replace(",", "");
+	System.out.println("NEC Line: " + necLine);
 
-	// Switch from NEC to ¬NEC
-	nec = nec.replace("1", "3");
-	nec = nec.replace("0", "1");
-	nec = nec.replace("3", "0");
-	nec += "1";
-
-	ArrayList<String> necTemp = new ArrayList<String>();
-	for (int k = 0; k < nec.length(); k++) {
-	    char current = nec.charAt(k);
-	    necTemp.add(Character.toString(current));
+	// Do the negate necLine
+	ArrayList<String> negatedNecLine = new ArrayList<String>();
+	for (int k = 0; k < necLine.size(); k++) {
+	    String cur = necLine.get(k);
+	    cur = cur.replace("1", "3");
+	    cur = cur.replace("0", "1");
+	    cur = cur.replace("3", "0");
+	    negatedNecLine.add(cur);
 	}
+	// Wirkung adden
+	negatedNecLine.add("1");
 
-	// Check if ¬NEC exists in original coincidence table, if not, NEC is a
-	// NEC.
-	boolean necOK = true;
-	for (int i = 0; i < sampleTable.size(); i++) {
-	    ArrayList<String> curRow = sampleTable.get(i);
-	    if (curRow.equals(necTemp)) {
+	System.out.println("Negated NEC Line (with Effect): " + negatedNecLine);
+
+	// Do the NEC check
+	boolean necOK = false;
+	for (int j = 0; j < newSampleTable.size(); j++) {
+	    if (newSampleTable.get(j).equals(necLine)) {
 		necOK = false;
-		System.out.println("No nec found!!!");
+		System.out.println("NEC Line check FAILED!");
+		break;
+	    } else {
+		necOK = true;
 	    }
 	}
 	if (necOK) {
-	    System.out.println("NEC is OK!\n");
-	    necTable = clone2DArrayList(msufTable);
-
-	    System.out.println("NEC Table:\n" + tableToString(necTable));
-	    System.out.println("NEC as String:\n" + necToString(necTable));
+	    System.out.println("NEC Line is OK!");
 	}
+
+	// minimalizeTable(msufTable, necTable);
+	// System.out.println(necLine);
+	// minTable2(msufTable, newSampleTable);
     }
 
     /**
      * Helper Step 5: Transformation of necTable in a more human readable
      * representation
+     * 
+     * @return
      */
-    private void createNec(ArrayList<ArrayList<String>> msufTable) {
+    private ArrayList<ArrayList<String>> createNewSampleTable(
+	    ArrayList<ArrayList<String>> msufTable) {
+	ArrayList<ArrayList<String>> necTableTemp = new ArrayList<ArrayList<String>>();
 
 	for (int k = 0; k < sampleTable.size(); k++) {
 	    ArrayList<String> curSample = sampleTable.get(k);
 	    ArrayList<String> current = new ArrayList<String>();
-	    
+
 	    for (int i = 0; i < msufTable.size(); i++) {
 		String line = "";
 		ArrayList<String> curMsuf = msufTable.get(i);
@@ -140,9 +154,10 @@ public class BooleanTest {
 		}
 		current.add(line);
 	    }
-	    //System.out.println("Line: " + line);
+	    current.add(curSample.get(curSample.size() - 1));
 	    necTableTemp.add(current);
 	}
+	return necTableTemp;
     }
 
     /**
@@ -169,10 +184,71 @@ public class BooleanTest {
 	return output;
     }
 
+    private void minimalizeTable(ArrayList<ArrayList<String>> msufTable2,
+	    ArrayList<ArrayList<String>> necTable2) {
+	for (int row = 0; row < msufTable.size(); row++) {
+	    String swap = new String();
+	    ArrayList<String> tempList = new ArrayList<String>();
+	    for (int col = 0; col < msufTable.get(row).size(); col++) {
+		if (!msufTable.get(row).get(col).equals("$")) {
+		    swap += msufTable.get(row).get(col);
+		}
+	    }
+	    for (int col = 0; col < msufTable.size(); col++) {
+		if (msufTable.get(row).get(col).equals("$")) {
+		    tempList.add("$");
+		} else {
+		    tempList.add(swap);
+		    col += swap.length() - 1;
+		}
+	    }
+	    necTable.add(tempList);
+	}
+    }
+
+    private void identifyMNEC() {
+
+	SufTreeNode root = new SufTreeNode(necTable.get(0));
+	mnecTree = new DefaultTreeModel(root);
+
+	fillUpTree(root, mnecTree);
+	treeToString(mnecTree);
+	newWalk(root, mnecTable);
+	HashSet removeDuplicated = new HashSet(mnecTable);
+	mnecTable.clear();
+	mnecTable.addAll(removeDuplicated);
+
+	System.out.println("MNEC Table:\n" + tableToString(mnecTable));
+    }
+
+    /** Use those both methods to print tree in syso. */
+    private void treeToString(DefaultTreeModel model) {
+	if (model != null) {
+	    SufTreeNode root = (SufTreeNode) model.getRoot();
+	    System.out.println("Root: " + root.toString());
+	    treeToStringHelper(model, root);
+	} else
+	    System.out.println("Tree is empty.");
+    }
+
+    private void treeToStringHelper(TreeModel model, SufTreeNode parent) {
+	int childCount;
+	childCount = model.getChildCount(parent);
+	for (int i = 0; i < childCount; i++) {
+	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
+	    if (model.isLeaf(child))
+		System.out.println("Leaf: " + child.toString());
+	    else {
+		System.out.print(child.toString() + " --\n");
+		treeToStringHelper(model, child);
+	    }
+	}
+    }
+
     /**
      * Core Algorithm of Step 3: Makes a pre order tree walk and detects msuf's
      */
-    private void msufWalk(SufTreeNode parent) {
+    private void newWalk(SufTreeNode parent, ArrayList<ArrayList<String>> table) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
@@ -186,16 +262,16 @@ public class BooleanTest {
 	// If every child of current parent breaks and parent itself does not
 	// break, we got a msuf!
 	if (breaks == childCount && !shouldBreak(parent.getData())) {
-	    msufTable.add(parent.getData());
+	    table.add(parent.getData());
 	}
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    // Special condition for leaves, when they itself not break they are
 	    // a msuf!
 	    if (child.isLeaf() && !(shouldBreak(child.getData()))) {
-		msufTable.add(child.getData());
+		table.add(child.getData());
 	    } else {
-		msufWalk(child);
+		newWalk(child, table);
 	    }
 	}
     }
@@ -236,7 +312,7 @@ public class BooleanTest {
      * from sufTable, then make a permutation of one $ in level after root, then
      * with two $ etc.
      */
-    private void fillUpTree(SufTreeNode parent) {
+    private void fillUpTree(SufTreeNode parent, DefaultTreeModel tree) {
 	if (parent.hasOneCare()) {
 	} else {
 	    ArrayList<String> data = parent.getData();
@@ -246,8 +322,8 @@ public class BooleanTest {
 		ArrayList<String> curNode = permutation(
 			(ArrayList<String>) data.clone(), indexes.get(i));
 		SufTreeNode newNode = new SufTreeNode(curNode);
-		msufTree.insertNodeInto(newNode, parent, i);
-		fillUpTree(newNode);
+		tree.insertNodeInto(newNode, parent, i);
+		fillUpTree(newNode, tree);
 	    }
 	}
     }
