@@ -16,6 +16,7 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> necTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> necTableTemp = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable;
     private DefaultTreeModel msufTree;
 
@@ -24,7 +25,7 @@ public class BooleanTest {
 
 	BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
 	sampleTable = baumgartnerSample.getSampleTable();
-	//sampleTable = ArrayToArrayList(table);
+	// sampleTable = ArrayToArrayList(table);
 	System.out.println(baumgartnerSample);
 
 	// CustomSample customSample = new CustomSample();
@@ -32,6 +33,9 @@ public class BooleanTest {
 
 	identifySUF();
 	identifyMSUF();
+	createNec(msufTable);
+	System.out
+		.println("asldfkajsdflkasjdf: " + tableToString(necTableTemp));
 	identifyNEC();
     }
 
@@ -109,9 +113,35 @@ public class BooleanTest {
 	if (necOK) {
 	    System.out.println("NEC is OK!\n");
 	    necTable = clone2DArrayList(msufTable);
-	   
+
 	    System.out.println("NEC Table:\n" + tableToString(necTable));
 	    System.out.println("NEC as String:\n" + necToString(necTable));
+	}
+    }
+
+    /**
+     * Helper Step 5: Transformation of necTable in a more human readable
+     * representation
+     */
+    private void createNec(ArrayList<ArrayList<String>> msufTable) {
+
+	for (int k = 0; k < sampleTable.size(); k++) {
+	    ArrayList<String> curSample = sampleTable.get(k);
+	    ArrayList<String> current = new ArrayList<String>();
+	    
+	    for (int i = 0; i < msufTable.size(); i++) {
+		String line = "";
+		ArrayList<String> curMsuf = msufTable.get(i);
+		for (int j = 0; j < curMsuf.size(); j++) {
+		    if (curMsuf.get(j).equals("1")
+			    || curMsuf.get(j).equals("0")) {
+			line += curSample.get(j);
+		    }
+		}
+		current.add(line);
+	    }
+	    //System.out.println("Line: " + line);
+	    necTableTemp.add(current);
 	}
     }
 
