@@ -38,7 +38,7 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray());
+	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray(), false);
 	tree = booleanTest.getCnaTree();
 	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));

@@ -20,24 +20,33 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> mnecTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> sufTableForTesting = new ArrayList<ArrayList<String>>();
     private ArrayList<String> necLine = new ArrayList<String>();
     private DefaultTreeModel msufTree;
     private DefaultTreeModel mnecTree;
     private ArrayList<String> negatedNecLine = new ArrayList<String>();
+    private ArrayList<String> negatedNecLineForTesting = new ArrayList<String>();
     private ArrayList<ArrayList<String>> newSampleTable = new ArrayList<ArrayList<String>>();
     private CustomTree cnaTree = new CustomTree();
+    private boolean useBaumgartnerSample;
+    private ArrayList<String> fmt = new ArrayList<String>();
 
-    public BooleanTest(String[][] table) {
+    public BooleanTest(String[][] table, Boolean useBaumgartnerSample) {
 	this.table = ArrayToArrayList(table);
+	sampleTable = ArrayToArrayList(table);
+	this.useBaumgartnerSample = useBaumgartnerSample;
+	useBaumgartnerSample = true;
 
-	BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
-	//sampleTable = baumgartnerSample.getSampleTable();
-	System.out.println(baumgartnerSample);
+	if (useBaumgartnerSample) {
+	    BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
+	    System.out.println(baumgartnerSample);
+	    sampleTable.clear();
+	    sampleTable = baumgartnerSample.getSampleTable();
+	}
 
 	// CustomSample customSample = new CustomSample();
 	// sampleTable = customSample.getSampleTable();
 	// System.out.println(customSample);
-	sampleTable = ArrayToArrayList(table);
 
 	identifySUF();
 	identifyMSUF();
@@ -55,6 +64,7 @@ public class BooleanTest {
 		sufTable.remove(r);
 	    }
 	}
+	sufTableForTesting = clone2DArrayList(sufTable);
 	System.out.println("SUF Table:\n" + tableToString(sufTable));
     }
 
@@ -99,7 +109,7 @@ public class BooleanTest {
 	    }
 	    necLine.add(line);
 	}
-	// System.out.println("NEC Line: " + necLine);
+	System.out.println("NEC Line: " + necLine);
 
 	// Do the negate necLine
 	for (int k = 0; k < necLine.size(); k++) {
@@ -111,9 +121,10 @@ public class BooleanTest {
 	}
 	// Wirkung adden
 	negatedNecLine.add("1");
+	negatedNecLineForTesting = (ArrayList<String>) negatedNecLine.clone();
 
-	// System.out.println("Negated NEC Line (with Effect): " +
-	// negatedNecLine);
+	System.out.println("NEC Line: " + necLine);
+	System.out.println("Negated NEC Line (with Effect): " + negatedNecLine);
 
 	// Do the NEC check
 	boolean necOK = false;
@@ -169,7 +180,7 @@ public class BooleanTest {
 	cnaTree.setRoot(root);
 	ArrayList<String> mnecNames = mnecFactorNames(mnecTable,
 		newSampleTable.get(0));
-	ArrayList<String> fmt = new ArrayList<String>();
+	
 	String coFactors = "X";
 	for (int i = 0; i < mnecNames.size(); i++) {
 	    String curMnec = mnecNames.get(i);
@@ -499,4 +510,36 @@ public class BooleanTest {
     public CustomTree getCnaTree() {
 	return cnaTree;
     }
+
+    public void setUseBaumgartnerSample(boolean useBaumgartnerSample) {
+        this.useBaumgartnerSample = useBaumgartnerSample;
+    }
+
+    public ArrayList<ArrayList<String>> getMsufTable() {
+        return msufTable;
+    }
+
+    public ArrayList<ArrayList<String>> getMnecTable() {
+        return mnecTable;
+    }
+
+    public ArrayList<ArrayList<String>> getSufTableForTesting() {
+        return sufTableForTesting;
+    }
+
+    public ArrayList<String> getNecLine() {
+        return necLine;
+    }
+
+    public ArrayList<String> getNegatedNecLineForTesting() {
+        return negatedNecLineForTesting;
+    }
+
+    public ArrayList<ArrayList<String>> getNewSampleTable() {
+        return newSampleTable;
+    }
+
+    public ArrayList<String> getFmt() {
+        return fmt;
+    } 
 }
