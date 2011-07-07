@@ -11,8 +11,8 @@ import models.Renderer;
 import parser.TreeToGraph;
 import play.mvc.Controller;
 import trees.CustomTree;
-import algorithms.BinaryTest;
-import algorithms.BooleanTest;
+import algorithms.BinaryApproach;
+import algorithms.CNA;
 import algorithms.QuadroTest;
 
 public class Application extends Controller {
@@ -38,15 +38,15 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	BooleanTest booleanTest = new BooleanTest(generator.getTableAsArray(), false);
-	tree = booleanTest.getCnaTree();
+	CNA cnaAlgorithm = new CNA(generator.getTableAsArray(), false);
+	tree = cnaAlgorithm.getCnaTree();
 	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));
 	calculatedGraph = tree.toString();
 	calculatedGraphPath = renderer.getImageSource();
 	String elapsedTime = time.toString() + " ms";
 	complexTesting(2, false, null, generatedGraphPath, generatedGraph,
-		calculatedGraphPath, calculatedGraph, "Boolean Test",
+		calculatedGraphPath, calculatedGraph, "Baumgartner CNA",
 		elapsedTime);
     }
 
@@ -59,15 +59,15 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	BinaryTest binaryTest = new BinaryTest(generator.getTableAsArray());
-	tree = binaryTest.createTree();
+	BinaryApproach binaryAlgorithm = new BinaryApproach(generator.getTableAsArray());
+	tree = binaryAlgorithm.createTree();
 	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));
 	calculatedGraph = tree.toString();
 	calculatedGraphPath = renderer.getImageSource();
 	String elapsedTime = time.toString() + " ms";
 	complexTesting(2, false, null, generatedGraphPath, generatedGraph,
-		calculatedGraphPath, calculatedGraph, "Binary Test",
+		calculatedGraphPath, calculatedGraph, "Binary Algorithm",
 		elapsedTime);
     }
 

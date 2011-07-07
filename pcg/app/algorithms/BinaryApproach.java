@@ -10,14 +10,14 @@ import trees.CustomTreeNode;
 //TODO: Currently work only with number of bundles <= 2 and x alternative Factors
 //TODO: Fix github issue #16
 
-public class BinaryTest {
+public class BinaryApproach {
 	private CustomTree tree;
 	private String[][] table;
 	private ArrayList<Integer> colIndexesAlterFactors;
 	private ArrayList<Integer> rowIndexesBundles;
 	private ArrayList<ArrayList<String>> tableAsList;
 
-	public BinaryTest(String[][] table) {
+	public BinaryApproach(String[][] table) {
 		this.table = table;
 		colIndexesAlterFactors = new ArrayList<Integer>();
 		rowIndexesBundles = new ArrayList<Integer>();

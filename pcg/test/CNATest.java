@@ -6,10 +6,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import play.test.UnitTest;
-import algorithms.BooleanTest;
+import algorithms.CNA;
 
-public class CnaTest extends UnitTest {
-    private static BooleanTest cnaAlgorithm;
+public class CNATest extends UnitTest {
+    private static CNA cnaAlgorithm;
 
     @BeforeClass
     public static void setup() {
@@ -17,7 +17,7 @@ public class CnaTest extends UnitTest {
 	String table[][] = new String[1][1];
 	table[0][0] = "";
 
-	cnaAlgorithm = new BooleanTest(table, true);
+	cnaAlgorithm = new CNA(table, true);
     }
 
     @Test

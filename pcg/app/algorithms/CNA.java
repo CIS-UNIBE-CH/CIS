@@ -13,7 +13,7 @@ import trees.CustomTree;
 import trees.CustomTreeNode;
 import trees.SufTreeNode;
 
-public class BooleanTest {
+public class CNA {
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> mnecTable = new ArrayList<ArrayList<String>>();
@@ -34,7 +34,7 @@ public class BooleanTest {
     private ArrayList<ArrayList<String>> msufTableForTesting = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> mnecTableForTesting = new ArrayList<ArrayList<String>>();
 
-    public BooleanTest(String[][] table, Boolean useBaumgartnerSample) {
+    public CNA(String[][] table, Boolean useBaumgartnerSample) {
 	sampleTable = ArrayToArrayList(table);
 	this.useBaumgartnerSample = useBaumgartnerSample;
 
