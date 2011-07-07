@@ -4,10 +4,10 @@ package helper;
 
 import java.util.ArrayList;
 
-public class CustomSample {
+public class CustomSampleTable {
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
 
-    public CustomSample() {
+    public CustomSampleTable() {
 
 	ArrayList<String> firstRow = new ArrayList<String>();
 	firstRow.add("A");

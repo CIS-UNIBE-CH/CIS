@@ -4,10 +4,10 @@ package helper;
 
 import java.util.ArrayList;
 
-public class BaumgartnerSample {
+public class BaumgartnerSampleTable {
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
 
-    public BaumgartnerSample() {
+    public BaumgartnerSampleTable() {
 
 	ArrayList<String> firstRow = new ArrayList<String>();
 	firstRow.add("A");
