@@ -9,9 +9,9 @@ import java.util.HashSet;
 
 import javax.swing.tree.DefaultTreeModel;
 
+import trees.CNATreeNode;
 import trees.CustomTree;
 import trees.CustomTreeNode;
-import trees.SufTreeNode;
 
 public class CNA {
     private ArrayList<ArrayList<String>> origCoincTable = new ArrayList<ArrayList<String>>();
@@ -54,7 +54,7 @@ public class CNA {
 	framingMinimalTheory();
     }
 
-    /** Step 2 (Step 1 not necessary)**/
+    /** Step 2 (Step 1 not necessary) **/
     private void identifySUF() {
 	sufTable = clone2DArrayList(origCoincTable);
 	for (int r = sufTable.size() - 1; r >= 0; r--) {
@@ -77,7 +77,7 @@ public class CNA {
 	    // correctly be built.
 	    sufTableLine.remove(sufTableLine.size() - 1);
 
-	    SufTreeNode root = new SufTreeNode(sufTableLine);
+	    CNATreeNode root = new CNATreeNode(sufTableLine);
 	    msufTree = new DefaultTreeModel(root);
 
 	    fillUpTree(root, msufTree);
@@ -154,7 +154,7 @@ public class CNA {
 	// Remove effect column
 	negatedNecLine.remove(negatedNecLine.size() - 1);
 
-	SufTreeNode root = new SufTreeNode(negatedNecLine);
+	CNATreeNode root = new CNATreeNode(negatedNecLine);
 	mnecTree = new DefaultTreeModel(root);
 
 	fillUpTree(root, mnecTree);
@@ -239,14 +239,14 @@ public class CNA {
      * Core Algorithm of Step 3/identifyMSUF(). Makes a pre order tree walk and
      * detects msuf's.
      */
-    private void msufDetectionWalk(SufTreeNode parent,
+    private void msufDetectionWalk(CNATreeNode parent,
 	    ArrayList<ArrayList<String>> table) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
 	// Count how many "broken" children current parent has.
 	for (int i = 0; i < childCount; i++) {
-	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (shouldBreakMsuf(child.getCoincLine())) {
 		breaks++;
 	    }
@@ -257,7 +257,7 @@ public class CNA {
 	    table.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < childCount; i++) {
-	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    // Special condition for leaves, when they itself not break they are
 	    // a msuf!
 	    if (child.isLeaf() && !(shouldBreakMsuf(child.getCoincLine()))) {
@@ -300,14 +300,14 @@ public class CNA {
     }
 
     /** Helper Step 6/identifyMNEC(). */
-    private void mnecDetectionWalk(SufTreeNode parent,
+    private void mnecDetectionWalk(CNATreeNode parent,
 	    ArrayList<ArrayList<String>> table) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
 	// Count how many "broken" childs current parent has.
 	for (int i = 0; i < childCount; i++) {
-	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (shouldBreakMnec(child.getCoincLine())) {
 		breaks++;
 	    }
@@ -318,7 +318,7 @@ public class CNA {
 	    table.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < childCount; i++) {
-	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    // Special condition for leaves, when they itself not break they are
 	    // a MNEC!
 	    if (child.isLeaf() && (!shouldBreakMnec(child.getCoincLine()))) {
@@ -359,7 +359,7 @@ public class CNA {
     /**
      * Helper Step 3/identifyMSUF() and 6/identifyMNEC().
      */
-    private void fillUpTree(SufTreeNode parent, DefaultTreeModel tree) {
+    private void fillUpTree(CNATreeNode parent, DefaultTreeModel tree) {
 	if (parent.hasOneCare()) {
 	} else {
 	    ArrayList<String> data = parent.getCoincLine();
@@ -368,7 +368,7 @@ public class CNA {
 	    for (int i = 0; i < indexes.size(); i++) {
 		ArrayList<String> curNode = dollarSetter(
 			(ArrayList<String>) data.clone(), indexes.get(i));
-		SufTreeNode newNode = new SufTreeNode(curNode);
+		CNATreeNode newNode = new CNATreeNode(curNode);
 		tree.insertNodeInto(newNode, parent, i);
 		fillUpTree(newNode, tree);
 	    }
@@ -383,7 +383,6 @@ public class CNA {
 	return line;
     }
 
-    
     /**
      * Helper Step 5/identifyNEC(). Creates out of original coincidence Table a
      * coincidence Table with following schema: Every factor in a bundle is in

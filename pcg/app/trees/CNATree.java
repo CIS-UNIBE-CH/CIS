@@ -4,8 +4,8 @@ package trees;
 
 import javax.swing.tree.DefaultTreeModel;
 
-public class SufTree extends DefaultTreeModel {
-    public SufTree(SufTreeNode node) {
+abstract class CANTree extends DefaultTreeModel {
+    public CANTree(CNATreeNode node) {
 	super(node);
     }
 }
