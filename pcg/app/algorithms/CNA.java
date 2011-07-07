@@ -14,36 +14,37 @@ import trees.CustomTreeNode;
 import trees.SufTreeNode;
 
 public class CNA {
-    private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> coincTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> bundleCoincTable = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> sufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> mnecTable = new ArrayList<ArrayList<String>>();
-    private ArrayList<ArrayList<String>> sufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<String> necLine = new ArrayList<String>();
+    private ArrayList<String> negatedNecLine = new ArrayList<String>();
+    private ArrayList<String> fmt = new ArrayList<String>();
+    private CustomTree cnaTree = new CustomTree();
     private DefaultTreeModel msufTree;
     private DefaultTreeModel mnecTree;
-    private ArrayList<String> negatedNecLine = new ArrayList<String>();
-    private ArrayList<ArrayList<String>> newSampleTable = new ArrayList<ArrayList<String>>();
-    private CustomTree cnaTree = new CustomTree();
-    private ArrayList<String> fmt = new ArrayList<String>();
 
     // For Testing Only
+    @SuppressWarnings("unused")
     private boolean useBaumgartnerSample;
     private ArrayList<ArrayList<String>> sufTableForTesting = new ArrayList<ArrayList<String>>();
-    private ArrayList<String> negatedNecLineForTesting = new ArrayList<String>();
-    private ArrayList<String> necLineForTesting = new ArrayList<String>();
     private ArrayList<ArrayList<String>> msufTableForTesting = new ArrayList<ArrayList<String>>();
+    private ArrayList<String> necLineForTesting = new ArrayList<String>();
+    private ArrayList<String> negatedNecLineForTesting = new ArrayList<String>();
     private ArrayList<ArrayList<String>> mnecTableForTesting = new ArrayList<ArrayList<String>>();
 
     public CNA(String[][] table, Boolean useBaumgartnerSample) {
-	sampleTable = ArrayToArrayList(table);
+	coincTable = ArrayToArrayList(table);
 	this.useBaumgartnerSample = useBaumgartnerSample;
 
 	// For Testing only
 	if (useBaumgartnerSample) {
 	    BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
 	    System.out.println(baumgartnerSample);
-	    sampleTable.clear();
-	    sampleTable = baumgartnerSample.getSampleTable();
+	    coincTable.clear();
+	    coincTable = baumgartnerSample.getSampleTable();
 	}
 
 	// Init the Algorithm
@@ -55,7 +56,7 @@ public class CNA {
 
     /** Step 2 **/
     private void identifySUF() {
-	sufTable = clone2DArrayList(sampleTable);
+	sufTable = clone2DArrayList(coincTable);
 	for (int r = sufTable.size() - 1; r >= 0; r--) {
 	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0")) {
 		sufTable.remove(r);
@@ -80,7 +81,7 @@ public class CNA {
 	    msufTree = new DefaultTreeModel(root);
 
 	    fillUpTree(root, msufTree);
-	    newWalk(root, msufTable);
+	    msufDetectionWalk(root, msufTable);
 
 	    // Very interesting we got duplicated entries!
 	    HashSet removeDuplicated = new HashSet(msufTable);
@@ -95,9 +96,9 @@ public class CNA {
 
     /** Step 5 (Step 4 is not necessary, because we know where effect column is) */
     private void identifyNEC() {
-	newSampleTable = createNewSampleTable(msufTable);
+	bundleCoincTable = createNewSampleTable(msufTable);
 	System.out.println("New Sample Table:\n"
-		+ tableToString(newSampleTable));
+		+ tableToString(bundleCoincTable));
 
 	// Get NecLine
 	for (int i = 0; i < msufTable.size(); i++) {
@@ -128,8 +129,8 @@ public class CNA {
 
 	// Check if NEC Line does not exist in table.
 	boolean necOK = false;
-	for (int j = 0; j < newSampleTable.size(); j++) {
-	    if (newSampleTable.get(j).equals(necLine)) {
+	for (int j = 0; j < bundleCoincTable.size(); j++) {
+	    if (bundleCoincTable.get(j).equals(necLine)) {
 		necOK = false;
 		System.out.println("NEC Line check has FAILED!");
 		break;
@@ -157,7 +158,7 @@ public class CNA {
 	mnecTree = new DefaultTreeModel(root);
 
 	fillUpTree(root, mnecTree);
-	necWalk(root, mnecTable);
+	mnecWalk(root, mnecTable);
 
 	HashSet removeDuplicated = new HashSet(mnecTable);
 	mnecTable.clear();
@@ -174,7 +175,7 @@ public class CNA {
 	}
 	System.out.println("\nMNEC Table:\n" + tableToString(mnecTable));
 	System.out.println("MNEC: "
-		+ mnecFactorNames(mnecTable, newSampleTable.get(0)));
+		+ getMnecFactorNames(mnecTable, bundleCoincTable.get(0)));
 
 	// For Testing Only
 	mnecTableForTesting = clone2DArrayList(mnecTable);
@@ -182,104 +183,86 @@ public class CNA {
 
     /** Step 7 */
     private void framingMinimalTheory() {
-	int effectNameIndex = newSampleTable.get(0).size() - 1;
-	CustomTreeNode root = new CustomTreeNode(newSampleTable.get(0).get(
+	int effectNameIndex = bundleCoincTable.get(0).size() - 1;
+	CustomTreeNode root = new CustomTreeNode(bundleCoincTable.get(0).get(
 		effectNameIndex));
 	cnaTree.setRoot(root);
-	ArrayList<String> mnecNames = mnecFactorNames(mnecTable,
-		newSampleTable.get(0));
+	ArrayList<String> mnecNames = getMnecFactorNames(mnecTable,
+		bundleCoincTable.get(0));
 
-	String coFactors = "X";
+	String coFactor = "X";
 	for (int i = 0; i < mnecNames.size(); i++) {
 	    String curMnec = mnecNames.get(i);
-	    int bundle = i + 1;
+	    int bundleNumber = i + 1;
 
-	    ArrayList<String> oneFactors = new ArrayList<String>();
+	    ArrayList<String> oneBundle = new ArrayList<String>();
 	    int j = 0;
 	    while (j < curMnec.length()) {
 		if (curMnec.charAt(j) == '¬') {
-		    oneFactors.add("" + curMnec.charAt(j)
+		    oneBundle.add("" + curMnec.charAt(j)
 			    + curMnec.charAt(j + 1));
 		    j = j + 2;
 		} else {
-		    oneFactors.add("" + curMnec.charAt(j));
+		    oneBundle.add("" + curMnec.charAt(j));
 		    j++;
 		}
 	    }
-	    for (int k = 0; k < oneFactors.size(); k++) {
-		CustomTreeNode node = new CustomTreeNode(oneFactors.get(k));
-		node.setBundle("" + bundle);
+	    for (int k = 0; k < oneBundle.size(); k++) {
+		CustomTreeNode node = new CustomTreeNode(oneBundle.get(k));
+		node.setBundle("" + bundleNumber);
 		cnaTree.addChildtoRootX(node, root);
 	    }
-	    fmt.add(curMnec + coFactors + "" + (i + 1));
+	    fmt.add(curMnec + coFactor + "" + (i + 1));
 
-	    CustomTreeNode nodeX = new CustomTreeNode(coFactors + "" + (i + 1));
-	    nodeX.setBundle("" + bundle);
+	    CustomTreeNode nodeX = new CustomTreeNode(coFactor + "" + (i + 1));
+	    nodeX.setBundle("" + bundleNumber);
 	    cnaTree.addChildtoRootX(nodeX, root);
 	}
+
 	CustomTreeNode nodeY = new CustomTreeNode("Y"
-		+ newSampleTable.get(0).get(effectNameIndex));
+		+ bundleCoincTable.get(0).get(effectNameIndex));
 	cnaTree.addChildtoRootX(nodeY, root);
-	fmt.add("Y" + newSampleTable.get(0).get(effectNameIndex));
+	fmt.add("Y" + bundleCoincTable.get(0).get(effectNameIndex));
 
 	System.out.println("\nFMT: " + fmt);
     }
 
-    /**
-     * Helper Step 6: Transformation of necTable in a more human readable
-     * representation
-     */
-    private ArrayList<String> mnecFactorNames(
-	    ArrayList<ArrayList<String>> mnecTable, ArrayList<String> names) {
-	ArrayList<String> factorNames = names;
-	ArrayList<String> mnecNames = new ArrayList<String>();
-
-	for (int i = mnecTable.size() - 1; i >= 0; i--) {
-	    ArrayList<String> curRow = mnecTable.get(i);
-	    for (int j = 0; j < curRow.size(); j++) {
-		String curCol = curRow.get(j);
-		if (!curCol.equals("$")) {
-		    mnecNames.add(factorNames.get(j));
-		}
-	    }
-	}
-	return mnecNames;
-    }
-
-    private void necWalk(SufTreeNode parent,
-	    ArrayList<ArrayList<String>> mnecTable2) {
+    /** Helper Step 6/identifyMNEC(). */
+    private void mnecWalk(SufTreeNode parent,
+	    ArrayList<ArrayList<String>> mnecTable) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
 	// Count how many "broken" childs current parent has.
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
-	    if (shouldNecBreak(child.getData())) {
+	    if (shouldMnecBreak(child.getData())) {
 		breaks++;
 	    }
 	}
 	// If every child of current parent breaks and parent itself does not
 	// break, we got a MNEC!
-	if (breaks == childCount && !shouldNecBreak(parent.getData())) {
-	    mnecTable2.add(parent.getData());
+	if (breaks == childCount && !shouldMnecBreak(parent.getData())) {
+	    mnecTable.add(parent.getData());
 	}
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    // Special condition for leaves, when they itself not break they are
 	    // a MNEC!
-	    if (child.isLeaf() && (!shouldNecBreak(child.getData()))) {
-		mnecTable2.add(child.getData());
+	    if (child.isLeaf() && (!shouldMnecBreak(child.getData()))) {
+		mnecTable.add(child.getData());
 	    } else {
-		necWalk(child, mnecTable2);
+		mnecWalk(child, mnecTable);
 	    }
 	}
 
     }
 
-    private boolean shouldNecBreak(ArrayList<String> curLine) {
+    /** Helper mnecWalk(). */
+    private boolean shouldMnecBreak(ArrayList<String> curLine) {
 	boolean isEqual = false;
-	for (int r = 1; r < newSampleTable.size(); r++) {
-	    ArrayList<String> curRow = newSampleTable.get(r);
+	for (int r = 1; r < bundleCoincTable.size(); r++) {
+	    ArrayList<String> curRow = bundleCoincTable.get(r);
 	    for (int i = 0; i < curLine.size(); i++) {
 		// Only if there is a 1 or 0 in nodes data compare, when a
 		// dollar do nothing.
@@ -293,7 +276,7 @@ public class CNA {
 		    }
 		}
 	    }
-	    
+
 	    if (isEqual) {
 		if (curRow.get(curRow.size() - 1).equals("1")) {
 		    return false;
@@ -304,16 +287,16 @@ public class CNA {
     }
 
     /**
-     * Helper Step 5: Transformation of necTable in a more human readable
-     * representation
-     * 
+     * Helper Step 5/identifyNEC(). Creates out of original coincidence Table a
+     * coincidence Table with following schema: Every factor in a bundle is in
+     * same column, factor order is same as in msuf Table.
      */
     private ArrayList<ArrayList<String>> createNewSampleTable(
 	    ArrayList<ArrayList<String>> msufTable) {
 	ArrayList<ArrayList<String>> newSampleTable = new ArrayList<ArrayList<String>>();
 
-	for (int k = 0; k < sampleTable.size(); k++) {
-	    ArrayList<String> curSample = sampleTable.get(k);
+	for (int k = 0; k < coincTable.size(); k++) {
+	    ArrayList<String> curSample = coincTable.get(k);
 	    ArrayList<String> current = new ArrayList<String>();
 
 	    for (int i = 0; i < msufTable.size(); i++) {
@@ -335,44 +318,46 @@ public class CNA {
     }
 
     /**
-     * Core Algorithm of Step 3: Makes a pre order tree walk and detects msuf's
+     * Core Algorithm of Step 3/identifyMSUF(). Makes a pre order tree walk and
+     * detects msuf's.
      */
-    private void newWalk(SufTreeNode parent, ArrayList<ArrayList<String>> table) {
+    private void msufDetectionWalk(SufTreeNode parent,
+	    ArrayList<ArrayList<String>> table) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
 	// Count how many "broken" childs current parent has.
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
-	    if (shouldBreak(child.getData())) {
+	    if (shouldBreakMsuf(child.getData())) {
 		breaks++;
 	    }
 	}
 	// If every child of current parent breaks and parent itself does not
 	// break, we got a msuf!
-	if (breaks == childCount && !shouldBreak(parent.getData())) {
+	if (breaks == childCount && !shouldBreakMsuf(parent.getData())) {
 	    table.add(parent.getData());
 	}
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    // Special condition for leaves, when they itself not break they are
 	    // a msuf!
-	    if (child.isLeaf() && !(shouldBreak(child.getData()))) {
+	    if (child.isLeaf() && !(shouldBreakMsuf(child.getData()))) {
 		table.add(child.getData());
 	    } else {
-		newWalk(child, table);
+		msufDetectionWalk(child, table);
 	    }
 	}
     }
 
     /**
-     * Helper Step 3: Used to compare data of a tree node with every tow of
+     * Helper msufDetectionWalk(). Used to compare data of a tree node with every row of
      * given original coincidence table.
      */
-    private boolean shouldBreak(ArrayList<String> curLine) {
+    private boolean shouldBreakMsuf(ArrayList<String> curLine) {
 	boolean isEqual = false;
-	for (int r = 1; r < sampleTable.size(); r++) {
-	    ArrayList<String> curRow = sampleTable.get(r);
+	for (int r = 1; r < coincTable.size(); r++) {
+	    ArrayList<String> curRow = coincTable.get(r);
 	    for (int i = 0; i < curLine.size(); i++) {
 		// Only if there is a 1 or 0 in nodes data compare, when a
 		// dollar do nothing.
@@ -397,9 +382,7 @@ public class CNA {
     }
 
     /**
-     * Helper Step 3: Will fill up a tree with following pattern: Root is a line
-     * from sufTable, then make a permutation of one $ in level after root, then
-     * with two $ etc.
+     * Helper Step 3/identifyMSUF() and 6/identifyMNEC().
      */
     private void fillUpTree(SufTreeNode parent, DefaultTreeModel tree) {
 	if (parent.hasOneCare()) {
@@ -417,18 +400,20 @@ public class CNA {
 	}
     }
 
-    /** Helper Step 3: Sets the $ character, is helper for fillUpTree() */
+    /**
+     * Helper for fillUpTree(). Sets the $ character.
+     */
     private ArrayList<String> permutation(ArrayList<String> data, int index) {
 	data.set(index, "$");
 	return data;
     }
-    
+
     /**
-     * Helper Step 5: Transformation of necTable in a more human readable
-     * representation
+     * Helper Step 5/identifyNEC(). Transformation of necTable in a more human
+     * readable representation.
      */
     private String necToString(ArrayList<ArrayList<String>> necTable) {
-	ArrayList<String> factorNames = sampleTable.get(0);
+	ArrayList<String> factorNames = coincTable.get(0);
 	String output = "";
 	for (int i = 0; i < necTable.size(); i++) {
 	    ArrayList<String> curRow = necTable.get(i);
@@ -445,6 +430,27 @@ public class CNA {
 	    }
 	}
 	return output;
+    }
+    
+    /**
+     * Helper Step 6/identifyMNEC() and Step 7/framingMinimalTheory().
+     * Transformation of mnecTable in a more human readable representation.
+     */
+    private ArrayList<String> getMnecFactorNames(
+	    ArrayList<ArrayList<String>> mnecTable, ArrayList<String> names) {
+	ArrayList<String> factorNames = names;
+	ArrayList<String> mnecNames = new ArrayList<String>();
+
+	for (int i = mnecTable.size() - 1; i >= 0; i--) {
+	    ArrayList<String> curRow = mnecTable.get(i);
+	    for (int j = 0; j < curRow.size(); j++) {
+		String curCol = curRow.get(j);
+		if (!curCol.equals("$")) {
+		    mnecNames.add(factorNames.get(j));
+		}
+	    }
+	}
+	return mnecNames;
     }
 
     private ArrayList<ArrayList<String>> ArrayToArrayList(String[][] table) {
@@ -490,7 +496,7 @@ public class CNA {
     }
 
     public ArrayList<ArrayList<String>> getNewSampleTable() {
-	return newSampleTable;
+	return bundleCoincTable;
     }
 
     public ArrayList<ArrayList<String>> getMsufTableForTesting() {
