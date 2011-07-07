@@ -12,7 +12,7 @@ import parser.TreeToGraph;
 import play.mvc.Controller;
 import trees.CustomTree;
 import algorithms.BinaryApproach;
-import algorithms.CNA;
+import algorithms.CNAlgorithm;
 import algorithms.QuadroTest;
 
 public class Application extends Controller {
@@ -38,7 +38,7 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	CNA cnaAlgorithm = new CNA(generator.getTableAsArray(), false);
+	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(), false);
 	tree = cnaAlgorithm.getCnaTree();
 	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));
