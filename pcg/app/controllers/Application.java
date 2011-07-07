@@ -59,7 +59,8 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	BinaryApproach binaryAlgorithm = new BinaryApproach(generator.getTableAsArray());
+	BinaryApproach binaryAlgorithm = new BinaryApproach(
+		generator.getTableAsArray());
 	tree = binaryAlgorithm.createTree();
 	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));

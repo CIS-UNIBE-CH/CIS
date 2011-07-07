@@ -6,51 +6,51 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /** Custom Tree Node inherits from DefaultMutableTreeNode */
 public class CustomTreeNode extends DefaultMutableTreeNode {
-	private String bundle;
-	private String name;
-	private int xCoordinate;
-	private int yCoordinate;
+    private String bundle;
+    private String name;
+    private int xCoordinate;
+    private int yCoordinate;
 
-	public CustomTreeNode(Object o) {
-		super(o);
-		name = (String) o;
-	}
+    public CustomTreeNode(Object o) {
+	super(o);
+	name = (String) o;
+    }
 
-	public String getBundle() {
-		return bundle;
-	}
+    public String getBundle() {
+	return bundle;
+    }
 
-	public void setBundle(String bundle) {
-		this.bundle = bundle;
-	}
+    public void setBundle(String bundle) {
+	this.bundle = bundle;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	/** Checks if the tree node is part of cause bundle */
-	public boolean isPartOfBundle() {
-		if (bundle != null) {
-			return true;
-		} else {
-			return false;
-		}
+    /** Checks if the tree node is part of cause bundle */
+    public boolean isPartOfBundle() {
+	if (bundle != null) {
+	    return true;
+	} else {
+	    return false;
 	}
+    }
 
-	public int getxCoordinate() {
-		return xCoordinate;
-	}
+    public int getxCoordinate() {
+	return xCoordinate;
+    }
 
-	public void setxCoordinate(int xCoordinate) {
-		this.xCoordinate = xCoordinate;
-	}
+    public void setxCoordinate(int xCoordinate) {
+	this.xCoordinate = xCoordinate;
+    }
 
-	public int getyCoordinate() {
-		return yCoordinate;
-	}
+    public int getyCoordinate() {
+	return yCoordinate;
+    }
 
-	public void setyCoordinate(int yCoordinate) {
-		this.yCoordinate = yCoordinate;
-	}
+    public void setyCoordinate(int yCoordinate) {
+	this.yCoordinate = yCoordinate;
+    }
 
 }

@@ -1,6 +1,7 @@
 package models;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
@@ -114,15 +115,15 @@ public class Renderer {
 	visServer.getRenderContext().setVertexShapeTransformer(
 		vertexLookTransformer);
 	// Set vertex color
-	if(nodeColorAccordingToBundle){
+	if (nodeColorAccordingToBundle) {
 	    visServer.getRenderContext().setVertexFillPaintTransformer(
-			new VertexColorTransformer());
-	} else{
+		    new VertexColorTransformer());
+	} else {
 	    Color vertexColor = new Color(255, 153, 0);
 	    visServer.getRenderContext().setVertexFillPaintTransformer(
 		    new ConstantTransformer(vertexColor));
 	}
-	
+
 	// Set background color
 	Color backgroundColor = new Color(255, 255, 255);
 	visServer.setBackground(backgroundColor);

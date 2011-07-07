@@ -124,77 +124,77 @@ public class CNATest extends UnitTest {
     }
 
     @Test
-    public void shouldTestCreateNewSampleTable() {
-	ArrayList<ArrayList<String>> calculatedNewSampleTable = cnaAlgorithm
-		.getNewSampleTable();
-	ArrayList<ArrayList<String>> expectedNewSampleTable = new ArrayList<ArrayList<String>>();
+    public void shouldTestCreateBundleCoincTable() {
+	ArrayList<ArrayList<String>> calculatedBundleCoincTable = cnaAlgorithm
+		.getBundleCoincTable();
+	ArrayList<ArrayList<String>> expectedBundleCoincTable = new ArrayList<ArrayList<String>>();
 
 	ArrayList<String> firstRow = new ArrayList<String>();
 	firstRow.add("B");
 	firstRow.add("DE");
 	firstRow.add("A");
 	firstRow.add("C");
-	expectedNewSampleTable.add(firstRow);
+	expectedBundleCoincTable.add(firstRow);
 
 	ArrayList<String> secondRow = new ArrayList<String>();
 	secondRow.add("1");
 	secondRow.add("11");
 	secondRow.add("1");
 	secondRow.add("1");
-	expectedNewSampleTable.add(secondRow);
+	expectedBundleCoincTable.add(secondRow);
 
 	ArrayList<String> thirdRow = new ArrayList<String>();
 	thirdRow.add("1");
 	thirdRow.add("01");
 	thirdRow.add("1");
 	thirdRow.add("1");
-	expectedNewSampleTable.add(thirdRow);
+	expectedBundleCoincTable.add(thirdRow);
 
 	ArrayList<String> fourthRow = new ArrayList<String>();
 	fourthRow.add("0");
 	fourthRow.add("11");
 	fourthRow.add("1");
 	fourthRow.add("1");
-	expectedNewSampleTable.add(fourthRow);
+	expectedBundleCoincTable.add(fourthRow);
 
 	ArrayList<String> fifthRow = new ArrayList<String>();
 	fifthRow.add("1");
 	fifthRow.add("11");
 	fifthRow.add("0");
 	fifthRow.add("1");
-	expectedNewSampleTable.add(fifthRow);
+	expectedBundleCoincTable.add(fifthRow);
 
 	ArrayList<String> sixthRow = new ArrayList<String>();
 	sixthRow.add("1");
 	sixthRow.add("01");
 	sixthRow.add("0");
 	sixthRow.add("1");
-	expectedNewSampleTable.add(sixthRow);
+	expectedBundleCoincTable.add(sixthRow);
 
 	ArrayList<String> seventhRow = new ArrayList<String>();
 	seventhRow.add("0");
 	seventhRow.add("00");
 	seventhRow.add("1");
 	seventhRow.add("1");
-	expectedNewSampleTable.add(seventhRow);
+	expectedBundleCoincTable.add(seventhRow);
 
 	ArrayList<String> eigthRow = new ArrayList<String>();
 	eigthRow.add("0");
 	eigthRow.add("11");
 	eigthRow.add("0");
 	eigthRow.add("0");
-	expectedNewSampleTable.add(eigthRow);
+	expectedBundleCoincTable.add(eigthRow);
 
 	ArrayList<String> ninethRow = new ArrayList<String>();
 	ninethRow.add("0");
 	ninethRow.add("00");
 	ninethRow.add("0");
 	ninethRow.add("0");
-	expectedNewSampleTable.add(ninethRow);
+	expectedBundleCoincTable.add(ninethRow);
 
-	for (int i = 0; i < calculatedNewSampleTable.size(); i++) {
-	    ArrayList<String> curRowCalc = calculatedNewSampleTable.get(i);
-	    ArrayList<String> curRowExpec = expectedNewSampleTable.get(i);
+	for (int i = 0; i < calculatedBundleCoincTable.size(); i++) {
+	    ArrayList<String> curRowCalc = calculatedBundleCoincTable.get(i);
+	    ArrayList<String> curRowExpec = expectedBundleCoincTable.get(i);
 	    assertEquals(curRowExpec, curRowCalc);
 	}
     }
