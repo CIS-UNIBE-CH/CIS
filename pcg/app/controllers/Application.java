@@ -38,7 +38,8 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(), false);
+	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(),
+		false);
 	tree = cnaAlgorithm.getCnaTree();
 	Long time = timer.timeElapsed();
 	renderer.config(new TreeToGraph(tree));
@@ -137,7 +138,12 @@ public class Application extends Controller {
     }
 
     public static void calcQuadroGraph(String f1, String f2, String i,
-	    String ii, String l, String ll) {
+	    String ii, String l, String ll, String showBundleNum,
+	    String showColour) {
+
+	showColourRenderer = (showColour != null);
+	showBundleNumRenderer = (showBundleNum != null);
+
 	int[][] field = new int[2][2];
 	int[] numbers = new int[4];
 
@@ -172,8 +178,11 @@ public class Application extends Controller {
 	    quadroTest(1, f1, f2);
 	}
 	Renderer renderer = new Renderer();
+	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.setChangingVertexColors(showColourRenderer);
 
 	renderer.config(new TreeToGraph(tree));
+
 	String graphPath = renderer.getImageSource();
 	showGraph(graphPath);
     }
