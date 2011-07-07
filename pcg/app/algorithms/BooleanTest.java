@@ -8,35 +8,37 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 
 import trees.CustomTree;
 import trees.CustomTreeNode;
 import trees.SufTreeNode;
 
 public class BooleanTest {
-    private ArrayList<ArrayList<String>> table = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sampleTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> msufTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> mnecTable = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> sufTable = new ArrayList<ArrayList<String>>();
-    private ArrayList<ArrayList<String>> sufTableForTesting = new ArrayList<ArrayList<String>>();
     private ArrayList<String> necLine = new ArrayList<String>();
     private DefaultTreeModel msufTree;
     private DefaultTreeModel mnecTree;
     private ArrayList<String> negatedNecLine = new ArrayList<String>();
-    private ArrayList<String> negatedNecLineForTesting = new ArrayList<String>();
     private ArrayList<ArrayList<String>> newSampleTable = new ArrayList<ArrayList<String>>();
     private CustomTree cnaTree = new CustomTree();
-    private boolean useBaumgartnerSample;
     private ArrayList<String> fmt = new ArrayList<String>();
 
+    // For Testing Only
+    private boolean useBaumgartnerSample;
+    private ArrayList<ArrayList<String>> sufTableForTesting = new ArrayList<ArrayList<String>>();
+    private ArrayList<String> negatedNecLineForTesting = new ArrayList<String>();
+    private ArrayList<String> necLineForTesting = new ArrayList<String>();
+    private ArrayList<ArrayList<String>> msufTableForTesting = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> mnecTableForTesting = new ArrayList<ArrayList<String>>();
+
     public BooleanTest(String[][] table, Boolean useBaumgartnerSample) {
-	this.table = ArrayToArrayList(table);
 	sampleTable = ArrayToArrayList(table);
 	this.useBaumgartnerSample = useBaumgartnerSample;
-	useBaumgartnerSample = true;
 
+	// For Testing only
 	if (useBaumgartnerSample) {
 	    BaumgartnerSample baumgartnerSample = new BaumgartnerSample();
 	    System.out.println(baumgartnerSample);
@@ -44,40 +46,37 @@ public class BooleanTest {
 	    sampleTable = baumgartnerSample.getSampleTable();
 	}
 
-	// CustomSample customSample = new CustomSample();
-	// sampleTable = customSample.getSampleTable();
-	// System.out.println(customSample);
-
+	// Init the Algorithm
 	identifySUF();
 	identifyMSUF();
 	identifyNEC();
-	fmt();
-
+	framingMinimalTheory();
     }
 
     /** Step 2 **/
     private void identifySUF() {
-	// sufTable = clone2DArrayList(table);
 	sufTable = clone2DArrayList(sampleTable);
 	for (int r = sufTable.size() - 1; r >= 0; r--) {
 	    if (sufTable.get(r).get(sufTable.get(r).size() - 1).equals("0")) {
 		sufTable.remove(r);
 	    }
 	}
-	sufTableForTesting = clone2DArrayList(sufTable);
 	System.out.println("SUF Table:\n" + tableToString(sufTable));
+
+	// For Testing only
+	sufTableForTesting = clone2DArrayList(sufTable);
     }
 
     /** Step 3 **/
     private void identifyMSUF() {
+	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
-	    ArrayList<String> sufLine = sufTable.get(i);
+	    ArrayList<String> sufTableLine = sufTable.get(i);
+	    // IMPORTANT: Remove effect column of suffLine, if not tree we not
+	    // correctly be built.
+	    sufTableLine.remove(sufTableLine.size() - 1);
 
-	    // IMPORTANT: Remove effect column of suffLine, based on which a
-	    // tree will be generated.
-	    sufLine.remove(sufLine.size() - 1);
-
-	    SufTreeNode root = new SufTreeNode(sufLine);
+	    SufTreeNode root = new SufTreeNode(sufTableLine);
 	    msufTree = new DefaultTreeModel(root);
 
 	    fillUpTree(root, msufTree);
@@ -89,16 +88,18 @@ public class BooleanTest {
 	    msufTable.addAll(removeDuplicated);
 	}
 	System.out.println("MSUF Table:\n" + tableToString(msufTable));
+
+	// For Testing only
+	msufTableForTesting = clone2DArrayList(msufTable);
     }
 
     /** Step 5 (Step 4 is not necessary, because we know where effect column is) */
     private void identifyNEC() {
-	// Dini Table wode wotsch
 	newSampleTable = createNewSampleTable(msufTable);
-	System.out
-		.println("New SampleTable:\n" + tableToString(newSampleTable));
+	System.out.println("New Sample Table:\n"
+		+ tableToString(newSampleTable));
 
-	// GetNecLine
+	// Get NecLine
 	for (int i = 0; i < msufTable.size(); i++) {
 	    String line = "";
 	    ArrayList<String> curMsuf = msufTable.get(i);
@@ -119,46 +120,49 @@ public class BooleanTest {
 	    cur = cur.replace("3", "0");
 	    negatedNecLine.add(cur);
 	}
-	// Wirkung adden
+	// Add effect column
 	negatedNecLine.add("1");
-	negatedNecLineForTesting = (ArrayList<String>) negatedNecLine.clone();
 
 	System.out.println("NEC Line: " + necLine);
 	System.out.println("Negated NEC Line (with Effect): " + negatedNecLine);
 
-	// Do the NEC check
+	// Check if NEC Line does not exist in table.
 	boolean necOK = false;
 	for (int j = 0; j < newSampleTable.size(); j++) {
 	    if (newSampleTable.get(j).equals(necLine)) {
 		necOK = false;
-		System.out.println("NEC Line check FAILED!");
+		System.out.println("NEC Line check has FAILED!");
 		break;
 	    } else {
 		necOK = true;
 	    }
 	}
+
+	// For Testing Only
+	negatedNecLineForTesting = (ArrayList<String>) negatedNecLine.clone();
+	necLineForTesting = (ArrayList<String>) necLine.clone();
+
 	if (necOK) {
-	    // System.out.println("NEC Line is OK!");
-	    // TODO Syso nec in human readable
-	    System.out.println("NEC: " + necToString(msufTable));
+	    System.out.println("NEC Line: " + necToString(msufTable));
 	    identifyMNEC();
 	}
-
     }
 
     /** Step 6 */
     private void identifyMNEC() {
+	// Remove effect column
 	negatedNecLine.remove(negatedNecLine.size() - 1);
+
 	SufTreeNode root = new SufTreeNode(negatedNecLine);
 	mnecTree = new DefaultTreeModel(root);
 
 	fillUpTree(root, mnecTree);
-	// treeToString(mnecTree);
 	necWalk(root, mnecTable);
 
 	HashSet removeDuplicated = new HashSet(mnecTable);
 	mnecTable.clear();
 	mnecTable.addAll(removeDuplicated);
+
 	for (int row = 0; row < mnecTable.size(); row++) {
 	    for (int col = 0; col < mnecTable.get(row).size(); col++) {
 		String cur = mnecTable.get(row).get(col);
@@ -171,16 +175,20 @@ public class BooleanTest {
 	System.out.println("\nMNEC Table:\n" + tableToString(mnecTable));
 	System.out.println("MNEC: "
 		+ mnecFactorNames(mnecTable, newSampleTable.get(0)));
+
+	// For Testing Only
+	mnecTableForTesting = clone2DArrayList(mnecTable);
     }
 
     /** Step 7 */
-    private void fmt() {
+    private void framingMinimalTheory() {
+	int effectNameIndex = newSampleTable.get(0).size() - 1;
 	CustomTreeNode root = new CustomTreeNode(newSampleTable.get(0).get(
-		newSampleTable.get(0).size() - 1));
+		effectNameIndex));
 	cnaTree.setRoot(root);
 	ArrayList<String> mnecNames = mnecFactorNames(mnecTable,
 		newSampleTable.get(0));
-	
+
 	String coFactors = "X";
 	for (int i = 0; i < mnecNames.size(); i++) {
 	    String curMnec = mnecNames.get(i);
@@ -210,10 +218,9 @@ public class BooleanTest {
 	    cnaTree.addChildtoRootX(nodeX, root);
 	}
 	CustomTreeNode nodeY = new CustomTreeNode("Y"
-		+ newSampleTable.get(0).get(newSampleTable.get(0).size() - 1));
+		+ newSampleTable.get(0).get(effectNameIndex));
 	cnaTree.addChildtoRootX(nodeY, root);
-	fmt.add("Y"
-		+ newSampleTable.get(0).get(newSampleTable.get(0).size() - 1));
+	fmt.add("Y" + newSampleTable.get(0).get(effectNameIndex));
 
 	System.out.println("\nFMT: " + fmt);
     }
@@ -249,22 +256,19 @@ public class BooleanTest {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    if (shouldNecBreak(child.getData())) {
 		breaks++;
-		// System.out.println(breaks);
 	    }
 	}
 	// If every child of current parent breaks and parent itself does not
-	// break, we got a msuf!
+	// break, we got a MNEC!
 	if (breaks == childCount && !shouldNecBreak(parent.getData())) {
-	    // System.out.println("braeksadd " + parent.getData());
 	    mnecTable2.add(parent.getData());
 	}
 	for (int i = 0; i < childCount; i++) {
 	    SufTreeNode child = (SufTreeNode) parent.getChildAt(i);
 	    // Special condition for leaves, when they itself not break they are
-	    // a msuf!
+	    // a MNEC!
 	    if (child.isLeaf() && (!shouldNecBreak(child.getData()))) {
 		mnecTable2.add(child.getData());
-		// System.out.println("leafadd " + child.getData());
 	    } else {
 		necWalk(child, mnecTable2);
 	    }
@@ -274,7 +278,6 @@ public class BooleanTest {
 
     private boolean shouldNecBreak(ArrayList<String> curLine) {
 	boolean isEqual = false;
-	// System.out.println("curLine " + curLine);
 	for (int r = 1; r < newSampleTable.size(); r++) {
 	    ArrayList<String> curRow = newSampleTable.get(r);
 	    for (int i = 0; i < curLine.size(); i++) {
@@ -282,10 +285,7 @@ public class BooleanTest {
 		// dollar do nothing.
 		if (curLine.get(i).equals("1") || curLine.get(i).equals("0")
 			|| curLine.get(i).length() > 1) {
-		    // System.out.println("::::: " + curLine.get(i) + " "
-		    // + curRow.get(i));
 		    if (curLine.get(i).equals(curRow.get(i))) {
-			// System.out.println(" ----");
 			isEqual = true;
 		    } else {
 			isEqual = false;
@@ -293,11 +293,9 @@ public class BooleanTest {
 		    }
 		}
 	    }
-	    // Check if there is a line in sample table with effect = 0 which
-	    // matches nodes data.
+	    
 	    if (isEqual) {
 		if (curRow.get(curRow.size() - 1).equals("1")) {
-		    // System.out.println("L " + curLine + " R " + curRow);
 		    return false;
 		}
 	    }
@@ -309,7 +307,6 @@ public class BooleanTest {
      * Helper Step 5: Transformation of necTable in a more human readable
      * representation
      * 
-     * @return
      */
     private ArrayList<ArrayList<String>> createNewSampleTable(
 	    ArrayList<ArrayList<String>> msufTable) {
@@ -335,30 +332,6 @@ public class BooleanTest {
 	    newSampleTable.add(current);
 	}
 	return newSampleTable;
-    }
-
-    /** Use those both methods to print tree in syso. */
-    private void treeToString(DefaultTreeModel model) {
-	if (model != null) {
-	    SufTreeNode root = (SufTreeNode) model.getRoot();
-	    System.out.println("Root: " + root.toString());
-	    treeToStringHelper(model, root);
-	} else
-	    System.out.println("Tree is empty.");
-    }
-
-    private void treeToStringHelper(TreeModel model, SufTreeNode parent) {
-	int childCount;
-	childCount = model.getChildCount(parent);
-	for (int i = 0; i < childCount; i++) {
-	    SufTreeNode child = (SufTreeNode) model.getChild(parent, i);
-	    if (model.isLeaf(child))
-		System.out.println("Leaf: " + child.toString());
-	    else {
-		System.out.print(child.toString() + " --\n");
-		treeToStringHelper(model, child);
-	    }
-	}
     }
 
     /**
@@ -449,6 +422,30 @@ public class BooleanTest {
 	data.set(index, "$");
 	return data;
     }
+    
+    /**
+     * Helper Step 5: Transformation of necTable in a more human readable
+     * representation
+     */
+    private String necToString(ArrayList<ArrayList<String>> necTable) {
+	ArrayList<String> factorNames = sampleTable.get(0);
+	String output = "";
+	for (int i = 0; i < necTable.size(); i++) {
+	    ArrayList<String> curRow = necTable.get(i);
+	    for (int j = 0; j < curRow.size(); j++) {
+		if (curRow.get(j).equals("1")) {
+		    output += factorNames.get(j);
+		}
+		if (curRow.get(j).equals("0")) {
+		    output += "¬" + factorNames.get(j);
+		}
+	    }
+	    if (i < necTable.size() - 1) {
+		output += " ∨ ";
+	    }
+	}
+	return output;
+    }
 
     private ArrayList<ArrayList<String>> ArrayToArrayList(String[][] table) {
 	ArrayList<ArrayList<String>> tableList = new ArrayList<ArrayList<String>>();
@@ -483,63 +480,40 @@ public class BooleanTest {
 	return copy;
     }
 
-    /**
-     * Helper Step 5: Transformation of necTable in a more human readable
-     * representation
-     */
-    private String necToString(ArrayList<ArrayList<String>> necTable) {
-	ArrayList<String> factorNames = sampleTable.get(0);
-	String output = "";
-	for (int i = 0; i < necTable.size(); i++) {
-	    ArrayList<String> curRow = necTable.get(i);
-	    for (int j = 0; j < curRow.size(); j++) {
-		if (curRow.get(j).equals("1")) {
-		    output += factorNames.get(j);
-		}
-		if (curRow.get(j).equals("0")) {
-		    output += "¬" + factorNames.get(j);
-		}
-	    }
-	    if (i < necTable.size() - 1) {
-		output += " ∨ ";
-	    }
-	}
-	return output;
-    }
-
     public CustomTree getCnaTree() {
 	return cnaTree;
     }
 
-    public void setUseBaumgartnerSample(boolean useBaumgartnerSample) {
-        this.useBaumgartnerSample = useBaumgartnerSample;
-    }
-
-    public ArrayList<ArrayList<String>> getMsufTable() {
-        return msufTable;
-    }
-
-    public ArrayList<ArrayList<String>> getMnecTable() {
-        return mnecTable;
-    }
-
-    public ArrayList<ArrayList<String>> getSufTableForTesting() {
-        return sufTableForTesting;
-    }
-
-    public ArrayList<String> getNecLine() {
-        return necLine;
-    }
-
-    public ArrayList<String> getNegatedNecLineForTesting() {
-        return negatedNecLineForTesting;
+    /** For Testing only */
+    public ArrayList<String> getFmt() {
+	return fmt;
     }
 
     public ArrayList<ArrayList<String>> getNewSampleTable() {
-        return newSampleTable;
+	return newSampleTable;
     }
 
-    public ArrayList<String> getFmt() {
-        return fmt;
-    } 
+    public ArrayList<ArrayList<String>> getMsufTableForTesting() {
+	return msufTableForTesting;
+    }
+
+    public ArrayList<ArrayList<String>> getMnecTableForTesting() {
+	return mnecTableForTesting;
+    }
+
+    public ArrayList<ArrayList<String>> getSufTableForTesting() {
+	return sufTableForTesting;
+    }
+
+    public ArrayList<String> getNecLineForTesting() {
+	return necLineForTesting;
+    }
+
+    public ArrayList<String> getNegatedNecLineForTesting() {
+	return negatedNecLineForTesting;
+    }
+
+    public void setUseBaumgartnerSample(boolean useBaumgartnerSample) {
+	this.useBaumgartnerSample = useBaumgartnerSample;
+    }
 }
