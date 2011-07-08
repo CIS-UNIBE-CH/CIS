@@ -133,10 +133,9 @@ public class CNAlgorithm {
 		+ bundleTable.get(0).get(effectNameIndex));
 	cnaTree.addChildtoRootX(nodeY, root);
 
+	// TODO: fmt aufbauen... ???
 	System.out.println("\nFMT: " + fmt);
     }
-
-    // Helpers
 
     // Getters and Setters
 
