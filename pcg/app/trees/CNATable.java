@@ -49,6 +49,13 @@ public class CNATable extends ArrayList<CNAList> {
 	table.addAll(duplicate);
     }
 
+    public void negate() {
+	for (int row = 0; row < table.size(); row++) {
+	    table.get(row).negate();
+	}
+
+    }
+
     /**
      * Creates out of original coincidence Table a coincidence Table with
      * following schema: Every factor in a bundle is in same column, factor
@@ -126,6 +133,18 @@ public class CNATable extends ArrayList<CNAList> {
 	return output;
     }
 
+    public CNAList getFactorNames(CNAList names) {
+	CNAList output = new CNAList();
+	for (int row = table.size() - 1; row >= 0; row--) {
+	    for (int col = 0; col < table.get(row).size(); col++) {
+		if (!table.get(row).get(col).equals("$")) {
+		    output.add(names.get(row));
+		}
+	    }
+	}
+	return output;
+    }
+
     // Getters and Setters
 
     public ArrayList<CNAList> getTable() {
@@ -135,6 +154,26 @@ public class CNATable extends ArrayList<CNAList> {
     @Override
     public CNAList get(int i) {
 	return table.get(i);
+    }
+
+    public void setFactors(CNAList list) {
+	CNAList temp;
+	for (int col = 0; col < list.size(); col++) {
+	    temp = new CNAList();
+	    int i = 0;
+	    while (i < list.get(col).length()) {
+		// If Factor is negative. j+2 because of ¬ character
+		if (list.get(col).charAt(i) == '¬') {
+		    temp.add("" + list.get(col).charAt(i)
+			    + list.get(col).charAt(i + 1));
+		    i = i + 2;
+		} else {
+		    temp.add("" + list.get(col).charAt(i));
+		    i++;
+		}
+	    }
+	    this.add(temp);
+	}
     }
 
     // Helpers

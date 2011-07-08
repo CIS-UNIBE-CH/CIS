@@ -45,7 +45,6 @@ public class MnecTree extends CNATree {
 	}
     }
 
-    /** Helper mnecWalk(). */
     private boolean compare(CNAList list, CNATable bundleTable) {
 	boolean isEqual = false;
 	for (int r = 1; r < bundleTable.size(); r++) {

@@ -5,6 +5,8 @@ package algorithms;
 import trees.CNAList;
 import trees.CNATable;
 import trees.CNATreeNode;
+import trees.CustomTree;
+import trees.CustomTreeNode;
 import trees.MnecTree;
 import trees.MsufTree;
 
@@ -12,6 +14,7 @@ public class CNAlgorithm {
     private CNATable originalTable;
     private CNATable msufTable;
     private CNATable mnecTable;
+    private CustomTree cnaTree;
 
     public CNAlgorithm(String[][] table, Boolean useBaumgartnerSample) {
 	originalTable = new CNATable(table);
@@ -56,18 +59,12 @@ public class CNAlgorithm {
     private void identifyNEC(CNATable msufTable) {
 	CNATable bundleTable = msufTable.summarizeBundles(msufTable,
 		originalTable);
-
-	System.out.println("New Sample Table:\n" + bundleTable);
-
 	CNAList necList = msufTable.getNecList();
-	System.out.println("NEC Line: " + necList);
-
 	necList.negate();
 	// Add effect column
 	necList.add("1");
 
 	System.out.println("Negated NEC Line (with Effect): " + necList);
-
 	// Check if NEC Line does not exist in table.
 	boolean necOK = false;
 	for (int j = 0; j < bundleTable.size(); j++) {
@@ -79,7 +76,6 @@ public class CNAlgorithm {
 		necOK = true;
 	    }
 	}
-
 	if (necOK) {
 	    System.out
 		    .println("NEC Line: " + msufTable.toString(originalTable));
@@ -96,19 +92,55 @@ public class CNAlgorithm {
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
-	mnecTable = mnecTree.getTable(root, originalTable);
+	mnecTable = mnecTree.getTable(root, bundleTable);
 	mnecTable.removeDuplicated();
+	mnecTable.negate();
 
-	for (int row = 0; row < mnecTable.size(); row++) {
-	    for (int col = 0; col < mnecTable.get(row).size(); col++) {
-		String cur = mnecTable.get(row).get(col);
-		cur = cur.replace("1", "3");
-		cur = cur.replace("0", "1");
-		cur = cur.replace("3", "0");
-		mnecTable.get(row).set(col, cur);
-	    }
-	}
 	System.out.println("\nMNEC Table:\n" + mnecTable);
+	framingMinimalTheory(bundleTable);
+    }
 
+    private void framingMinimalTheory(CNATable bundleTable) {
+	CustomTreeNode node;
+	CNAList fmt = new CNAList();
+	cnaTree = new CustomTree();
+	CNATable factorTable = new CNATable();
+	int effectNameIndex = bundleTable.get(0).size() - 1;
+
+	CustomTreeNode root = new CustomTreeNode(bundleTable.get(0).get(
+		effectNameIndex));
+	cnaTree.setRoot(root);
+	// Get Factor Names for Node naming
+	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
+	factorTable.setFactors(mnecNames);
+
+	for (int row = 0; row < factorTable.size(); row++) {
+	    for (int col = 0; col < factorTable.get(row).size(); col++) {
+		node = new CustomTreeNode(factorTable.get(row).get(col));
+		if (factorTable.get(row).size() > 1) {
+		    node.setBundle("" + (row + 1));
+		    cnaTree.addChildtoRootX(node, root);
+		}
+		cnaTree.addChildtoRootX(node, root);
+	    }
+	    node = new CustomTreeNode("X" + (row + 1));
+	    if (factorTable.get(row).size() > 1) {
+		node.setBundle("" + (row + 1));
+	    }
+	    cnaTree.addChildtoRootX(node, root);
+	}
+	CustomTreeNode nodeY = new CustomTreeNode("Y"
+		+ bundleTable.get(0).get(effectNameIndex));
+	cnaTree.addChildtoRootX(nodeY, root);
+
+	System.out.println("\nFMT: " + fmt);
+    }
+
+    // Helpers
+
+    // Getters and Setters
+
+    public CustomTree getTree() {
+	return cnaTree;
     }
 }
