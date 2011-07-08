@@ -34,21 +34,21 @@ public class Application extends Controller {
     }
 
     public static void calcBooleanGraph() {
-	timer = new Timer();
-	renderer = new Renderer();
-	renderer.setEdgeLabels(showBundleNumRenderer);
-	renderer.setChangingVertexColors(showColourRenderer);
+	// timer = new Timer();
+	// renderer = new Renderer();
+	// renderer.setEdgeLabels(showBundleNumRenderer);
+	// renderer.setChangingVertexColors(showColourRenderer);
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(),
 		false);
-	tree = cnaAlgorithm.getCnaTree();
-	Long time = timer.timeElapsed();
-	renderer.config(new TreeToGraph(tree));
-	calculatedGraph = tree.toString();
-	calculatedGraphPath = renderer.getImageSource();
-	String elapsedTime = time.toString() + " ms";
-	complexTesting(2, false, null, generatedGraphPath, generatedGraph,
-		calculatedGraphPath, calculatedGraph, "Baumgartner CNA",
-		elapsedTime);
+	// // tree = cnaAlgorithm.getCnaTree();
+	// Long time = timer.timeElapsed();
+	// renderer.config(new TreeToGraph(tree));
+	// calculatedGraph = tree.toString();
+	// calculatedGraphPath = renderer.getImageSource();
+	// String elapsedTime = time.toString() + " ms";
+	// complexTesting(2, false, null, generatedGraphPath, generatedGraph,
+	// calculatedGraphPath, calculatedGraph, "Baumgartner CNA",
+	// elapsedTime);
     }
 
     public static void quadroTest(int step, String f1, String f2) {

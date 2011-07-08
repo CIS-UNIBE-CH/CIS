@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class CNATreeNode extends DefaultMutableTreeNode {
-    private ArrayList<String> coincLine;
+    private CNAList coincLine;
 
-    public CNATreeNode(ArrayList<String> coincLine) {
+    public CNATreeNode(CNAList coincLine) {
 	this.coincLine = coincLine;
     }
 
@@ -41,7 +41,7 @@ public class CNATreeNode extends DefaultMutableTreeNode {
 	return places;
     }
 
-    public ArrayList<String> getCoincLine() {
+    public CNAList getCoincLine() {
 	return coincLine;
     }
 
