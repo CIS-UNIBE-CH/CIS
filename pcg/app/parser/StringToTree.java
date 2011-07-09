@@ -39,36 +39,49 @@ public class StringToTree {
 	tree = new CustomTree();
 	tree.setRoot(root);
 
+	int bundleNumber = 1;
 	for (int i = 1; i < nodes.size(); i++) {
 	    String curBundle = nodes.get(i);
 	    int j = 0;
-	    int bundleNumber = 1;
-	    while (j < curBundle.length()) {
-		if (curBundle.charAt(j) == '¬') {
-		    CustomTreeNode node = new CustomTreeNode("" + 
-			    curBundle.charAt(j) + curBundle.charAt(j + 1));
-		    node.setBundle(Integer.toString(bundleNumber));
-		    tree.addChildtoRootX(node, root);
-		    j = j + 2;
-		} else if (curBundle.charAt(j) == 'X') {
-		    CustomTreeNode node = new CustomTreeNode("" + 
-			    curBundle.charAt(j) + curBundle.charAt(j + 1));
-		    node.setBundle(Integer.toString(bundleNumber));
-		    tree.addChildtoRootX(node, root);
-		    j = j + 2;
-		} else {
-		    CustomTreeNode node = new CustomTreeNode("" + 
-			    curBundle.charAt(j));
-		    node.setBundle(Integer.toString(bundleNumber));
-		    tree.addChildtoRootX(node, root);
-		    j++;
+	    if(curBundle.length() == 2 && curBundle.charAt(0) == '¬'){
+		CustomTreeNode node = new CustomTreeNode(""
+			+ curBundle.charAt(j) + curBundle.charAt(j + 1));
+		tree.addChildtoRootX(node, root);
+	    }
+	    else if (curBundle.length() == 1) {
+		CustomTreeNode node = new CustomTreeNode(""
+			+ curBundle.charAt(j));
+		tree.addChildtoRootX(node, root);
+	    } else {
+		while (j < curBundle.length()) {
+		    if (curBundle.charAt(j) == '¬') {
+			CustomTreeNode node = new CustomTreeNode(""
+				+ curBundle.charAt(j) + curBundle.charAt(j + 1));
+			node.setBundle(Integer.toString(bundleNumber));
+			tree.addChildtoRootX(node, root);
+			j = j + 2;
+		    } else if (curBundle.charAt(j) == 'X') {
+			CustomTreeNode node = new CustomTreeNode(""
+				+ curBundle.charAt(j) + curBundle.charAt(j + 1));
+			node.setBundle(Integer.toString(bundleNumber));
+			tree.addChildtoRootX(node, root);
+			j = j + 2;
+		    } else {
+			CustomTreeNode node = new CustomTreeNode(""
+				+ curBundle.charAt(j));
+			node.setBundle(Integer.toString(bundleNumber));
+			tree.addChildtoRootX(node, root);
+			j++;
+		    }
 		}
 	    }
 	    bundleNumber++;
 	}
+	CustomTreeNode nodeY = new CustomTreeNode("Y" + nodes.get(0));
+	tree.addChildtoRootX(nodeY, root);
     }
 
     public CustomTree getTree() {
-        return tree;
+	return tree;
     }
 }
