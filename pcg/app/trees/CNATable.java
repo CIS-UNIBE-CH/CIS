@@ -3,6 +3,8 @@ package trees;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.mchange.util.AssertException;
+
 public class CNATable extends ArrayList<CNAList> {
     private ArrayList<CNAList> table;
 
@@ -12,6 +14,20 @@ public class CNATable extends ArrayList<CNAList> {
 
     public CNATable(String[][] table) {
 	this.table = arrayToCNATable(table);
+    }
+
+    public CNATable(String regexTable, String regexList, String string) {
+	table = new ArrayList<CNAList>();
+	try {
+	    assert (!regexList.equals(regexTable));
+	} catch (AssertException e) {
+	    throw e;
+	}
+	String[] array = string.split(regexTable);
+	for (int i = 0; i < array.length; i++) {
+	    table.add(new CNAList(regexList, array[i]));
+	}
+
     }
 
     @Override
@@ -35,12 +51,22 @@ public class CNATable extends ArrayList<CNAList> {
 	return table.size();
     }
 
+    public CNAList remvove(int index) {
+	return this.remove(index);
+    }
+
     public void removeZeroEffects() {
-	for (int row = 0; row < table.size(); row++) {
-	    if (table.get(row).get(table.get(row).size() - 1).equals("0")) {
-		table.remove(row);
+	for (int i = 0; i < table.size(); i++) {
+	    if (table.get(i).getLastElement().equals("0")) {
+		table.remove(i);
+		i--;
 	    }
 	}
+    }
+
+    @Override
+    public CNAList remove(int index) {
+	return table.remove(index);
     }
 
     public void removeDuplicated() {

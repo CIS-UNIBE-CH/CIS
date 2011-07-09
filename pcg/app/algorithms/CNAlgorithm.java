@@ -5,23 +5,28 @@ package algorithms;
 import trees.CNAList;
 import trees.CNATable;
 import trees.CNATreeNode;
-import trees.CustomTree;
-import trees.CustomTreeNode;
 import trees.MnecTree;
 import trees.MsufTree;
 
 public class CNAlgorithm {
     private CNATable originalTable;
+    private CNATable sufTable;
     private CNATable msufTable;
     private CNATable mnecTable;
-    private CustomTree cnaTree;
+    private String treeString;
 
-    public CNAlgorithm(String[][] table, Boolean useBaumgartnerSample) {
+    public CNAlgorithm(String[][] table) {
 	originalTable = new CNATable(table);
+	init();
+    }
 
-	// Init the fist Step of CNA-Algorithm
+    public CNAlgorithm(CNATable table) {
+	originalTable = table;
+	init();
+    }
+
+    private void init() {
 	identifySUF(originalTable);
-	// framingMinimalTheory();
     }
 
     /**
@@ -30,7 +35,7 @@ public class CNAlgorithm {
      * @param table
      **/
     private void identifySUF(CNATable table) {
-	CNATable sufTable = table.clone();
+	sufTable = table.clone();
 	sufTable.removeZeroEffects();
 	System.out.println("SUF Table:\n" + sufTable);
 	indentifyMSUF(table, sufTable);
@@ -40,10 +45,10 @@ public class CNAlgorithm {
 	MsufTree msufTree;
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
-	    CNAList list = sufTable.get(i);
+	    CNAList list = (CNAList) sufTable.get(i).clone();
 	    // IMPORTANT: Remove effect column of suffLine, if not tree we not
 	    // correctly be built.
-	    list.remove(list.size() - 1);
+	    list.removeLastElement();
 
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);
@@ -101,45 +106,43 @@ public class CNAlgorithm {
     }
 
     private void framingMinimalTheory(CNATable bundleTable) {
-	CustomTreeNode node;
+	treeString = new String();
 	CNAList fmt = new CNAList();
-	cnaTree = new CustomTree();
-	CNATable factorTable = new CNATable();
 	int effectNameIndex = bundleTable.get(0).size() - 1;
-
-	CustomTreeNode root = new CustomTreeNode(bundleTable.get(0).get(
-		effectNameIndex));
-	cnaTree.setRoot(root);
-	// Get Factor Names for Node naming
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-	factorTable.setFactors(mnecNames);
 
-	for (int row = 0; row < factorTable.size(); row++) {
-	    for (int col = 0; col < factorTable.get(row).size(); col++) {
-		node = new CustomTreeNode(factorTable.get(row).get(col));
-		if (factorTable.get(row).size() > 1) {
-		    node.setBundle("" + (row + 1));
-		    cnaTree.addChildtoRootX(node, root);
-		}
-		cnaTree.addChildtoRootX(node, root);
-	    }
-	    node = new CustomTreeNode("X" + (row + 1));
-	    if (factorTable.get(row).size() > 1) {
-		node.setBundle("" + (row + 1));
-	    }
-	    cnaTree.addChildtoRootX(node, root);
+	String coFactor = "X";
+	for (int i = 0; i < mnecNames.size(); i++) {
+	    String curMnec = mnecNames.get(i);
+	    fmt.add(curMnec + coFactor + "" + (i + 1));
 	}
-	CustomTreeNode nodeY = new CustomTreeNode("Y"
-		+ bundleTable.get(0).get(effectNameIndex));
-	cnaTree.addChildtoRootX(nodeY, root);
 
-	// TODO: fmt aufbauen... ???
-	System.out.println("\nFMT: " + fmt);
+	for (int k = 0; k < fmt.size(); k++) {
+	    treeString += fmt.get(k);
+	    if (k != fmt.size() - 1) {
+		treeString += " ∨ ";
+	    }
+	}
+	treeString += " => " + bundleTable.get(0).get(effectNameIndex);
+
+	System.out.println("\nFMT: " + treeString);
     }
 
     // Getters and Setters
 
-    public CustomTree getTree() {
-	return cnaTree;
+    public String getTreeString() {
+	return treeString;
+    }
+
+    public CNATable getSufTable() {
+	return sufTable;
+    }
+
+    public CNATable getMsufTable() {
+	return msufTable;
+    }
+
+    public CNATable getMnecTable() {
+	return mnecTable;
     }
 }
