@@ -4,7 +4,7 @@ package models;
 
 import org.apache.commons.collections15.Transformer;
 
-import trees.CustomTreeNode;
+import datastructures.CustomTreeNode;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 

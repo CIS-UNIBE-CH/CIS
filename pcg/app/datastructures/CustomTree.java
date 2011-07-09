@@ -1,4 +1,4 @@
-package trees;
+package datastructures;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
@@ -90,7 +90,7 @@ public class CustomTree {
     @Override
     public String toString() {
 	childs = getChildren();
-	String treeString = "";
+	String datastructurestring = "";
 	bundles.clear();
 	int key, k = 0;
 	for (CustomTreeNode child : childs) {
@@ -107,15 +107,15 @@ public class CustomTree {
 	}
 	System.out.println(bundles);
 	for (int i = 1; i <= bundles.size() + k; i++) {
-	    treeString += bundles.get(i).toString() + " ∨ ";
+	    datastructurestring += bundles.get(i).toString() + " ∨ ";
 	}
 
 	for (int i = 0; i > (k + 1); i--) {
-	    treeString += bundles.get(i) + " v ";
+	    datastructurestring += bundles.get(i) + " v ";
 	}
 
-	treeString += bundles.get(k + 1);
+	datastructurestring += bundles.get(k + 1);
 
-	return "(" + treeString + ")";
+	return "(" + datastructurestring + ")";
     }
 }

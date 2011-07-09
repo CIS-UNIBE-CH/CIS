@@ -1,9 +1,9 @@
-package parser;
+package parsers;
 
 import java.util.ArrayList;
 
-import trees.CustomTree;
-import trees.CustomTreeNode;
+import datastructures.CustomTree;
+import datastructures.CustomTreeNode;
 
 public class StringToTree {
     private String input;

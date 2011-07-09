@@ -6,7 +6,7 @@ import helper.BaumgartnerSampleTable;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import trees.CNATable;
+import datastructures.CNATable;
 import algorithms.CNAlgorithm;
 
 public class CNATest {

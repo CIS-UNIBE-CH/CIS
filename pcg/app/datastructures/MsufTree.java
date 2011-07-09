@@ -1,4 +1,4 @@
-package trees;
+package datastructures;
 
 import java.util.ArrayList;
 

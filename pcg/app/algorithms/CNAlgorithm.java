@@ -2,18 +2,18 @@ package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import trees.CNAList;
-import trees.CNATable;
-import trees.CNATreeNode;
-import trees.MnecTree;
-import trees.MsufTree;
+import datastructures.CNAList;
+import datastructures.CNATable;
+import datastructures.CNATreeNode;
+import datastructures.MnecTree;
+import datastructures.MsufTree;
 
 public class CNAlgorithm {
     private CNATable originalTable;
     private CNATable sufTable;
     private CNATable msufTable;
     private CNATable mnecTable;
-    private String treeString;
+    private String datastructurestring;
 
     public CNAlgorithm(String[][] table) {
 	originalTable = new CNATable(table);
@@ -106,7 +106,7 @@ public class CNAlgorithm {
     }
 
     private void framingMinimalTheory(CNATable bundleTable) {
-	treeString = new String();
+	datastructurestring = new String();
 	CNAList fmt = new CNAList();
 	int effectNameIndex = bundleTable.get(0).size() - 1;
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
@@ -118,20 +118,20 @@ public class CNAlgorithm {
 	}
 
 	for (int k = 0; k < fmt.size(); k++) {
-	    treeString += fmt.get(k);
+	    datastructurestring += fmt.get(k);
 	    if (k != fmt.size() - 1) {
-		treeString += " ∨ ";
+		datastructurestring += " ∨ ";
 	    }
 	}
-	treeString += " => " + bundleTable.get(0).get(effectNameIndex);
+	datastructurestring += " => " + bundleTable.get(0).get(effectNameIndex);
 
-	System.out.println("\nFMT: " + treeString);
+	System.out.println("\nFMT: " + datastructurestring);
     }
 
     // Getters and Setters
 
-    public String getTreeString() {
-	return treeString;
+    public String getdatastructurestring() {
+	return datastructurestring;
     }
 
     public CNATable getSufTable() {

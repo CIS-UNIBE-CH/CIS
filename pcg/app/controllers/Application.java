@@ -2,16 +2,16 @@ package controllers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import helper.Timer;
+import helpers.Timer;
 
 import java.util.ArrayList;
 
 import models.RandomGraphGenerator;
 import models.Renderer;
-import parser.StringToTree;
-import parser.TreeToGraph;
+import parsers.StringToTree;
+import parsers.TreeToGraph;
 import play.mvc.Controller;
-import trees.CustomTree;
+import datastructures.CustomTree;
 import algorithms.BinaryApproach;
 import algorithms.CNAlgorithm;
 import algorithms.QuadroTest;
@@ -41,7 +41,7 @@ public class Application extends Controller {
 	renderer.setChangingVertexColors(showColourRenderer);
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray());
 	StringToTree stringToTree = new StringToTree(
-		cnaAlgorithm.getTreeString());
+		cnaAlgorithm.getdatastructurestring());
 	Long time = timer.timeElapsed();
 	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
 	renderer.config(treeToGraph);

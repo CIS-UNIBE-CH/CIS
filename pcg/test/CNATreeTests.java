@@ -3,9 +3,9 @@ import helper.BaumgartnerSampleTable;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import trees.CNATable;
-import trees.CNATreeNode;
-import trees.MsufTree;
+import datastructures.CNATable;
+import datastructures.CNATreeNode;
+import datastructures.MsufTree;
 import algorithms.CNAlgorithm;
 
 public class CNATreeTests {

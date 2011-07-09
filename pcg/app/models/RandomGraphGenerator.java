@@ -5,9 +5,9 @@ package models;
 import java.util.ArrayList;
 import java.util.Random;
 
-import parser.TreeToTable;
-import trees.CustomTree;
-import trees.CustomTreeNode;
+import parsers.TreeToTable;
+import datastructures.CustomTree;
+import datastructures.CustomTreeNode;
 
 /**
  * Generates a random graph out of a given number of factors and bundles.

@@ -1,4 +1,4 @@
-package trees;
+package datastructures;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
