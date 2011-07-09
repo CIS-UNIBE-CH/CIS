@@ -84,14 +84,15 @@ public class Application extends Controller {
 		calculatedGraphPath, calculatedGraph, time, algorithmName);
     }
 
-    public static void generateGraph(String numberOfFactors,
+    public static void generateGraph(String numberOfAlterFactors,
 	    String numberOfBundles, String sizeOfBundles, String showBundleNum,
 	    String showColour) {
 
 	// Generate a Graph with n bundles and a total of k factors
 	int numBundles = Integer.parseInt(numberOfBundles);
-	int numFactors = Integer.parseInt(numberOfFactors);
+	int numOfAlterFactors = Integer.parseInt(numberOfAlterFactors);
 	int sizeBundles = Integer.parseInt(sizeOfBundles);
+	int numFactors = numOfAlterFactors + (numBundles * sizeBundles);
 	renderer = new Renderer();
 	table = new ArrayList<String>();
 
