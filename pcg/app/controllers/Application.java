@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import models.RandomGraphGenerator;
 import models.Renderer;
+import parser.StringToTree;
 import parser.TreeToGraph;
 import play.mvc.Controller;
 import trees.CustomTree;
@@ -38,12 +39,13 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(),
-		false);
-	tree = cnaAlgorithm.getTree();
+	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray());
+	StringToTree stringToTree = new StringToTree(
+		cnaAlgorithm.getTreeString());
 	Long time = timer.timeElapsed();
-	renderer.config(new TreeToGraph(tree));
-	calculatedGraph = tree.toString();
+	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
+	renderer.config(treeToGraph);
+	calculatedGraph = stringToTree.getTree().toString();
 	calculatedGraphPath = renderer.getImageSource();
 	String elapsedTime = time.toString() + " ms";
 	complexTesting(2, false, null, generatedGraphPath, generatedGraph,
