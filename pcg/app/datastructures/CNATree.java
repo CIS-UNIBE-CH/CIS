@@ -1,4 +1,4 @@
-package trees;
+package datastructures;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
@@ -32,7 +32,8 @@ abstract class CNATree extends DefaultTreeModel {
 	}
     }
 
-    public abstract CNATable getTable(CNATreeNode parent, CNATable originalTable);
+    abstract public void walk(CNATreeNode parent, CNATable originalTable,
+	    CNATable table);
 
     /**
      * Helper for fillUpTree(). Sets the $ character.

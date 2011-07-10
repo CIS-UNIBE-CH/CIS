@@ -1,11 +1,11 @@
-package parser;
+package parsers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
 
-import trees.CustomTree;
-import trees.CustomTreeNode;
+import datastructures.CustomTree;
+import datastructures.CustomTreeNode;
 
 /** Parses a CustomTree to Coincidence Table */
 public class TreeToTable {

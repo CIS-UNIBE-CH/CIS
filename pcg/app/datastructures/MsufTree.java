@@ -1,23 +1,15 @@
-package trees;
+package datastructures;
 
 import java.util.ArrayList;
 
 public class MsufTree extends CNATree {
 
-    CNATable msufTable = new CNATable();
-
     public MsufTree(CNATreeNode node) {
 	super(node);
-	// TODO Auto-generated constructor stub
     }
 
-    @Override
-    public CNATable getTable(CNATreeNode parent, CNATable originalTable) {
-	walk(parent, originalTable);
-	return msufTable;
-    }
-
-    private void walk(CNATreeNode parent, CNATable originalTable) {
+    public void walk(CNATreeNode parent, CNATable originalTable,
+	    CNATable msufTable) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
@@ -42,7 +34,7 @@ public class MsufTree extends CNATree {
 		    && !(compare(child.getCoincLine(), originalTable))) {
 		msufTable.add(child.getCoincLine());
 	    } else {
-		walk(child, originalTable);
+		walk(child, originalTable, msufTable);
 	    }
 	}
     }
@@ -67,7 +59,6 @@ public class MsufTree extends CNATree {
 	    // matches nodes data.
 	    if (isEqual) {
 		if (curRow.getLastElement().equals("0")) {
-		    System.out.println(line + " " + curRow);
 		    return true;
 		}
 	    }

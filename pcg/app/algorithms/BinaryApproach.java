@@ -4,8 +4,8 @@ package algorithms;
 
 import java.util.ArrayList;
 
-import trees.CustomTree;
-import trees.CustomTreeNode;
+import datastructures.CustomTree;
+import datastructures.CustomTreeNode;
 
 //TODO: Currently work only with number of bundles <= 2 and x alternative Factors
 //TODO: Fix github issue #16

@@ -1,12 +1,12 @@
-package parser;
+package parsers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
 
 import models.CustomEdge;
-import trees.CustomTree;
-import trees.CustomTreeNode;
+import datastructures.CustomTree;
+import datastructures.CustomTreeNode;
 import edu.uci.ics.jung.graph.OrderedSparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 

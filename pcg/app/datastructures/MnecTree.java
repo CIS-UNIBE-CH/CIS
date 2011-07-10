@@ -1,22 +1,15 @@
-package trees;
+package datastructures;
 
 import java.util.ArrayList;
 
 public class MnecTree extends CNATree {
 
-    private CNATable mnecTable = new CNATable();
-
     public MnecTree(CNATreeNode node) {
 	super(node);
     }
 
-    @Override
-    public CNATable getTable(CNATreeNode parent, CNATable bundleTable) {
-	walk(parent, bundleTable);
-	return mnecTable;
-    }
-
-    private void walk(CNATreeNode parent, CNATable bundleTable) {
+    public void walk(CNATreeNode parent, CNATable bundleTable,
+	    CNATable mnecTable) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
 
@@ -40,7 +33,7 @@ public class MnecTree extends CNATree {
 	    if (child.isLeaf() && (!compare(child.getCoincLine(), bundleTable))) {
 		mnecTable.add(child.getCoincLine());
 	    } else {
-		walk(child, bundleTable);
+		walk(child, bundleTable, mnecTable);
 	    }
 	}
     }

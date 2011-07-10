@@ -3,7 +3,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import trees.CNAList;
+import datastructures.CNAList;
 
 public class CNAListTests {
 

@@ -1,14 +1,14 @@
 import static org.junit.Assert.assertEquals;
-import helper.BaumgartnerSampleTable;
+import helpers.BaumgartnerSampleTable;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import trees.CNAList;
-import trees.CNATable;
-import trees.CNATreeNode;
-import trees.MsufTree;
 import algorithms.CNAlgorithm;
+import datastructures.CNAList;
+import datastructures.CNATable;
+import datastructures.CNATreeNode;
+import datastructures.MsufTree;
 
 public class CNATreeTests {
 

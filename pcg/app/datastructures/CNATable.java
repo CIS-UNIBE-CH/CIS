@@ -1,4 +1,4 @@
-package trees;
+package datastructures;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -162,11 +162,10 @@ public class CNATable extends ArrayList<CNAList> {
 
     public CNAList getFactorNames(CNAList names) {
 	CNAList output = new CNAList();
-	for (int row = table.size() - 1; row >= 0; row--) {
+	for (int row = 0; row < table.size(); row++) {
 	    for (int col = 0; col < table.get(row).size(); col++) {
-		if (!table.get(row).get(col).equals("$")) {
-		    output.add(names.get(row));
-		}
+		if (!table.get(row).get(col).equals("$"))
+		    output.add(names.get(col));
 	    }
 	}
 	return output;

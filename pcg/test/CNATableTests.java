@@ -3,8 +3,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import trees.CNAList;
-import trees.CNATable;
+import datastructures.CNAList;
+import datastructures.CNATable;
 
 public class CNATableTests {
     private static CNAList list;
