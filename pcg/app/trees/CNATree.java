@@ -8,10 +8,12 @@ import javax.swing.tree.DefaultTreeModel;
 
 abstract class CNATree extends DefaultTreeModel {
     private CNATreeNode node;
+    private String string;
 
     public CNATree(CNATreeNode node) {
 	super(node);
 	this.node = node;
+	string = new String();
     }
 
     public void fillUpTree(CNATreeNode parent) {
@@ -40,21 +42,14 @@ abstract class CNATree extends DefaultTreeModel {
 	return line;
     }
 
-    public String toString() {
-	return stringWalk(node);
-    }
-
-    // TODO Funktioniert noch nicht....
-    private String stringWalk(CNATreeNode node) {
-	String string = "Tree: {";
-	for (int i = 0; i < node.getChildCount(); i++) {
-	    CNATreeNode child = (CNATreeNode) node.getChildAt(i);
+    public String toString(CNATreeNode parent) {
+	for (int i = 0; i < parent.getChildCount(); i++) {
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (child.isLeaf()) {
-		string += child.toString() + "}";
-		return string;
+		string += child.toString();
 	    } else {
-		string += "|" + child + "|";
-		stringWalk(child);
+		string += child.toString();
+		toString(child);
 	    }
 	}
 	return string;

@@ -46,9 +46,11 @@ public class CNAlgorithm {
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
 	    CNAList list = (CNAList) sufTable.get(i).clone();
+
 	    // IMPORTANT: Remove effect column of suffLine, if not tree we not
 	    // correctly be built.
 	    list.removeLastElement();
+	    System.out.println(list);
 
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);

@@ -51,10 +51,6 @@ public class CNATable extends ArrayList<CNAList> {
 	return table.size();
     }
 
-    public CNAList remvove(int index) {
-	return this.remove(index);
-    }
-
     public void removeZeroEffects() {
 	for (int i = 0; i < table.size(); i++) {
 	    if (table.get(i).getLastElement().equals("0")) {
@@ -73,6 +69,11 @@ public class CNATable extends ArrayList<CNAList> {
 	HashSet duplicate = new HashSet(table);
 	table.clear();
 	table.addAll(duplicate);
+    }
+
+    public void removeLastElements() {
+	for (CNAList list : table)
+	    list.removeLastElement();
     }
 
     public void negate() {

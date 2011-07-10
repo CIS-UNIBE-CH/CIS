@@ -20,6 +20,7 @@ public class MsufTree extends CNATree {
     private void walk(CNATreeNode parent, CNATable originalTable) {
 	int breaks = 0;
 	int childCount = parent.getChildCount();
+
 	// Count how many "broken" children current parent has.
 	for (int i = 0; i < childCount; i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
@@ -48,8 +49,8 @@ public class MsufTree extends CNATree {
 
     private boolean compare(ArrayList<String> line, CNATable originalTable) {
 	boolean isEqual = false;
-	for (int r = 1; r < originalTable.size(); r++) {
-	    ArrayList<String> curRow = originalTable.get(r);
+	for (int row = 1; row < originalTable.size(); row++) {
+	    CNAList curRow = originalTable.get(row);
 	    for (int i = 0; i < line.size(); i++) {
 		// Only if there is a 1 or 0 in nodes data compare, when a
 		// dollar do nothing.
@@ -65,12 +66,12 @@ public class MsufTree extends CNATree {
 	    // Check if there is a line in sample table with effect = 0 which
 	    // matches nodes data.
 	    if (isEqual) {
-		if (curRow.get(curRow.size() - 1).equals("0")) {
+		if (curRow.getLastElement().equals("0")) {
+		    System.out.println(line + " " + curRow);
 		    return true;
 		}
 	    }
 	}
 	return false;
     }
-
 }
