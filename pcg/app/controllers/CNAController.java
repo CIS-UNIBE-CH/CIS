@@ -21,7 +21,6 @@ public class CNAController extends Controller {
     private static boolean showBundleNumRenderer;
 
     public static void setup() {
-
 	render();
     }
 
@@ -75,12 +74,14 @@ public class CNAController extends Controller {
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray());
+
 	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt().get(
 		0));
 	Long time = timer.timeElapsed();
 	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
 	renderer.config(treeToGraph);
 
+	String originalTable = cnaAlgorithm.getOriginalTable().toString();
 	String calculatedGraph = stringToTree.getTree().toString();
 	String calculatedGraphPath = renderer.getImageSource();
 	String elapsedTime = time.toString() + " ms";
@@ -91,9 +92,9 @@ public class CNAController extends Controller {
 	String mnecTable = cnaAlgorithm.getMnecTable().toString();
 	String fmt = cnaAlgorithm.getFmt().toString();
 
-	render(elapsedTime, calculatedGraph, calculatedGraphPath,
-		generatedGraphPath, generatedGraph, effects, sufTable,
-		msufTable, necList, mnecTable, fmt);
+	render(elapsedTime, originalTable, calculatedGraph,
+		calculatedGraphPath, generatedGraphPath, generatedGraph,
+		effects, sufTable, msufTable, necList, mnecTable, fmt);
     }
 
     public static void baumgartnerSample() {

@@ -13,6 +13,18 @@
 		<center>
 		<img src="${generatedGraphPath}" />
 		<p>${generatedGraph}</p>
+			<a href="#" id="orig-toggle">Show original Table</a>
+			<div id="orig">
+					<table>
+		#{list items:originalTable, as:'l'}
+			#{if l == "\n"}<tr>#{/if}
+			#{else}
+			<td>${l}</td>
+			#{/else}
+			#{if l == "\n"}</tr>#{/if}
+		#{/list}
+		</table>
+			</div>
 		</center>
 	<h3>Calculated Graph</h3>
 	Algorithm: ${algorithmName} <br />
@@ -84,5 +96,14 @@
     $('#slickbox').toggle(400);
     return false;
   });
+});
+	
+	$(document).ready(function() {
+		 $('#orig').hide();
+// toggles the slickbox on clicking the noted link  
+ $('#orig-toggle').click(function() {
+   $('#orig').toggle(400);
+   return false;
+ });
 });
 </script>

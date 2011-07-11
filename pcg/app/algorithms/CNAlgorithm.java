@@ -2,8 +2,6 @@ package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import helpers.BaumgartnerSampleTable;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -27,6 +25,10 @@ public class CNAlgorithm {
     public CNAlgorithm(String[][] table) {
 	originalTable = new CNATable(table);
 	init();
+	// effects = new CNAList();
+	// System.out.println(originalTable.get(0).getLastElement());
+	// effects.add(originalTable.get(0).getLastElement());
+	// identifySUF(originalTable);
     }
 
     public CNAlgorithm(CNATable table) {
@@ -35,8 +37,6 @@ public class CNAlgorithm {
     }
 
     private void init() {
-	BaumgartnerSampleTable sampleTable = new BaumgartnerSampleTable();
-	originalTable = sampleTable.getSampleTable();
 	identifyPE(originalTable);
     }
 
@@ -50,14 +50,6 @@ public class CNAlgorithm {
 	CNATable table = originalTable.clone();
 	ListComparator comparator = new ListComparator();
 
-	// remove all Cols with neg factor
-	for (int col = 0; col < table.get(0).size(); col++) {
-	    String cur = table.get(0).get(col);
-	    if (cur.contains("¬")) {
-		table.removeCol(col);
-		col--;
-	    }
-	}
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int row = 1; row < table.size(); row++) {
 	    for (int row2 = 1; row2 < table.size(); row2++) {
@@ -70,9 +62,20 @@ public class CNAlgorithm {
 	HashSet duplicate = new HashSet(indexes);
 	indexes.clear();
 	indexes.addAll(duplicate);
+	System.out.println(indexes);
 	effects = table.get(0);
+	System.out.println(effects);
 	for (int i = indexes.size() - 1; i >= 0; i--) {
 	    effects.remove(indexes.get(i));
+	}
+
+	for (int i = 0; i < effects.size(); i++) {
+	    String cur = effects.get(i);
+	    if (cur.contains("¬")) {
+		effects.remove(i);
+		i--;
+	    }
+
 	}
 	run(effects, originalTable);
     }
@@ -83,7 +86,6 @@ public class CNAlgorithm {
      * @param effects
      */
     private void run(CNAList effects, CNATable originalTable) {
-	fmt = new CNAList();
 	CNATable table;
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
@@ -177,6 +179,7 @@ public class CNAlgorithm {
 
     private void framingMinimalTheory(CNATable bundleTable) {
 	String datastructurestring = new String();
+	fmt = new CNAList();
 	CNAList list = new CNAList();
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
 
@@ -197,6 +200,10 @@ public class CNAlgorithm {
     }
 
     // Getters and Setters
+
+    public CNATable getOriginalTable() {
+	return originalTable;
+    }
 
     public CNAList getFmt() {
 	return fmt;
