@@ -1,6 +1,7 @@
 package datastructures;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class CNAList extends ArrayList<String> {
 
@@ -26,6 +27,12 @@ public class CNAList extends ArrayList<String> {
 
     public void removeLastElement() {
 	this.remove(this.getLastElement());
+    }
+
+    public void removeDuplicated() {
+	HashSet duplicate = new HashSet(this);
+	this.clear();
+	this.addAll(duplicate);
     }
 
     // Getters and Setters

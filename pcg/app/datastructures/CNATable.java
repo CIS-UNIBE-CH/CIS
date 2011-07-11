@@ -76,6 +76,11 @@ public class CNATable extends ArrayList<CNAList> {
 	    list.removeLastElement();
     }
 
+    public void removeCol(int index) {
+	for (CNAList list : table)
+	    list.remove(index);
+    }
+
     public void negate() {
 	for (int row = 0; row < table.size(); row++) {
 	    table.get(row).negate();

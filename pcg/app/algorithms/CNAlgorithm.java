@@ -2,14 +2,20 @@ package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
+import helpers.BaumgartnerSampleTable;
+
+import java.util.ArrayList;
+
 import datastructures.CNAList;
 import datastructures.CNATable;
 import datastructures.CNATreeNode;
+import datastructures.ListComparator;
 import datastructures.MnecTree;
 import datastructures.MsufTree;
 
 public class CNAlgorithm {
     private CNATable originalTable;
+    private CNAList effects;
     private CNATable sufTable;
     private CNATable msufTable;
     private CNAList necList;
@@ -28,7 +34,45 @@ public class CNAlgorithm {
     }
 
     private void init() {
+	BaumgartnerSampleTable sampleTable = new BaumgartnerSampleTable();
+	originalTable = sampleTable.getSampleTable();
+	identifyPE(originalTable);
 	identifySUF(originalTable);
+    }
+
+    /**
+     * Step 0
+     * 
+     * @param originalTable
+     */
+    private void identifyPE(CNATable originalTable) {
+	effects = new CNAList();
+	CNATable table = originalTable.clone();
+	ListComparator comparator = new ListComparator();
+
+	// remove all Cols with neg factor
+	for (int col = 0; col < table.get(0).size(); col++) {
+	    String cur = table.get(0).get(col);
+	    if (cur.contains("¬")) {
+		table.removeCol(col);
+		col--;
+	    }
+	}
+
+	ArrayList<Integer> placeOfNoEffects = new ArrayList<Integer>();
+	for (int row = 1; row < table.size(); row++) {
+	    for (int row2 = 1; row2 < table.size(); row2++) {
+		int cr = comparator.compare(table.get(row2), table.get(row));
+		if (cr != -1) {
+		    placeOfNoEffects.add(cr);
+		}
+	    }
+	}
+	effects = table.get(0);
+	for (int i = 0; i < placeOfNoEffects.size(); i++) {
+	    effects.remove(placeOfNoEffects.get(i));
+	}
+	System.out.println(effects);
     }
 
     /**

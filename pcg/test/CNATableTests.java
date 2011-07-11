@@ -76,4 +76,12 @@ public class CNATableTests extends UnitTest {
 	assert (table.size() != newTable.size());
 	assert (table != newTable);
     }
+
+    @Test
+    public void shouldRemoveCol() {
+	table = new CNATable(";", ",", "0,2,3;3,2,0");
+	table.removeCol(1);
+	CNATable testTable = new CNATable(";", ",", "0,3;3,0");
+	assertEquals(testTable, table);
+    }
 }
