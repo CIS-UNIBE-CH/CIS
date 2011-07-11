@@ -6,8 +6,20 @@
 GET		/index/{index}							Application.index
 GET    	/                                       Application.index
 
+#SimpleQuadroTest
+GET			/quadro/setup						SimpleQuadroController.setup
+POST		/quadro/setup						SimpleQuadroController.setTable
+POST		/quadro/graph						SimpleQuadroController.calcQuadroGraph
+
+#CNA Tests
+GET			/cna/setup							CNAController.setup
+POST		/cna/setup							CNAController.generateGraph
+POST /cna/setup/graph					CNAController.calcCNAGraph
+
 
 GET		/testing/{step} 						Application.complexTesting
+
+
 
 # Map static resources from the /app/public folder to the /public path
 
