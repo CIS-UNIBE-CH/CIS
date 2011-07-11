@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.BaumgartnerSampleTable;
 import helpers.Timer;
 
 import java.util.ArrayList;
@@ -90,10 +91,35 @@ public class CNAController extends Controller {
 	String mnecTable = cnaAlgorithm.getMnecTable().toString();
 	String fmt = cnaAlgorithm.getFmt().toString();
 
-	System.out.println(mnecTable);
-
 	render(elapsedTime, calculatedGraph, calculatedGraphPath,
 		generatedGraphPath, generatedGraph, effects, sufTable,
 		msufTable, necList, mnecTable, fmt);
+    }
+
+    public static void baumgartnerSample() {
+	timer = new Timer();
+	renderer = new Renderer();
+	renderer.setEdgeLabels(true);
+	renderer.setChangingVertexColors(true);
+	CNAlgorithm cnaAlgorithm = new CNAlgorithm(
+		new BaumgartnerSampleTable().getSampleTable());
+	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt().get(
+		0));
+	Long time = timer.timeElapsed();
+	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
+	renderer.config(treeToGraph);
+
+	String calculatedGraph = stringToTree.getTree().toString();
+	String calculatedGraphPath = renderer.getImageSource();
+	String elapsedTime = time.toString() + " ms";
+	String effects = cnaAlgorithm.getEffects().toString();
+	String sufTable = cnaAlgorithm.getSufTable().toString();
+	String msufTable = cnaAlgorithm.getMsufTable().toString();
+	String necList = cnaAlgorithm.getNecList().toString();
+	String mnecTable = cnaAlgorithm.getMnecTable().toString();
+	String fmt = cnaAlgorithm.getFmt().toString();
+
+	render(elapsedTime, calculatedGraph, calculatedGraphPath, effects,
+		sufTable, msufTable, necList, mnecTable, fmt);
     }
 }

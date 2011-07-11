@@ -1,19 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-<h2>CNA Algorithm</h2>
+<h2>CNA Algorithm - Baumgartner Sample</h2>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
 		</div>
 	#{/if}
-	<div class="steps">
-	Step 3/3
-	</div>
-	<h3>Generated Graph</h3>
-		<center>
-		<img src="${generatedGraphPath}" />
-		<p>${generatedGraph}</p>
-		</center>
 	<h3>Calculated Graph</h3>
 	Algorithm: ${algorithmName} <br />
 	Calculation Time: ${elapsedTime}
