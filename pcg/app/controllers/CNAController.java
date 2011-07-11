@@ -26,7 +26,8 @@ public class CNAController extends Controller {
 
     public static void generateGraph(String numberOfAlterFactors,
 	    String numberOfBundles, String sizeOfBundles, String showColour,
-	    String showBundleNum) {
+	    String showBundleNum, String lines) {
+	System.out.println(lines);
 	showColourRenderer = (showColour != null);
 	showBundleNumRenderer = (showBundleNum != null);
 
@@ -54,10 +55,11 @@ public class CNAController extends Controller {
 	    String elapsedTime = time.toString() + " ms";
 
 	    if (numFactors <= 5) {
-		render(elapsedTime, generatedGraphPath, generatedGraph, table);
+		render(elapsedTime, generatedGraphPath, generatedGraph, table,
+			lines);
 
 	    } else {
-		render(elapsedTime, generatedGraphPath, generatedGraph);
+		render(elapsedTime, generatedGraphPath, generatedGraph, lines);
 	    }
 
 	} else {
@@ -68,12 +70,14 @@ public class CNAController extends Controller {
     }
 
     public static void calcCNAGraph(String generatedGraphPath,
-	    String generatedGraph) {
+	    String generatedGraph, String lines) {
 	timer = new Timer();
 	renderer = new Renderer();
+	int randomLines = Integer.parseInt(lines);
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
-	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray());
+	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(),
+		randomLines);
 
 	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt().get(
 		0));
@@ -91,10 +95,11 @@ public class CNAController extends Controller {
 	String necList = cnaAlgorithm.getNecList().toString();
 	String mnecTable = cnaAlgorithm.getMnecTable().toString();
 	String fmt = cnaAlgorithm.getFmt().toString();
+	String deleted = cnaAlgorithm.getDeleted().toString();
 
 	render(elapsedTime, originalTable, calculatedGraph,
 		calculatedGraphPath, generatedGraphPath, generatedGraph,
-		effects, sufTable, msufTable, necList, mnecTable, fmt);
+		effects, sufTable, msufTable, necList, mnecTable, fmt, deleted);
     }
 
     public static void baumgartnerSample() {

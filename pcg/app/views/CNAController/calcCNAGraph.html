@@ -24,6 +24,18 @@
 			#{if l == "\n"}</tr>#{/if}
 		#{/list}
 		</table>
+		#{if deleted}
+		<h4>Deleted lines</h4>
+		<table>
+		#{list deleted, as:'l'}
+			#{if l == "\n"}<tr>#{/if}
+			#{else}
+			<td>${l}</td>
+			#{/else}
+			#{if l == "\n"}</tr>#{/if}
+		#{/list}
+		</table>
+		#{/if}
 			</div>
 		</center>
 	<h3>Calculated Graph</h3>
@@ -68,9 +80,7 @@
 			#{/else}
 			#{if l == "\n"}</tr>#{/if}
 		#{/list}
-		</table>
 		<h4>CNA Step 7 - Framing minimal theories and casual interpretation</h4>
-		<table>
 		#{list items:fmt, as:'l'}
 			#{if l == ","}<tr>#{/if}
 			#{else}
@@ -93,7 +103,7 @@
 		 $('#slickbox').hide();
  // toggles the slickbox on clicking the noted link  
   $('#slick-toggle').click(function() {
-    $('#slickbox').toggle(400);
+    $('#slickbox').toggle(100);
     return false;
   });
 });
@@ -102,7 +112,7 @@
 		 $('#orig').hide();
 // toggles the slickbox on clicking the noted link  
  $('#orig-toggle').click(function() {
-   $('#orig').toggle(400);
+   $('#orig').toggle(100);
    return false;
  });
 });

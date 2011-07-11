@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'Disclaimer' /}
+<h2>Disclaimer</h2>
+	#{if flash.error}
+		<div class="error">
+			${flash.error}
+		</div>
+	#{/if}
+	

@@ -19,16 +19,20 @@ public class CNAlgorithm {
     private CNATable msufTable;
     private CNAList necList;
     private CNAList fmt;
+    private CNATable deleted;
 
     private CNATable mnecTable;
 
-    public CNAlgorithm(String[][] table) {
+    public CNAlgorithm(String[][] table, int randomLines) {
 	originalTable = new CNATable(table);
+	deleted = new CNATable();
+	for (int i = 0; i < randomLines; i++) {
+	    int rand = (int) Math.random() * (originalTable.size() - 1) + 1;
+	    deleted.add(originalTable.get(rand));
+	    originalTable.remove(rand);
+	}
 	init();
-	// effects = new CNAList();
-	// System.out.println(originalTable.get(0).getLastElement());
-	// effects.add(originalTable.get(0).getLastElement());
-	// identifySUF(originalTable);
+
     }
 
     public CNAlgorithm(CNATable table) {
@@ -228,4 +232,9 @@ public class CNAlgorithm {
     public CNAList getEffects() {
 	return effects;
     }
+
+    public CNATable getDeleted() {
+	return deleted;
+    }
+
 }

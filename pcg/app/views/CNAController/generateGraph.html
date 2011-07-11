@@ -33,5 +33,6 @@
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphPath" value="${generatedGraphPath}"/>
 		<input type="hidden" name="generatedGraph"     value="${generatedGraph}"/>
+		<input type="hidden" name="lines"              value="${lines}"/>
 		<input type="submit" name="booleanTest"        value="Calculate"/>
 	</form>
