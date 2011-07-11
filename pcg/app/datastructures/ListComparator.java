@@ -6,7 +6,6 @@ public class ListComparator implements Comparator<CNAList> {
 
     @Override
     public int compare(CNAList list1, CNAList list2) {
-	assert (list1.size() != list2.size());
 	int counter = 0;
 	int index = -1;
 	for (int col = 0; col < list1.size(); col++) {

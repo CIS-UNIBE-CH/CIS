@@ -11,10 +11,10 @@ import models.Renderer;
 import parsers.StringToTree;
 import parsers.TreeToGraph;
 import play.mvc.Controller;
-import datastructures.CustomTree;
 import algorithms.BinaryApproach;
 import algorithms.CNAlgorithm;
 import algorithms.QuadroTest;
+import datastructures.CustomTree;
 
 public class Application extends Controller {
 
@@ -40,8 +40,8 @@ public class Application extends Controller {
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray());
-	StringToTree stringToTree = new StringToTree(
-		cnaAlgorithm.getdatastructurestring());
+	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt().get(
+		0));
 	Long time = timer.timeElapsed();
 	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
 	renderer.config(treeToGraph);

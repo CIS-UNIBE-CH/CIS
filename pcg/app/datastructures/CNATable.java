@@ -30,6 +30,12 @@ public class CNATable extends ArrayList<CNAList> {
 
     }
 
+    public void swap(int first, int second) {
+	for (CNAList list : table) {
+	    list.swap(first, second);
+	}
+    }
+
     @Override
     public boolean add(CNAList list) {
 	return table.add(list);

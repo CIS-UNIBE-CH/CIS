@@ -5,6 +5,7 @@ package algorithms;
 import helpers.BaumgartnerSampleTable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import datastructures.CNAList;
 import datastructures.CNATable;
@@ -19,9 +20,9 @@ public class CNAlgorithm {
     private CNATable sufTable;
     private CNATable msufTable;
     private CNAList necList;
+    private CNAList fmt;
 
     private CNATable mnecTable;
-    private String datastructurestring;
 
     public CNAlgorithm(String[][] table) {
 	originalTable = new CNATable(table);
@@ -37,7 +38,6 @@ public class CNAlgorithm {
 	BaumgartnerSampleTable sampleTable = new BaumgartnerSampleTable();
 	originalTable = sampleTable.getSampleTable();
 	identifyPE(originalTable);
-	identifySUF(originalTable);
     }
 
     /**
@@ -58,21 +58,49 @@ public class CNAlgorithm {
 		col--;
 	    }
 	}
-
-	ArrayList<Integer> placeOfNoEffects = new ArrayList<Integer>();
+	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int row = 1; row < table.size(); row++) {
 	    for (int row2 = 1; row2 < table.size(); row2++) {
 		int cr = comparator.compare(table.get(row2), table.get(row));
 		if (cr != -1) {
-		    placeOfNoEffects.add(cr);
+		    indexes.add(cr);
 		}
 	    }
 	}
+	HashSet duplicate = new HashSet(indexes);
+	indexes.clear();
+	indexes.addAll(duplicate);
 	effects = table.get(0);
-	for (int i = 0; i < placeOfNoEffects.size(); i++) {
-	    effects.remove(placeOfNoEffects.get(i));
+	for (int i = indexes.size() - 1; i >= 0; i--) {
+	    effects.remove(indexes.get(i));
 	}
-	System.out.println(effects);
+	run(effects, originalTable);
+    }
+
+    /**
+     * Step 1
+     * 
+     * @param effects
+     */
+    private void run(CNAList effects, CNATable originalTable) {
+	fmt = new CNAList();
+	CNATable table;
+	ArrayList<Integer> indexes = new ArrayList<Integer>();
+	for (int col = 0; col < originalTable.get(0).size(); col++) {
+	    for (int i = 0; i < effects.size(); i++) {
+		if (originalTable.get(0).get(col).equals(effects.get(i))) {
+		    indexes.add(col);
+		}
+	    }
+	}
+
+	for (int i = 0; i < indexes.size(); i++) {
+	    table = originalTable.clone();
+	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
+	    identifySUF(table);
+	}
+	System.out.println(fmt);
+
     }
 
     /**
@@ -80,14 +108,14 @@ public class CNAlgorithm {
      * 
      * @param table
      **/
-    private void identifySUF(CNATable table) {
-	sufTable = table.clone();
+    private void identifySUF(CNATable originalTable) {
+	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	System.out.println("SUF Table:\n" + sufTable);
-	indentifyMSUF(table, sufTable);
+	indentifyMSUF(originalTable, sufTable);
     }
 
-    private void indentifyMSUF(CNATable table, CNATable sufTable) {
+    private void indentifyMSUF(CNATable originalTable, CNATable sufTable) {
 	MsufTree msufTree;
 	msufTable = new CNATable();
 	// i = 1 because first line holds factor names.
@@ -106,10 +134,10 @@ public class CNAlgorithm {
 	}
 	System.out.println("MSUF Table:\n" + msufTable);
 
-	identifyNEC(msufTable);
+	identifyNEC(msufTable, originalTable);
     }
 
-    private void identifyNEC(CNATable msufTable) {
+    private void identifyNEC(CNATable msufTable, CNATable originalTable) {
 	CNATable bundleTable = msufTable.summarizeBundles(msufTable,
 		originalTable);
 	necList = msufTable.getNecList();
@@ -156,32 +184,31 @@ public class CNAlgorithm {
     }
 
     private void framingMinimalTheory(CNATable bundleTable) {
-	datastructurestring = new String();
-	CNAList fmt = new CNAList();
+	String datastructurestring = new String();
+	CNAList list = new CNAList();
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
 	System.out.println("m" + mnecNames);
 
 	String coFactor = "X";
 	for (int i = 0; i < mnecNames.size(); i++) {
 	    String curMnec = mnecNames.get(i);
-	    fmt.add(curMnec + coFactor + "" + (i + 1));
+	    list.add(curMnec + coFactor + "" + (i + 1));
 	}
 
-	for (int k = 0; k < fmt.size(); k++) {
-	    datastructurestring += fmt.get(k);
-	    if (k != fmt.size() - 1) {
+	for (int k = 0; k < list.size(); k++) {
+	    datastructurestring += list.get(k);
+	    if (k != list.size() - 1) {
 		datastructurestring += " ∨ ";
 	    }
 	}
 	datastructurestring += " => " + bundleTable.get(0).getLastElement();
-
-	System.out.println("\nFMT: " + datastructurestring);
+	fmt.add(datastructurestring);
     }
 
     // Getters and Setters
 
-    public String getdatastructurestring() {
-	return datastructurestring;
+    public CNAList getFmt() {
+	return fmt;
     }
 
     public CNATable getSufTable() {

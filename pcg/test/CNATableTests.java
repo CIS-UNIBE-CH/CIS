@@ -38,11 +38,11 @@ public class CNATableTests extends UnitTest {
 	assertEquals(table.toString(), testTable.toString());
     }
 
-    // @Test(expected = AssertionError.class)
-    // public void shouldNotBeSameRegex() {
-    // @SuppressWarnings("unused")
-    // CNATable testTable = new CNATable(",", ",", "0,2,3;3,2,0");
-    // }
+    @Test(expected = AssertionError.class)
+    public void shouldNotBeSameRegex() {
+	@SuppressWarnings("unused")
+	CNATable testTable = new CNATable(",", ",", "0,2,3;3,2,0");
+    }
 
     @Test
     public void shoudRemoveZeroEffect() {
@@ -83,5 +83,14 @@ public class CNATableTests extends UnitTest {
 	table.removeCol(1);
 	CNATable testTable = new CNATable(";", ",", "0,3;3,0");
 	assertEquals(testTable, table);
+    }
+
+    @Test
+    public void shouldSwap() {
+	table = new CNATable(";", ",", "0,2,3;3,2,0");
+	CNATable testTable = new CNATable(";", ",", "3,2,0;0,2,3");
+	table.swap(0, 2);
+	assertEquals(testTable, table);
+
     }
 }

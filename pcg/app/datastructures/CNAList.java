@@ -25,6 +25,13 @@ public class CNAList extends ArrayList<String> {
 	}
     }
 
+    public void swap(int first, int second) {
+	String firstStr = this.get(first);
+	String secondStr = this.get(second);
+	this.set(first, secondStr);
+	this.set(second, firstStr);
+    }
+
     public void removeLastElement() {
 	this.remove(this.getLastElement());
     }
@@ -33,6 +40,11 @@ public class CNAList extends ArrayList<String> {
 	HashSet duplicate = new HashSet(this);
 	this.clear();
 	this.addAll(duplicate);
+    }
+
+    public String remove(Integer index) {
+	int i = index;
+	return super.remove(i);
     }
 
     // Getters and Setters
