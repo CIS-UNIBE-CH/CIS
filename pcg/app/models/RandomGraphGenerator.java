@@ -84,7 +84,7 @@ public class RandomGraphGenerator {
 		} else {
 		    curNode.setBundle(bundleNumber.toString());
 		    curBundle.add(curNode);
-		    tree.addChildtoRootX(curNode, root);
+		    tree.addChildtoParentX(curNode, root);
 
 		    // Falls ein gleicher ein bestimmter Faktor in mehreren
 		    // Bündeln vorkommen können soll muss das die nächste Zeile
@@ -97,7 +97,7 @@ public class RandomGraphGenerator {
 	    CustomTreeNode x = new CustomTreeNode("X" + xfactorNumber);
 	    xfactorNumber = xfactorNumber + 1;
 	    x.setBundle(bundleNumber.toString());
-	    tree.addChildtoRootX(x, root);
+	    tree.addChildtoParentX(x, root);
 
 	    bundleNumber = bundleNumber + 1;
 	}
@@ -108,11 +108,11 @@ public class RandomGraphGenerator {
 	    int randomIndex1 = generator.nextInt(nodes.size());
 
 	    CustomTreeNode curNode = nodes.get(randomIndex1);
-	    tree.addChildtoRootX(curNode, root);
+	    tree.addChildtoParentX(curNode, root);
 	    nodes.remove(randomIndex1);
 	}
 	CustomTreeNode y = new CustomTreeNode("Y");
-	tree.addChildtoRootX(y, root);
+	tree.addChildtoParentX(y, root);
     }
 
     /**

@@ -34,8 +34,8 @@ public class CustomTree {
     }
 
     /** Ads a child to specified root or parent node */
-    public static void addChildtoRootX(CustomTreeNode child, CustomTreeNode root) {
-	root.add(child);
+    public static void addChildtoParentX(CustomTreeNode child, CustomTreeNode parent) {
+	parent.add(child);
     }
 
     /**

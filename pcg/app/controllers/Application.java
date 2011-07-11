@@ -39,11 +39,15 @@ public class Application extends Controller {
 	renderer = new Renderer();
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
+	
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray());
-	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt().get(
-		0));
+	
+	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt());
+	
 	Long time = timer.timeElapsed();
+	
 	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
+	
 	renderer.config(treeToGraph);
 	calculatedGraph = stringToTree.getTree().toString();
 	calculatedGraphPath = renderer.getImageSource();

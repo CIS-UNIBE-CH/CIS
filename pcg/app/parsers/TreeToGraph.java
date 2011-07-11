@@ -25,9 +25,47 @@ public class TreeToGraph {
 	graph = new OrderedSparseMultigraph<CustomTreeNode, CustomEdge>();
 
 	this.tree = tree;
+	graph.addVertex(tree.getRoot());
 
-	createNodes();
-	createEdges();
+	// createNodes();
+	// createEdges();
+	createAll(tree.getRoot());
+    }
+
+    private void createAll(CustomTreeNode parent) {
+	// if (parent.isLeaf()) {
+
+	// } else {
+	/*
+	 * for (int i = 0; i < parent.getChildCount(); i++) { CustomTreeNode
+	 * curChild = (CustomTreeNode) parent.getChildAt(i);
+	 * System.out.println("Node: " + curChild);
+	 * 
+	 * graph.addVertex(curChild);
+	 * 
+	 * CustomEdge edge = new CustomEdge(curChild, parent);
+	 * 
+	 * if (curChild.isPartOfBundle()) {
+	 * edge.setBundleNumber(curChild.getBundle()); } graph.addEdge(edge,
+	 * curChild, parent, EdgeType.DIRECTED); }
+	 */
+//	System.out.println("********");
+	for (int i = 0; i < parent.getChildCount(); i++) {
+	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
+	    createAll(curChild);
+
+	    System.out.println("NodeTree: " + curChild);
+
+	    graph.addVertex(curChild);
+
+	    CustomEdge edge = new CustomEdge(curChild, parent);
+
+	    if (curChild.isPartOfBundle()) {
+		edge.setBundleNumber(curChild.getBundle());
+	    }
+	    graph.addEdge(edge, curChild, parent, EdgeType.DIRECTED);
+	}
+	// }
     }
 
     private void createNodes() {

@@ -181,12 +181,12 @@ public class BinaryApproach {
 		    CustomTreeNode curNode = new CustomTreeNode(tableAsList
 			    .get(0).get(colIndex));
 		    curNode.setBundle(String.valueOf(bundleCounter));
-		    tree.addChildtoRootX(curNode, root);
+		    tree.addChildtoParentX(curNode, root);
 		}
 	    }
 	    CustomTreeNode x = new CustomTreeNode("X" + bundleCounter);
 	    x.setBundle(String.valueOf(bundleCounter));
-	    tree.addChildtoRootX(x, root);
+	    tree.addChildtoParentX(x, root);
 	    bundleCounter = bundleCounter + 1;
 	}
 
@@ -195,12 +195,12 @@ public class BinaryApproach {
 	for (int i = 0; i < colIndexesAlterFactors.size(); i++) {
 	    int curIndex = colIndexesAlterFactors.get(i);
 	    CustomTreeNode curNode = new CustomTreeNode(table[0][curIndex]);
-	    tree.addChildtoRootX(curNode, root);
+	    tree.addChildtoParentX(curNode, root);
 	    hasAlterFactors = true;
 	}
 	if (hasAlterFactors) {
 	    CustomTreeNode y = new CustomTreeNode("Y");
-	    tree.addChildtoRootX(y, root);
+	    tree.addChildtoParentX(y, root);
 	}
 
 	return tree;

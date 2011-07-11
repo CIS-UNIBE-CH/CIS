@@ -36,94 +36,94 @@ public class QuadroTest {
 	    return null;
 
 	case 1:
-	    tree.addChildtoRootX(a, root);
+	    tree.addChildtoParentX(a, root);
 	    a.setBundle("1");
 	    if (calcRowSum(0) == 1) {
 		if (field[0][0] == 1) {
-		    tree.addChildtoRootX(b, root);
+		    tree.addChildtoParentX(b, root);
 		    b.setBundle("1");
 		} else {
-		    tree.addChildtoRootX(nb, root);
+		    tree.addChildtoParentX(nb, root);
 		    nb.setBundle("1");
 		}
-		tree.addChildtoRootX(x1, root);
+		tree.addChildtoParentX(x1, root);
 		x1.setBundle("1");
 	    } else {
-		tree.addChildtoRootX(x1, root);
+		tree.addChildtoParentX(x1, root);
 		x1.setBundle("1");
-		tree.addChildtoRootX(na, root);
+		tree.addChildtoParentX(na, root);
 		na.setBundle("2");
 		if (field[1][0] == 1) {
-		    tree.addChildtoRootX(b, root);
+		    tree.addChildtoParentX(b, root);
 		    b.setBundle("2");
 		} else {
-		    tree.addChildtoRootX(nb, root);
+		    tree.addChildtoParentX(nb, root);
 		    nb.setBundle("2");
 		}
-		tree.addChildtoRootX(x2, root);
+		tree.addChildtoParentX(x2, root);
 		x2.setBundle("2");
 	    }
 	    break;
 
 	case 2:
-	    tree.addChildtoRootX(a, root);
+	    tree.addChildtoParentX(a, root);
 	    a.setBundle("1");
-	    tree.addChildtoRootX(x1, root);
+	    tree.addChildtoParentX(x1, root);
 	    x1.setBundle("1");
 	    if (calcRowSum(0) == 2) {
 		System.out.println("error: 2");
 		return null;
 	    } else if (calcRowSum(1) == 2) {
-		tree.addChildtoRootX(na, root);
+		tree.addChildtoParentX(na, root);
 		na.setBundle("2");
 	    } else if (calcColSum(0) == 2) {
-		tree.addChildtoRootX(b, root);
+		tree.addChildtoParentX(b, root);
 		b.setBundle("2");
 	    } else if (calcColSum(1) == 2) {
-		tree.addChildtoRootX(nb, root);
+		tree.addChildtoParentX(nb, root);
 		nb.setBundle("2");
 	    } else {
 		if (field[0][0] == 0) {
-		    tree.addChildtoRootX(nb, root);
+		    tree.addChildtoParentX(nb, root);
 		    nb.setBundle("1");
-		    tree.addChildtoRootX(b, root);
+		    tree.addChildtoParentX(b, root);
 		    b.setBundle("2");
-		    tree.addChildtoRootX(na, root);
+		    tree.addChildtoParentX(na, root);
 		    na.setBundle("2");
 		} else {
-		    tree.addChildtoRootX(b, root);
+		    tree.addChildtoParentX(b, root);
 		    b.setBundle("1");
-		    tree.addChildtoRootX(nb, root);
+		    tree.addChildtoParentX(nb, root);
 		    nb.setBundle("2");
-		    tree.addChildtoRootX(na, root);
+		    tree.addChildtoParentX(na, root);
 		    na.setBundle("2");
 
 		}
 	    }
-	    tree.addChildtoRootX(x2, root);
+	    tree.addChildtoParentX(x2, root);
 	    x2.setBundle("2");
 	    break;
 	case 3:
-	    tree.addChildtoRootX(a, root);
+	    tree.addChildtoParentX(a, root);
 	    a.setBundle("1");
-	    tree.addChildtoRootX(x1, root);
+	    tree.addChildtoParentX(x1, root);
 	    x1.setBundle("1");
 	    if (calcRowSum(1) == 2) {
-		tree.addChildtoRootX(na, root);
+		tree.addChildtoParentX(na, root);
 		na.setBundle("2");
-		tree.addChildtoRootX(x2, root);
+		tree.addChildtoParentX(x2, root);
 		x2.setBundle("2");
 		break;
 	    }
 	    if (field[1][0] == 0) {
-		tree.addChildtoRootX(nb, root);
+		tree.addChildtoParentX(nb, root);
 		nb.setBundle("2");
-		tree.addChildtoRootX(x2, root);
+		tree.addChildtoParentX(x2, root);
 		x2.setBundle("2");
 	    } else {
-		tree.addChildtoRootX(b, root);
+		tree.addChildtoParentX(b, root);
 		b.setBundle("2");
-		tree.addChildtoRootX(x2, root);
+		tree.addChildtoParentX(x2, root);
 		x2.setBundle("2");
 	    }
 	    break;
@@ -139,7 +139,7 @@ public class QuadroTest {
 	CustomTreeNode y = new CustomTreeNode("Y");
 
 	tree.setRoot(root);
-	tree.addChildtoRootX(y, root);
+	tree.addChildtoParentX(y, root);
 	System.out.println(tree.toString());
 	return tree;
 
