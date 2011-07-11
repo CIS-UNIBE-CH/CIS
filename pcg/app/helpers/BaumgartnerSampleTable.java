@@ -16,14 +16,4 @@ public class BaumgartnerSampleTable {
 	return sampleTable;
     }
 
-    @Override
-    public String toString() {
-	String output;
-	output = "\nBaumgartner original Table:";
-	for (int i = 0; i < sampleTable.size(); i++) {
-	    output += "\n" + sampleTable.get(i);
-	}
-	output += "\n";
-	return output;
-    }
 }

@@ -4,13 +4,14 @@ import helpers.BaumgartnerSampleTable;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import play.test.UnitTest;
 import algorithms.CNAlgorithm;
 import datastructures.CNAList;
 import datastructures.CNATable;
 import datastructures.CNATreeNode;
 import datastructures.MsufTree;
 
-public class CNATreeTests {
+public class CNATreeTests extends UnitTest {
 
     private static MsufTree msufTree;
     private static CNAlgorithm cnaAlgorithm;

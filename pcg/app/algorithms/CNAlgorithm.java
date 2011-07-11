@@ -32,7 +32,7 @@ public class CNAlgorithm {
     }
 
     /**
-     * Step 2 (Step 1 not necessary)
+     * Step 2
      * 
      * @param table
      **/

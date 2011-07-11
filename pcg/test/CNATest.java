@@ -1,16 +1,17 @@
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import static org.junit.Assert.assertEquals;
 import helpers.BaumgartnerSampleTable;
+import models.RandomGraphGenerator;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import play.test.UnitTest;
 import algorithms.CNAlgorithm;
 import datastructures.CNAList;
 import datastructures.CNATable;
 
-public class CNATest {
+public class CNATest extends UnitTest {
     private static CNAlgorithm cnaAlgorithm;
 
     @BeforeClass
@@ -18,10 +19,6 @@ public class CNATest {
 
 	cnaAlgorithm = new CNAlgorithm(
 		new BaumgartnerSampleTable().getSampleTable());
-
-	// RandomGraphGenerator generator = new RandomGraphGenerator(2, 5, 2);
-	// CNATable table = new CNATable(generator.getTableAsArray());
-	// cnaAlgorithm = new CNAlgorithm(table);
     }
 
     @Test
@@ -54,5 +51,24 @@ public class CNATest {
     @Test
     public void shouldTestIdentifyFMT() {
 	assertEquals("BX1 ∨ AX2 => C", cnaAlgorithm.getdatastructurestring());
+    }
+
+    // Random Tests
+
+    // TODO
+    @Test
+    public void randomFactorTest() {
+	// Factors between 1 and 6
+	int factors = (int) (Math.random() * 6 + 1);
+	int bundleSize = (int) (Math.random() * factors + 1);
+	int bundles = (int) (Math.random() * (factors / bundleSize));
+	RandomGraphGenerator generator = new RandomGraphGenerator(bundles,
+		factors, bundleSize);
+	CNATable table = new CNATable(generator.getTableAsArray());
+	cnaAlgorithm = new CNAlgorithm(table);
+	// TODO
+	String can = cnaAlgorithm.getdatastructurestring();
+	assertEquals(generator.getTree().toString(),
+		cnaAlgorithm.getdatastructurestring());
     }
 }

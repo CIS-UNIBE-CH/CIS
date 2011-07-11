@@ -3,9 +3,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import play.test.UnitTest;
 import datastructures.CNAList;
 
-public class CNAListTests {
+public class CNAListTests extends UnitTest {
 
     private static CNAList list;
 
