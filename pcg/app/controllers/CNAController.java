@@ -79,10 +79,21 @@ public class CNAController extends Controller {
 	Long time = timer.timeElapsed();
 	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
 	renderer.config(treeToGraph);
+
 	String calculatedGraph = stringToTree.getTree().toString();
 	String calculatedGraphPath = renderer.getImageSource();
 	String elapsedTime = time.toString() + " ms";
+	String effects = cnaAlgorithm.getEffects().toString();
+	String sufTable = cnaAlgorithm.getSufTable().toString();
+	String msufTable = cnaAlgorithm.getMsufTable().toString();
+	String necList = cnaAlgorithm.getNecList().toString();
+	String mnecTable = cnaAlgorithm.getMnecTable().toString();
+	String fmt = cnaAlgorithm.getFmt().toString();
+
+	System.out.println(mnecTable);
+
 	render(elapsedTime, calculatedGraph, calculatedGraphPath,
-		generatedGraphPath, generatedGraph);
+		generatedGraphPath, generatedGraph, effects, sufTable,
+		msufTable, necList, mnecTable, fmt);
     }
 }

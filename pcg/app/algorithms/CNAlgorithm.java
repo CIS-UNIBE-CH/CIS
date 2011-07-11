@@ -111,7 +111,6 @@ public class CNAlgorithm {
     private void identifySUF(CNATable originalTable) {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
-	System.out.println("SUF Table:\n" + sufTable);
 	indentifyMSUF(originalTable, sufTable);
     }
 
@@ -132,8 +131,6 @@ public class CNAlgorithm {
 	    msufTree.walk(root, originalTable, msufTable);
 	    msufTable.removeDuplicated();
 	}
-	System.out.println("MSUF Table:\n" + msufTable);
-
 	identifyNEC(msufTable, originalTable);
     }
 
@@ -145,7 +142,6 @@ public class CNAlgorithm {
 	// Add effect column
 	necList.add("1");
 
-	System.out.println("Negated NEC Line (with Effect): " + necList);
 	// Check if NEC Line does not exist in table.
 	boolean necOK = false;
 	for (int j = 0; j < bundleTable.size(); j++) {
@@ -158,8 +154,6 @@ public class CNAlgorithm {
 	    }
 	}
 	if (necOK) {
-	    System.out
-		    .println("NEC Line: " + msufTable.toString(originalTable));
 	    identifyMNEC(necList, bundleTable);
 	}
     }
@@ -178,8 +172,6 @@ public class CNAlgorithm {
 	mnecTable.removeDuplicated();
 	mnecTable.negate();
 
-	System.out.println("\nMNEC Table:\n" + mnecTable);
-	System.out.println(bundleTable);
 	framingMinimalTheory(bundleTable);
     }
 
@@ -187,7 +179,6 @@ public class CNAlgorithm {
 	String datastructurestring = new String();
 	CNAList list = new CNAList();
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-	System.out.println("m" + mnecNames);
 
 	String coFactor = "X";
 	for (int i = 0; i < mnecNames.size(); i++) {
@@ -225,5 +216,9 @@ public class CNAlgorithm {
 
     public CNAList getNecList() {
 	return necList;
+    }
+
+    public CNAList getEffects() {
+	return effects;
     }
 }
