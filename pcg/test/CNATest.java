@@ -50,7 +50,7 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyFMT() {
-	assertEquals("BX1 ∨ AX2 => C", cnaAlgorithm.getdatastructurestring());
+	assertEquals("BX1 ∨ AX2 => C", cnaAlgorithm.getFmt().get(1));
     }
 
     // Random Tests
@@ -67,8 +67,8 @@ public class CNATest extends UnitTest {
 	CNATable table = new CNATable(generator.getTableAsArray());
 	cnaAlgorithm = new CNAlgorithm(table);
 	// TODO
-	String can = cnaAlgorithm.getdatastructurestring();
+	String can = cnaAlgorithm.getFmt().get(1);
 	assertEquals(generator.getTree().toString(),
-		cnaAlgorithm.getdatastructurestring());
+		cnaAlgorithm.getFmt().get(1));
     }
 }
