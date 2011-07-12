@@ -37,10 +37,12 @@ public class CNAlgorithm {
 
     public CNAlgorithm(CNATable table) {
 	originalTable = table;
+	System.out.println(table);
 	init();
     }
 
     private void init() {
+	fmt = new CNAList();
 	identifyPE(originalTable);
     }
 
@@ -81,6 +83,7 @@ public class CNAlgorithm {
 	    }
 
 	}
+	System.out.println("effects");
 	run(effects, originalTable);
     }
 
@@ -105,7 +108,6 @@ public class CNAlgorithm {
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
 	    identifySUF(table);
 	}
-	System.out.println(fmt);
 
     }
 
@@ -183,7 +185,6 @@ public class CNAlgorithm {
 
     private void framingMinimalTheory(CNATable bundleTable) {
 	String datastructurestring = new String();
-	fmt = new CNAList();
 	CNAList list = new CNAList();
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
 
