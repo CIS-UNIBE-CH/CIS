@@ -22,6 +22,9 @@ GET			/cna/quickrun						CNAController.baumgartnerSample
 
 #CNA Tests
 GET			/input/setup						Input.setup
+POST		/input/graph						Input.calcCNAGraph
+GET			/draw/setup							drawGraph.setup
+POST		/draw/graph							drawGraph.drawGraph
 
 GET		/testing/{step} 						Application.complexTesting
 

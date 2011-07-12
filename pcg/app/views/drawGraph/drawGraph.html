@@ -1,0 +1,10 @@
+#{extends 'main.html' /} #{set title:'Input' /}
+<h2>Your Graph</h2>
+#{if flash.error}
+<div class="error">${flash.error}</div>
+#{/if}
+<div class="steps">Step 1/2</div>
+	<center>
+		<img src="${GraphPath}" />
+		<p>${Graph}</p>
+	</center>
