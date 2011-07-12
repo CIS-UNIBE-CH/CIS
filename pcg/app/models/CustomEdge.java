@@ -24,10 +24,10 @@ public class CustomEdge {
     public double calcEdgeLength() {
 	CustomTreeNode firstNode = nodes.get(0);
 	CustomTreeNode secondNode = nodes.get(1);
-	int firstX = firstNode.getxCoordinate();
-	int firstY = firstNode.getyCoordinate();
-	int secondX = secondNode.getxCoordinate();
-	int secondY = secondNode.getyCoordinate();
+	double firstX = firstNode.getxCoordinate();
+	double firstY = firstNode.getyCoordinate();
+	double secondX = secondNode.getxCoordinate();
+	double secondY = secondNode.getyCoordinate();
 
 	// Do some pythagoras
 	double cathetusX = Math.abs(firstX - secondX);

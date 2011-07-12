@@ -8,8 +8,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class CustomTreeNode extends DefaultMutableTreeNode {
     private String bundle;
     private String name;
-    private int xCoordinate;
-    private int yCoordinate;
+    private double xCoordinate;
+    private double yCoordinate;
+    private int level = -1;
+    private boolean isEffect;
+    private int index;
 
     public CustomTreeNode(Object o) {
 	super(o);
@@ -37,20 +40,51 @@ public class CustomTreeNode extends DefaultMutableTreeNode {
 	}
     }
 
-    public int getxCoordinate() {
+    public double getxCoordinate() {
 	return xCoordinate;
     }
 
-    public void setxCoordinate(int xCoordinate) {
-	this.xCoordinate = xCoordinate;
+    public void setxCoordinate(double xRoot) {
+	this.xCoordinate = xRoot;
     }
 
-    public int getyCoordinate() {
+    public double getyCoordinate() {
 	return yCoordinate;
     }
 
-    public void setyCoordinate(int yCoordinate) {
-	this.yCoordinate = yCoordinate;
+    public void setyCoordinate(double yRoot) {
+	this.yCoordinate = yRoot;
     }
 
+    public int getEffectLevel() {
+        return level;
+    }
+
+    public void setEffectLevel(int effectLevel) {
+        this.level = effectLevel;
+    }
+    
+    public boolean hasEffectLevel(){
+	if(level != -1){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+
+    public boolean isEffect() {
+        return isEffect;
+    }
+
+    public void setIsEffect(boolean isEffect) {
+        this.isEffect = isEffect;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }  
 }

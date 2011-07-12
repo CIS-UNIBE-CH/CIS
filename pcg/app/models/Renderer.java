@@ -58,10 +58,6 @@ public class Renderer {
 	// Calculate Size of Pictures according to number of vertexes.
 	calculatePictureSize();
 
-	// Set x Coordinate of Location of the Wirkung
-	locationTransformer
-		.setxRootPosition(parser.getGraph().getVertexCount());
-
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
 	StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
@@ -142,11 +138,8 @@ public class Renderer {
     }
 
     private void calculatePictureSize() {
-	// Get Number of nodes -1 (Wirkung)
-	int numberOfNodes = this.parser.getGraph().getVertexCount() - 1;
-	xPicSize = numberOfNodes * locationTransformer.getSpace()
-		+ locationTransformer.getSpace();
-	yPicSize = 30 + locationTransformer.getyRoot();
+	xPicSize = 600;
+	yPicSize = 600;
     }
 
     public String getImageSource() {

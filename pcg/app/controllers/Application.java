@@ -46,7 +46,7 @@ public class Application extends Controller {
 	
 	Long time = timer.timeElapsed();
 	
-	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
+	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(), stringToTree.getNumOfEffects());
 	
 	renderer.config(treeToGraph);
 	calculatedGraph = stringToTree.getTree().toString();
@@ -70,7 +70,7 @@ public class Application extends Controller {
 		generator.getTableAsArray());
 	tree = binaryAlgorithm.createTree();
 	Long time = timer.timeElapsed();
-	renderer.config(new TreeToGraph(tree));
+	renderer.config(new TreeToGraph(tree, 1));
 	// calculatedGraph = tree.toString();
 	calculatedGraphPath = renderer.getImageSource();
 	String elapsedTime = time.toString() + " ms";
@@ -113,7 +113,7 @@ public class Application extends Controller {
 	    generatedGraph = generator.getTree().toString();
 	    Long time = timer.timeElapsed();
 	    table = generator.getTable();
-	    renderer.config(new TreeToGraph(generator.getTree()));
+	    renderer.config(new TreeToGraph(generator.getTree(), 1));
 	    generatedGraphPath = renderer.getImageSource();
 
 	    String elapsedTime = time.toString() + " ms";
@@ -188,7 +188,7 @@ public class Application extends Controller {
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
 
-	renderer.config(new TreeToGraph(tree));
+	renderer.config(new TreeToGraph(tree, 1));
 
 	String graphPath = renderer.getImageSource();
 	showGraph(graphPath);

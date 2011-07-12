@@ -2,8 +2,6 @@ package parsers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import java.util.ArrayList;
-
 import models.CustomEdge;
 import datastructures.CustomTree;
 import datastructures.CustomTreeNode;
@@ -20,44 +18,28 @@ public class TreeToGraph {
     private static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
     // The tree (internal data structure)
     private CustomTree tree;
+    private int depthInit;
 
-    public TreeToGraph(CustomTree tree) {
+    public TreeToGraph(CustomTree tree, int numberOfEffects) {
+	depthInit = numberOfEffects + 1;
 	graph = new OrderedSparseMultigraph<CustomTreeNode, CustomEdge>();
-
 	this.tree = tree;
-	graph.addVertex(tree.getRoot());
-
-	// createNodes();
-	// createEdges();
-	createAll(tree.getRoot());
+	
+	CustomTreeNode root = this.tree.getRoot();
+	graph.addVertex(root);
+	createTree(root);
+	root.setEffectLevel(depthInit);
+	root.setIndex(1);
+	setDepth(root, depthInit -= 1);
     }
 
-    private void createAll(CustomTreeNode parent) {
-	// if (parent.isLeaf()) {
-
-	// } else {
-	/*
-	 * for (int i = 0; i < parent.getChildCount(); i++) { CustomTreeNode
-	 * curChild = (CustomTreeNode) parent.getChildAt(i);
-	 * System.out.println("Node: " + curChild);
-	 * 
-	 * graph.addVertex(curChild);
-	 * 
-	 * CustomEdge edge = new CustomEdge(curChild, parent);
-	 * 
-	 * if (curChild.isPartOfBundle()) {
-	 * edge.setBundleNumber(curChild.getBundle()); } graph.addEdge(edge,
-	 * curChild, parent, EdgeType.DIRECTED); }
-	 */
-//	System.out.println("********");
+    private void createTree(CustomTreeNode parent) {
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
-	    createAll(curChild);
-
-	    System.out.println("NodeTree: " + curChild);
+	    curChild.setIndex(i + 1);
+	    createTree(curChild);
 
 	    graph.addVertex(curChild);
-
 	    CustomEdge edge = new CustomEdge(curChild, parent);
 
 	    if (curChild.isPartOfBundle()) {
@@ -65,33 +47,19 @@ public class TreeToGraph {
 	    }
 	    graph.addEdge(edge, curChild, parent, EdgeType.DIRECTED);
 	}
-	// }
     }
 
-    private void createNodes() {
-	ArrayList<CustomTreeNode> childs = tree.getChildren();
-
-	graph.addVertex(tree.getRoot());
-	for (int i = 0; i < childs.size(); i++) {
-	    graph.addVertex(childs.get(i));
+    private void setDepth(CustomTreeNode parent, int depth) {
+	for (int i = 0; i < parent.getChildCount(); i++) {
+	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
+	    curChild.setEffectLevel(depth);
 	}
-    }
-
-    private void createEdges() {
-	CustomTreeNode root = tree.getRoot();
-	ArrayList<CustomTreeNode> children = tree.getChildren();
-
-	for (int i = 0; i < children.size(); i++) {
-	    CustomTreeNode curNode = children.get(i);
-	    CustomEdge edge = new CustomEdge(curNode, root);
-
-	    if (curNode.isPartOfBundle()) {
-		edge.setBundleNumber(curNode.getBundle());
+	for (int i = 0; i < parent.getChildCount(); i++) {
+	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
+	    if (!curChild.isLeaf()) {
+		setDepth(curChild, depth -= 1);
 	    }
-
-	    graph.addEdge(edge, curNode, root, EdgeType.DIRECTED);
 	}
-
     }
 
     public static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> getGraph() {

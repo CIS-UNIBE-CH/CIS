@@ -7,41 +7,44 @@ import datastructures.CustomTree;
 import datastructures.CustomTreeNode;
 
 public class StringToTree {
-    private CNAList input = new CNAList();
+    private CNAList inputTable = new CNAList();
     private CustomTree tree;
-    private ArrayList<ArrayList<String>> nodesAll = new ArrayList<ArrayList<String>>();
-    private CustomTreeNode myParent;
+    private ArrayList<ArrayList<String>> allNodes = new ArrayList<ArrayList<String>>();
+    private CustomTreeNode parent;
+    private int effectLevel;
 
     public StringToTree(CNAList input) {
-	this.input.add("A ∨ B => C");
-	this.input.add("C ∨ D => E");
+	this.inputTable.add("L ∨ K ∨ A ∨ B  => C");
+	this.inputTable.add("MW ∨ DQ ∨ CX1  => E");
+	//this.inputTable.add("F ∨ F => G");
+	//this.inputTable.add("Z ∨ G => Q");
+	//inputTable = input;
 
 	tree = new CustomTree();
-
 	init();
-	// createTree();
     }
 
     private void init() {
-	for (int i = 0; i < input.size(); i++) {
-	    getBundleAndEffect(input.get(i));
+	for (int i = 0; i < inputTable.size(); i++) {
+	    getBundleAndEffect(inputTable.get(i));
 	}
 
-	CustomTreeNode root = new CustomTreeNode(nodesAll.get(
-		nodesAll.size() - 1).get(0));
-	tree = new CustomTree();
+	effectLevel = allNodes.size();
+	CustomTreeNode root = new CustomTreeNode(allNodes.get(
+		allNodes.size() - 1).get(0));
+	root.setEffectLevel(effectLevel);
+	root.setIsEffect(true);
 	tree.setRoot(root);
-	myParent = root;
+	parent = root;
 
-	for (int j = nodesAll.size()-1; j >= 0; j--) {
-	    String nextParent = null;
+	for (int j = allNodes.size()-1; j >= 0; j--) {
+	    String nextParentName = null;
 	    if (j != 0) {
-		nextParent = nodesAll.get(j - 1).get(0);
-		System.out.println("Next Parent oben" + nextParent);
+		nextParentName = allNodes.get(j - 1).get(0);
 	    }
-	    createTree(nodesAll.get(j), nextParent);
+	    createTree(allNodes.get(j), nextParentName);
+	    effectLevel--;
 	}
-	System.out.println("Nodes: " + nodesAll);
     }
 
     private void getBundleAndEffect(String input) {
@@ -49,7 +52,6 @@ public class StringToTree {
 	String array2[] = input.split("=>");
 	String effect = array2[array2.length - 1];
 	effect = effect.replace(" ", "");
-	//System.out.println("Effect:***" + effect + "*******");
 	nodes.add(effect);
 
 	String array[] = array2[0].split("∨");
@@ -58,35 +60,36 @@ public class StringToTree {
 	    current = current.replace(" ", "");
 	    nodes.add(current);
 	}
-	nodesAll.add(nodes);
+	allNodes.add(nodes);
     }
 
     //TODO Make this mess recursiv
-    private void createTree(ArrayList<String> nodes, String nextParent) {
-	System.out.println("First my Parent: " + myParent);
-	CustomTreeNode myParent1 = myParent;
-	System.out.println("myParent1 " + myParent1);
-
+    private void createTree(ArrayList<String> nodes, String nextParentName) {
+	parent.setEffectLevel(effectLevel);
+	parent.setIsEffect(true);
+	CustomTreeNode curParent = parent;
+	
 	int bundleNumber = 1;
+	
 	for (int i = 1; i < nodes.size(); i++) {
 	    String curBundle = nodes.get(i);
 	    int j = 0;
 	    if (curBundle.length() == 2 && curBundle.charAt(0) == '¬') {
 		CustomTreeNode node = new CustomTreeNode(""
 			+ curBundle.charAt(j) + curBundle.charAt(j + 1));
-		tree.addChildtoParentX(node, myParent1);
+		node.setEffectLevel(effectLevel);
+		node.setIsEffect(false);
+		tree.addChildtoParentX(node, curParent);
 	    } else if (curBundle.length() == 1) {
 		CustomTreeNode node1 = new CustomTreeNode(""
 			+ curBundle.charAt(j));
-		tree.addChildtoParentX(node1, myParent1);
-		
-		String bla = "" + node1.toString().charAt(0);
-		System.out.println("BlaO: " + bla);
-		if (nextParent != null
-			&& bla.equals(nextParent)) {
-		    myParent = node1;
-		    System.out.println("myParent " + myParent);
-		    System.out.println("Next Parent unten: " + node1);
+		node1.setEffectLevel(effectLevel);
+		node1.setIsEffect(false);
+		tree.addChildtoParentX(node1, curParent);
+		String factor = "" + node1.toString().charAt(0);
+		if (nextParentName != null
+			&& factor.equals(nextParentName)) {
+		    parent = node1;
 		}
 	    } else {
 		while (j < curBundle.length()) {
@@ -94,38 +97,47 @@ public class StringToTree {
 			CustomTreeNode node = new CustomTreeNode(""
 				+ curBundle.charAt(j) + curBundle.charAt(j + 1));
 			node.setBundle(Integer.toString(bundleNumber));
-			tree.addChildtoParentX(node, myParent1);
+			node.setEffectLevel(effectLevel);
+			node.setIsEffect(true);
+			tree.addChildtoParentX(node, curParent);
 			j = j + 2;
 		    } else if (curBundle.charAt(j) == 'X') {
 			CustomTreeNode node = new CustomTreeNode(""
 				+ curBundle.charAt(j) + curBundle.charAt(j + 1));
 			node.setBundle(Integer.toString(bundleNumber));
-			tree.addChildtoParentX(node, myParent1);
+			node.setEffectLevel(effectLevel);
+			node.setIsEffect(true);
+			tree.addChildtoParentX(node, curParent);
 			j = j + 2;
 		    } else {
 			CustomTreeNode node = new CustomTreeNode(""
 				+ curBundle.charAt(j));
 			node.setBundle(Integer.toString(bundleNumber));
-			tree.addChildtoParentX(node, myParent1);
+			node.setEffectLevel(effectLevel);
+			node.setIsEffect(true);
+			tree.addChildtoParentX(node, curParent);
 			j++;
-			String bla = "" + node.toString().charAt(0);
-			System.out.println("Bla: " + bla);
-			if (nextParent != null
-				&& bla.equals(nextParent)) {
-			    myParent = node;
-			    System.out.println("Next Parent unten: " + node);
+			String factor = "" + node.toString().charAt(0);
+			if (nextParentName != null
+				&& factor.equals(nextParentName)) {
+			    parent = node;
 			}
 		    }
 		}
 	    }
-	    System.out.println("myParent " + myParent);
 	    bundleNumber++;
 	}
 	CustomTreeNode nodeY = new CustomTreeNode("Y" + nodes.get(0));
-	tree.addChildtoParentX(nodeY, myParent1);
+	nodeY.setEffectLevel(effectLevel);
+	nodeY.setIsEffect(false);
+	tree.addChildtoParentX(nodeY, curParent);
     }
 
     public CustomTree getTree() {
 	return tree;
+    }
+    
+    public int getNumOfEffects(){
+	return allNodes.size();
     }
 }

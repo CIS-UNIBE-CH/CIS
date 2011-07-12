@@ -18,14 +18,18 @@ public class VertexColorTransformer implements
     @Override
     public Paint transform(CustomTreeNode node) {
 	CustomTreeNode current = node;
-	if (current.isRoot()) {
+	if (!current.isLeaf()) {
 	    return new Color(255, 153, 0);
 	} else {
 	    int bundleNumber;
 	    if (current.isPartOfBundle()) {
-		bundleNumber = Integer.valueOf(current.getBundle());
-		return new Color((100 + (30 * bundleNumber)) % 255, 200,
-			(100 + (30 * bundleNumber)) % 255);
+		if (!current.isLeaf()) {
+		    return new Color(255, 153, 0);
+		} else {
+		    bundleNumber = Integer.valueOf(current.getBundle());
+		    return new Color((100 + (30 * bundleNumber)) % 255, 200,
+			    (100 + (30 * bundleNumber)) % 255);
+		}
 	    } else {
 		bundleNumber = 0;
 		return Color.GREEN;
