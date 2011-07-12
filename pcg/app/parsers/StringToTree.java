@@ -15,14 +15,7 @@ public class StringToTree {
     private int totalFactors;
 
     public StringToTree(CNAList input) {
-	//this.inputTable.add("L ∨ K ∨ A ∨ B  => C");
-	//this.inputTable.add("ZX2 ∨ QX2 ∨ CX1  => E");
-	//this.inputTable.add("C ∨ B => A");
-	this.inputTable.add("AB ∨ 1 => C");
-	this.inputTable.add("C ∨ D ∨ 2 => E");
-	this.inputTable.add("EF => G");
-	this.inputTable.add("Z ∨ GH ∨ => I");
-	//inputTable = input;
+	inputTable = input;
 
 	tree = new CustomTree();
 	init();
