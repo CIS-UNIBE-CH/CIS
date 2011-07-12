@@ -49,7 +49,7 @@ public class CNAController extends Controller {
 	    String generatedGraph = generator.getTree().toString();
 	    Long time = timer.timeElapsed();
 	    table = generator.getTable();
-	    renderer.config(new TreeToGraph(generator.getTree(), 1));
+	    renderer.config(new TreeToGraph(generator.getTree(), 1, generator.getTotalFactors()));
 	    String generatedGraphPath = renderer.getImageSource();
 
 	    String elapsedTime = time.toString() + " ms";
@@ -81,7 +81,7 @@ public class CNAController extends Controller {
 
 	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt());
 	Long time = timer.timeElapsed();
-	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(), stringToTree.getNumOfEffects());
+	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(), stringToTree.getNumOfEffects(), stringToTree.getTotalFactors());
 	renderer.config(treeToGraph);
 
 	String originalTable = cnaAlgorithm.getOriginalTable().toString();
@@ -110,7 +110,7 @@ public class CNAController extends Controller {
 		new BaumgartnerSampleTable().getSampleTable());
 	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt());
 	Long time = timer.timeElapsed();
-	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(), stringToTree.getNumOfEffects());
+	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(), stringToTree.getNumOfEffects(), stringToTree.getTotalFactors());
 	renderer.config(treeToGraph);
 
 	String calculatedGraph = stringToTree.getTree().toString();

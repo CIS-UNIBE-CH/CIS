@@ -12,15 +12,16 @@ public class StringToTree {
     private ArrayList<ArrayList<String>> allNodes = new ArrayList<ArrayList<String>>();
     private CustomTreeNode parent;
     private int effectLevel;
+    private int totalFactors;
 
     public StringToTree(CNAList input) {
 	//this.inputTable.add("L ∨ K ∨ A ∨ B  => C");
 	//this.inputTable.add("ZX2 ∨ QX2 ∨ CX1  => E");
 	//this.inputTable.add("C ∨ B => A");
-	this.inputTable.add("A ∨ B ∨ 1 => C");
+	this.inputTable.add("AB ∨ 1 => C");
 	this.inputTable.add("C ∨ D ∨ 2 => E");
-	this.inputTable.add("E ∨ F ∨ 3 => G");
-	this.inputTable.add("Z ∨ G ∨ H ∨ 4 => I");
+	this.inputTable.add("EF => G");
+	this.inputTable.add("Z ∨ GH ∨ => I");
 	//inputTable = input;
 
 	tree = new CustomTree();
@@ -41,6 +42,7 @@ public class StringToTree {
 	parent = root;
 
 	for (int j = allNodes.size()-1; j >= 0; j--) {
+	    totalFactors += allNodes.get(j).size();
 	    String nextParentName = null;
 	    if (j != 0) {
 		nextParentName = allNodes.get(j - 1).get(0);
@@ -81,13 +83,17 @@ public class StringToTree {
 		CustomTreeNode node = new CustomTreeNode(""
 			+ curBundle.charAt(j) + curBundle.charAt(j + 1));
 		node.setEffectLevel(effectLevel);
-		node.setIsEffect(false);
+		if(!node.isEffect()){
+		    node.setIsEffect(false);
+		}
 		tree.addChildtoParentX(node, curParent);
 	    } else if (curBundle.length() == 1) {
 		CustomTreeNode node1 = new CustomTreeNode(""
 			+ curBundle.charAt(j));
 		node1.setEffectLevel(effectLevel);
-		node1.setIsEffect(false);
+		if(!node1.isEffect()){
+		    node1.setIsEffect(false);
+		}
 		tree.addChildtoParentX(node1, curParent);
 		String factor = "" + node1.toString().charAt(0);
 		if (nextParentName != null
@@ -101,7 +107,9 @@ public class StringToTree {
 				+ curBundle.charAt(j) + curBundle.charAt(j + 1));
 			node.setBundle(Integer.toString(bundleNumber));
 			node.setEffectLevel(effectLevel);
-			node.setIsEffect(true);
+			if(!node.isEffect()){
+			    node.setIsEffect(false);
+			}
 			tree.addChildtoParentX(node, curParent);
 			j = j + 2;
 		    } else if (curBundle.charAt(j) == 'X') {
@@ -109,7 +117,9 @@ public class StringToTree {
 				+ curBundle.charAt(j) + curBundle.charAt(j + 1));
 			node.setBundle(Integer.toString(bundleNumber));
 			node.setEffectLevel(effectLevel);
-			node.setIsEffect(true);
+			if(!node.isEffect()){
+			    node.setIsEffect(false);
+			}
 			tree.addChildtoParentX(node, curParent);
 			j = j + 2;
 		    } else {
@@ -117,7 +127,9 @@ public class StringToTree {
 				+ curBundle.charAt(j));
 			node.setBundle(Integer.toString(bundleNumber));
 			node.setEffectLevel(effectLevel);
-			node.setIsEffect(true);
+			if(!node.isEffect()){
+			    node.setIsEffect(false);
+			}
 			tree.addChildtoParentX(node, curParent);
 			j++;
 			String factor = "" + node.toString().charAt(0);
@@ -130,10 +142,10 @@ public class StringToTree {
 	    }
 	    bundleNumber++;
 	}
-	//CustomTreeNode nodeY = new CustomTreeNode("Y" + nodes.get(0));
-	//nodeY.setEffectLevel(effectLevel);
-	//nodeY.setIsEffect(false);
-	//tree.addChildtoParentX(nodeY, curParent);
+	CustomTreeNode nodeY = new CustomTreeNode("Y" + nodes.get(0));
+	nodeY.setEffectLevel(effectLevel);
+	nodeY.setIsEffect(false);
+	tree.addChildtoParentX(nodeY, curParent);
     }
 
     public CustomTree getTree() {
@@ -142,5 +154,9 @@ public class StringToTree {
     
     public int getNumOfEffects(){
 	return allNodes.size();
+    }
+
+    public int getTotalFactors() {
+        return totalFactors;
     }
 }

@@ -54,24 +54,28 @@ public class Renderer {
 
     public void config(TreeToGraph parser) {
 	this.parser = parser;
+	
+	int totFactors = parser.getTotalFactors();
+	int height = parser.getHeigt();
+	
+	yPicSize = height * 120;
+	xPicSize = (((totFactors / height+1)+1) * 120) + 60;
+	System.out.println("********" + (totFactors / height+1));
 
-	// Calculate Size of Pictures according to number of vertexes.
-	calculatePictureSize();
-
-	// Use a static layout so vertexes will positioned ever time at the same
-	// place
-	StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
-		this.parser.getGraph(), locationTransformer);
-	layout.setSize(new Dimension(xPicSize, yPicSize));
-
-	// Do a reset of vertex location transformation after every graph, else
-	// transformation WON'T work properly.
-	locationTransformer.reset();
-
-	// Print out the graph in console for development only used
-	System.out.println("*****************");
-	System.out.println(this.parser.getGraph().toString());
-	System.out.println("*****************");
+    	// Use a static layout so vertexes will positioned ever time at the same
+    	// place
+    	StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
+    		this.parser.getGraph(), locationTransformer);
+    	layout.setSize(new Dimension(xPicSize, yPicSize));
+    
+    	// Do a reset of vertex location transformation after every graph, else
+    	// transformation WON'T work properly.
+    	locationTransformer.reset();
+    
+    	// Print out the graph in console for development only used
+    	System.out.println("*****************");
+    	System.out.println(this.parser.getGraph().toString());
+    	System.out.println("*****************");
 
 	// Transformer which will set shape, size, aspect ratio of vertexes
 	VertexLookTransformer<CustomTreeNode, Shape> vertexLookTransformer = new VertexLookTransformer<CustomTreeNode, Shape>();
@@ -135,11 +139,6 @@ public class Renderer {
 	    System.out.println("Image couldn't be generated!");
 	    e.printStackTrace();
 	}
-    }
-
-    private void calculatePictureSize() {
-	xPicSize = 800;
-	yPicSize = 800;
     }
 
     public String getImageSource() {

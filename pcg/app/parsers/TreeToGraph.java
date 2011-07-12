@@ -19,12 +19,16 @@ public class TreeToGraph {
     // The tree (internal data structure)
     private CustomTree tree;
     private int depthInit;
+    private int totalFactors;
+    private int heigt;
 
-    public TreeToGraph(CustomTree tree, int numberOfEffects) {
+    public TreeToGraph(CustomTree tree, int numberOfEffects, int numberOfFactors) {
+	heigt = numberOfEffects + 1;
 	depthInit = numberOfEffects + 1;
+	this.totalFactors = numberOfFactors;
 	graph = new OrderedSparseMultigraph<CustomTreeNode, CustomEdge>();
 	this.tree = tree;
-	
+
 	CustomTreeNode root = this.tree.getRoot();
 	graph.addVertex(root);
 	createTree(root);
@@ -33,19 +37,36 @@ public class TreeToGraph {
 	setDepth(root, depthInit -= 1);
     }
 
+    //Do a reverse tree walk
     private void createTree(CustomTreeNode parent) {
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
-	    curChild.setIndex(i + 1);
-	    graph.addVertex(curChild);
-	    CustomEdge edge = new CustomEdge(curChild, parent);
+	    if (!curChild.isLeaf()) {
+		createTree(curChild);
+		curChild.setIndex(i + 1);
+		graph.addVertex(curChild);
+		CustomEdge edge = new CustomEdge(curChild, parent);
 
-	    if (curChild.isPartOfBundle()) {
-		edge.setBundleNumber(curChild.getBundle());
+		if (curChild.isPartOfBundle()) {
+		    edge.setBundleNumber(curChild.getBundle());
+		}
+		graph.addEdge(edge, curChild, parent, EdgeType.DIRECTED);
 	    }
-	    graph.addEdge(edge, curChild, parent, EdgeType.DIRECTED);
-	    createTree(curChild);
 	}
+	for (int i = 0; i < parent.getChildCount(); i++) {
+	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
+	    if (curChild.isLeaf()) {
+		curChild.setIndex(i + 1);
+		graph.addVertex(curChild);
+		CustomEdge edge = new CustomEdge(curChild, parent);
+
+		if (curChild.isPartOfBundle()) {
+		    edge.setBundleNumber(curChild.getBundle());
+		}
+		graph.addEdge(edge, curChild, parent, EdgeType.DIRECTED);
+	    }
+	}
+
     }
 
     private void setDepth(CustomTreeNode parent, int depth) {
@@ -63,5 +84,17 @@ public class TreeToGraph {
 
     public static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> getGraph() {
 	return graph;
+    }
+
+    public CustomTree getTree() {
+        return tree;
+    }
+
+    public int getTotalFactors() {
+        return totalFactors;
+    }
+
+    public int getHeigt() {
+        return heigt;
     }
 }

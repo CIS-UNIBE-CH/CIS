@@ -63,7 +63,7 @@ public class SimpleQuadroController extends Controller {
 	renderer.setEdgeLabels(showBundleNumRenderer);
 	renderer.setChangingVertexColors(showColourRenderer);
 
-	renderer.config(new TreeToGraph(tree, 1));
+	renderer.config(new TreeToGraph(tree, 1, 3));
 
 	String graphPath = renderer.getImageSource();
 	String stringGraph = tree.toString();

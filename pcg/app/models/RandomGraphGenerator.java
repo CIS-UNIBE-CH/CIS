@@ -23,6 +23,7 @@ public class RandomGraphGenerator {
     private CustomTree tree;
     private ArrayList<CustomTreeNode> nodes;
     private TreeToTable parser;
+    private int totalFactors;
 
     public RandomGraphGenerator(int numberOfBundles, int numberOfFactors,
 	    int bundleSize) {
@@ -61,6 +62,7 @@ public class RandomGraphGenerator {
 	// Create Tree and Root Node
 	tree = new CustomTree();
 	CustomTreeNode root = new CustomTreeNode("W");
+	root.setIsEffect(true);
 	tree.setRoot(root);
 
 	int factorCounter = 1;
@@ -75,6 +77,8 @@ public class RandomGraphGenerator {
 		Random generator = new Random();
 		int randomIndex = generator.nextInt(nodes.size());
 		CustomTreeNode curNode = nodes.get(randomIndex);
+		curNode.setIsEffect(false);
+		totalFactors++;
 
 		if (avoidPositiveNegativeFactorInBundle(curBundle, curNode)) {
 		    // When positive or negative of a factor is already in
@@ -95,6 +99,8 @@ public class RandomGraphGenerator {
 		}
 	    }
 	    CustomTreeNode x = new CustomTreeNode("X" + xfactorNumber);
+	    x.setIsEffect(false);
+	    totalFactors++;
 	    xfactorNumber = xfactorNumber + 1;
 	    x.setBundle(bundleNumber.toString());
 	    tree.addChildtoParentX(x, root);
@@ -108,6 +114,8 @@ public class RandomGraphGenerator {
 	    int randomIndex1 = generator.nextInt(nodes.size());
 
 	    CustomTreeNode curNode = nodes.get(randomIndex1);
+	    curNode.setIsEffect(false);
+	    totalFactors++;
 	    tree.addChildtoParentX(curNode, root);
 	    nodes.remove(randomIndex1);
 	}
@@ -158,5 +166,9 @@ public class RandomGraphGenerator {
 
     public String[][] getTableAsArray() {
 	return parser.getTableAsArray();
+    }
+
+    public int getTotalFactors() {
+        return totalFactors;
     }
 }

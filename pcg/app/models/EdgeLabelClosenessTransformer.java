@@ -17,6 +17,6 @@ public class EdgeLabelClosenessTransformer
 	    Context<Graph<CustomTreeNode, CustomEdge>, CustomEdge> edge) {
 	CustomEdge curEdge = edge.element;
 	Double length = curEdge.calcEdgeLength();
-	return ((length / 1000) * 1.1);
+	return ((length / 1000) * 3);
     }
 }

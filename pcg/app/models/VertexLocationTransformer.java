@@ -12,80 +12,63 @@ import datastructures.CustomTreeNode;
 public class VertexLocationTransformer implements
 	Transformer<CustomTreeNode, Point2D> {
 
-    private double yCoordinate = 0;
     private double xSpace = 60;
     private double ySpace = 120;
-    private double xCoordinate1 = 0;
-    private static double xCoordinate = 0;
-    private static double xCoordinatePrev = 0;
-    private static double indexPrev = 0;
+    private double xEffect = 0;
+    private static double xPrevEffect = 0;
+    private static double xCause = 0;
+    private double yAll = 0;
+    private static int biggestLevel = 0;
 
     @Override
     public Point2D transform(CustomTreeNode vertex) {
 	CustomTreeNode curNode = vertex;
 
-	yCoordinate = ySpace * curNode.getEffectLevel() - 90;
-	curNode.setyCoordinate(yCoordinate);
+	yAll = ySpace * curNode.getEffectLevel() - 90;
+	curNode.setyCoordinate(yAll);
+	
+	System.out.println("Biggest " + biggestLevel);
+	System.out.println("EffectLevel " + curNode.getEffectLevel());
+	if(biggestLevel < curNode.getEffectLevel()){
+	   biggestLevel = curNode.getEffectLevel();
+	}
 
 	if (!curNode.isEffect()) {
-	    xCoordinate += 60;
+	    xCause += 60;
 	    System.out.println("CurNode " + curNode);
-	    System.out.println("xCoordinate " + xCoordinate);
-	    return new Point2D.Double(xCoordinate, yCoordinate);
+	    System.out.println("x**** " + xCause);
+	    System.out.println("y**** " + yAll);
+	    return new Point2D.Double(xCause, yAll);
 	} else {
 	    if (curNode.getEffectLevel() == 2) {
-		xCoordinate1 = (((curNode.getChildCount() - 1) * 60) / 2d) + 60;
+		xEffect = (((curNode.getChildCount() - 1) * 60) / 2d) + 60;
+		// System.out.println("CurNode " + curNode);
+		// System.out.println("xCoordinate " + xEffect);
+		xPrevEffect = xEffect;
 		System.out.println("CurNode " + curNode);
-		System.out.println("xCoordinate " + xCoordinate1);
-		xCoordinatePrev = xCoordinate1;
-		indexPrev = curNode.getIndex();
-		//xCoordinate -= 60; 
-		return new Point2D.Double(xCoordinate1, yCoordinate);
+		System.out.println("x**** " + xCause);
+		System.out.println("y**** " + yAll);
+		return new Point2D.Double(xEffect, yAll);
 	    } else {
-		double xCoordinate1;
-		System.out.println("****************");
-		System.out.println("XCoordinatePrev: " + xCoordinatePrev);
-		if(indexPrev != 1){
-		    double cordMostLeft = xCoordinatePrev - 60 * (indexPrev-1);
-		    double middle = ((curNode.getChildCount()-1) * 60)/2d;
-		    System.out.println("CurNodeHere " + curNode);
-		    System.out.println("IndexPrev " + indexPrev);
-		    System.out.println("******MostLeft: " + cordMostLeft);
-		    System.out.println("******Middle: " + cordMostLeft);
-		    xCoordinate1 = cordMostLeft + middle;
-		} else{
-		    double cordMostLeft = xCoordinatePrev;
-		    double middle = ((curNode.getChildCount()-1) * 60)/2d;
-		    xCoordinate1 = cordMostLeft + middle; 
-		}
-		//double xCoordinate1 = ((xCoordinatePrev - 60 * (indexPrev - 1)) * curNode
-		//	.getChildCount()) / 2d;
-		//xCoordinate1 = xCoordinatePrev + 60;
-//		System.out.println("Prev " + xCoordinatePrev);
-//		System.out.println("IndexPrev " + curNode.getIndex());
-		xCoordinatePrev = xCoordinate1;
-		indexPrev = curNode.getIndex();
-//		System.out.println("CurNodeHere " + curNode);
-//		System.out.println("xCoordinate " + xCoordinate1);
-//		System.out.println("Index " + curNode.getIndex());
-		xCoordinate -= 60;
-		return new Point2D.Double(xCoordinate1, yCoordinate);
+		xEffect = xPrevEffect + 60;
+		xPrevEffect = xEffect;
+		xCause = xEffect - 60;
+		System.out.println("CurNode " + curNode);
+		System.out.println("x**** " + xCause);
+		System.out.println("y**** " + yAll);
+		return new Point2D.Double(xEffect, yAll);
 	    }
 	}
     }
+    
+    public int getHeight(){
+	return (int) ((biggestLevel-1)*ySpace) + 40;
+    }
 
     public void reset() {
-	yCoordinate = 0;
-	xCoordinate = 0;
-	xCoordinatePrev = 0;
-	indexPrev = 0;
-    }
-
-    public double getyRoot() {
-	return yCoordinate;
-    }
-
-    public double getSpace() {
-	return xSpace;
+	yAll = 0;
+	xCause = 0;
+	xPrevEffect = 0;
+	xEffect = 0;
     }
 }
