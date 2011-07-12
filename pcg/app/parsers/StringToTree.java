@@ -14,10 +14,13 @@ public class StringToTree {
     private int effectLevel;
 
     public StringToTree(CNAList input) {
-	this.inputTable.add("L ∨ K ∨ A ∨ B  => C");
-	this.inputTable.add("DQ ∨ CX1  => E");
-	this.inputTable.add("F ∨ F => G");
-	//this.inputTable.add("Z ∨ G => Q");
+	//this.inputTable.add("L ∨ K ∨ A ∨ B  => C");
+	//this.inputTable.add("ZX2 ∨ QX2 ∨ CX1  => E");
+	//this.inputTable.add("C ∨ B => A");
+	this.inputTable.add("A ∨ B ∨ 1 => C");
+	this.inputTable.add("C ∨ D ∨ 2 => E");
+	this.inputTable.add("E ∨ F ∨ 3 => G");
+	this.inputTable.add("G ∨ H ∨ 4 => I");
 	//inputTable = input;
 
 	tree = new CustomTree();
@@ -127,10 +130,10 @@ public class StringToTree {
 	    }
 	    bundleNumber++;
 	}
-	CustomTreeNode nodeY = new CustomTreeNode("Y" + nodes.get(0));
-	nodeY.setEffectLevel(effectLevel);
-	nodeY.setIsEffect(false);
-	tree.addChildtoParentX(nodeY, curParent);
+	//CustomTreeNode nodeY = new CustomTreeNode("Y" + nodes.get(0));
+	//nodeY.setEffectLevel(effectLevel);
+	//nodeY.setIsEffect(false);
+	//tree.addChildtoParentX(nodeY, curParent);
     }
 
     public CustomTree getTree() {

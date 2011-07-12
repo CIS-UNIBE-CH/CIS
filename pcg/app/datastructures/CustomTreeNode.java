@@ -8,8 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class CustomTreeNode extends DefaultMutableTreeNode {
     private String bundle;
     private String name;
-    private double xCoordinate;
-    private double yCoordinate;
+    private double xCoordinate = -3000;
+    private double yCoordinate = -3000;
     private int level = -1;
     private boolean isEffect;
     private int index;

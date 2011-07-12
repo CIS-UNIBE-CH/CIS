@@ -138,7 +138,7 @@ public class Renderer {
     }
 
     private void calculatePictureSize() {
-	xPicSize = 600;
+	xPicSize = 800;
 	yPicSize = 600;
     }
 
