@@ -60,7 +60,6 @@ public class Renderer {
 	
 	yPicSize = height * 120;
 	xPicSize = (((totFactors / height+1)+1) * 120) + 60;
-	System.out.println("********" + (totFactors / height+1));
 
     	// Use a static layout so vertexes will positioned ever time at the same
     	// place

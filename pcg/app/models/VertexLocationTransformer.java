@@ -27,35 +27,22 @@ public class VertexLocationTransformer implements
 	yAll = ySpace * curNode.getEffectLevel() - 90;
 	curNode.setyCoordinate(yAll);
 	
-	System.out.println("Biggest " + biggestLevel);
-	System.out.println("EffectLevel " + curNode.getEffectLevel());
 	if(biggestLevel < curNode.getEffectLevel()){
 	   biggestLevel = curNode.getEffectLevel();
 	}
 
 	if (!curNode.isEffect()) {
 	    xCause += 60;
-	    System.out.println("CurNode " + curNode);
-	    System.out.println("x**** " + xCause);
-	    System.out.println("y**** " + yAll);
 	    return new Point2D.Double(xCause, yAll);
 	} else {
 	    if (curNode.getEffectLevel() == 2) {
 		xEffect = (((curNode.getChildCount() - 1) * 60) / 2d) + 60;
-		// System.out.println("CurNode " + curNode);
-		// System.out.println("xCoordinate " + xEffect);
 		xPrevEffect = xEffect;
-		System.out.println("CurNode " + curNode);
-		System.out.println("x**** " + xCause);
-		System.out.println("y**** " + yAll);
 		return new Point2D.Double(xEffect, yAll);
 	    } else {
 		xEffect = xPrevEffect + 60;
 		xPrevEffect = xEffect;
 		xCause = xEffect - 60;
-		System.out.println("CurNode " + curNode);
-		System.out.println("x**** " + xCause);
-		System.out.println("y**** " + yAll);
 		return new Point2D.Double(xEffect, yAll);
 	    }
 	}
