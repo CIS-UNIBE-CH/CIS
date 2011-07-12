@@ -139,7 +139,7 @@ public class Renderer {
 
     private void calculatePictureSize() {
 	xPicSize = 800;
-	yPicSize = 600;
+	yPicSize = 800;
     }
 
     public String getImageSource() {

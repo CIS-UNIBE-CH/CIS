@@ -37,8 +37,6 @@ public class TreeToGraph {
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CustomTreeNode curChild = (CustomTreeNode) parent.getChildAt(i);
 	    curChild.setIndex(i + 1);
-	    createTree(curChild);
-
 	    graph.addVertex(curChild);
 	    CustomEdge edge = new CustomEdge(curChild, parent);
 
@@ -46,6 +44,7 @@ public class TreeToGraph {
 		edge.setBundleNumber(curChild.getBundle());
 	    }
 	    graph.addEdge(edge, curChild, parent, EdgeType.DIRECTED);
+	    createTree(curChild);
 	}
     }
 

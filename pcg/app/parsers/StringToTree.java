@@ -20,7 +20,7 @@ public class StringToTree {
 	this.inputTable.add("A ∨ B ∨ 1 => C");
 	this.inputTable.add("C ∨ D ∨ 2 => E");
 	this.inputTable.add("E ∨ F ∨ 3 => G");
-	this.inputTable.add("G ∨ H ∨ 4 => I");
+	this.inputTable.add("Z ∨ G ∨ H ∨ 4 => I");
 	//inputTable = input;
 
 	tree = new CustomTree();

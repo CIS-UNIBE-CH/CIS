@@ -12,9 +12,8 @@ import datastructures.CustomTreeNode;
 public class VertexLocationTransformer implements
 	Transformer<CustomTreeNode, Point2D> {
 
-    private static int level;
     private double yCoordinate = 0;
-    private double xSpace = 70;
+    private double xSpace = 60;
     private double ySpace = 120;
     private double xCoordinate1 = 0;
     private static double xCoordinate = 0;
@@ -40,95 +39,43 @@ public class VertexLocationTransformer implements
 		System.out.println("xCoordinate " + xCoordinate1);
 		xCoordinatePrev = xCoordinate1;
 		indexPrev = curNode.getIndex();
+		//xCoordinate -= 60; 
 		return new Point2D.Double(xCoordinate1, yCoordinate);
 	    } else {
-		double xCoordinate1 = ((xCoordinatePrev - 60 * (indexPrev - 1)) * curNode
-			.getChildCount()) / 2d;
-		System.out.println("CurNode " + curNode);
-		System.out.println("xCoordinate " + xCoordinate1);
+		double xCoordinate1;
+		System.out.println("****************");
+		System.out.println("XCoordinatePrev: " + xCoordinatePrev);
+		if(indexPrev != 1){
+		    double cordMostLeft = xCoordinatePrev - 60 * (indexPrev-1);
+		    double middle = ((curNode.getChildCount()-1) * 60)/2d;
+		    System.out.println("CurNodeHere " + curNode);
+		    System.out.println("IndexPrev " + indexPrev);
+		    System.out.println("******MostLeft: " + cordMostLeft);
+		    System.out.println("******Middle: " + cordMostLeft);
+		    xCoordinate1 = cordMostLeft + middle;
+		} else{
+		    double cordMostLeft = xCoordinatePrev;
+		    double middle = ((curNode.getChildCount()-1) * 60)/2d;
+		    xCoordinate1 = cordMostLeft + middle; 
+		}
+		//double xCoordinate1 = ((xCoordinatePrev - 60 * (indexPrev - 1)) * curNode
+		//	.getChildCount()) / 2d;
+		//xCoordinate1 = xCoordinatePrev + 60;
+//		System.out.println("Prev " + xCoordinatePrev);
+//		System.out.println("IndexPrev " + curNode.getIndex());
+		xCoordinatePrev = xCoordinate1;
+		indexPrev = curNode.getIndex();
+//		System.out.println("CurNodeHere " + curNode);
+//		System.out.println("xCoordinate " + xCoordinate1);
+//		System.out.println("Index " + curNode.getIndex());
+		xCoordinate -= 60;
 		return new Point2D.Double(xCoordinate1, yCoordinate);
 	    }
-	}
-
-	/*
-	 * if (!curNode.isLeaf()) { xCoordinate = 0; xCoordinatePrev = 0;
-	 * System.out.println("CurNode NotLeaf " + curNode);
-	 * System.out.println("ChildCount " + curNode.getEffectLevel());
-	 * calcEffectCoordinate(curNode); xCoordinate = xCoordinatePrev; //
-	 * xCoordinate = ((curNode.getChildCount()-1) * xSpace / 2d) + 270d // ;
-	 * // System.out.println("CurNode NotLeaf " + curNode); //
-	 * System.out.println("ChildCount " + curNode.getChildCount()); //
-	 * System.out.println("xCoordinate " + xCoordinate); return new
-	 * Point2D.Double(xCoordinate, yCoordinate); //} else{ return new
-	 * Point2D.Double(100, 100); //} /*else { CustomTreeNode sameLevelEffect
-	 * = getSameLevelEffect(curNode); if (sameLevelEffect != null) { double
-	 * sameLevelEffectCoordinate = ((sameLevelEffect .getChildCount() - 1) *
-	 * xSpace) / 2d; double sameLevelEffectIndex =
-	 * sameLevelEffect.getIndex(); xCoordinate = (sameLevelEffectCoordinate
-	 * + (curNode.getIndex() - sameLevelEffectIndex) xSpace) + 200d;
-	 * 
-	 * // System.out.println("CurNode Leaf " + curNode); //
-	 * System.out.println("xCoordinate " + xCoordinate); return new
-	 * Point2D.Double(xCoordinate, yCoordinate); } else { // xCoordinate =
-	 * (/* (xSpace * curNode.getEffectLevel()
-	 */
-	// xSpace + (xSpace * (curNode.getIndex() - 1d))) + 200d;
-
-	// System.out.println("CurNode SpecialLeaf " + curNode);
-	// System.out.println("xCoordinate " + xCoordinate);
-	// return new Point2D.Double(xCoordinate, yCoordinate);
-    }
-
-    // }*/
-    // }
-
-    private CustomTreeNode getSameLevelEffect(CustomTreeNode curNode) {
-	CustomTreeNode parent = (CustomTreeNode) curNode.getParent();
-	for (int i = 0; i < parent.getChildCount(); i++) {
-	    if (!parent.getChildAt(i).isLeaf()) {
-		return (CustomTreeNode) parent.getChildAt(i);
-	    }
-	}
-	return null;
-    }
-
-    private void calcEffectCoordinate(CustomTreeNode childParent) {
-	boolean doIt = true;
-	if (childParent.getEffectLevel() == 2) {
-	    xCoordinatePrev = ((childParent.getChildCount() - 1) * xSpace / 2d) + 270d;
-	    System.out.println("CurNode InRec " + childParent);
-	    System.out.println("ChildCount " + childParent.getChildCount());
-	    // System.out.println("xCoordinate " + xCoordinate);
-	    indexPrev = childParent.getIndex();
-	    doIt = false;
-	}
-	/*
-	 * if(childParent.getxCoordinate() == -3000){ for(int i = 0; i <
-	 * childParent.getChildCount(); i++){
-	 * if(!childParent.getChildAt(i).isLeaf()){
-	 * calcEffectCoordinate(childParent); } }
-	 */
-	else {
-	    for (int i = 0; i < childParent.getChildCount(); i++) {
-		if (!childParent.getChildAt(i).isLeaf()) {
-		    calcEffectCoordinate(childParent);
-		}
-	    }
-	}
-	if (doIt) {
-	    double tempCor = xCoordinatePrev;
-	    double tempIndex = indexPrev;
-	    double xCoordNew = ((tempCor - xSpace * (tempIndex - 1)) * childParent
-		    .getChildCount()) / 2d;
-
-	    indexPrev = childParent.getIndex();
-	    xCoordinatePrev = xCoordNew;
 	}
     }
 
     public void reset() {
 	yCoordinate = 0;
-	xCoordinate = 0;
 	xCoordinate = 0;
 	xCoordinatePrev = 0;
 	indexPrev = 0;
