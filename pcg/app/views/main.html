@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         #{stylesheet 'main.css' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <script src="@{'/public/javascripts/jquery-1.6.2.min.js'}" type="text/javascript" charset="utf-8"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
@@ -16,15 +16,16 @@
        		</div><!-- end header -->
       		<div class="navigation">
 			<a href="/">home</a> | 
-			<a href="@{Application.quadroTest(0)}">simple quadro test</a> | 
-			<a href="@{Application.complexTesting(0)}">complex causal test</a> |  
-			<a href="/">contact</a> 
+			<a href="@{SimpleQuadroController.setup()}">simple quadro test</a> | 
+			<a href="@{CNAController.setup()}">CNA Test</a> |
+			<a href="@{Input.setup()}">Input Coincidence Table</a> |  
+			<a href="@{Application.contact()}">contact</a> 
        		</div><!-- end navigation -->
        		<div class="content">
        		#{doLayout /}
        		</div><!-- end content -->
        		<div class="footer">
-       		last changed on 23.01.2011 | Disclaimer
+       		last changed in 2011 | <a href="@{Application.disclaimer()}">Disclaimer</a>
        		</div><!-- end footer -->
        	</div><!--  end main -->
 

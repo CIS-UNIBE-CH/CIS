@@ -2,8 +2,6 @@ package algorithms;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import helpers.BaumgartnerSampleTable;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -21,12 +19,20 @@ public class CNAlgorithm {
     private CNATable msufTable;
     private CNAList necList;
     private CNAList fmt;
+    private CNATable deleted;
 
     private CNATable mnecTable;
 
-    public CNAlgorithm(String[][] table) {
+    public CNAlgorithm(String[][] table, int randomLines) {
 	originalTable = new CNATable(table);
+	deleted = new CNATable();
+	for (int i = 0; i < randomLines; i++) {
+	    int rand = (int) Math.random() * (originalTable.size() - 1) + 1;
+	    deleted.add(originalTable.get(rand));
+	    originalTable.remove(rand);
+	}
 	init();
+
     }
 
     public CNAlgorithm(CNATable table) {
@@ -35,8 +41,6 @@ public class CNAlgorithm {
     }
 
     private void init() {
-	BaumgartnerSampleTable sampleTable = new BaumgartnerSampleTable();
-	originalTable = sampleTable.getSampleTable();
 	identifyPE(originalTable);
     }
 
@@ -50,14 +54,6 @@ public class CNAlgorithm {
 	CNATable table = originalTable.clone();
 	ListComparator comparator = new ListComparator();
 
-	// remove all Cols with neg factor
-	for (int col = 0; col < table.get(0).size(); col++) {
-	    String cur = table.get(0).get(col);
-	    if (cur.contains("¬")) {
-		table.removeCol(col);
-		col--;
-	    }
-	}
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int row = 1; row < table.size(); row++) {
 	    for (int row2 = 1; row2 < table.size(); row2++) {
@@ -70,9 +66,20 @@ public class CNAlgorithm {
 	HashSet duplicate = new HashSet(indexes);
 	indexes.clear();
 	indexes.addAll(duplicate);
+	System.out.println(indexes);
 	effects = table.get(0);
+	System.out.println(effects);
 	for (int i = indexes.size() - 1; i >= 0; i--) {
 	    effects.remove(indexes.get(i));
+	}
+
+	for (int i = 0; i < effects.size(); i++) {
+	    String cur = effects.get(i);
+	    if (cur.contains("¬")) {
+		effects.remove(i);
+		i--;
+	    }
+
 	}
 	run(effects, originalTable);
     }
@@ -83,7 +90,6 @@ public class CNAlgorithm {
      * @param effects
      */
     private void run(CNAList effects, CNATable originalTable) {
-	fmt = new CNAList();
 	CNATable table;
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
@@ -111,7 +117,6 @@ public class CNAlgorithm {
     private void identifySUF(CNATable originalTable) {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
-	System.out.println("SUF Table:\n" + sufTable);
 	indentifyMSUF(originalTable, sufTable);
     }
 
@@ -132,8 +137,6 @@ public class CNAlgorithm {
 	    msufTree.walk(root, originalTable, msufTable);
 	    msufTable.removeDuplicated();
 	}
-	System.out.println("MSUF Table:\n" + msufTable);
-
 	identifyNEC(msufTable, originalTable);
     }
 
@@ -145,7 +148,6 @@ public class CNAlgorithm {
 	// Add effect column
 	necList.add("1");
 
-	System.out.println("Negated NEC Line (with Effect): " + necList);
 	// Check if NEC Line does not exist in table.
 	boolean necOK = false;
 	for (int j = 0; j < bundleTable.size(); j++) {
@@ -158,8 +160,6 @@ public class CNAlgorithm {
 	    }
 	}
 	if (necOK) {
-	    System.out
-		    .println("NEC Line: " + msufTable.toString(originalTable));
 	    identifyMNEC(necList, bundleTable);
 	}
     }
@@ -178,16 +178,14 @@ public class CNAlgorithm {
 	mnecTable.removeDuplicated();
 	mnecTable.negate();
 
-	System.out.println("\nMNEC Table:\n" + mnecTable);
-	System.out.println(bundleTable);
 	framingMinimalTheory(bundleTable);
     }
 
     private void framingMinimalTheory(CNATable bundleTable) {
 	String datastructurestring = new String();
+	fmt = new CNAList();
 	CNAList list = new CNAList();
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-	System.out.println("m" + mnecNames);
 
 	String coFactor = "X";
 	for (int i = 0; i < mnecNames.size(); i++) {
@@ -206,6 +204,10 @@ public class CNAlgorithm {
     }
 
     // Getters and Setters
+
+    public CNATable getOriginalTable() {
+	return originalTable;
+    }
 
     public CNAList getFmt() {
 	return fmt;
@@ -226,4 +228,13 @@ public class CNAlgorithm {
     public CNAList getNecList() {
 	return necList;
     }
+
+    public CNAList getEffects() {
+	return effects;
+    }
+
+    public CNATable getDeleted() {
+	return deleted;
+    }
+
 }

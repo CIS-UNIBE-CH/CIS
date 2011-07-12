@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h2>Complex Causal Test</h2>
+	#{if flash.error}
+		<div class="error">
+			${flash.error}
+		</div>
+	#{/if}
+	<h3>Generated Graph</h3>
+	<div class="steps">
+	Step 2/3
+	</div>
+	Generation Time: ${elapsedTime}
+	<center>
+		<img src="${generatedGraphPath}" />
+		<p>${generatedGraph}</p>
+	</center>
+	#{if table}
+	<h3>Coincidence Table</h3>
+	<center>
+		<table>
+		#{list items:table, as:'l'}
+			#{if l == "/n"}<tr>#{/if}
+			#{else}
+			<td>${l}</td>
+			#{/else}
+			#{if l == "/n"}</tr>#{/if}
+		#{/list}
+		</table>
+	</center>
+	#{/if}
+	<h3>Choose an Algorithm</h3>
+	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
+		<input type="hidden" name="generatedGraphPath" value="${generatedGraphPath}"/>
+		<input type="hidden" name="generatedGraph"     value="${generatedGraph}"/>
+		<input type="hidden" name="lines"              value="${lines}"/>
+		<input type="submit" name="booleanTest"        value="Calculate"/>
+	</form>
