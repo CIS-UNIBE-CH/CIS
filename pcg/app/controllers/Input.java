@@ -28,10 +28,9 @@ public class Input extends Controller {
 	System.out.println(table);
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
 
-	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt().get(
-		0));
+	StringToTree stringToTree = new StringToTree(cnaAlgorithm.getFmt());
 	Long time = timer.timeElapsed();
-	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree());
+	TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(), 0, 0);
 	renderer.config(treeToGraph);
 
 	String originalTable = cnaAlgorithm.getOriginalTable().toString();
