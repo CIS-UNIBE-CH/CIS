@@ -15,8 +15,8 @@ public class StringToTree {
 
     public StringToTree(CNAList input) {
 	this.inputTable.add("L ∨ K ∨ A ∨ B  => C");
-	this.inputTable.add("MW ∨ DQ ∨ CX1  => E");
-	//this.inputTable.add("F ∨ F => G");
+	this.inputTable.add("DQ ∨ CX1  => E");
+	this.inputTable.add("F ∨ F => G");
 	//this.inputTable.add("Z ∨ G => Q");
 	//inputTable = input;
 

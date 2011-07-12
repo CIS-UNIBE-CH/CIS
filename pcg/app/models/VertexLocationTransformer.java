@@ -21,13 +21,38 @@ public class VertexLocationTransformer implements
     public Point2D transform(CustomTreeNode vertex) {
 	CustomTreeNode curNode = vertex;
 
-	yCoordinate = ySpace * curNode.getEffectLevel() -90;
+	yCoordinate = ySpace * curNode.getEffectLevel() - 90;
 	curNode.setyCoordinate(yCoordinate);
-	
-	xCoordinate = (/*(xSpace * curNode.getEffectLevel()*/
-		xSpace + (xSpace * (curNode.getIndex() - 1))) -35;
-	
-	return new Point2D.Double(xCoordinate, yCoordinate);
+
+	if (!curNode.isLeaf()) {
+	    xCoordinate = (curNode.getChildCount() * xSpace) / 2d;
+	    return new Point2D.Double(xCoordinate, yCoordinate);
+	} else {
+	    CustomTreeNode sameLevelEffect = getSameLevelEffect(curNode);
+	    if (sameLevelEffect != null) {
+		double sameLevelEffectCoordinate = (sameLevelEffect
+			.getChildCount() * xSpace) / 2d;
+		double sameLevelEffectIndex = sameLevelEffect.getIndex();
+		xCoordinate = sameLevelEffectCoordinate
+			+ (curNode.getIndex() - sameLevelEffectIndex) * xSpace;
+		return new Point2D.Double(xCoordinate, yCoordinate);
+	    }
+	    else{
+		xCoordinate = (/*(xSpace * curNode.getEffectLevel()*/
+			xSpace + (xSpace * (curNode.getIndex() - 1))) -35;
+		return new Point2D.Double(xCoordinate, yCoordinate);
+	    }
+	}
+    }
+
+    private CustomTreeNode getSameLevelEffect(CustomTreeNode curNode) {
+	CustomTreeNode parent = (CustomTreeNode) curNode.getParent();
+	for (int i = 0; i < parent.getChildCount(); i++) {
+	    if (!parent.getChildAt(i).isLeaf()) {
+		return (CustomTreeNode) parent.getChildAt(i);
+	    }
+	}
+	return null;
     }
 
     public void reset() {
