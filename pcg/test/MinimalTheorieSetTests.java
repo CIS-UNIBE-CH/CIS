@@ -16,7 +16,7 @@ public class MinimalTheorieSetTests extends UnitTest {
     @BeforeClass
     public static void setup() {
 	theories = new MinimalTheorieSet();
-	factors = new CNAList(",", "A,B,C,DE");
+	factors = new CNAList(',', "A,B,C,DE");
 	effect = "W";
 	theorie = new MinimalTheorie(factors, effect);
 
@@ -29,7 +29,7 @@ public class MinimalTheorieSetTests extends UnitTest {
 	assertEquals(1, theories.size());
 	assertEquals(theorie, theories.get(0));
 
-	CNAList newfactors = new CNAList(",", "W,F,H");
+	CNAList newfactors = new CNAList(',', "W,F,H");
 	String newEffect = "R";
 	MinimalTheorie newTheorie = new MinimalTheorie(newfactors, newEffect);
 	theories.add(newTheorie);
@@ -49,7 +49,7 @@ public class MinimalTheorieSetTests extends UnitTest {
 
     @Test
     public void shouldGetSingles() {
-	CNAList newfactors = new CNAList(",", "W,F,H");
+	CNAList newfactors = new CNAList(',', "W,F,H");
 	String newEffect = "R";
 	MinimalTheorie newTheorie = new MinimalTheorie(newfactors, newEffect);
 	theories.add(newTheorie);

@@ -28,12 +28,13 @@ public class Input extends Controller {
 	renderer = new Renderer();
 	// CNATable cnaTable = new CNATable(";", ",",
 	// "a,b,c;1,0,1;0,0,1;1,1,1");
-	CNATable cnaTable = new CNATable("\n", ",", table);
+	System.out.println("table\n" + table);
+	CNATable cnaTable = new CNATable(';', ',', table);
 	if (cnaTable.size() <= 2) {
 	    flash.error("Please add more lines (min. 3 lines");
 	}
-	cnaTable.addOneLine();
-	System.out.println(cnaTable);
+	// cnaTable.addOneLine();
+	System.out.println("cnaTable\n" + cnaTable);
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnaTable);
 
 	MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();

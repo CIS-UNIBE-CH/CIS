@@ -3,8 +3,6 @@ package datastructures;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.mchange.util.AssertException;
-
 public class CNATable extends ArrayList<CNAList> {
     private ArrayList<CNAList> table;
 
@@ -16,16 +14,15 @@ public class CNATable extends ArrayList<CNAList> {
 	this.table = arrayToCNATable(table);
     }
 
-    public CNATable(String regexTable, String regexList, String string) {
+    public CNATable(char regexTable, char regexList, String string) {
 	table = new ArrayList<CNAList>();
-	try {
-	    assert (!regexList.equals(regexTable));
-	} catch (AssertException e) {
-	    throw e;
-	}
-	String[] array = string.split(regexTable);
+
+	String[] array = string.split("" + regexTable);
 	for (int i = 0; i < array.length; i++) {
-	    table.add(new CNAList(regexList, array[i]));
+	    String temp = array[i];
+	    temp = temp.replace("\n", "");
+	    temp = temp.replace(" ", "");
+	    table.add(new CNAList(regexList, temp));
 	}
 
     }
@@ -96,12 +93,11 @@ public class CNATable extends ArrayList<CNAList> {
 
     public void addOneLine() {
 	String str = "";
-	System.out.println("table.get 0\n" + table);
 	for (int i = 0; i < table.get(0).size() - 1; i++) {
 	    str += "1" + ",";
 	}
 	str += "1";
-	CNAList list = new CNAList(",", str);
+	CNAList list = new CNAList(',', str);
 	table.add(list);
     }
 
@@ -155,7 +151,8 @@ public class CNATable extends ArrayList<CNAList> {
 	String string = "";
 	for (int r = 0; r < table.size(); r++) {
 	    for (int c = 0; c < table.get(r).size(); c++) {
-		string += table.get(r).get(c) + " ";
+		String temp = table.get(r).get(c);
+		string += (temp + " ");
 	    }
 	    string += "\n";
 	}

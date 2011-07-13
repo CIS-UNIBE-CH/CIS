@@ -9,11 +9,19 @@ public class CNAList extends ArrayList<String> {
 	super();
     }
 
-    public CNAList(String regex, String string) {
-	String[] array = string.split(regex);
+    public CNAList(char regex, String string) {
+	String[] array = string.split("" + regex);
 	for (int i = 0; i < array.length; i++) {
-	    this.add(array[i]);
+	    String temp = array[i];
+	    temp = temp.replace("\n", "");
+	    temp = temp.replace(" ", "");
+	    this.add(temp);
+
 	}
+    }
+
+    public boolean add(String arg0) {
+	return super.add(arg0);
     }
 
     public void negate() {

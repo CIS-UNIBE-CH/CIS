@@ -12,7 +12,7 @@ public class MinimalTheorieTest extends UnitTest {
 
     @Before
     public void setup() {
-	factors = new CNAList(",", "AB,C,DE");
+	factors = new CNAList(',', "AB,C,DE");
 	effect = "W";
 	theorie = new MinimalTheorie(factors, effect);
     }
@@ -44,7 +44,7 @@ public class MinimalTheorieTest extends UnitTest {
 
     @Test
     public void shouldSetFactors() {
-	CNAList list = new CNAList(",", "A,D,L");
+	CNAList list = new CNAList(',', "A,D,L");
 	theorie.setFactors(list);
 	assertEquals(list, theorie.getFactors());
     }
