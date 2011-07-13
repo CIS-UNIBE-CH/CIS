@@ -13,6 +13,7 @@ import java.util.Date;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import parsers.TreeToGraph;
+import datastructures.CustomGraphEdge;
 import datastructures.CustomTreeNode;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;

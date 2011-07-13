@@ -2,7 +2,7 @@ package parsers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import models.CustomGraphEdge;
+import datastructures.CustomGraphEdge;
 import datastructures.CustomTree;
 import datastructures.CustomTreeNode;
 import edu.uci.ics.jung.graph.OrderedSparseMultigraph;

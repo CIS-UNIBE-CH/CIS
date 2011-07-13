@@ -1,8 +1,6 @@
-package models;
+package datastructures;
 
 import java.util.ArrayList;
-
-import datastructures.CustomTreeNode;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
