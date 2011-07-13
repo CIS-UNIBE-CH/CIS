@@ -61,11 +61,15 @@
 		</table>
 		
 	</div>
-		
-		<center>
-		<img src="${calculatedGraphPath}" />
-		<p>${calculatedGraph}</p>
-		</center>
+	<center>
+	#{list items:graphPaths, as:'m'}
+		<img src="${m}" /><br/>
+	#{/list}
+		#{list items:stringGraphs, as:'s'}
+		<p>${s}</p>
+	#{/list}
+	<br/>
+	</center>
 		
 		
 <script type="text/javascript">		

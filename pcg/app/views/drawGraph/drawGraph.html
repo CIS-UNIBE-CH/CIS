@@ -5,6 +5,11 @@
 #{/if}
 <div class="steps">Step 1/2</div>
 	<center>
-		<img src="${GraphPath}" />
-		<p>${Graph}</p>
+	#{list items:graphPaths, as:'m'}
+		<img src="${m}" /><br/>
+	#{/list}
+		#{list items:stringGraphs, as:'s'}
+		<p>${s}</p>
+	#{/list}
+	<br/>
 	</center>

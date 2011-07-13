@@ -19,6 +19,7 @@ public class CNAlgorithm {
     private CNATable msufTable;
     private CNAList necList;
     private CNAList fmt;
+    private CNATable fmtTable;
     private CNATable deleted;
 
     private CNATable mnecTable;
@@ -37,11 +38,12 @@ public class CNAlgorithm {
 
     public CNAlgorithm(CNATable table) {
 	originalTable = table;
-	System.out.println(table);
+	System.out.println("con \n" + table);
 	init();
     }
 
     private void init() {
+	fmtTable = new CNATable();
 	fmt = new CNAList();
 	identifyPE(originalTable);
     }
@@ -83,7 +85,6 @@ public class CNAlgorithm {
 	    }
 
 	}
-	System.out.println("effects");
 	run(effects, originalTable);
     }
 
@@ -108,7 +109,21 @@ public class CNAlgorithm {
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
 	    identifySUF(table);
 	}
-
+	System.out.println("fmt: \n" + fmt);
+	for (int i = 1; i < fmt.size(); i++) {
+	    String effect = ""
+		    + fmt.get(i - 1).charAt(fmt.get(i - 1).length() - 1);
+	    System.out.println("e " + effect);
+	    if (!fmt.get(i).contains(effect)) {
+		CNAList list = new CNAList();
+		list.add(fmt.get(i));
+		fmtTable.add(list);
+		fmt.remove(i);
+	    }
+	}
+	CNAList list = new CNAList();
+	list.add(fmt.get(0));
+	fmtTable.add(list);
     }
 
     /**
@@ -210,8 +225,8 @@ public class CNAlgorithm {
 	return originalTable;
     }
 
-    public CNAList getFmt() {
-	return fmt;
+    public CNATable getFmtTable() {
+	return fmtTable;
     }
 
     public CNATable getSufTable() {
