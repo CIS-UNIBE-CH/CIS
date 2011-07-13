@@ -63,7 +63,7 @@ public class Renderer {
 
     	// Use a static layout so vertexes will positioned ever time at the same
     	// place
-    	StaticLayout<CustomTreeNode, CustomEdge> layout = new StaticLayout<CustomTreeNode, CustomEdge>(
+    	StaticLayout<CustomTreeNode, CustomGraphEdge> layout = new StaticLayout<CustomTreeNode, CustomGraphEdge>(
     		this.parser.getGraph(), locationTransformer);
     	layout.setSize(new Dimension(xPicSize, yPicSize));
     
@@ -80,7 +80,7 @@ public class Renderer {
 	VertexLookTransformer<CustomTreeNode, Shape> vertexLookTransformer = new VertexLookTransformer<CustomTreeNode, Shape>();
 
 	// The BasicVisualizationServer<V,E> is parameterized by the edge types
-	BasicVisualizationServer<CustomTreeNode, CustomEdge> visServer = new BasicVisualizationServer<CustomTreeNode, CustomEdge>(
+	BasicVisualizationServer<CustomTreeNode, CustomGraphEdge> visServer = new BasicVisualizationServer<CustomTreeNode, CustomGraphEdge>(
 		layout);
 
 	// *************Configure BasicVisualizationServer*********
@@ -109,7 +109,7 @@ public class Renderer {
 		.setPosition(Position.CNTR);
 	// Edge shape as line
 	visServer.getRenderContext().setEdgeShapeTransformer(
-		new EdgeShape.Line<CustomTreeNode, CustomEdge>());
+		new EdgeShape.Line<CustomTreeNode, CustomGraphEdge>());
 	// Set VertexLookTranformer changes
 	visServer.getRenderContext().setVertexShapeTransformer(
 		vertexLookTransformer);

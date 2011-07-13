@@ -2,7 +2,7 @@ package parsers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-import models.CustomEdge;
+import models.CustomGraphEdge;
 import datastructures.CustomTree;
 import datastructures.CustomTreeNode;
 import edu.uci.ics.jung.graph.OrderedSparseMultigraph;
@@ -15,7 +15,7 @@ public class TreeToGraph {
     // Used OrderedSparseMultigraph, this order nodes after their adding time.
     // So make sure the nodes will be generated in right oder in the method
     // createsNodes()
-    private static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> graph;
+    private static OrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> graph;
     // The tree (internal data structure)
     private CustomTree tree;
     private int depthInit;
@@ -26,7 +26,7 @@ public class TreeToGraph {
 	heigt = numberOfEffects + 1;
 	depthInit = numberOfEffects + 1;
 	this.totalFactors = numberOfFactors;
-	graph = new OrderedSparseMultigraph<CustomTreeNode, CustomEdge>();
+	graph = new OrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge>();
 	this.tree = tree;
 
 	CustomTreeNode root = this.tree.getRoot();
@@ -45,7 +45,7 @@ public class TreeToGraph {
 		createTree(curChild);
 		curChild.setIndex(i + 1);
 		graph.addVertex(curChild);
-		CustomEdge edge = new CustomEdge(curChild, parent);
+		CustomGraphEdge edge = new CustomGraphEdge(curChild, parent);
 
 		if (curChild.isPartOfBundle()) {
 		    edge.setBundleNumber(curChild.getBundle());
@@ -58,7 +58,7 @@ public class TreeToGraph {
 	    if (curChild.isLeaf()) {
 		curChild.setIndex(i + 1);
 		graph.addVertex(curChild);
-		CustomEdge edge = new CustomEdge(curChild, parent);
+		CustomGraphEdge edge = new CustomGraphEdge(curChild, parent);
 
 		if (curChild.isPartOfBundle()) {
 		    edge.setBundleNumber(curChild.getBundle());
@@ -82,7 +82,7 @@ public class TreeToGraph {
 	}
     }
 
-    public static OrderedSparseMultigraph<CustomTreeNode, CustomEdge> getGraph() {
+    public static OrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> getGraph() {
 	return graph;
     }
 
