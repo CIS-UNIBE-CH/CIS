@@ -9,7 +9,7 @@ import play.mvc.Controller;
 import datastructures.CNAList;
 import datastructures.CNATable;
 
-public class drawGraph extends Controller {
+public class DrawGraph extends Controller {
 
     private static Renderer renderer;
 

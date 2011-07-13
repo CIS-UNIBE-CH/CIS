@@ -12,7 +12,8 @@ import parsers.TreeToGraph;
 import play.mvc.Controller;
 import algorithms.CNAlgorithm;
 import datastructures.CNAList;
-import datastructures.CNATable;
+import datastructures.MinimalTheorie;
+import datastructures.MinimalTheorieSet;
 
 public class CNAController extends Controller {
 
@@ -82,10 +83,12 @@ public class CNAController extends Controller {
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTableAsArray(),
 		randomLines);
 
-	CNATable fmtTable = cnaAlgorithm.getFmtTable();
+	MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
 	ArrayList<String> graphPaths = new ArrayList<String>();
 	ArrayList<String> stringGraphs = new ArrayList<String>();
-	for (CNAList list : fmtTable) {
+	for (MinimalTheorie theorie : theories) {
+	    CNAList list = new CNAList();
+	    list.add(theorie.toString());
 	    StringToTree stringToTree = new StringToTree(list);
 	    TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(),
 		    stringToTree.getNumOfEffects(),
@@ -107,8 +110,8 @@ public class CNAController extends Controller {
 	String msufTable = cnaAlgorithm.getMsufTable().toString();
 	String necList = cnaAlgorithm.getNecList().toString();
 	String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	String fmt = cnaAlgorithm.getFmtTable().toString();
 	String deleted = cnaAlgorithm.getDeleted().toString();
+	String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
 
 	render(elapsedTime, originalTable, graphPaths, stringGraphs,
 		generatedGraphPath, generatedGraph, effects, sufTable,
@@ -119,10 +122,13 @@ public class CNAController extends Controller {
 	timer = new Timer();
 	CNAlgorithm cnaAlgorithm = new CNAlgorithm(
 		new BaumgartnerSampleTable().getSampleTable());
-	CNATable fmtTable = cnaAlgorithm.getFmtTable();
+
+	MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
 	ArrayList<String> graphPaths = new ArrayList<String>();
 	ArrayList<String> stringGraphs = new ArrayList<String>();
-	for (CNAList list : fmtTable) {
+	for (MinimalTheorie theorie : theories) {
+	    CNAList list = new CNAList();
+	    list.add(theorie.toString());
 	    StringToTree stringToTree = new StringToTree(list);
 	    TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(),
 		    stringToTree.getNumOfEffects(),
@@ -142,9 +148,8 @@ public class CNAController extends Controller {
 	String msufTable = cnaAlgorithm.getMsufTable().toString();
 	String necList = cnaAlgorithm.getNecList().toString();
 	String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	String fmt = cnaAlgorithm.getFmtTable().toString();
 
 	render(elapsedTime, graphPaths, stringGraphs, effects, sufTable,
-		msufTable, necList, mnecTable, fmt);
+		msufTable, necList, mnecTable);
     }
 }

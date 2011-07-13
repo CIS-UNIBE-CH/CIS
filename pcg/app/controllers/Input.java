@@ -11,6 +11,8 @@ import play.mvc.Controller;
 import algorithms.CNAlgorithm;
 import datastructures.CNAList;
 import datastructures.CNATable;
+import datastructures.MinimalTheorie;
+import datastructures.MinimalTheorieSet;
 
 public class Input extends Controller {
 
@@ -21,19 +23,25 @@ public class Input extends Controller {
 	render();
     }
 
-    public static void calcCNAGraph(String graph) {
+    public static void calcCNAGraph(String table) {
 	timer = new Timer();
 	renderer = new Renderer();
-	CNATable table = new CNATable("\n", ":", graph);
-	System.out.println(table);
-	CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
+	// CNATable cnaTable = new CNATable(";", ",",
+	// "a,b,c;1,0,1;0,0,1;1,1,1");
+	CNATable cnaTable = new CNATable("\n", ",", table);
+	if (cnaTable.size() <= 2) {
+	    flash.error("Please add more lines (min. 3 lines");
+	}
+	cnaTable.addOneLine();
+	System.out.println(cnaTable);
+	CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnaTable);
 
-	CNATable fmtTable = cnaAlgorithm.getFmtTable();
-	System.out.println("fmtTable " + fmtTable);
+	MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
 	ArrayList<String> graphPaths = new ArrayList<String>();
 	ArrayList<String> stringGraphs = new ArrayList<String>();
-	for (CNAList list : fmtTable) {
-	    System.out.println("list" + list);
+	for (MinimalTheorie theorie : theories) {
+	    CNAList list = new CNAList();
+	    list.add(theorie.toString());
 	    StringToTree stringToTree = new StringToTree(list);
 	    TreeToGraph treeToGraph = new TreeToGraph(stringToTree.getTree(),
 		    stringToTree.getNumOfEffects(),
@@ -54,9 +62,8 @@ public class Input extends Controller {
 	String msufTable = cnaAlgorithm.getMsufTable().toString();
 	String necList = cnaAlgorithm.getNecList().toString();
 	String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	String fmt = cnaAlgorithm.getFmtTable().toString();
 
 	render(elapsedTime, originalTable, graphPaths, stringGraphs, effects,
-		sufTable, msufTable, necList, mnecTable, fmt);
+		sufTable, msufTable, necList, mnecTable);
     }
 }

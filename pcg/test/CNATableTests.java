@@ -26,7 +26,7 @@ public class CNATableTests extends UnitTest {
 
     @Test
     public void shouldTestRegex() {
-	CNATable testTable = new CNATable(";", ",", "1,2,3;3,2,1");
+	CNATable testTable = new CNATable("\n", ",", "1,2,3\n3,2,1");
 	assertEquals(2, table.size());
 	assertEquals(table.toString(), testTable.toString());
     }

@@ -94,6 +94,17 @@ public class CNATable extends ArrayList<CNAList> {
 
     }
 
+    public void addOneLine() {
+	String str = "";
+	System.out.println("table.get 0\n" + table);
+	for (int i = 0; i < table.get(0).size() - 1; i++) {
+	    str += "1" + ",";
+	}
+	str += "1";
+	CNAList list = new CNAList(",", str);
+	table.add(list);
+    }
+
     /**
      * Creates out of original coincidence Table a coincidence Table with
      * following schema: Every factor in a bundle is in same column, factor

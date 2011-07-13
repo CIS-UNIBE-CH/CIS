@@ -9,6 +9,8 @@ import datastructures.CNAList;
 import datastructures.CNATable;
 import datastructures.CNATreeNode;
 import datastructures.ListComparator;
+import datastructures.MinimalTheorie;
+import datastructures.MinimalTheorieSet;
 import datastructures.MnecTree;
 import datastructures.MsufTree;
 
@@ -18,8 +20,7 @@ public class CNAlgorithm {
     private CNATable sufTable;
     private CNATable msufTable;
     private CNAList necList;
-    private CNAList fmt;
-    private CNATable fmtTable;
+    private MinimalTheorieSet theories;
     private CNATable deleted;
 
     private CNATable mnecTable;
@@ -43,8 +44,7 @@ public class CNAlgorithm {
     }
 
     private void init() {
-	fmtTable = new CNATable();
-	fmt = new CNAList();
+	theories = new MinimalTheorieSet();
 	identifyPE(originalTable);
     }
 
@@ -109,21 +109,6 @@ public class CNAlgorithm {
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
 	    identifySUF(table);
 	}
-	System.out.println("fmt: \n" + fmt);
-	for (int i = 1; i < fmt.size(); i++) {
-	    String effect = ""
-		    + fmt.get(i - 1).charAt(fmt.get(i - 1).length() - 1);
-	    System.out.println("e " + effect);
-	    if (!fmt.get(i).contains(effect)) {
-		CNAList list = new CNAList();
-		list.add(fmt.get(i));
-		fmtTable.add(list);
-		fmt.remove(i);
-	    }
-	}
-	CNAList list = new CNAList();
-	list.add(fmt.get(0));
-	fmtTable.add(list);
     }
 
     /**
@@ -177,11 +162,12 @@ public class CNAlgorithm {
 	    }
 	}
 	if (necOK) {
-	    identifyMNEC(necList, bundleTable);
+	    identifyMNEC(necList, bundleTable, originalTable);
 	}
     }
 
-    private void identifyMNEC(CNAList necList, CNATable bundleTable) {
+    private void identifyMNEC(CNAList necList, CNATable bundleTable,
+	    CNATable originalTable) {
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	// Remove effect column
@@ -195,38 +181,16 @@ public class CNAlgorithm {
 	mnecTable.removeDuplicated();
 	mnecTable.negate();
 
-	framingMinimalTheory(bundleTable);
-    }
-
-    private void framingMinimalTheory(CNATable bundleTable) {
-	String datastructurestring = new String();
-	CNAList list = new CNAList();
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-
-	String coFactor = "X";
-	for (int i = 0; i < mnecNames.size(); i++) {
-	    String curMnec = mnecNames.get(i);
-	    list.add(curMnec + coFactor + "" + (i + 1));
-	}
-
-	for (int k = 0; k < list.size(); k++) {
-	    datastructurestring += list.get(k);
-	    if (k != list.size() - 1) {
-		datastructurestring += " ∨ ";
-	    }
-	}
-	datastructurestring += " => " + bundleTable.get(0).getLastElement();
-	fmt.add(datastructurestring);
+	MinimalTheorie theorie = new MinimalTheorie(mnecNames, originalTable
+		.get(0).getLastElement());
+	theories.add(theorie);
     }
 
     // Getters and Setters
 
     public CNATable getOriginalTable() {
 	return originalTable;
-    }
-
-    public CNATable getFmtTable() {
-	return fmtTable;
     }
 
     public CNATable getSufTable() {
@@ -247,6 +211,10 @@ public class CNAlgorithm {
 
     public CNAList getEffects() {
 	return effects;
+    }
+
+    public MinimalTheorieSet getMinimalTheorieSet() {
+	return theories;
     }
 
     public CNATable getDeleted() {

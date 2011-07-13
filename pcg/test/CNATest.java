@@ -48,8 +48,8 @@ public class CNATest extends UnitTest {
     }
 
     @Test
-    public void shouldTestIdentifyFMT() {
-	assertEquals("BX1 ∨ AX2 => C", cnaAlgorithm.getFmtTable().get(1));
+    public void shouldTestIdentifyMinimatTheorieSet() {
+
     }
 
     // Random Tests

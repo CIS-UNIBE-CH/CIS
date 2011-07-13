@@ -14,7 +14,6 @@ public class CNAList extends ArrayList<String> {
 	for (int i = 0; i < array.length; i++) {
 	    this.add(array[i]);
 	}
-
     }
 
     public void negate() {
@@ -50,6 +49,7 @@ public class CNAList extends ArrayList<String> {
     // Getters and Setters
 
     public String getLastElement() {
+	assert (this.size() != 0);
 	return this.get(this.size() - 1);
     }
 
