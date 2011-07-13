@@ -1,4 +1,3 @@
-import static org.junit.Assert.assertEquals;
 import helpers.BaumgartnerSampleTable;
 
 import org.junit.BeforeClass;
@@ -6,6 +5,7 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import algorithms.CNAlgorithm;
+import algorithms.NecException;
 import datastructures.CNAList;
 import datastructures.CNATable;
 import datastructures.CNATreeNode;
@@ -19,7 +19,7 @@ public class CNATreeTests extends UnitTest {
     private static CNATable originalTable;
 
     @BeforeClass
-    public static void setup() {
+    public static void setup() throws NecException {
 	originalTable = new BaumgartnerSampleTable().getSampleTable();
 	cnaAlgorithm = new CNAlgorithm(originalTable);
 	// Second Line of Suftable without Effects

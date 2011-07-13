@@ -23,8 +23,8 @@ public class MinimalTheorie {
 	for (int i = 0; i < factors.size() - 1; i++) {
 	    output += factors.get(i) + "X" + (i + 1) + " ∨ ";
 	}
-	output += factors.getLastElement() + "X" + factors.size() + " => "
-		+ effect;
+	output += factors.get(factors.size() - 1) + "X" + factors.size()
+		+ " => " + effect;
 	return output;
     }
 

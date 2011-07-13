@@ -25,7 +25,7 @@ public class CNAlgorithm {
 
     private CNATable mnecTable;
 
-    public CNAlgorithm(String[][] table, int randomLines) {
+    public CNAlgorithm(String[][] table, int randomLines) throws NecException {
 	originalTable = new CNATable(table);
 	deleted = new CNATable();
 	for (int i = 0; i < randomLines; i++) {
@@ -37,13 +37,13 @@ public class CNAlgorithm {
 
     }
 
-    public CNAlgorithm(CNATable table) {
+    public CNAlgorithm(CNATable table) throws NecException {
 	originalTable = table;
 	System.out.println("con \n" + table);
 	init();
     }
 
-    private void init() {
+    private void init() throws NecException {
 	theories = new MinimalTheorieSet();
 	identifyPE(originalTable);
     }
@@ -52,8 +52,9 @@ public class CNAlgorithm {
      * Step 0
      * 
      * @param originalTable
+     * @throws NecException
      */
-    private void identifyPE(CNATable originalTable) {
+    private void identifyPE(CNATable originalTable) throws NecException {
 	effects = new CNAList();
 	CNATable table = originalTable.clone();
 	ListComparator comparator = new ListComparator();
@@ -70,7 +71,6 @@ public class CNAlgorithm {
 	HashSet duplicate = new HashSet(indexes);
 	indexes.clear();
 	indexes.addAll(duplicate);
-	System.out.println(indexes);
 	effects = table.get(0);
 	System.out.println(effects);
 	for (int i = indexes.size() - 1; i >= 0; i--) {
@@ -92,8 +92,10 @@ public class CNAlgorithm {
      * Step 1
      * 
      * @param effects
+     * @throws NecException
      */
-    private void run(CNAList effects, CNATable originalTable) {
+    private void run(CNAList effects, CNATable originalTable)
+	    throws NecException {
 	CNATable table;
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
@@ -115,14 +117,17 @@ public class CNAlgorithm {
      * Step 2
      * 
      * @param table
+     * @throws NecException
      **/
-    private void identifySUF(CNATable originalTable) {
+    private void identifySUF(CNATable originalTable) throws NecException {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	indentifyMSUF(originalTable, sufTable);
+	System.out.println("suf");
     }
 
-    private void indentifyMSUF(CNATable originalTable, CNATable sufTable) {
+    private void indentifyMSUF(CNATable originalTable, CNATable sufTable)
+	    throws NecException {
 	MsufTree msufTree;
 	msufTable = new CNATable();
 	// i = 1 because first line holds factor names.
@@ -142,7 +147,8 @@ public class CNAlgorithm {
 	identifyNEC(msufTable, originalTable);
     }
 
-    private void identifyNEC(CNATable msufTable, CNATable originalTable) {
+    private void identifyNEC(CNATable msufTable, CNATable originalTable)
+	    throws NecException {
 	CNATable bundleTable = msufTable.summarizeBundles(msufTable,
 		originalTable);
 	necList = msufTable.getNecList();
@@ -156,7 +162,7 @@ public class CNAlgorithm {
 	    if (bundleTable.get(j).equals(necList)) {
 		necOK = false;
 		System.out.println("NEC Line check has FAILED!");
-		break;
+		throw new NecException();
 	    } else {
 		necOK = true;
 	    }

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import algorithms.CNAlgorithm;
+import algorithms.NecException;
 import datastructures.CNAList;
 import datastructures.CNATable;
 
@@ -14,7 +15,7 @@ public class CNATest extends UnitTest {
     private static CNAlgorithm cnaAlgorithm;
 
     @BeforeClass
-    public static void setup() {
+    public static void setup() throws NecException {
 
 	cnaAlgorithm = new CNAlgorithm(
 		new BaumgartnerSampleTable().getSampleTable());
