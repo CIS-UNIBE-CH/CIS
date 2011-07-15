@@ -39,7 +39,7 @@ public class CNAlgorithm {
 
     public CNAlgorithm(CNATable table) throws NecException {
 	originalTable = table;
-	System.out.println("con \n" + table);
+	//System.out.println("con \n" + table);
 	init();
     }
 
@@ -72,7 +72,7 @@ public class CNAlgorithm {
 	indexes.clear();
 	indexes.addAll(duplicate);
 	effects = table.get(0);
-	System.out.println(effects);
+	//System.out.println(effects);
 	for (int i = indexes.size() - 1; i >= 0; i--) {
 	    effects.remove(indexes.get(i));
 	}
@@ -123,7 +123,7 @@ public class CNAlgorithm {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	indentifyMSUF(originalTable, sufTable);
-	System.out.println("suf");
+	//System.out.println("suf");
     }
 
     private void indentifyMSUF(CNATable originalTable, CNATable sufTable)

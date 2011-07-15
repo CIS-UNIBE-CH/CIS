@@ -3,9 +3,9 @@ package parsers;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import datastructures.CustomGraphEdge;
+import datastructures.CustomOrderedSparseMultigraph;
 import datastructures.CustomTree;
 import datastructures.CustomTreeNode;
-import edu.uci.ics.jung.graph.OrderedSparseMultigraph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 
 /**
@@ -15,7 +15,7 @@ public class TreeToGraph {
     // Used OrderedSparseMultigraph, this order nodes after their adding time.
     // So make sure the nodes will be generated in right oder in the method
     // createsNodes()
-    private static OrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> graph;
+    private static CustomOrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> graph;
     // The tree (internal data structure)
     private CustomTree tree;
     private int depthInit;
@@ -26,7 +26,7 @@ public class TreeToGraph {
 	heigt = numberOfEffects + 1;
 	depthInit = numberOfEffects + 1;
 	this.totalFactors = numberOfFactors;
-	graph = new OrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge>();
+	graph = new CustomOrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge>();
 	this.tree = tree;
 
 	CustomTreeNode root = this.tree.getRoot();
@@ -82,7 +82,7 @@ public class TreeToGraph {
 	}
     }
 
-    public static OrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> getGraph() {
+    public static CustomOrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> getGraph() {
 	return graph;
     }
 

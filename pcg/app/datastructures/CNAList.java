@@ -20,6 +20,7 @@ public class CNAList extends ArrayList<String> {
 	}
     }
 
+    @Override
     public boolean add(String arg0) {
 	return super.add(arg0);
     }
@@ -55,7 +56,6 @@ public class CNAList extends ArrayList<String> {
     }
 
     // Getters and Setters
-
     public String getLastElement() {
 	assert (this.size() != 0);
 	return this.get(this.size() - 1);

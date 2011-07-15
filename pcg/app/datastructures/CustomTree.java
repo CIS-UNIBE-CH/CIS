@@ -105,7 +105,7 @@ public class CustomTree {
 	    else
 		bundles.put(key, child.toString());
 	}
-	System.out.println(bundles);
+	//System.out.println(bundles);
 	for (int i = 1; i <= bundles.size() + k; i++) {
 	    datastructurestring += bundles.get(i).toString() + " ∨ ";
 	}

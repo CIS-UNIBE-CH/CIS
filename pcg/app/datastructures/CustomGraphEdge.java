@@ -42,7 +42,7 @@ public class CustomGraphEdge {
 
     public int getBundleNumber() {
 	if (bundleLabel != null) {
-	    System.out.println("bundle" + Integer.parseInt(bundleLabel));
+	    //System.out.println("bundle" + Integer.parseInt(bundleLabel));
 	    return Integer.parseInt(bundleLabel);
 	} else {
 	    return 1;

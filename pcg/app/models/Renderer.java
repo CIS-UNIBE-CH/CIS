@@ -14,6 +14,7 @@ import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import parsers.TreeToGraph;
 import datastructures.CustomGraphEdge;
+import datastructures.CustomOrderedSparseMultigraph;
 import datastructures.CustomTreeNode;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
@@ -43,6 +44,7 @@ public class Renderer {
     private TreeToGraph parser;
     private boolean showLabels = true;
     private boolean nodeColorAccordingToBundle = true;
+    private CustomOrderedSparseMultigraph<CustomTreeNode, CustomGraphEdge> graph;
 
     public Renderer() {
 	now = new Date();
@@ -55,27 +57,35 @@ public class Renderer {
 
     public void config(TreeToGraph parser) {
 	this.parser = parser;
+	graph = this.parser.getGraph();
+
+	System.out.println("$$$$$$$$$$$$$$$$$");
+	System.out.println("VerticesMap: " + parser.getGraph().getVerticesMap());
+	System.out.println("EdgesMap: " + parser.getGraph().getEdgesMap());
+	System.out.println("$$$$$$$$$$$$$$$$$");
+
+	
 	
 	int totFactors = parser.getTotalFactors();
 	int height = parser.getHeigt();
-	
-	yPicSize = height * 120;
-	xPicSize = (((totFactors / height+1)+1) * 120) + 60;
 
-    	// Use a static layout so vertexes will positioned ever time at the same
-    	// place
-    	StaticLayout<CustomTreeNode, CustomGraphEdge> layout = new StaticLayout<CustomTreeNode, CustomGraphEdge>(
-    		this.parser.getGraph(), locationTransformer);
-    	layout.setSize(new Dimension(xPicSize, yPicSize));
-    
-    	// Do a reset of vertex location transformation after every graph, else
-    	// transformation WON'T work properly.
-    	locationTransformer.reset();
-    
-    	// Print out the graph in console for development only used
-    	System.out.println("*****************");
-    	System.out.println(this.parser.getGraph().toString());
-    	System.out.println("*****************");
+	yPicSize = height * 120;
+	xPicSize = (((totFactors / height + 1) + 1) * 120) + 60;
+
+	// Use a static layout so vertexes will positioned ever time at the same
+	// place
+	StaticLayout<CustomTreeNode, CustomGraphEdge> layout = new StaticLayout<CustomTreeNode, CustomGraphEdge>(
+		graph, locationTransformer);
+	layout.setSize(new Dimension(xPicSize, yPicSize));
+
+	// Do a reset of vertex location transformation after every graph, else
+	// transformation WON'T work properly.
+	locationTransformer.reset();
+
+	// Print out the graph in console for development only used
+	//System.out.println("*****************");
+	System.out.println(graph.toString());
+	//System.out.println("*****************");
 
 	// Transformer which will set shape, size, aspect ratio of vertexes
 	VertexLookTransformer<CustomTreeNode, Shape> vertexLookTransformer = new VertexLookTransformer<CustomTreeNode, Shape>();

@@ -31,7 +31,7 @@ public class CNAController extends Controller {
     public static void generateGraph(String numberOfAlterFactors,
 	    String numberOfBundles, String sizeOfBundles, String showColour,
 	    String showBundleNum, String lines) {
-	System.out.println(lines);
+	//System.out.println(lines);
 	showColourRenderer = (showColour != null);
 	showBundleNumRenderer = (showBundleNum != null);
 
@@ -53,8 +53,9 @@ public class CNAController extends Controller {
 	    String generatedGraph = generator.getTree().toString();
 	    Long time = timer.timeElapsed();
 	    table = generator.getTable();
-	    renderer.config(new TreeToGraph(generator.getTree(), 1, generator
-		    .getTotalFactors()));
+	    TreeToGraph parser = new TreeToGraph(generator.getTree(), 1, generator
+		    .getTotalFactors());
+	    renderer.config(parser);
 	    String generatedGraphPath = renderer.getImageSource();
 
 	    String elapsedTime = time.toString() + " ms";
