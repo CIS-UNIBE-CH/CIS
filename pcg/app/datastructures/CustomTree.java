@@ -11,30 +11,30 @@ import javax.swing.tree.DefaultTreeModel;
 public class CustomTree {
 
     private static DefaultTreeModel tree;
-    private static ArrayList<CustomTreeNode> childs;
+    private static ArrayList<Node> childs;
     private HashMap<Integer, String> bundles;
 
     public CustomTree() {
 	bundles = new HashMap<Integer, String>();
-	CustomTreeNode root = new CustomTreeNode("DefaultRoot");
+	Node root = new Node("DefaultRoot");
 	tree = new DefaultTreeModel(root);
-	childs = new ArrayList<CustomTreeNode>();
+	childs = new ArrayList<Node>();
     }
 
     public HashMap<Integer, String> getBundles() {
 	return bundles;
     }
 
-    public static CustomTreeNode getRoot() {
-	return (CustomTreeNode) tree.getRoot();
+    public static Node getRoot() {
+	return (Node) tree.getRoot();
     }
 
-    public static void setRoot(CustomTreeNode root) {
+    public static void setRoot(Node root) {
 	tree.setRoot(root);
     }
 
     /** Ads a child to specified root or parent node */
-    public static void addChildtoParentX(CustomTreeNode child, CustomTreeNode parent) {
+    public static void addChildtoParentX(Node child, Node parent) {
 	parent.add(child);
     }
 
@@ -43,7 +43,7 @@ public class CustomTree {
      * 
      * @return ArrayList with all childs of the root node in the tree
      */
-    public static ArrayList<CustomTreeNode> getChildren() {
+    public static ArrayList<Node> getChildren() {
 	childs.clear();
 	traverse(tree);
 	return childs;
@@ -56,9 +56,9 @@ public class CustomTree {
      *            the tree data structure
      */
     private static void traverse(DefaultTreeModel model) {
-	CustomTreeNode root;
+	Node root;
 	if (model != null) {
-	    root = (CustomTreeNode) model.getRoot();
+	    root = (Node) model.getRoot();
 	    walk(model, root);
 	} else {
 	    System.out.println("Tree is empty.");
@@ -73,11 +73,11 @@ public class CustomTree {
      * @param root
      *            the root node in the tree
      */
-    private static void walk(DefaultTreeModel model, CustomTreeNode root) {
+    private static void walk(DefaultTreeModel model, Node root) {
 	int childCount;
 	childCount = model.getChildCount(root);
 	for (int i = 0; i < childCount; i++) {
-	    CustomTreeNode child = (CustomTreeNode) model.getChild(root, i);
+	    Node child = (Node) model.getChild(root, i);
 	    if (model.isLeaf(child)) {
 		childs.add(child);
 	    } else {
@@ -93,7 +93,7 @@ public class CustomTree {
 	String datastructurestring = "";
 	bundles.clear();
 	int key, k = 0;
-	for (CustomTreeNode child : childs) {
+	for (Node child : childs) {
 	    if (child.getBundle() != null)
 		key = Integer.parseInt(child.getBundle());
 	    else {
