@@ -1,5 +1,5 @@
-Bachelor Thesis: On the Pursuit of Causal Graphs (University of Berne Switzerland)  
+Bachelor Thesis: On The Pursuit Of Causal Graphs (University of Berne Switzerland)  
   
 Jonas Ruef & Felix Langenegger    
 
-Due date: 05/08/2011
+Due date: 19/08/2011
