@@ -14,6 +14,7 @@ public class Graph<Node, Edge> extends OrderedSparseMultigraph<Node, Edge>
 	implements MultiGraph<Node, Edge> {
 
     private MinimalTheorieSet theories;
+    private Node node;
 
     // TODO Delete !!!
     public Graph() {
@@ -30,7 +31,7 @@ public class Graph<Node, Edge> extends OrderedSparseMultigraph<Node, Edge>
 	for (MinimalTheorie theorie : theories) {
 	    CNAList factors = theorie.getFactors();
 	    for (int i = 0; i < factors.size(); i++) {
-		Node node = new Node("dfdf", false);
+
 	    }
 	}
 
