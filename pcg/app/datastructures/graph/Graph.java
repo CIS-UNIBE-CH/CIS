@@ -3,41 +3,55 @@ package datastructures.graph;
 import java.util.Map;
 import java.util.Set;
 
-import datastructures.mt.MinimalTheorie;
-import datastructures.mt.MinimalTheorieSet;
 import edu.uci.ics.jung.graph.MultiGraph;
-import edu.uci.ics.jung.graph.OrderedSparseMultigraph;
-import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.graph.util.Pair;
 
-public class Graph<V, E> extends OrderedSparseMultigraph<V, E> implements
-	MultiGraph<V, E> {
+public class Graph<Node, Edge> extends SparseMultigraph<Node, Edge> implements
+	MultiGraph<Node, Edge> {
 
-    private MinimalTheorieSet theories;
-
-    public Graph(MinimalTheorieSet theories) {
+    public Graph() {
 	super();
-	this.theories = theories;
-	addMTSet();
     }
 
-    public void addMTSet() {
-	for (MinimalTheorie theorie : theories) {
-	    Node effect = new Node(theorie.getEffect(), true);
-	    for (String factor : theorie.getFactors()) {
-		Node node = new Node(factor, false);
-		addVertex((V) node);
-		addEdge((E) new Edge(node, effect), (V) node, (V) effect,
-			EdgeType.DIRECTED);
+    // @Override
+    // public boolean addVertex(Node vertex) {
+    // if (vertex == null) {
+    // throw new IllegalArgumentException("vertex may not be null");
+    // }
+    // if (!vertices.keySet().contains(vertex)) {
+    // vertices.put(vertex, new Pair<Set<Edge>>(new HashSet<Edge>(),
+    // new HashSet<Edge>()));
+    // return true;
+    // } else {
+    // return false;
+    // }
+    //
+    // }
+
+    @Override
+    public boolean containsVertex(Node vertex) {
+	for (Node n : this.getVertices()) {
+	    if (n.equals(vertex))
+		return true;
+	}
+	return false;
+    }
+
+    public Node getNode(Node node) {
+	for (Node n : this.getVertices()) {
+	    if (n.equals(node)) {
+		return n;
 	    }
 	}
+	return node;
     }
 
-    public Map<V, Pair<Set<E>>> getVerticesMap() {
+    public Map<Node, Pair<Set<Edge>>> getVerticesMap() {
 	return vertices;
     }
 
-    public Map<E, Pair<V>> getEdgesMap() {
+    public Map<Edge, Pair<Node>> getEdgesMap() {
 	return edges;
     }
 

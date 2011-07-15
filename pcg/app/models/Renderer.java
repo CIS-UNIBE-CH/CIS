@@ -40,7 +40,7 @@ public class Renderer {
     private static int yPicSize;
     // Transformer which will set node positions
 
-    private VertexLocationTransformer locationTransformer; 
+    private VertexLocationTransformer locationTransformer;
     private boolean showLabels = true;
     private boolean nodeColorAccordingToBundle = true;
     private Graph<Node, Edge> graph;
@@ -48,7 +48,7 @@ public class Renderer {
     public Renderer() {
 	now = new Date();
 	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
-	this.path = "./pcg/public/images/graphs/";
+	this.path = "../pcg/public/images/graphs/";
 	xPicSize = 0;
 	yPicSize = 0;
 	locationTransformer = new VertexLocationTransformer();
@@ -132,6 +132,7 @@ public class Renderer {
 
 	PNGDump dumper = new PNGDump();
 	try {
+	    System.out.println(generateFileName());
 	    dumper.dumpComponent(new File(generateFileName()), visServer);
 	} catch (IOException e) {
 	    System.out.println("Image couldn't be generated!");

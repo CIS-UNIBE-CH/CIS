@@ -4,6 +4,7 @@ import models.Renderer;
 import org.junit.Before;
 import org.junit.Test;
 
+import parsers.MTSetToGraph;
 import play.test.UnitTest;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
@@ -31,11 +32,8 @@ public class GraphTests extends UnitTest {
     @Test
     public void shouldAddMTSet() {
 	Renderer renderer = new Renderer();
-	System.out.println(theories);
-	graph = new Graph<Node, Edge>(theories);
-	System.out.println(graph);
-	renderer.config(graph);
-
+	MTSetToGraph mtSetToGraph = new MTSetToGraph(theories);
+	renderer.config(mtSetToGraph.getGraph());
     }
 
 }

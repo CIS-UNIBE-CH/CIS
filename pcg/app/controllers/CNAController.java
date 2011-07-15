@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import models.RandomMTSetGenerator;
 import models.Renderer;
+import parsers.MTSetToGraph;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
-import datastructures.graph.Graph;
 import datastructures.mt.MinimalTheorieSet;
 
 public class CNAController extends Controller {
@@ -45,8 +45,8 @@ public class CNAController extends Controller {
 	    generator = new RandomMTSetGenerator(numBundles, numFactors,
 		    sizeBundles);
 	    Long time = timer.timeElapsed();
-	    Graph graph = new Graph(generator.getMTSet());
-	    renderer.config(graph);
+	    MTSetToGraph mtSetToGraph = new MTSetToGraph(generator.getMTSet());
+	    renderer.config(mtSetToGraph.getGraph());
 
 	    String generatedGraphPath = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";

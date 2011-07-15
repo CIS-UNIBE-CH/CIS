@@ -3,8 +3,8 @@ package datastructures.graph;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 public class Node {
-    private String bundle;
     private String name;
+    private String bundle;
     private int level;
     private boolean effect;
 
@@ -51,4 +51,5 @@ public class Node {
     public boolean isEffect() {
 	return effect;
     }
+
 }
