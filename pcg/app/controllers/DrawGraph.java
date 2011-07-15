@@ -2,12 +2,14 @@ package controllers;
 
 import java.util.ArrayList;
 
+import datastructures.cna.CNAList;
+import datastructures.cna.CNATable;
+
+
 import models.Renderer;
 import parsers.StringToTree;
 import parsers.TreeToGraph;
 import play.mvc.Controller;
-import datastructures.CNAList;
-import datastructures.CNATable;
 
 public class DrawGraph extends Controller {
 

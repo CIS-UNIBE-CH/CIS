@@ -2,9 +2,11 @@ package datastructures;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import datastructures.cna.CNAList;
+import datastructures.cna.CNATable;
+
+
 import play.test.UnitTest;
-import datastructures.CNAList;
-import datastructures.CNATable;
 
 public class CNATableTests extends UnitTest {
     private static CNAList list;

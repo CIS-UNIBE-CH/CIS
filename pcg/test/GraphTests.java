@@ -5,12 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
-import algorithms.CNAlgorithm;
-import algorithms.NecException;
-import datastructures.Edge;
-import datastructures.Graph;
-import datastructures.MinimalTheorieSet;
-import datastructures.Node;
+import algorithms.cna.CNAlgorithm;
+import algorithms.cna.NecException;
+import datastructures.graph.Edge;
+import datastructures.graph.Graph;
+import datastructures.graph.Node;
+import datastructures.mt.MinimalTheorieSet;
 
 public class GraphTests extends UnitTest {
 

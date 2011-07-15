@@ -5,9 +5,9 @@ package models;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import datastructures.Edge;
-import datastructures.Graph;
-import datastructures.Node;
+import datastructures.graph.Edge;
+import datastructures.graph.Graph;
+import datastructures.graph.Node;
 
 /**
  * 1. Holds all the configurations for the JUNG Graph rendering. Furthermore all

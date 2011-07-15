@@ -7,7 +7,7 @@ import java.awt.Paint;
 
 import org.apache.commons.collections15.Transformer;
 
-import datastructures.Node;
+import datastructures.graph.Node;
 
 /**
  * Vertex Color according to Bundle which vertex is member of and according if

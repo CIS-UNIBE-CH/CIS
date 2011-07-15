@@ -4,8 +4,8 @@ package models;
 
 import org.apache.commons.collections15.Transformer;
 
-import datastructures.Edge;
-import datastructures.Node;
+import datastructures.graph.Edge;
+import datastructures.graph.Node;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 

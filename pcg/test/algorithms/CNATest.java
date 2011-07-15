@@ -6,11 +6,12 @@ import helpers.BaumgartnerSampleTable;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import datastructures.cna.CNAList;
+import datastructures.cna.CNATable;
+
 import play.test.UnitTest;
-import algorithms.CNAlgorithm;
-import algorithms.NecException;
-import datastructures.CNAList;
-import datastructures.CNATable;
+import algorithms.cna.CNAlgorithm;
+import algorithms.cna.NecException;
 
 public class CNATest extends UnitTest {
     private static CNAlgorithm cnaAlgorithm;

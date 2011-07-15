@@ -1,7 +1,7 @@
 package helpers;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
-import datastructures.CNATable;
+import datastructures.cna.CNATable;
 
 public class BaumgartnerSampleTable {
     private CNATable sampleTable = new CNATable();
