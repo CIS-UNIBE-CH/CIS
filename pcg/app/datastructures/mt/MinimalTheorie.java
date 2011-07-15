@@ -19,6 +19,7 @@ public class MinimalTheorie {
 
     // To String
 
+    @Override
     public String toString() {
 	assert (factors.size() != 0 && effect.length() != 0);
 	String output = new String();
@@ -33,6 +34,10 @@ public class MinimalTheorie {
     // Getters and Setters
     public CNAList getFactors() {
 	return factors;
+    }
+
+    public void addFactor(String factor) {
+	factors.add(factor);
     }
 
     public void setFactors(CNAList factors) {
