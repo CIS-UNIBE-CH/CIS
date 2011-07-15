@@ -31,7 +31,7 @@ public class Input extends Controller {
 	renderer = new Renderer();
 	// CNATable cnaTable = new CNATable(";", ",",
 	// "a,b,c;1,0,1;0,0,1;1,1,1");
-	CNATable cnaTable = new CNATable(';', ',', table);
+	CNATable cnaTable = new CNATable('\n', ',', table);
 	System.out.println(cnaTable.size());
 	if (cnaTable.size() < 3) {
 	    flash.error("Please add more lines (min. 3 lines");
