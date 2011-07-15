@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.BaumgartnerSampleTable;
 import helpers.Timer;
 
 import java.util.ArrayList;
@@ -7,6 +8,10 @@ import java.util.ArrayList;
 import models.RandomMTSetGenerator;
 import models.Renderer;
 import play.mvc.Controller;
+import algorithms.cna.CNAlgorithm;
+import algorithms.cna.NecException;
+import datastructures.graph.Graph;
+import datastructures.mt.MinimalTheorieSet;
 
 public class CNAController extends Controller {
 
@@ -40,13 +45,13 @@ public class CNAController extends Controller {
 	    generator = new RandomMTSetGenerator(numBundles, numFactors,
 		    sizeBundles);
 	    Long time = timer.timeElapsed();
-	    table = generator.getTable();
-	    TreeToGraph parser = new TreeToGraph(generator.getTree(), 1,
-		    generator.getTotalFactors());
-	    renderer.config(parser);
-	    String generatedGraphPath = renderer.getImageSource();
+	    Graph graph = new Graph(generator.getMTSet());
+	    renderer.config(graph);
 
+	    String generatedGraphPath = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";
+	    // TODO FL
+	    String generatedGraph = "TODO";
 
 	    if (numFactors <= 5) {
 		render(elapsedTime, generatedGraphPath, generatedGraph, table,
@@ -68,90 +73,86 @@ public class CNAController extends Controller {
 	timer = new Timer();
 	renderer = new Renderer();
 	int randomLines = Integer.parseInt(lines);
-	// renderer.setEdgeLabels(showBundleNumRenderer);
-	// renderer.setChangingVertexColors(showColourRenderer);
-	// try {
-	// CNAlgorithm cnaAlgorithm = new CNAlgorithm(
-	// generator.getTableAsArray(), randomLines);
-	// MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
-	// ArrayList<String> graphPaths = new ArrayList<String>();
-	// ArrayList<String> stringGraphs = new ArrayList<String>();
-	// for (MinimalTheorie theorie : theories) {
-	// CNAList list = new CNAList();
-	// list.add(theorie.toString());
-	// StringToTree stringToTree = new StringToTree(list);
-	// TreeToGraph treeToGraph = new TreeToGraph(
-	// stringToTree.getTree(), stringToTree.getNumOfEffects(),
-	// stringToTree.getTotalFactors());
-	// renderer = new Renderer();
-	// renderer.setEdgeLabels(true);
-	// renderer.setChangingVertexColors(true);
-	// renderer.config(treeToGraph);
-	// graphPaths.add(renderer.getImageSource());
-	// stringGraphs.add(stringToTree.getTree().toString());
-	// }
-	//
-	// Long time = timer.timeElapsed();
-	//
-	// String originalTable = cnaAlgorithm.getOriginalTable().toString();
-	// String elapsedTime = time.toString() + " ms";
-	// String effects = cnaAlgorithm.getEffects().toString();
-	// String sufTable = cnaAlgorithm.getSufTable().toString();
-	// String msufTable = cnaAlgorithm.getMsufTable().toString();
-	// String necList = cnaAlgorithm.getNecList().toString();
-	// String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	// String deleted = cnaAlgorithm.getDeleted().toString();
-	// String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
-	//
-	// render(elapsedTime, originalTable, graphPaths, stringGraphs,
-	// generatedGraphPath, generatedGraph, effects, sufTable,
-	// msufTable, necList, mnecTable, fmt, deleted);
-	// } catch (NecException e) {
-	// flash.error("NEC error.");
-	// params.flash();
-	// setup();
-	// }
-	// }
-	//
-	// public static void baumgartnerSample() {
-	// timer = new Timer();
-	// CNAlgorithm cnaAlgorithm;
-	// try {
-	// cnaAlgorithm = new CNAlgorithm(
-	// new BaumgartnerSampleTable().getSampleTable());
-	// MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
-	// ArrayList<String> graphPaths = new ArrayList<String>();
-	// ArrayList<String> stringGraphs = new ArrayList<String>();
-	// for (MinimalTheorie theorie : theories) {
-	// CNAList list = new CNAList();
-	// list.add(theorie.toString());
-	// StringToTree stringToTree = new StringToTree(list);
-	// TreeToGraph treeToGraph = new TreeToGraph(
-	// stringToTree.getTree(), stringToTree.getNumOfEffects(),
-	// stringToTree.getTotalFactors());
-	// renderer = new Renderer();
-	// renderer.setEdgeLabels(true);
-	// renderer.setChangingVertexColors(true);
-	// renderer.config(treeToGraph);
-	// graphPaths.add(renderer.getImageSource());
-	// stringGraphs.add(stringToTree.getTree().toString());
-	// }
-	// Long time = timer.timeElapsed();
-	// // String calculatedGraph =
-	// String elapsedTime = time.toString() + " ms";
-	// String effects = cnaAlgorithm.getEffects().toString();
-	// String sufTable = cnaAlgorithm.getSufTable().toString();
-	// String msufTable = cnaAlgorithm.getMsufTable().toString();
-	// String necList = cnaAlgorithm.getNecList().toString();
-	// String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	// render(elapsedTime, graphPaths, stringGraphs, effects, sufTable,
-	// msufTable, necList, mnecTable);
-	// } catch (NecException e) {
-	// flash.error("NEC error.");
-	// params.flash();
-	// setup();
-	// e.printStackTrace();
-	// }
-	//
+	renderer.setEdgeLabels(showBundleNumRenderer);
+	try {
+	    // TODO Make GraphToTable Parser change this
+	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
+		    randomLines);
+
+	    MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
+	    ArrayList<String> graphPaths = new ArrayList<String>();
+	    ArrayList<String> stringGraphs = new ArrayList<String>();
+
+	    // TODO Make rendering correct.
+	    renderer = new Renderer();
+	    renderer.setEdgeLabels(true);
+	    renderer.setChangingVertexColors(true);
+	    // renderer.config(treeToGraph);
+	    graphPaths.add(renderer.getImageSource());
+	    // stringGraphs.add(stringToTree.getTree().toString());
+
+	    Long time = timer.timeElapsed();
+
+	    String originalTable = cnaAlgorithm.getOriginalTable().toString();
+	    String elapsedTime = time.toString() + " ms";
+	    String effects = cnaAlgorithm.getEffects().toString();
+	    String sufTable = cnaAlgorithm.getSufTable().toString();
+	    String msufTable = cnaAlgorithm.getMsufTable().toString();
+	    String necList = cnaAlgorithm.getNecList().toString();
+	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
+	    String deleted = cnaAlgorithm.getDeleted().toString();
+	    String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
+
+	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
+		    generatedGraphPath, generatedGraph, effects, sufTable,
+		    msufTable, necList, mnecTable, fmt, deleted);
+	} catch (NecException e) {
+	    flash.error("NEC error.");
+	    params.flash();
+	    setup();
+	}
+    }
+
+    public static void baumgartnerSample() {
+	timer = new Timer();
+	CNAlgorithm cnaAlgorithm;
+	try {
+	    cnaAlgorithm = new CNAlgorithm(
+		    new BaumgartnerSampleTable().getSampleTable());
+	    MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
+	    ArrayList<String> graphPaths = new ArrayList<String>();
+	    ArrayList<String> stringGraphs = new ArrayList<String>();
+	    // TODO
+	    // for (MinimalTheorie theorie : theories) {
+	    // CNAList list = new CNAList();
+	    // list.add(theorie.toString());
+	    // StringToTree stringToTree = new StringToTree(list);
+	    // TreeToGraph treeToGraph = new TreeToGraph(
+	    // stringToTree.getTree(), stringToTree.getNumOfEffects(),
+	    // stringToTree.getTotalFactors());
+	    // renderer = new Renderer();
+	    // renderer.setEdgeLabels(true);
+	    // renderer.setChangingVertexColors(true);
+	    // renderer.config(treeToGraph);
+	    // graphPaths.add(renderer.getImageSource());
+	    // stringGraphs.add(stringToTree.getTree().toString());
+	    // }
+	    Long time = timer.timeElapsed();
+	    // String calculatedGraph =
+	    String elapsedTime = time.toString() + " ms";
+	    String effects = cnaAlgorithm.getEffects().toString();
+	    String sufTable = cnaAlgorithm.getSufTable().toString();
+	    String msufTable = cnaAlgorithm.getMsufTable().toString();
+	    String necList = cnaAlgorithm.getNecList().toString();
+	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
+	    render(elapsedTime, graphPaths, stringGraphs, effects, sufTable,
+		    msufTable, necList, mnecTable);
+	} catch (NecException e) {
+	    flash.error("NEC error.");
+	    params.flash();
+	    setup();
+	    e.printStackTrace();
+	}
+
     }
 }
