@@ -16,11 +16,6 @@ public class Graph<Node, Edge> extends OrderedSparseMultigraph<Node, Edge>
     private MinimalTheorieSet theories;
     private Node node;
 
-    // TODO Delete !!!
-    public Graph() {
-	super();
-    }
-
     public Graph(MinimalTheorieSet theories) {
 	super();
 	this.theories = theories;

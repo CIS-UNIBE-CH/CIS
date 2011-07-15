@@ -14,7 +14,7 @@ import datastructures.graph.Node;
  * ist noch nicht abgedeckt. (Siehe Kommentar Zeile: 90)
  * 
  */
-public class RandomGraphGenerator {
+public class RandomMTSetGenerator {
     private int numberOfBundles;
     private int numberOfFactors;
     private int factorsInBundle;
