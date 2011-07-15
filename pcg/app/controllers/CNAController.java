@@ -12,7 +12,6 @@ public class CNAController extends Controller {
     private static Renderer renderer;
     // private static RandomGraphGenerator generator;
     private static Timer timer;
-    private static boolean showColourRenderer;
     private static boolean showBundleNumRenderer;
 
     public static void setup() {
@@ -20,10 +19,9 @@ public class CNAController extends Controller {
     }
 
     public static void generateGraph(String numberOfAlterFactors,
-	    String numberOfBundles, String sizeOfBundles, String showColour,
+	    String numberOfBundles, String sizeOfBundles,
 	    String showBundleNum, String lines) {
-	// System.out.println(lines);
-	showColourRenderer = (showColour != null);
+	
 	showBundleNumRenderer = (showBundleNum != null);
 
 	// Generate a Graph with n bundles and a total of k factors
@@ -34,8 +32,7 @@ public class CNAController extends Controller {
 	renderer = new Renderer();
 	ArrayList<String> table = new ArrayList<String>();
 
-	// renderer.setEdgeLabels(showBundleNumRenderer);
-	// renderer.setChangingVertexColors(showColourRenderer);
+	renderer.setEdgeLabels(showBundleNumRenderer);
 
 	// if (numFactors >= (2 * numBundles) && numFactors <= 12) {
 	// timer = new Timer();
