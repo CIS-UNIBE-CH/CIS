@@ -4,13 +4,14 @@ import helpers.Timer;
 
 import java.util.ArrayList;
 
+import models.RandomMTSetGenerator;
 import models.Renderer;
 import play.mvc.Controller;
 
 public class CNAController extends Controller {
 
     private static Renderer renderer;
-    // private static RandomGraphGenerator generator;
+    private static RandomMTSetGenerator generator;
     private static Timer timer;
     private static boolean showBundleNumRenderer;
 
@@ -19,9 +20,9 @@ public class CNAController extends Controller {
     }
 
     public static void generateGraph(String numberOfAlterFactors,
-	    String numberOfBundles, String sizeOfBundles,
-	    String showBundleNum, String lines) {
-	
+	    String numberOfBundles, String sizeOfBundles, String showBundleNum,
+	    String lines) {
+
 	showBundleNumRenderer = (showBundleNum != null);
 
 	// Generate a Graph with n bundles and a total of k factors
@@ -34,33 +35,33 @@ public class CNAController extends Controller {
 
 	renderer.setEdgeLabels(showBundleNumRenderer);
 
-	// if (numFactors >= (2 * numBundles) && numFactors <= 12) {
-	// timer = new Timer();
-	// generator = new RandomGraphGenerator(numBundles, numFactors,
-	// sizeBundles);
-	// String generatedGraph = generator.getTree().toString();
-	// Long time = timer.timeElapsed();
-	// table = generator.getTable();
-	// TreeToGraph parser = new TreeToGraph(generator.getTree(), 1,
-	// generator.getTotalFactors());
-	// renderer.config(parser);
-	// String generatedGraphPath = renderer.getImageSource();
-	//
-	// String elapsedTime = time.toString() + " ms";
-	//
-	// if (numFactors <= 5) {
-	// render(elapsedTime, generatedGraphPath, generatedGraph, table,
-	// lines);
-	//
-	// } else {
-	// render(elapsedTime, generatedGraphPath, generatedGraph, lines);
-	// }
-	//
-	// } else {
-	// flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
-	// params.flash();
-	// setup();
-	// }
+	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
+	    timer = new Timer();
+	    generator = new RandomMTSetGenerator(numBundles, numFactors,
+		    sizeBundles);
+	    String generatedGraph = generator.getTree().toString();
+	    Long time = timer.timeElapsed();
+	    table = generator.getTable();
+	    TreeToGraph parser = new TreeToGraph(generator.getTree(), 1,
+		    generator.getTotalFactors());
+	    renderer.config(parser);
+	    String generatedGraphPath = renderer.getImageSource();
+
+	    String elapsedTime = time.toString() + " ms";
+
+	    if (numFactors <= 5) {
+		render(elapsedTime, generatedGraphPath, generatedGraph, table,
+			lines);
+
+	    } else {
+		render(elapsedTime, generatedGraphPath, generatedGraph, lines);
+	    }
+
+	} else {
+	    flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
+	    params.flash();
+	    setup();
+	}
     }
 
     public static void calcCNAGraph(String generatedGraphPath,
