@@ -1,14 +1,9 @@
 package controllers;
 
-import models.Renderer;
-import parsers.TreeToGraph;
 import play.mvc.Controller;
-import algorithms.QuadroTest;
-import datastructures.CustomTree;
 
 public class SimpleQuadroController extends Controller {
 
-    private static CustomTree tree = null;
     private static boolean showColourRenderer;
     private static boolean showBundleNumRenderer;
 
@@ -51,22 +46,22 @@ public class SimpleQuadroController extends Controller {
 	field[1][0] = numbers[2];
 	field[1][1] = numbers[3];
 
-	QuadroTest quadroTest = new QuadroTest(field, f1, f2);
-	tree = quadroTest.creatGraph();
-
-	if (tree == null) {
-	    flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
-	    params.flash();
-	    render();
-	}
-	Renderer renderer = new Renderer();
-	renderer.setEdgeLabels(showBundleNumRenderer);
-	renderer.setChangingVertexColors(showColourRenderer);
-
-	renderer.config(new TreeToGraph(tree, 1, 3));
-
-	String graphPath = renderer.getImageSource();
-	String stringGraph = tree.toString();
-	render(graphPath, stringGraph);
+	// QuadroTest quadroTest = new QuadroTest(field, f1, f2);
+	// tree = quadroTest.creatGraph();
+	//
+	// if (tree == null) {
+	// flash.error("Sorry it was not posible to calculate a graph with your data. For more information (click here)");
+	// params.flash();
+	// render();
+	// }
+	// Renderer renderer = new Renderer();
+	// renderer.setEdgeLabels(showBundleNumRenderer);
+	// renderer.setChangingVertexColors(showColourRenderer);
+	//
+	// renderer.config(new TreeToGraph(tree, 1, 3));
+	//
+	// String graphPath = renderer.getImageSource();
+	// String stringGraph = tree.toString();
+	// render(graphPath, stringGraph);
     }
 }

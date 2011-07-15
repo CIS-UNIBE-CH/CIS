@@ -1,4 +1,3 @@
-
 import helpers.BaumgartnerSampleTable;
 
 import org.junit.Before;
@@ -30,6 +29,7 @@ public class GraphTests extends UnitTest {
 
     @Test
     public void shouldAddMTSet() {
+	System.out.println(theories);
 	graph = new Graph<Node, Edge>(theories);
 	System.out.println(graph);
     }
