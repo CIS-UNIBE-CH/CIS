@@ -39,7 +39,6 @@ public class CNAController extends Controller {
 	    timer = new Timer();
 	    generator = new RandomMTSetGenerator(numBundles, numFactors,
 		    sizeBundles);
-	    String generatedGraph = generator.getTree().toString();
 	    Long time = timer.timeElapsed();
 	    table = generator.getTable();
 	    TreeToGraph parser = new TreeToGraph(generator.getTree(), 1,
