@@ -2,10 +2,11 @@ package datastructures;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
 import play.test.UnitTest;
-import datastructures.CNAList;
-import datastructures.MinimalTheorie;
-import datastructures.MinimalTheorieSet;
+import datastructures.cna.CNAList;
+import datastructures.mt.MinimalTheorie;
+import datastructures.mt.MinimalTheorieSet;
 
 public class MinimalTheorieSetTests extends UnitTest {
 

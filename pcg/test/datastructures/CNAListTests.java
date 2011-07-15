@@ -2,8 +2,10 @@ package datastructures;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import datastructures.cna.CNAList;
+
+
 import play.test.UnitTest;
-import datastructures.CNAList;
 
 public class CNAListTests extends UnitTest {
 

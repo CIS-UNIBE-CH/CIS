@@ -9,12 +9,12 @@ import models.Renderer;
 import parsers.StringToTree;
 import parsers.TreeToGraph;
 import play.mvc.Controller;
-import algorithms.CNAlgorithm;
-import algorithms.NecException;
-import datastructures.CNAList;
-import datastructures.CNATable;
-import datastructures.MinimalTheorie;
-import datastructures.MinimalTheorieSet;
+import algorithms.cna.CNAlgorithm;
+import algorithms.cna.NecException;
+import datastructures.cna.CNAList;
+import datastructures.cna.CNATable;
+import datastructures.mt.MinimalTheorie;
+import datastructures.mt.MinimalTheorieSet;
 
 public class Input extends Controller {
 

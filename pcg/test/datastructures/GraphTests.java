@@ -5,9 +5,14 @@ import helpers.BaumgartnerSampleTable;
 import org.junit.Before;
 import org.junit.Test;
 
+import datastructures.graph.Edge;
+import datastructures.graph.Graph;
+import datastructures.graph.Node;
+import datastructures.mt.MinimalTheorieSet;
+
 import play.test.UnitTest;
-import algorithms.CNAlgorithm;
-import algorithms.NecException;
+import algorithms.cna.CNAlgorithm;
+import algorithms.cna.NecException;
 
 public class GraphTests extends UnitTest {
 

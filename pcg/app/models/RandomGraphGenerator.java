@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 import parsers.TreeToTable;
-import datastructures.Node;
+import datastructures.graph.Node;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
