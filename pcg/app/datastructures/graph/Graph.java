@@ -31,20 +31,23 @@ public class Graph<Node, Edge> extends SparseMultigraph<Node, Edge> implements
 
     @Override
     public boolean containsVertex(Node vertex) {
-	for (Node n : this.getVertices()) {
-	    if (n.equals(vertex))
-		return true;
+	String test = this.getVerticesMap().keySet().toString();
+	if(test.contains(vertex.toString())){
+	    return true;
+	}else{
+	    return false;
 	}
-	return false;
     }
 
     public Node getNode(Node node) {
-	for (Node n : this.getVertices()) {
-	    if (n.equals(node)) {
-		return n;
+	Object[] array = this.getVerticesMap().keySet().toArray();
+	for(int i = 0; i < array.length; i++){
+	    if(array[i].toString().equals(node.toString())){
+		return (Node) array[i];
 	    }
 	}
-	return node;
+	return null;
+	
     }
 
     public Map<Node, Pair<Set<Edge>>> getVerticesMap() {
