@@ -1,8 +1,5 @@
 package datastructures.graph;
 
-import java.util.ArrayList;
-
-
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 /**
@@ -12,12 +9,12 @@ import java.util.ArrayList;
 public class Edge {
 
     private String bundleLabel;
-    private ArrayList<Node> nodes;
+    private Node source;
+    private Node destination;
 
     public Edge(Node source, Node destination) {
-	nodes = new ArrayList<Node>();
-	nodes.add(source);
-	nodes.add(destination);
+	this.source = source;
+	this.destination = destination;
     }
 
     // TODO JR (new Node)
@@ -50,6 +47,19 @@ public class Edge {
 	} else {
 	    return 1;
 	}
+    }
+
+    public boolean equals(Edge edge) {
+	return (destination.equals(edge.getDestination()) && source.equals(edge
+		.getSource()));
+    }
+
+    public Node getSource() {
+	return source;
+    }
+
+    public Node getDestination() {
+	return destination;
     }
 
     @Override

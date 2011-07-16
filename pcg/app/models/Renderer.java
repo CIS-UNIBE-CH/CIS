@@ -5,15 +5,18 @@ package models;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections15.TransformerUtils;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import datastructures.graph.Edge;
-import datastructures.graph.Graph;
+import datastructures.graph.Matrix;
 import datastructures.graph.Node;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
@@ -43,7 +46,6 @@ public class Renderer {
     private VertexLocationTransformer locationTransformer;
     private boolean showLabels = true;
     private boolean nodeColorAccordingToBundle = true;
-    private Graph<Node, Edge> graph;
 
     public Renderer() {
 	now = new Date();
@@ -54,16 +56,18 @@ public class Renderer {
 	locationTransformer = new VertexLocationTransformer();
     }
 
-    public void config(Graph graph) {
-	this.graph = graph;
+    public void config(Matrix matrix) {
 
 	yPicSize = 800;
 	xPicSize = 800;
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
-	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(graph,
-		locationTransformer);
+	Transformer<Node, Point2D> vertexLocations = TransformerUtils
+		.mapTransformer(matrix.getGraph());
+
+	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(matrix,
+		vertexLocations);
 	layout.setSize(new Dimension(xPicSize, yPicSize));
 
 	// Do a reset of vertex location transformation after every graph, else
@@ -72,7 +76,7 @@ public class Renderer {
 
 	// Print out the graph in console for development only used
 	// System.out.println("*****************");
-	System.out.println(graph.toString());
+	System.out.println(matrix.toString());
 	// System.out.println("*****************");
 
 	// Transformer which will set shape, size, aspect ratio of vertexes

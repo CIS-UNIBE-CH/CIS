@@ -46,7 +46,7 @@ public class CNAController extends Controller {
 		    sizeBundles);
 	    Long time = timer.timeElapsed();
 	    MTSetToGraph mtSetToGraph = new MTSetToGraph(generator.getMTSet());
-	    renderer.config(mtSetToGraph.getGraph());
+	    // renderer.config(mtSetToGraph.getGraph());
 
 	    String generatedGraphPath = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";

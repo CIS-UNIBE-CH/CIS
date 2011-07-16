@@ -55,10 +55,27 @@ public class CNAList extends ArrayList<String> {
 	return super.remove(i);
     }
 
+    // toString
+    public String toString() {
+	String str = new String();
+	for (String string : this) {
+	    str += string + " ";
+	}
+	return str;
+    }
+
     // Getters and Setters
     public String getLastElement() {
 	assert (this.size() != 0);
 	return this.get(this.size() - 1);
+    }
+
+    public int getIndex(String string) {
+	for (int i = 0; i < this.size(); i++) {
+	    if (string.equals(this.get(i)))
+		return i;
+	}
+	return -1;
     }
 
 }

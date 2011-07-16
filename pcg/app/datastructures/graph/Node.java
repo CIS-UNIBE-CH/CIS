@@ -24,6 +24,10 @@ public class Node {
 	}
     }
 
+    public boolean equals(Node node) {
+	return (name.equals(node.toString()) && effect == node.isEffect());
+    }
+
     // ToString
 
     public String toString() {
