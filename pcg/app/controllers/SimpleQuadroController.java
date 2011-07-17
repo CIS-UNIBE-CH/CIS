@@ -11,16 +11,14 @@ public class SimpleQuadroController extends Controller {
 	render();
     }
 
-    public static void setTable(String f1, String f2, String showColour,
+    public static void setTable(String f1, String f2,
 	    String showBundleNum) {
-//	showColourRenderer = (showColour != null);
 //	showBundleNumRenderer = (showBundleNum != null);
 //	render(f1, f2);
     }
 
     public static void calcQuadroGraph(String f1, String f2, String i,
-	    String ii, String l, String ll, String showBundleNum,
-	    String showColour) {
+	    String ii, String l, String ll, String showBundleNum) {
 
 //	int[][] field = new int[2][2];
 //	int[] numbers = new int[4];
@@ -56,7 +54,6 @@ public class SimpleQuadroController extends Controller {
 //	}
 //	Renderer renderer = new Renderer();
 //	renderer.setEdgeLabels(showBundleNumRenderer);
-//	renderer.setChangingVertexColors(showColourRenderer);
 //
 //	renderer.config(new TreeToGraph(tree, 1, 3));
 //

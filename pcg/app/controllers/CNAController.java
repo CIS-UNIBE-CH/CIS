@@ -86,7 +86,6 @@ public class CNAController extends Controller {
 	    // TODO Make rendering correct.
 	    renderer = new Renderer();
 	    renderer.setEdgeLabels(true);
-	    renderer.setChangingVertexColors(true);
 	    // renderer.config(treeToGraph);
 	    graphPaths.add(renderer.getImageSource());
 	    // stringGraphs.add(stringToTree.getTree().toString());

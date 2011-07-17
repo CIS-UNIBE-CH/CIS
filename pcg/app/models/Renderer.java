@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.collections15.functors.ConstantTransformer;
-
 import datastructures.graph.Edge;
 import datastructures.graph.Graph;
 import datastructures.graph.Node;
@@ -40,9 +38,8 @@ public class Renderer {
     private static int yPicSize;
     // Transformer which will set node positions
 
-    private VertexLocationTransformer locationTransformer; 
+    private VertexLocationTransformer locationTransformer;
     private boolean showLabels = true;
-    private boolean nodeColorAccordingToBundle = true;
     private Graph<Node, Edge> graph;
 
     public Renderer() {
@@ -113,14 +110,8 @@ public class Renderer {
 	visServer.getRenderContext().setVertexShapeTransformer(
 		vertexLookTransformer);
 	// Set vertex color
-	if (nodeColorAccordingToBundle) {
-	    visServer.getRenderContext().setVertexFillPaintTransformer(
-		    new VertexColorTransformer());
-	} else {
-	    Color vertexColor = new Color(255, 153, 0);
-	    visServer.getRenderContext().setVertexFillPaintTransformer(
-		    new ConstantTransformer(vertexColor));
-	}
+	visServer.getRenderContext().setVertexFillPaintTransformer(
+		new VertexColorTransformer());
 
 	// Set background color
 	Color backgroundColor = new Color(255, 255, 255);
@@ -154,9 +145,5 @@ public class Renderer {
 
     public void setEdgeLabels(boolean edgeLabels) {
 	this.showLabels = edgeLabels;
-    }
-
-    public void setChangingVertexColors(boolean changingVertexColors) {
-	this.nodeColorAccordingToBundle = changingVertexColors;
     }
 }

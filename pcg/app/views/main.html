@@ -4,29 +4,28 @@
         <title>#{get 'title' /}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         #{stylesheet 'main.css' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.6.2.min.js'}" type="text/javascript" charset="utf-8"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
        	<div class="main">
        		<div class="header">
-       			<a href="/"><h1>On The Pursuit Of Causal Graphs </h1></a>
+       			<a href="/"><h1>Causal Inference Simulator</h1></a>
        			Jonas Ruef and Felix Langenegger
        		</div><!-- end header -->
       		<div class="navigation">
-			<a href="/">home</a> | 
-			<a href="@{SimpleQuadroController.setup()}">simple quadro test</a> | 
-			<a href="@{CNAController.setup()}">CNA Test</a> |
+			<a href="/">Home</a> | 
+			<a href="@{CNAController.setup()}">CNA Analysis</a> |
+			<a href="@{SimpleQuadroController.setup()}">Difference Test</a> | 
 			<a href="@{Input.setup()}">Input Table</a> | 
 			<a href="@{drawGraph.setup()}">Draw Graph</a> |   
-			<a href="@{Application.contact()}">contact</a> 
+			<a href="@{Application.contact()}">Contact</a> 
        		</div><!-- end navigation -->
        		<div class="content">
        		#{doLayout /}
        		</div><!-- end content -->
        		<div class="footer">
-       		last changed in 2011 | <a href="@{Application.disclaimer()}">Disclaimer</a>
+       		Last changed: 17/07/2011
        		</div><!-- end footer -->
        	</div><!--  end main -->
 
