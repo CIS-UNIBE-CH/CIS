@@ -11,8 +11,8 @@ public class MinimalTheorySet extends ArrayList<MinimalTheory> {
     }
 
     @Override
-    public boolean add(MinimalTheory theorie) {
-	return theories.add(theorie);
+    public boolean add(MinimalTheory theory) {
+	return theories.add(theory);
     }
 
     @Override
@@ -21,15 +21,13 @@ public class MinimalTheorySet extends ArrayList<MinimalTheory> {
     }
 
     @Override
-    public MinimalTheory remove(int arg0) {
-	return theories.remove(arg0);
+    public MinimalTheory remove(int index) {
+	return theories.remove(index);
     }
 
     // Getters and Setters
-
     @Override
-    public MinimalTheory get(int arg0) {
-	return theories.get(arg0);
+    public MinimalTheory get(int index) {
+	return theories.get(index);
     }
-
 }

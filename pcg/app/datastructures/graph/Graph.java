@@ -24,7 +24,7 @@ public class Graph<Node, Edge> extends OrderedSparseMultigraph<Node, Edge>
 
     public void addMTSet() {
 	for (MinimalTheory theorie : theories) {
-	    CNAList factors = theorie.getFactors();
+	    CNAList factors = theorie.getBundles();
 	    for (int i = 0; i < factors.size(); i++) {
 
 	    }

@@ -14,6 +14,8 @@ public class RandomMTSetGenerator {
     private CNATable curNames;
     private ArrayList<ArrayList<Object>> allInformation;
     private MinimalTheorySet set;
+    private String epi = "";
+    private int counter = 0;
 
     public RandomMTSetGenerator(ArrayList<ArrayList<Object>> allInformation) {
 	this.allInformation = allInformation;
@@ -50,7 +52,6 @@ public class RandomMTSetGenerator {
 	    addBundles(allInformation.get(i), theorie);
 	    addAlterFactors(theorie, allInformation.get(i), prevEffect);
 	    prevEffect = addEffect(curNames, theorie);
-	    System.out.println("One Theorie: " + theorie);
 	}
     }
 
@@ -58,16 +59,68 @@ public class RandomMTSetGenerator {
 	ArrayList<Integer> bundleSizes = (ArrayList<Integer>) information
 		.get(0);
 	CNATable names = curNames.clone();
-
+	String bundle = "";
+	System.out.println("Siez: " + names.size());
+	names = removeEpi(names);
+	System.out.println("Size2: " + names.size());
 	for (Integer number : bundleSizes) {
-	    String bundle = "";
+	    bundle = "";
 	    for (int i = 0; i < number; i++) {
 		int random = random(names.size());
 		int randomSec = randomSecond();
 		bundle += (names.get(random).get(randomSec));
 		names.remove(random);
 	    }
-	    theorie.addFactor(bundle);
+	    theorie.addBundle(bundle);
+	}
+	if (counter == 1) {
+	    theorie = swapFirstWithEpi(theorie);
+	    counter++;
+	}
+	if ((Boolean) information.get(2) && counter == 0) {
+	    detectEpi(bundle);
+	    counter++;
+	}
+	if (counter == 2) {
+	    counter = 0;
+	}
+    }
+
+    private void detectEpi(String bundle) {
+	if (bundle.charAt(bundle.length() - 2) == '¬') {
+	    epi = "" + bundle.charAt(bundle.length() - 2)
+		    + bundle.charAt(bundle.length() - 1);
+	} else {
+	    epi = "" + bundle.charAt(bundle.length() - 1);
+	}
+    }
+
+    private MinimalTheory swapFirstWithEpi(MinimalTheory theorie) {
+	if (theorie.getBundles().get(0).charAt(0) == '¬') {
+	    String cur = theorie.getBundles().get(0);
+	    cur = cur.substring(2);
+	    cur = epi + cur;
+	    theorie.getBundles().set(0, cur);
+	} else {
+	    String cur = theorie.getBundles().get(0);
+	    cur = cur.substring(1);
+	    cur = epi + cur;
+	    theorie.getBundles().set(0, cur);
+	}
+	return theorie;
+    }
+
+    private CNATable removeEpi(CNATable names) {
+	if (!epi.equals("")) {
+	    for (int i = names.size()-1; i >= 0; i--) {
+		if (names.get(i).get(0).equals(epi)
+			|| names.get(i).get(1).equals(epi)) {
+		    names.remove(i);
+		}
+	    }
+	    return names;
+	} else {
+	    return names;
 	}
     }
 
@@ -77,13 +130,13 @@ public class RandomMTSetGenerator {
 	int noOfAlterFactors = (Integer) information.get(1);
 
 	if (!prevEffect.equals("")) {
-	    theorie.addFactor(prevEffect);
+	    theorie.addBundle(prevEffect);
 	    noOfAlterFactors--;
 	}
 	for (int i = 0; i < noOfAlterFactors; i++) {
 	    int random = random(names.size());
 	    int randomSec = randomSecond();
-	    theorie.addFactor(names.get(random).get(randomSec));
+	    theorie.addBundle(names.get(random).get(randomSec));
 	    names.remove(random);
 	}
     }
@@ -102,7 +155,7 @@ public class RandomMTSetGenerator {
 	return (int) (Math.random() * (size - 1));
     }
 
-    // Set to 1.4 we want more positive than negative effects.
+    // Set to 1.4 because we want more positive than negative effects.
     public int randomSecond() {
 	return ((int) (Math.random() * 1.4));
     }
@@ -111,8 +164,7 @@ public class RandomMTSetGenerator {
 	return namesOriginal;
     }
 
-    public MinimalTheorySet getSet() {
+    public MinimalTheorySet getMTSet() {
 	return set;
     }
-
 }

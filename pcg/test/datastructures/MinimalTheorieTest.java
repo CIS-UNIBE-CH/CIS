@@ -21,7 +21,7 @@ public class MinimalTheorieTest extends UnitTest {
 
     @Test
     public void shouldTestToString() {
-	assert (theorie.getFactors().size() != 0);
+	assert (theorie.getBundles().size() != 0);
 	String minTheorie = "ABX1 ∨ CX2 ∨ DEX3 => W";
 	assertEquals(minTheorie, theorie.toString());
     }
@@ -34,8 +34,8 @@ public class MinimalTheorieTest extends UnitTest {
 
     @Test
     public void shouldGetFactors() {
-	assert (theorie.getFactors().size() != 0);
-	assertEquals(factors, theorie.getFactors());
+	assert (theorie.getBundles().size() != 0);
+	assertEquals(factors, theorie.getBundles());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class MinimalTheorieTest extends UnitTest {
     @Test
     public void shouldSetFactors() {
 	CNAList list = new CNAList(',', "A,D,L");
-	theorie.setFactors(list);
-	assertEquals(list, theorie.getFactors());
+	theorie.setBundles(list);
+	assertEquals(list, theorie.getBundles());
     }
 }

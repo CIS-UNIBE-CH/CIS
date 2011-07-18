@@ -4,44 +4,43 @@ import datastructures.cna.CNAList;
 
 public class MinimalTheory {
 
-    private CNAList factors;
+    private CNAList bundles;
     private String effect;
 
     public MinimalTheory() {
-	factors = new CNAList();
+	bundles = new CNAList();
 	effect = new String();
     }
 
     public MinimalTheory(CNAList factors, String effect) {
-	this.factors = factors;
+	this.bundles = factors;
 	this.effect = effect;
     }
 
     // To String
-
     @Override
     public String toString() {
-	assert (factors.size() != 0 && effect.length() != 0);
+	assert (bundles.size() != 0 && effect.length() != 0);
 	String output = new String();
-	for (int i = 0; i < factors.size() - 1; i++) {
-	    output += factors.get(i) + "X" + (i + 1) + " ∨ ";
+	for (int i = 0; i < bundles.size() - 1; i++) {
+	    output += bundles.get(i) + "X" + (i + 1) + " ∨ ";
 	}
-	output += factors.get(factors.size() - 1) + "X" + factors.size()
+	output += bundles.get(bundles.size() - 1) + "X" + bundles.size()
 		+ " => " + effect;
 	return output;
     }
 
     // Getters and Setters
-    public CNAList getFactors() {
-	return factors;
+    public CNAList getBundles() {
+	return bundles;
     }
 
-    public void addFactor(String factor) {
-	factors.add(factor);
+    public void addBundle(String bundle) {
+	bundles.add(bundle);
     }
 
-    public void setFactors(CNAList factors) {
-	this.factors = factors;
+    public void setBundles(CNAList bundles) {
+	this.bundles = bundles;
     }
 
     public String getEffect() {
