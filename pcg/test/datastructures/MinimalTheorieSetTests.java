@@ -5,22 +5,22 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import datastructures.cna.CNAList;
-import datastructures.mt.MinimalTheorie;
-import datastructures.mt.MinimalTheorieSet;
+import datastructures.mt.MinimalTheory;
+import datastructures.mt.MinimalTheorySet;
 
 public class MinimalTheorieSetTests extends UnitTest {
 
-    static MinimalTheorieSet theories;
-    static MinimalTheorie theorie;
+    static MinimalTheorySet theories;
+    static MinimalTheory theorie;
     static CNAList factors;
     static String effect;
 
     @BeforeClass
     public static void setup() {
-	theories = new MinimalTheorieSet();
+	theories = new MinimalTheorySet();
 	factors = new CNAList(',', "A,B,C,DE");
 	effect = "W";
-	theorie = new MinimalTheorie(factors, effect);
+	theorie = new MinimalTheory(factors, effect);
 
     }
 
@@ -33,7 +33,7 @@ public class MinimalTheorieSetTests extends UnitTest {
 
 	CNAList newfactors = new CNAList(',', "W,F,H");
 	String newEffect = "R";
-	MinimalTheorie newTheorie = new MinimalTheorie(newfactors, newEffect);
+	MinimalTheory newTheorie = new MinimalTheory(newfactors, newEffect);
 	theories.add(newTheorie);
 	assertEquals(2, theories.size());
 	assertEquals(newTheorie, theories.get(1));
@@ -53,7 +53,7 @@ public class MinimalTheorieSetTests extends UnitTest {
     public void shouldGetSingles() {
 	CNAList newfactors = new CNAList(',', "W,F,H");
 	String newEffect = "R";
-	MinimalTheorie newTheorie = new MinimalTheorie(newfactors, newEffect);
+	MinimalTheory newTheorie = new MinimalTheory(newfactors, newEffect);
 	theories.add(newTheorie);
 	assertEquals(2, theories.size());
     }

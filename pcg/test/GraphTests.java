@@ -10,12 +10,12 @@ import algorithms.cna.NecException;
 import datastructures.graph.Edge;
 import datastructures.graph.Graph;
 import datastructures.graph.Node;
-import datastructures.mt.MinimalTheorieSet;
+import datastructures.mt.MinimalTheorySet;
 
 public class GraphTests extends UnitTest {
 
     private Graph<Node, Edge> graph;
-    private MinimalTheorieSet theories;
+    private MinimalTheorySet theories;
 
     @Before
     public void setup() {

@@ -5,10 +5,10 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import datastructures.cna.CNAList;
-import datastructures.mt.MinimalTheorie;
+import datastructures.mt.MinimalTheory;
 
 public class MinimalTheorieTest extends UnitTest {
-    static MinimalTheorie theorie;
+    static MinimalTheory theorie;
     static CNAList factors;
     static String effect;
 
@@ -16,7 +16,7 @@ public class MinimalTheorieTest extends UnitTest {
     public void setup() {
 	factors = new CNAList(',', "AB,C,DE");
 	effect = "W";
-	theorie = new MinimalTheorie(factors, effect);
+	theorie = new MinimalTheory(factors, effect);
     }
 
     @Test

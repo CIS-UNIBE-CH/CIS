@@ -10,8 +10,7 @@ import models.Renderer;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
-import datastructures.graph.Graph;
-import datastructures.mt.MinimalTheorieSet;
+import datastructures.mt.MinimalTheorySet;
 
 public class CNAController extends Controller {
 
@@ -42,11 +41,10 @@ public class CNAController extends Controller {
 
 	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
 	    timer = new Timer();
-	    generator = new RandomMTSetGenerator(numBundles, numFactors,
-		    sizeBundles);
+	    generator = new RandomMTSetGenerator();
 	    Long time = timer.timeElapsed();
-	    Graph graph = new Graph(generator.getMTSet());
-	    renderer.config(graph);
+//	    Graph graph = new Graph(generator.getMTSet());
+//	    renderer.config(graph);
 
 	    String generatedGraphPath = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";
@@ -74,12 +72,12 @@ public class CNAController extends Controller {
 	renderer = new Renderer();
 	int randomLines = Integer.parseInt(lines);
 	renderer.setEdgeLabels(showBundleNumRenderer);
-	try {
+//	try {
 	    // TODO Make GraphToTable Parser change this
-	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
-		    randomLines);
+//	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
+//		    randomLines);
 
-	    MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
+//	    MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
 	    ArrayList<String> graphPaths = new ArrayList<String>();
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
 
@@ -90,26 +88,26 @@ public class CNAController extends Controller {
 	    graphPaths.add(renderer.getImageSource());
 	    // stringGraphs.add(stringToTree.getTree().toString());
 
-	    Long time = timer.timeElapsed();
+//	    Long time = timer.timeElapsed();
 
-	    String originalTable = cnaAlgorithm.getOriginalTable().toString();
-	    String elapsedTime = time.toString() + " ms";
-	    String effects = cnaAlgorithm.getEffects().toString();
-	    String sufTable = cnaAlgorithm.getSufTable().toString();
-	    String msufTable = cnaAlgorithm.getMsufTable().toString();
-	    String necList = cnaAlgorithm.getNecList().toString();
-	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	    String deleted = cnaAlgorithm.getDeleted().toString();
-	    String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
+//	    String originalTable = cnaAlgorithm.getOriginalTable().toString();
+//	    String elapsedTime = time.toString() + " ms";
+//	    String effects = cnaAlgorithm.getEffects().toString();
+//	    String sufTable = cnaAlgorithm.getSufTable().toString();
+//	    String msufTable = cnaAlgorithm.getMsufTable().toString();
+//	    String necList = cnaAlgorithm.getNecList().toString();
+//	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
+//	    String deleted = cnaAlgorithm.getDeleted().toString();
+//	    String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
 
-	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
-		    generatedGraphPath, generatedGraph, effects, sufTable,
-		    msufTable, necList, mnecTable, fmt, deleted);
-	} catch (NecException e) {
-	    flash.error("NEC error.");
-	    params.flash();
-	    setup();
-	}
+//	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
+//		    generatedGraphPath, generatedGraph, effects, sufTable,
+//		    msufTable, necList, mnecTable, fmt, deleted);
+//	} catch (NecException e) {
+//	    flash.error("NEC error.");
+//	    params.flash();
+//	    setup();
+//	}
     }
 
     public static void baumgartnerSample() {
@@ -118,7 +116,7 @@ public class CNAController extends Controller {
 	try {
 	    cnaAlgorithm = new CNAlgorithm(
 		    new BaumgartnerSampleTable().getSampleTable());
-	    MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
+	    MinimalTheorySet theories = cnaAlgorithm.getMinimalTheorieSet();
 	    ArrayList<String> graphPaths = new ArrayList<String>();
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
 	    // TODO

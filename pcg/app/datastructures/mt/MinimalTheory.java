@@ -2,17 +2,17 @@ package datastructures.mt;
 
 import datastructures.cna.CNAList;
 
-public class MinimalTheorie {
+public class MinimalTheory {
 
     private CNAList factors;
     private String effect;
 
-    public MinimalTheorie() {
+    public MinimalTheory() {
 	factors = new CNAList();
 	effect = new String();
     }
 
-    public MinimalTheorie(CNAList factors, String effect) {
+    public MinimalTheory(CNAList factors, String effect) {
 	this.factors = factors;
 	this.effect = effect;
     }

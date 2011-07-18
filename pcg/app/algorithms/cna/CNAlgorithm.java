@@ -5,15 +5,11 @@ package algorithms.cna;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-
-
-
-
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.cna.ListComparator;
-import datastructures.mt.MinimalTheorie;
-import datastructures.mt.MinimalTheorieSet;
+import datastructures.mt.MinimalTheory;
+import datastructures.mt.MinimalTheorySet;
 import datastructures.tree.CNATreeNode;
 import datastructures.tree.MnecTree;
 import datastructures.tree.MsufTree;
@@ -24,7 +20,7 @@ public class CNAlgorithm {
     private CNATable sufTable;
     private CNATable msufTable;
     private CNAList necList;
-    private MinimalTheorieSet theories;
+    private MinimalTheorySet theories;
     private CNATable deleted;
 
     private CNATable mnecTable;
@@ -48,7 +44,7 @@ public class CNAlgorithm {
     }
 
     private void init() throws NecException {
-	theories = new MinimalTheorieSet();
+	theories = new MinimalTheorySet();
 	identifyPE(originalTable);
     }
 
@@ -76,7 +72,7 @@ public class CNAlgorithm {
 	indexes.clear();
 	indexes.addAll(duplicate);
 	effects = table.get(0);
-	//System.out.println(effects);
+	System.out.println("Effects" + effects);
 	for (int i = indexes.size() - 1; i >= 0; i--) {
 	    effects.remove(indexes.get(i));
 	}
@@ -89,6 +85,7 @@ public class CNAlgorithm {
 	    }
 
 	}
+	System.out.println("Original Table:\n " + originalTable);
 	run(effects, originalTable);
     }
 
@@ -124,10 +121,12 @@ public class CNAlgorithm {
      * @throws NecException
      **/
     private void identifySUF(CNATable originalTable) throws NecException {
+	System.out.println("********I got here");
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	indentifyMSUF(originalTable, sufTable);
-	//System.out.println("suf");
+	System.out.println("Original Table:\n" + originalTable);
+	System.out.println("Suf Table:\n" + sufTable);
     }
 
     private void indentifyMSUF(CNATable originalTable, CNATable sufTable)
@@ -192,9 +191,10 @@ public class CNAlgorithm {
 	mnecTable.negate();
 
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-	MinimalTheorie theorie = new MinimalTheorie(mnecNames, originalTable
+	MinimalTheory theorie = new MinimalTheory(mnecNames, originalTable
 		.get(0).getLastElement());
 	theories.add(theorie);
+	System.out.println("MTTheories: " + theories.toString());
     }
 
     // Getters and Setters
@@ -223,7 +223,7 @@ public class CNAlgorithm {
 	return effects;
     }
 
-    public MinimalTheorieSet getMinimalTheorieSet() {
+    public MinimalTheorySet getMinimalTheorieSet() {
 	return theories;
     }
 
