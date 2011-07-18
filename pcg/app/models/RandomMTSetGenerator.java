@@ -153,7 +153,7 @@ public class RandomMTSetGenerator {
 	return (int) (Math.random() * (size - 1));
     }
 
-    // Set to 1.4 because we want more positive than negative effects.
+    // Value set to 1.4 because we want more positive than negative effects.
     public int randomSecond() {
 	return ((int) (Math.random() * 1.4));
     }
