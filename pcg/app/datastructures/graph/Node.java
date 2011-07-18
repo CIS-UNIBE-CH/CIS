@@ -24,8 +24,9 @@ public class Node implements Comparable<Node> {
 	}
     }
 
-    public boolean equals(Node node) {
-	return (name.equals(node.toString()) && effect == node.isEffect());
+    @Override
+    public boolean equals(Object obj) {
+	return (name.equals(obj.toString()));
     }
 
     // ToString

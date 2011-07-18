@@ -16,7 +16,7 @@ import org.apache.commons.collections15.TransformerUtils;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import datastructures.graph.Edge;
-import datastructures.graph.Matrix;
+import datastructures.graph.Graph;
 import datastructures.graph.Node;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
@@ -56,7 +56,7 @@ public class Renderer {
 	locationTransformer = new VertexLocationTransformer();
     }
 
-    public void config(Matrix matrix) {
+    public void config(Graph matrix) {
 
 	yPicSize = 800;
 	xPicSize = 800;
@@ -68,6 +68,7 @@ public class Renderer {
 
 	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(matrix,
 		vertexLocations);
+
 	layout.setSize(new Dimension(xPicSize, yPicSize));
 
 	// Do a reset of vertex location transformation after every graph, else

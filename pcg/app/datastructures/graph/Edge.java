@@ -1,5 +1,7 @@
 package datastructures.graph;
 
+import edu.uci.ics.jung.graph.util.EdgeType;
+
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 /**
@@ -11,10 +13,13 @@ public class Edge {
     private String bundleLabel;
     private Node source;
     private Node destination;
+    private EdgeType type;
 
     public Edge(Node source, Node destination) {
+	System.out.println(source);
 	this.source = source;
 	this.destination = destination;
+	this.type = EdgeType.DIRECTED;
     }
 
     // TODO JR (new Node)
@@ -36,6 +41,53 @@ public class Edge {
 	return 0.0;
     }
 
+    public boolean equals(Edge edge) {
+	return (destination.equals(edge.getDestination()) && source.equals(edge
+		.getSource()));
+    }
+
+    // to String
+
+    @Override
+    public String toString() {
+	// return source.toString() + " ---- > " + destination.toString();
+	return "";
+    }
+
+    // Getters and Setters
+
+    public String getBundleLabel() {
+	return bundleLabel;
+    }
+
+    public void setBundleLabel(String bundleLabel) {
+	this.bundleLabel = bundleLabel;
+    }
+
+    public EdgeType getType() {
+	return type;
+    }
+
+    public void setType(EdgeType type) {
+	this.type = type;
+    }
+
+    public void setSource(Node source) {
+	this.source = source;
+    }
+
+    public void setDestination(Node destination) {
+	this.destination = destination;
+    }
+
+    public Node getSource() {
+	return source;
+    }
+
+    public Node getDestination() {
+	return destination;
+    }
+
     public void setBundleNumber(String bundleLabel) {
 	this.bundleLabel = bundleLabel;
     }
@@ -49,25 +101,4 @@ public class Edge {
 	}
     }
 
-    public boolean equals(Edge edge) {
-	return (destination.equals(edge.getDestination()) && source.equals(edge
-		.getSource()));
-    }
-
-    public Node getSource() {
-	return source;
-    }
-
-    public Node getDestination() {
-	return destination;
-    }
-
-    @Override
-    public String toString() {
-	if (bundleLabel != null) {
-	    return bundleLabel;
-	} else {
-	    return "";
-	}
-    }
 }

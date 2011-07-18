@@ -10,16 +10,12 @@ import play.test.UnitTest;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
 import datastructures.cna.CNAList;
-import datastructures.graph.Edge;
 import datastructures.graph.Graph;
-import datastructures.graph.Matrix;
-import datastructures.graph.Node;
 import datastructures.mt.MinimalTheorie;
 import datastructures.mt.MinimalTheorieSet;
 
 public class GraphTests extends UnitTest {
 
-    private Graph<Node, Edge> graph;
     private MinimalTheorieSet theories;
 
     @Before
@@ -41,7 +37,7 @@ public class GraphTests extends UnitTest {
 	MinimalTheorie theorie = new MinimalTheorie(factors, "R");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "R,S");
+	factors = new CNAList(',', "R,QT");
 	theorie = new MinimalTheorie(factors, "W");
 	theories.add(theorie);
 
@@ -67,7 +63,8 @@ public class GraphTests extends UnitTest {
 	// theories.add(theorie);
 
 	System.out.println(theories);
-	Matrix matrix = new Matrix(theories);
+	Graph matrix = new Graph(theories);
+	System.out.println(matrix);
 	Renderer renderer = new Renderer();
 	renderer.config(matrix);
     }
