@@ -60,9 +60,7 @@ public class RandomMTSetGenerator {
 		.get(0);
 	CNATable names = curNames.clone();
 	String bundle = "";
-	System.out.println("Siez: " + names.size());
 	names = removeEpi(names);
-	System.out.println("Size2: " + names.size());
 	for (Integer number : bundleSizes) {
 	    bundle = "";
 	    for (int i = 0; i < number; i++) {

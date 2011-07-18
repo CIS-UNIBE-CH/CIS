@@ -14,11 +14,11 @@ import datastructures.mt.MinimalTheorySet;
 
 public class RandomMTSetGeneratorTest extends UnitTest {
     private RandomMTSetGenerator generator;
-    private ArrayList<ArrayList<Object>> test;
+    private ArrayList<ArrayList<Object>> testUserInput;
 
     @Before
     public void setup() {
-	test = new ArrayList<ArrayList<Object>>();
+	testUserInput = new ArrayList<ArrayList<Object>>();
 	Integer noOfAlterFactors = 2;
 
 	ArrayList<Integer> bundleSizes = new ArrayList<Integer>();
@@ -41,10 +41,10 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	level4.add(bundleSizes);
 	level4.add(noOfAlterFactors);
 	level4.add(true);
-	test.add(level1);
-	test.add(level2);
-	test.add(level3);
-	test.add(level4);
+	testUserInput.add(level1);
+	testUserInput.add(level2);
+	testUserInput.add(level3);
+	testUserInput.add(level4);
     }
 
     @Test
@@ -64,33 +64,35 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	generator = new RandomMTSetGenerator();
 
 	for (int i = 0; i < 300; i++) {
-	    int random = generator.randomSecond();
-	    assertTrue(random == 0 || random == 1);
+	    int randomIndex = generator.randomSecond();
+	    assertTrue(randomIndex == 0 || randomIndex == 1);
 	}
 	for (int j = 0; j < 50 * 10; j++) {
-	    int random = generator.random(50);
-	    assertTrue(random >= 0 && random < 50);
+	    int randomIndex = generator.random(50);
+	    assertTrue(randomIndex >= 0 && randomIndex < 50);
 	}
     }
 
     @Test
-    public void shouldCreateMTTheorie() {
+    public void shouldCreateRightNumberOfBundlesAnd() {
 	for (int i = 0; i < 300; i++) {
-	    RandomMTSetGenerator generator = new RandomMTSetGenerator(test);
+	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
+		    testUserInput);
 	    MinimalTheorySet set = generator.getMTSet();
 
-	    ArrayList<Integer> list = (ArrayList<Integer>) test.get(0).get(0);
-	    int k = (Integer) test.get(0).get(1);
-	    assertEquals(list.size() + k, set.get(0).getBundles().size());
-
-	    ArrayList<Integer> list1 = (ArrayList<Integer>) test.get(0).get(0);
-	    int k1 = (Integer) test.get(0).get(1);
-	    assertEquals(list1.size() + k1, set.get(0).getBundles().size());
+	    for (int j = 0; j < set.size(); j++) {
+		ArrayList<Integer> bundleSizes = (ArrayList<Integer>) testUserInput
+			.get(j).get(0);
+		int numberOfAlterFactors = (Integer) testUserInput.get(j)
+			.get(1);
+		assertEquals(bundleSizes.size() + numberOfAlterFactors, set
+			.get(j).getBundles().size());
+	    }
 	}
     }
 
     public void shouldMakeChain() {
-	generator = new RandomMTSetGenerator(test);
+	generator = new RandomMTSetGenerator(testUserInput);
 	MinimalTheorySet set = generator.getMTSet();
 
 	assertEquals(5, set.size());
@@ -107,7 +109,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 
     @Test
     public void shouldMakeEpiphenomenon() {
-	generator = new RandomMTSetGenerator(test);
+	generator = new RandomMTSetGenerator(testUserInput);
 	MinimalTheorySet set = generator.getMTSet();
 	int counter = 0;
 
@@ -131,9 +133,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 		    } else {
 			toTest = "" + cur.charAt(j);
 		    }
-		    System.out.println("ToTest " + toTest);
 		    if (next.contains(toTest)) {
-			System.out.println("I was here");
 			counter++;
 		    }
 		}
@@ -147,7 +147,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     @Test
     public void shouldNotHaveDuplicateInBundle() {
 	for (int i = 0; i < 300; i++) {
-	    RandomMTSetGenerator generator = new RandomMTSetGenerator(test);
+	    RandomMTSetGenerator generator = new RandomMTSetGenerator(testUserInput);
 	    MinimalTheorySet set = generator.getMTSet();
 
 	    for (MinimalTheory theory : set) {
@@ -185,5 +185,11 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 		}
 	    }
 	}
+    }
+    
+    @Test
+    public void shouldTest(){
+	RandomMTSetGenerator generator = new RandomMTSetGenerator(testUserInput);
+	    MinimalTheorySet set = generator.getMTSet();
     }
 }
