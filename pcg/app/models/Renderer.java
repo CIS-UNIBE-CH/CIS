@@ -76,7 +76,7 @@ public class Renderer {
 
 	// Print out the graph in console for development only used
 	// System.out.println("*****************");
-	System.out.println(matrix.toString());
+	// System.out.println(matrix.toString());
 	// System.out.println("*****************");
 
 	// Transformer which will set shape, size, aspect ratio of vertexes

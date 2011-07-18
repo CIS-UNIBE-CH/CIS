@@ -17,12 +17,12 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
     @Override
     public Paint transform(Node node) {
 	Node current = node;
-	if (!current.isEffect()) {
+	if (current.isEffect()) {
 	    return new Color(255, 153, 0);
 	} else {
 	    int bundleNumber;
 	    if (current.isPartOfBundle()) {
-		if (!current.isEffect()) {
+		if (current.isEffect()) {
 		    return new Color(255, 153, 0);
 		} else {
 		    bundleNumber = Integer.valueOf(current.getBundle());

@@ -67,4 +67,21 @@ public class MinimalTheorieSet extends ArrayList<MinimalTheorie> {
 	return list;
     }
 
+    public CNAList getAllNames() {
+	CNAList list = new CNAList();
+	HashSet<String> set = new HashSet<String>();
+	for (MinimalTheorie theorie : theories) {
+	    set.add(theorie.getEffect());
+	}
+	for (MinimalTheorie theorie : theories) {
+	    for (String string : theorie.getFactors()) {
+		set.add(string);
+	    }
+	}
+	System.out.println(set);
+	for (String string : set)
+	    list.add(string);
+	return list;
+    }
+
 }
