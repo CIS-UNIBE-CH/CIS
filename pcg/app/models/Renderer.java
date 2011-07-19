@@ -50,6 +50,10 @@ public class Renderer {
     }
 
     public void config(Graph graph) {
+	System.out.println("****************");
+	System.out.println("Graph: " + graph.toString());
+	System.out.println("****************");
+	
 	yPicSize = 1800;
 	xPicSize = 1800;
 
@@ -108,16 +112,17 @@ public class Renderer {
 	Color backgroundColor = new Color(255, 255, 255);
 	visServer.setBackground(backgroundColor);
 
-	/** ************ PNG Dumping **************** */
+	pngDumping(visServer);
+    }
+
+    private void pngDumping(BasicVisualizationServer<Node, Edge> visServer) {
 	// Size the PNG picture will have which will be dumped.
 	visServer.setSize(xPicSize, yPicSize);
 
 	PNGDump dumper = new PNGDump();
 	try {
-	    System.out.println(generateFileName());
 	    dumper.dumpComponent(new File(generateFileName()), visServer);
 	} catch (IOException e) {
-	    System.out.println("Image couldn't be generated!");
 	    e.printStackTrace();
 	}
     }

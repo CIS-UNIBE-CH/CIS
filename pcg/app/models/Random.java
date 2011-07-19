@@ -32,7 +32,6 @@ public class Random {
 		bundleSizes.remove(i);
 	    }
 	}
-	System.out.println("Bundle** " + bundleSizes);
     }
 
     private void removeAlterFacNull() {
@@ -42,7 +41,6 @@ public class Random {
 		alterFac.set(i, 0);
 	    }
 	}
-	System.out.println("Alter** " + alterFac);
     }
 
     private void epi() {
@@ -54,7 +52,6 @@ public class Random {
 	    epi.set(length - 1, true);
 	    epi.set(length - 2, true);
 	}
-	System.out.println("Epi** " + epi);
     }
 
     public ArrayList<ArrayList<Integer>> getBundleSizes() {

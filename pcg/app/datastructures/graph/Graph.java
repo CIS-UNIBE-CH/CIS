@@ -30,7 +30,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
-	System.out.println("names :" + names);
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -188,13 +187,11 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    counter++;
 	    x += 60;
 	}
-	System.out.println(graph);
 	return graph;
     }
 
     private void identifyBundles() {
 	int bundle = 1;
-	System.out.println(nodes);
 	ArrayList<Node> nodesClone = (ArrayList<Node>) nodes.clone();
 	nodes.clear();
 	for (Node node : nodesClone) {

@@ -50,7 +50,6 @@ public class CNAController extends Controller {
 	renderer.setShowEdgeLabels(showBundleNumRenderer);
 	renderer.config(graph);
 
-	System.out.println("Theory " + theories);
 	String graphPath = renderer.getImageSource();
 	String stringGraph = theories.toString();
 	render(graphPath, stringGraph);

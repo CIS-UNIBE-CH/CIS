@@ -39,7 +39,6 @@ public class CNAlgorithm {
 
     public CNAlgorithm(CNATable table) throws NecException {
 	originalTable = table;
-	//System.out.println("con \n" + table);
 	init();
     }
 
@@ -72,7 +71,6 @@ public class CNAlgorithm {
 	indexes.clear();
 	indexes.addAll(duplicate);
 	effects = table.get(0);
-	System.out.println("Effects" + effects);
 	for (int i = indexes.size() - 1; i >= 0; i--) {
 	    effects.remove(indexes.get(i));
 	}
@@ -85,7 +83,6 @@ public class CNAlgorithm {
 	    }
 
 	}
-	System.out.println("Original Table:\n " + originalTable);
 	run(effects, originalTable);
     }
 
@@ -121,12 +118,9 @@ public class CNAlgorithm {
      * @throws NecException
      **/
     private void identifySUF(CNATable originalTable) throws NecException {
-	System.out.println("********I got here");
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	indentifyMSUF(originalTable, sufTable);
-	System.out.println("Original Table:\n" + originalTable);
-	System.out.println("Suf Table:\n" + sufTable);
     }
 
     private void indentifyMSUF(CNATable originalTable, CNATable sufTable)
@@ -194,7 +188,6 @@ public class CNAlgorithm {
 	MinimalTheory theorie = new MinimalTheory(mnecNames, originalTable
 		.get(0).getLastElement());
 	theories.add(theorie);
-	System.out.println("MTTheories: " + theories.toString());
     }
 
     // Getters and Setters
