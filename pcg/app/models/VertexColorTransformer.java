@@ -20,6 +20,7 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 
     @Override
     public Paint transform(Node node) {
+	color.clear();
 	color.add(Color.blue);
 	color.add(Color.lightGray);
 	color.add(Color.magenta);
@@ -28,10 +29,6 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 	color.add(Color.orange);
 	color.add(Color.cyan);
 	color.add(Color.yellow);
-
-	if (index == color.size() - 1) {
-	    index = 0;
-	}
 	
 	if (node.isEffect()) {
 	    return new Color(255, 153, 0);
@@ -40,8 +37,8 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 		if (node.isDestination()) {
 		    return new Color(255, 153, 0);
 		} else {
-		    index++;
-		    return color.get(index - 1);
+		    int bundleNumber = Integer.parseInt(node.getBundle());
+		    return color.get((bundleNumber-1)%8);
 		}
 	    } else {
 		return Color.GREEN;

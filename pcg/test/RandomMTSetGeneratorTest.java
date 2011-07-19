@@ -17,38 +17,35 @@ import datastructures.mt.MinimalTheorySet;
 
 public class RandomMTSetGeneratorTest extends UnitTest {
     private RandomMTSetGenerator generator;
-    private ArrayList<ArrayList<Object>> sampleUserInput;
+    private ArrayList<ArrayList<Integer>> sampleUserInput;
+    private ArrayList<Integer> alterFacNo;
+    private ArrayList<Boolean> epi;
 
     @Before
     public void setup() {
-	sampleUserInput = new ArrayList<ArrayList<Object>>();
+	sampleUserInput = new ArrayList<ArrayList<Integer>>();
 
 	Integer noOfAlterFactors = 2;
 	ArrayList<Integer> bundleSizes = new ArrayList<Integer>();
 	for (int i = 0; i < 2; i++) {
 	    bundleSizes.add(2);
 	}
+	sampleUserInput.add(bundleSizes);
+	sampleUserInput.add(bundleSizes);
+	sampleUserInput.add(bundleSizes);
+	sampleUserInput.add(bundleSizes);
 
-	ArrayList<Object> level1 = new ArrayList<Object>();
-	level1.add(bundleSizes);
-	level1.add(noOfAlterFactors);
-	level1.add(true);
-	ArrayList<Object> level2 = new ArrayList<Object>();
-	level2.add(bundleSizes);
-	level2.add(noOfAlterFactors);
-	level2.add(true);
-	ArrayList<Object> level3 = new ArrayList<Object>();
-	level3.add(bundleSizes);
-	level3.add(noOfAlterFactors);
-	level3.add(true);
-	ArrayList<Object> level4 = new ArrayList<Object>();
-	level4.add(bundleSizes);
-	level4.add(noOfAlterFactors);
-	level4.add(true);
-	sampleUserInput.add(level1);
-	sampleUserInput.add(level2);
-	sampleUserInput.add(level3);
-	sampleUserInput.add(level4);
+	alterFacNo = new ArrayList<Integer>();
+	alterFacNo.add(noOfAlterFactors);
+	alterFacNo.add(noOfAlterFactors);
+	alterFacNo.add(noOfAlterFactors);
+	alterFacNo.add(noOfAlterFactors);
+	
+	epi = new ArrayList<Boolean>();
+	epi.add(true);
+	epi.add(true);
+	epi.add(true);
+	epi.add(true);
     }
 
     @Test
@@ -83,14 +80,12 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     public void shouldCreateBundlesAndAlterFactors() {
 	for (int i = 0; i < 500; i++) {
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
-		    sampleUserInput);
+		    sampleUserInput, alterFacNo, epi);
 	    MinimalTheorySet set = generator.getMTSet();
 
 	    for (int j = 0; j < set.size(); j++) {
-		ArrayList<Integer> bundleSizes = (ArrayList<Integer>) sampleUserInput
-			.get(j).get(0);
-		int numberOfAlterFactors = (Integer) sampleUserInput.get(j)
-			.get(1);
+		ArrayList<Integer> bundleSizes = sampleUserInput.get(j);
+		int numberOfAlterFactors = alterFacNo.get(j);
 		assertEquals(bundleSizes.size() + numberOfAlterFactors, set
 			.get(j).getBundles().size());
 	    }
@@ -100,7 +95,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     public void shouldMakeChain() {
 	for (int i = 0; i < 500; i++) {
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
-		    sampleUserInput);
+		    sampleUserInput, alterFacNo, epi);
 	    MinimalTheorySet set = generator.getMTSet();
 
 	    assertEquals(5, set.size());
@@ -119,7 +114,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     @Test
     public void shouldNotHaveSameFactorsAsCauseAndEffectInTheory() {
 	RandomMTSetGenerator generator = new RandomMTSetGenerator(
-		sampleUserInput);
+		    sampleUserInput, alterFacNo, epi);
 	MinimalTheorySet set = generator.getMTSet();
 	for (int i = 0; i < 500; i++) {
 	    for (MinimalTheory theory : set) {
@@ -135,7 +130,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     public void shouldNotHaveDuplicateInBundle() {
 	for (int i = 0; i < 500; i++) {
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
-		    sampleUserInput);
+		    sampleUserInput, alterFacNo, epi);
 	    MinimalTheorySet set = generator.getMTSet();
 
 	    for (MinimalTheory theory : set) {
@@ -156,7 +151,8 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     @Test
     public void shouldMakeEpiphenomenon() {
 	for (int j = 0; j < 500; j++) {
-	    generator = new RandomMTSetGenerator(sampleUserInput);
+	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
+		    sampleUserInput, alterFacNo, epi);
 	    MinimalTheorySet set = generator.getMTSet();
 	    for (int i = 0; i < set.size(); i += 2) {
 		CNAList list = set.get(i).getFactors();

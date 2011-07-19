@@ -64,6 +64,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		if (matrix[i][j] == 1) {
 		    Node source = getNode(names.get(i));
 		    Node destination = getNode(names.get(j));
+		    destination.setDestination(true);
 		    Edge edge = new Edge(source, destination);
 		    edges.add(edge);
 		}

@@ -5,6 +5,7 @@ import helpers.Timer;
 
 import java.util.ArrayList;
 
+import models.Random;
 import models.RandomMTSetGenerator;
 import models.Renderer;
 import play.mvc.Controller;
@@ -29,37 +30,27 @@ public class CNAController extends Controller {
 	render(i);
     }
 
-    public static void generateGraph(ArrayList<Integer> bundle1,
-	    ArrayList<Integer> bundle2, ArrayList<Integer> bundle3,
-	    ArrayList<Integer> bundle4, ArrayList<Integer> alter) {
+    public static void generateGraph(ArrayList<Integer> bundles1,
+	    ArrayList<Integer> bundles2, ArrayList<Integer> bundles3,
+	    ArrayList<Integer> alterFactors, String epi, String showBundleNum) {
+	showBundleNumRenderer = (showBundleNum != null);
 	RandomMTSetGenerator generator;
 	MinimalTheorySet theories;
-	ArrayList<ArrayList<Object>> list = new ArrayList<ArrayList<Object>>();
-	ArrayList<ArrayList<Integer>> bundles = new ArrayList<ArrayList<Integer>>();
-	bundles.add(bundle1);
-	bundles.add(bundle2);
-	bundles.add(bundle3);
-	bundles.add(bundle4);
-
-	for (int i = 0; i < bundles.size(); i++) {
-	    ArrayList<Integer> bundle = bundles.get(i);
-	    ArrayList<Object> objectList = new ArrayList<Object>();
-	    objectList.add(bundle);
-	    objectList.add(alter.get(i));
-	    if (i < 2)
-		objectList.add(false);
-	    else
-		objectList.add(true);
-
-	    list.add(objectList);
-	}
-	generator = new RandomMTSetGenerator(list);
+	ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+	list.add(bundles1);
+	list.add(bundles2);
+	list.add(bundles3);
+	boolean epiOn = (epi != null);
+	Random random = new Random(list, alterFactors, epiOn);
+	generator = new RandomMTSetGenerator(random.getBundleSizes(),
+		random.getAlterFac(), random.getEpi());
 	theories = generator.getMTSet();
 	Graph graph = new Graph(theories);
 	Renderer renderer = new Renderer();
-	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.setShowEdgeLabels(showBundleNumRenderer);
 	renderer.config(graph);
 
+	System.out.println("Theory " + theories);
 	String graphPath = renderer.getImageSource();
 	String stringGraph = theories.toString();
 	render(graphPath, stringGraph);
@@ -70,7 +61,7 @@ public class CNAController extends Controller {
 	timer = new Timer();
 	renderer = new Renderer();
 	int randomLines = Integer.parseInt(lines);
-	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.setShowEdgeLabels(showBundleNumRenderer);
 	// try {
 	// TODO Make GraphToTable Parser change this
 	// CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
@@ -82,7 +73,7 @@ public class CNAController extends Controller {
 
 	// TODO Make rendering correct.
 	renderer = new Renderer();
-	renderer.setEdgeLabels(true);
+	renderer.setShowEdgeLabels(true);
 	// renderer.config(treeToGraph);
 	graphPaths.add(renderer.getImageSource());
 	// stringGraphs.add(stringToTree.getTree().toString());
@@ -122,7 +113,7 @@ public class CNAController extends Controller {
 	    renderer = new Renderer();
 	    Graph graph = new Graph(theories);
 	    Renderer renderer = new Renderer();
-	    renderer.setEdgeLabels(showBundleNumRenderer);
+	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
 	    graphPath = renderer.getImageSource();
 

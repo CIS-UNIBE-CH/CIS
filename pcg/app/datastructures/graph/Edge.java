@@ -18,8 +18,8 @@ public class Edge {
     public Edge(Node source, Node destination) {
 	this.source = source;
 	this.destination = destination;
-	source.setDestination(false);
-	destination.setDestination(true);
+//	source.setDestination(false);
+//	destination.setDestination(true);
 	this.type = EdgeType.DIRECTED;
 	bundleLabel = "";
     }

@@ -20,46 +20,31 @@
 <form id="form" action="@{CNAController.generateGraph()}" method="POST">
 <table class="f">
 <th></th>
-<th>Bundle 1</th>
-<th>Bundle 2</th>
-<th>Bundle 3</th>
-<th>Bundle 4</th>
-<th>No. alternate Factor</th>
+<th>Size Bundle 1</th>
+<th>Size Bundle 2</th>
+<th># Alternate Factors</th>
 <tr class="f">
 	<td class="f">Layer 1</td>
-	<td class="f"><input type="number" class="f" name="bundle1" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle1" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle1" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle1" value="" /></td>
-	<td class="f"><input type="number" class="f" name="alter" value="" /></td>
+	<td class="f"><input type="number" class="f" name="bundles1" value="" /></td>
+	<td class="f"><input type="number" class="f" name="bundles1" value="" /></td>
+	<td class="f"><input type="number" class="f" name="alterFactors" value="" /></td>
 </tr>
 <tr class="f">
 	<td class="f">Layer 2</td>
-	<td class="f"><input type="number" class="f" name="bundle2" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle2" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle2" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle2" value="" /></td>
-	<td class="f"><input type="number" class="f" name="alter" value="" /></td>
+	<td class="f"><input type="number" class="f" name="bundles2" value="" /></td>
+	<td class="f"><input type="number" class="f" name="bundles2" value="" /></td>
+	<td class="f"><input type="number" class="f" name="alterFactors" value="" /></td>
 </tr>
 <tr class="f">
 	<td class="f">Layer 3</td>
-	<td class="f"><input type="number" class="f" name="bundle3" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle3" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle3" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle3" value="" /></td>
-	<td class="f"><input type="number" class="f" name="alter" value="" /></td>
-</tr>
-<tr class="f">
-	<td class="f">Layer 4</td>
-	<td class="f"><input type="number" class="f" name="bundle4" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle4" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle4" value="" /></td>
-	<td class="f"><input type="number" class="f" name="bundle4" value="" /></td>
-	<td class="f"><input type="number" class="f" name="alter" value="" /></td>
+	<td class="f"><input type="number" class="f" name="bundles3" value="" /></td>
+	<td class="f"><input type="number" class="f" name="bundles3" value="" /></td>
+	<td class="f"><input type="number" class="f" name="alterFactors" value="" /></td>
 </tr>
 </table>
 <br/>
-<input type="checkbox"> Epiphenomenon <br/>
+<input type="checkbox" name="epi"> Epiphenomenon<br/>
+<input type="checkbox" name="showBundleNum"> Show Bundle Numbering <br/>
 <br/>
 <input type="submit" value="Next"/>
 </form>
