@@ -37,13 +37,26 @@ public class GraphTests extends UnitTest {
 	MinimalTheorie theorie = new MinimalTheorie(factors, "R");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "R,QT");
+	factors = new CNAList(',', "R,S,TH");
 	theorie = new MinimalTheorie(factors, "W");
 	theories.add(theorie);
 
 	factors = new CNAList(',', "S,J");
 	theorie = new MinimalTheorie(factors, "I");
 	theories.add(theorie);
+
+	// CNAList factors = new CNAList(',', "C,B,L");
+	// MinimalTheorie theorie = new MinimalTheorie(factors, "R");
+	// theories.add(theorie);
+
+	//
+	// factors = new CNAList(',', "R,S,TH");
+	// theorie = new MinimalTheorie(factors, "W");
+	// theories.add(theorie);
+	//
+	// factors = new CNAList(',', "S,J");
+	// theorie = new MinimalTheorie(factors, "I");
+	// theories.add(theorie);
 
 	// System.out.println(theories);
 	// CNAList factors = new CNAList(',', "A,1,11");
@@ -64,9 +77,9 @@ public class GraphTests extends UnitTest {
 
 	System.out.println(theories);
 	Graph matrix = new Graph(theories);
-	System.out.println(matrix);
+	// System.out.println(matrix);
 	Renderer renderer = new Renderer();
+	assert (matrix != null);
 	renderer.config(matrix);
     }
-
 }

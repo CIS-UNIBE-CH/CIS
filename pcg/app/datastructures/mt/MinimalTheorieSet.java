@@ -78,7 +78,6 @@ public class MinimalTheorieSet extends ArrayList<MinimalTheorie> {
 		set.add(string);
 	    }
 	}
-	System.out.println(set);
 	for (String string : set)
 	    list.add(string);
 	return list;

@@ -41,6 +41,10 @@ public class Node implements Comparable<Node> {
 	return bundle;
     }
 
+    public void setName(String name) {
+	this.name = name;
+    }
+
     public void setBundle(String bundle) {
 	this.bundle = bundle;
     }

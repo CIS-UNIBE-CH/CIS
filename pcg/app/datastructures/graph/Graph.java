@@ -30,6 +30,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorieSet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
+	System.out.println(names);
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -62,10 +63,8 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    for (int j = 0; j < matrix[i].length; j++) {
 		if (matrix[i][j] == 1) {
 		    Node source = getNode(names.get(i));
-		    System.out.println(names.get(i));
 		    Node destination = getNode(names.get(j));
 		    Edge edge = new Edge(source, destination);
-		    System.out.println(edge);
 		    edges.add(edge);
 		}
 	    }
@@ -141,8 +140,9 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    }
 	    if (allZero) {
 		stack.push(names.get(i));
-		getNode(names.get(i)).setLevel(0);
-		getNode(names.get(i)).setEffect(true);
+		Node n = getNode(names.get(i));
+		n.setLevel(0);
+		n.setEffect(true);
 	    }
 	}
     }
@@ -165,6 +165,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Map<Node, Point2D> getGraph() {
 	double x = 60;
 	double y = 100 * (deepest) + 30;
+	identifyBundles();
 	ArrayList<Node> nodeList = nodes;
 	Collections.sort(nodeList);
 	int level = deepest;
@@ -185,6 +186,31 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    x += 60;
 	}
 	return graph;
+    }
+
+    private void identifyBundles() {
+	int bundle = 1;
+	ArrayList<Node> nodesClone = (ArrayList<Node>) nodes.clone();
+	nodes.clear();
+	for (Node node : nodesClone) {
+	    String str = node.toString();
+	    if (str.length() > 1 && !(str.charAt(0) == 'Y')) {
+		for (int i = 0; i < node.toString().length(); i++) {
+		    Node n = new Node("" + node.toString().charAt(i), false);
+		    n.setLevel(node.getLevel());
+		    n.setBundle("" + bundle);
+		    nodes.add(n);
+		    for (Edge edge : getIncidentEdges(node)) {
+			edges.add(new Edge(n, edge.getDestination()));
+		    }
+		}
+		bundle++;
+		edges.removeAll(getIncidentEdges(node));
+
+	    } else {
+		nodes.add(node);
+	    }
+	}
     }
 
     public Node getNode(String node) {

@@ -27,7 +27,7 @@ public class MinimalTheorie {
 	    output += factors.get(i) + "X" + (i + 1) + " ∨ ";
 	}
 	output += factors.get(factors.size() - 1) + "X" + factors.size()
-		+ " => " + effect;
+		+ " => Y" + effect;
 	return output;
     }
 
@@ -45,7 +45,7 @@ public class MinimalTheorie {
     }
 
     public String getEffect() {
-	return effect;
+	return "" + effect;
     }
 
     public void setEffect(String effect) {

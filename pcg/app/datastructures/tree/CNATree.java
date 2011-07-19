@@ -9,14 +9,11 @@ import javax.swing.tree.DefaultTreeModel;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
-
 abstract class CNATree extends DefaultTreeModel {
-    private CNATreeNode node;
     private String string;
 
     public CNATree(CNATreeNode node) {
 	super(node);
-	this.node = node;
 	string = new String();
     }
 
