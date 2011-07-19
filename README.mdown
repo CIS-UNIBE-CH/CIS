@@ -1,4 +1,4 @@
-Bachelor Thesis: On The Pursuit Of Causal Graphs (University of Berne Switzerland)  
+Bachelor Thesis: Causal Inference Simulator (University of Berne Switzerland)  
   
 Jonas Ruef & Felix Langenegger    
 
