@@ -2,14 +2,14 @@ package datastructures.graph;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-public class Node {
-    private String bundle;
+public class Node implements Comparable<Node> {
     private String name;
+    private String bundle;
     private int level;
     private boolean effect;
 
     public Node(String name, boolean effect) {
-	level = 0;
+	level = -1;
 	this.name = name;
 	this.effect = effect;
     }
@@ -24,6 +24,11 @@ public class Node {
 	}
     }
 
+    @Override
+    public boolean equals(Object obj) {
+	return (name.equals(obj.toString()));
+    }
+
     // ToString
 
     public String toString() {
@@ -36,8 +41,16 @@ public class Node {
 	return bundle;
     }
 
+    public void setName(String name) {
+	this.name = name;
+    }
+
     public void setBundle(String bundle) {
 	this.bundle = bundle;
+    }
+
+    public void setEffect(boolean effect) {
+	this.effect = effect;
     }
 
     public int getLevel() {
@@ -51,4 +64,10 @@ public class Node {
     public boolean isEffect() {
 	return effect;
     }
+
+    @Override
+    public int compareTo(Node o) {
+	return o.getLevel() - level;
+    }
+
 }

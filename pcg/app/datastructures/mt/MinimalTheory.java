@@ -18,19 +18,18 @@ public class MinimalTheory {
 	this.effect = effect;
     }
 
-    // To String
     @Override
     public String toString() {
 	assert (bundles.size() != 0 && effect.length() != 0);
 	String output = new String();
 	for (int i = 0; i < bundles.size() - 1; i++) {
-	    output += bundles.get(i) /* + "X" + (i + 1) */+ " ∨ ";
+	    output += bundles.get(i) + "X" + (i + 1) + " ∨ ";
 	}
 	output += bundles.get(bundles.size() - 1) + "X" + bundles.size()
-		+ " => " + effect;
+		+ "Y" + effect + " => " + effect;
 	return output;
     }
-
+    
     // Getters and Setters
     public CNAList getBundles() {
 	return bundles;

@@ -1,7 +1,6 @@
 package datastructures.graph;
 
-import java.util.ArrayList;
-
+import edu.uci.ics.jung.graph.util.EdgeType;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
@@ -12,31 +11,81 @@ import java.util.ArrayList;
 public class Edge {
 
     private String bundleLabel;
-    private ArrayList<Node> nodes;
+    private Node source;
+    private Node destination;
+    private EdgeType type;
 
     public Edge(Node source, Node destination) {
-	nodes = new ArrayList<Node>();
-	nodes.add(source);
-	nodes.add(destination);
+	System.out.println(source);
+	this.source = source;
+	this.destination = destination;
+	this.type = EdgeType.DIRECTED;
+	bundleLabel = "";
     }
 
     // TODO JR (new Node)
-    public double calcEdgeLength() {
-	// Node firstNode = nodes.get(0);
-	// Node secondNode = nodes.get(1);
-	// double firstX = firstNode.getxCoordinate();
-	// double firstY = firstNode.getyCoordinate();
-	// double secondX = secondNode.getxCoordinate();
-	// double secondY = secondNode.getyCoordinate();
-	//
-	// // Do some pythagoras
-	// double cathetusX = Math.abs(firstX - secondX);
-	// double cathetusY = Math.abs(firstY - secondY);
-	// double hypotenuse = Math.sqrt(Math.pow(cathetusX, 2)
-	// + Math.pow(cathetusY, 2));
-	//
-	// return hypotenuse;
-	return 0.0;
+    // public double calcEdgeLength() {
+    // // Node firstNode = nodes.get(0);
+    // // Node secondNode = nodes.get(1);
+    // // double firstX = firstNode.getxCoordinate();
+    // // double firstY = firstNode.getyCoordinate();
+    // // double secondX = secondNode.getxCoordinate();
+    // // double secondY = secondNode.getyCoordinate();
+    // //
+    // // // Do some pythagoras
+    // // double cathetusX = Math.abs(firstX - secondX);
+    // // double cathetusY = Math.abs(firstY - secondY);
+    // // double hypotenuse = Math.sqrt(Math.pow(cathetusX, 2)
+    // // + Math.pow(cathetusY, 2));
+    // //
+    // // return hypotenuse;
+    // return 0.0;
+    // }
+
+    public boolean equals(Edge edge) {
+	return (destination.equals(edge.getDestination()) && source.equals(edge
+		.getSource()));
+    }
+
+    // to String
+
+    @Override
+    public String toString() {
+	return bundleLabel;
+    }
+
+    // Getters and Setters
+
+    public String getBundleLabel() {
+	return bundleLabel;
+    }
+
+    public void setBundleLabel(String bundleLabel) {
+	this.bundleLabel = bundleLabel;
+    }
+
+    public EdgeType getType() {
+	return type;
+    }
+
+    public void setType(EdgeType type) {
+	this.type = type;
+    }
+
+    public void setSource(Node source) {
+	this.source = source;
+    }
+
+    public void setDestination(Node destination) {
+	this.destination = destination;
+    }
+
+    public Node getSource() {
+	return source;
+    }
+
+    public Node getDestination() {
+	return destination;
     }
 
     public void setBundleNumber(String bundleLabel) {
@@ -52,12 +101,4 @@ public class Edge {
 	}
     }
 
-    @Override
-    public String toString() {
-	if (bundleLabel != null) {
-	    return bundleLabel;
-	} else {
-	    return "";
-	}
-    }
 }

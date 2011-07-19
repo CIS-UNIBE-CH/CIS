@@ -10,14 +10,13 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 
 /** Does position EdgeLabels according to Edge length. */
-public class EdgeLabelClosenessTransformer
-	implements
+public class EdgeLabelClosenessTransformer implements
 	Transformer<Context<Graph<Node, Edge>, Edge>, Number> {
     @Override
-    public Number transform(
-	    Context<Graph<Node, Edge>, Edge> edge) {
+    public Number transform(Context<Graph<Node, Edge>, Edge> edge) {
 	Edge curEdge = edge.element;
-	Double length = curEdge.calcEdgeLength();
+	// TODO Fix this
+	Double length = 0.0;
 	return ((length / 1000) * 3);
     }
 }

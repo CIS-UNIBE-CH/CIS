@@ -1,7 +1,7 @@
 package datastructures;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 
 import play.test.UnitTest;
 import datastructures.cna.CNAList;
@@ -59,13 +59,23 @@ public class MinimalTheorieSetTests extends UnitTest {
     }
 
     @Test
-    public void shouldGetChains() {
-
+    public void shouldGetNumbersOfFactors() {
+	assertEquals(7, theories.getNumberOfFactors());
     }
 
     @Test
-    public void shouldGetEpi() {
+    public void shouldGetNumbersOfEffects() {
+	assertEquals(2, theories.getNumberOfEffects());
+    }
 
+    @Test
+    public void shouldGetAllFactors() {
+	assertEquals("F W A B C DE H ", theories.getAllFactors().toString());
+    }
+
+    @Test
+    public void shouldGetAllEffects() {
+	assertEquals("W R ", theories.getAllEffects().toString());
     }
 
 }

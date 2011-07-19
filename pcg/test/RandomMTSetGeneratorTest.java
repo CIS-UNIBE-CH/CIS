@@ -181,14 +181,4 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    }
 	}
     }
-
-    // @Test
-    // public void shouldTest() {
-    // RandomMTSetGenerator generator = new RandomMTSetGenerator(testUserInput);
-    // System.out.println("Set: " + generator.getMTSet());
-    // System.out.println("Bundles: "
-    // + generator.getMTSet().get(0).getBundleFactors());
-    // System.out.println("Factors: "
-    // + generator.getMTSet().get(0).getBundles());
-    // }
 }

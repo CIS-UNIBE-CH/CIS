@@ -223,7 +223,7 @@ public class CNAlgorithm {
 	return effects;
     }
 
-    public MinimalTheorySet getMinimalTheorieSet() {
+    public MinimalTheorySet getMinimalTheorySet() {
 	return theories;
     }
 

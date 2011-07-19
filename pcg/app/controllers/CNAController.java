@@ -43,8 +43,9 @@ public class CNAController extends Controller {
 	    timer = new Timer();
 	    generator = new RandomMTSetGenerator();
 	    Long time = timer.timeElapsed();
-//	    Graph graph = new Graph(generator.getMTSet());
-//	    renderer.config(graph);
+	    // MTSetToGraph mtSetToGraph = new
+	    // MTSetToGraph(generator.getMTSet());
+	    // renderer.config(mtSetToGraph.getGraph());
 
 	    String generatedGraphPath = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";
@@ -116,7 +117,7 @@ public class CNAController extends Controller {
 	try {
 	    cnaAlgorithm = new CNAlgorithm(
 		    new BaumgartnerSampleTable().getSampleTable());
-	    MinimalTheorySet theories = cnaAlgorithm.getMinimalTheorieSet();
+	    MinimalTheorySet theories = cnaAlgorithm.getMinimalTheorySet();
 	    ArrayList<String> graphPaths = new ArrayList<String>();
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
 	    // TODO
