@@ -16,7 +16,7 @@ public class EdgeLabelClosenessTransformer implements
     public Number transform(Context<Graph<Node, Edge>, Edge> edge) {
 	Edge curEdge = edge.element;
 	// TODO Fix this
-	Double length = 0.0;
+	Double length = curEdge.calcEdgeLength();
 	return ((length / 1000) * 3);
     }
 }

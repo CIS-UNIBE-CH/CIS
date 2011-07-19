@@ -16,31 +16,28 @@ public class Edge {
     private EdgeType type;
 
     public Edge(Node source, Node destination) {
-	System.out.println(source);
 	this.source = source;
 	this.destination = destination;
 	this.type = EdgeType.DIRECTED;
 	bundleLabel = "";
     }
 
-    // TODO JR (new Node)
-    // public double calcEdgeLength() {
-    // // Node firstNode = nodes.get(0);
-    // // Node secondNode = nodes.get(1);
-    // // double firstX = firstNode.getxCoordinate();
-    // // double firstY = firstNode.getyCoordinate();
-    // // double secondX = secondNode.getxCoordinate();
-    // // double secondY = secondNode.getyCoordinate();
-    // //
-    // // // Do some pythagoras
-    // // double cathetusX = Math.abs(firstX - secondX);
-    // // double cathetusY = Math.abs(firstY - secondY);
-    // // double hypotenuse = Math.sqrt(Math.pow(cathetusX, 2)
-    // // + Math.pow(cathetusY, 2));
-    // //
-    // // return hypotenuse;
-    // return 0.0;
-    // }
+    public double calcEdgeLength() {
+	Node firstNode = source;
+	Node secondNode = destination;
+	double firstX = firstNode.getX();
+	double firstY = firstNode.getY();
+	double secondX = secondNode.getX();
+	double secondY = secondNode.getY();
+
+	// Do some pythagoras
+	double cathetusX = Math.abs(firstX - secondX);
+	double cathetusY = Math.abs(firstY - secondY);
+	double hypotenuse = Math.sqrt(Math.pow(cathetusX, 2)
+		+ Math.pow(cathetusY, 2));
+
+	return hypotenuse;
+    }
 
     public boolean equals(Edge edge) {
 	return (destination.equals(edge.getDestination()) && source.equals(edge
@@ -52,6 +49,11 @@ public class Edge {
     @Override
     public String toString() {
 	return bundleLabel;
+    }
+
+    public String toInfoString() {
+	return "{" + source + " --> " + destination + "} " + "B: "
+		+ bundleLabel;
     }
 
     // Getters and Setters
@@ -72,14 +74,6 @@ public class Edge {
 	this.type = type;
     }
 
-    public void setSource(Node source) {
-	this.source = source;
-    }
-
-    public void setDestination(Node destination) {
-	this.destination = destination;
-    }
-
     public Node getSource() {
 	return source;
     }
@@ -87,18 +81,4 @@ public class Edge {
     public Node getDestination() {
 	return destination;
     }
-
-    public void setBundleNumber(String bundleLabel) {
-	this.bundleLabel = bundleLabel;
-    }
-
-    public int getBundleNumber() {
-	if (bundleLabel != null) {
-	    // System.out.println("bundle" + Integer.parseInt(bundleLabel));
-	    return Integer.parseInt(bundleLabel);
-	} else {
-	    return 1;
-	}
-    }
-
 }

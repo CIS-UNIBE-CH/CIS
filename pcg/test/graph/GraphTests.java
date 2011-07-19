@@ -77,7 +77,7 @@ public class GraphTests extends UnitTest {
 
 	System.out.println(theories);
 	Graph matrix = new Graph(theories);
-	// System.out.println(matrix);
+	System.out.println(matrix);
 	Renderer renderer = new Renderer();
 	assert (matrix != null);
 	renderer.config(matrix);

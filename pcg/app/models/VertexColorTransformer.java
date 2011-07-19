@@ -15,6 +15,7 @@ import datastructures.graph.Node;
  */
 public class VertexColorTransformer implements Transformer<Node, Paint> {
     @Override
+    // TODO JR: Graph.isDestination ---> Viel Spass! ;)
     public Paint transform(Node node) {
 	Node current = node;
 	if (current.isEffect()) {

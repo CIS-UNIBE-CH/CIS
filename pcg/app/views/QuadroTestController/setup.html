@@ -1,0 +1,40 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h2>Difference Test - Setup</h2>
+	#{if flash.error}
+		<div class="error">
+			${flash.error}
+		</div>
+	#{/if}
+	<div class="steps">
+	Step 1/3
+	</div>
+	<br>
+	<form action="@{QuadroTestController.setTable()}" method="POST"> 
+	<table>
+	  <tr>
+	  	<td colspan="2">Please insert the names of the factors you want to test for.</td>
+	  </tr>
+	  <tr>
+		<td><br></td><td><br></td>
+	  </tr>
+	  <tr>
+	  	<td>First Factor</td><td><input type="text" name="f1" value="${f1}" /></td>
+	  </tr>
+	  <tr>
+	  	<td>Second Factor</td><td><input type="text" name="f2" value="${f2}"/></td>
+	  </tr>
+	  <tr>
+		<td><br></td><td></td>
+	  </tr>
+	  <tr>
+	  	<td>Show bundle number</td><td><input type="checkbox" name="showBundleNum" checked="checked"></td>
+	  </tr>
+	  <tr>
+		<td><br></td><td></td>
+	  </tr>
+	  <tr>
+	  	<td><input type="submit" name="go" value="Next" /></td><td></td>
+	  </tr>
+	</table>
+	</form>

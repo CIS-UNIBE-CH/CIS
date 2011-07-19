@@ -7,11 +7,15 @@ public class Node implements Comparable<Node> {
     private String bundle;
     private int level;
     private boolean effect;
+    private double x;
+    private double y;
 
     public Node(String name, boolean effect) {
 	level = -1;
 	this.name = name;
 	this.effect = effect;
+	this.x = 0.0;
+	this.y = 0.0;
     }
 
     // TODO Delete?
@@ -68,6 +72,19 @@ public class Node implements Comparable<Node> {
     @Override
     public int compareTo(Node o) {
 	return o.getLevel() - level;
+    }
+
+    public void setCoordinates(double x, double y) {
+	this.x = x;
+	this.y = y;
+    }
+
+    public double getX() {
+	return x;
+    }
+
+    public double getY() {
+	return y;
     }
 
 }

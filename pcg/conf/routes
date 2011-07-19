@@ -10,9 +10,9 @@ GET		/contact								Application.contact
 GET		/disclaimer								Application.disclaimer
 
 #SimpleQuadroTest
-GET			/quadro/setup						SimpleQuadroController.setup
-POST		/quadro/setup						SimpleQuadroController.setTable
-POST		/quadro/graph						SimpleQuadroController.calcQuadroGraph
+GET			/quadro/setup						QuadroTestController.setup
+POST		/quadro/setup						QuadroTestController.setTable
+POST		/quadro/graph						QuadroTestController.calcQuadroGraph
 
 #CNA Tests
 GET			/cna/setup							CNAController.setup

@@ -74,7 +74,7 @@ public class MinimalTheorySet extends ArrayList<MinimalTheory> {
 	    set.add(theorie.getEffect());
 	}
 	for (MinimalTheory theorie : theories) {
-	    for (String string : theorie.getFactors()) {
+	    for (String string : theorie.getBundles()) {
 		set.add(string);
 	    }
 	}

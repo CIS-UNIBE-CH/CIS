@@ -30,7 +30,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
-	System.out.println(names);
+	System.out.println("names :" + names);
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -50,7 +50,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 
     private void build(MinimalTheorySet theories) {
 	for (MinimalTheory theorie : theories) {
-	    for (String factor : theorie.getFactors()) {
+	    for (String factor : theorie.getBundles()) {
 		int posE = names.getIndex(theorie.getEffect());
 		int posF = names.getIndex(factor);
 		matrix[posF][posE] = 1;
@@ -69,7 +69,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		}
 	    }
 	}
-
     }
 
     private void setLevels() {
@@ -180,29 +179,36 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		start = x - 30;
 		counter = 0;
 	    }
+	    double yo = y + ((node.getLevel() * -1) * 100);
 	    graph.put(node, new Point2D.Double(x, y
 		    + ((node.getLevel() * -1) * 100)));
+	    node.setCoordinates(x, yo);
 	    level = node.getLevel();
 	    counter++;
 	    x += 60;
 	}
+	System.out.println(graph);
 	return graph;
     }
 
     private void identifyBundles() {
 	int bundle = 1;
+	System.out.println(nodes);
 	ArrayList<Node> nodesClone = (ArrayList<Node>) nodes.clone();
 	nodes.clear();
 	for (Node node : nodesClone) {
 	    String str = node.toString();
-	    if (str.length() > 1 && !(str.charAt(0) == 'Y')) {
+	    if (str.length() > 1) {
 		for (int i = 0; i < node.toString().length(); i++) {
 		    Node n = new Node("" + node.toString().charAt(i), false);
 		    n.setLevel(node.getLevel());
 		    n.setBundle("" + bundle);
+
 		    nodes.add(n);
 		    for (Edge edge : getIncidentEdges(node)) {
-			edges.add(new Edge(n, edge.getDestination()));
+			Edge e = new Edge(n, edge.getDestination());
+			e.setBundleLabel("" + bundle);
+			edges.add(e);
 		    }
 		}
 		bundle++;
