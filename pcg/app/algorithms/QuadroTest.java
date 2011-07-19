@@ -22,7 +22,7 @@ public class QuadroTest {
 	createMTTheorySet();
     }
 
-    private MinimalTheorySet createMTTheorySet() throws QuadroError {
+    public MinimalTheorySet createMTTheorySet() throws QuadroError {
 	MinimalTheorySet set = new MinimalTheorySet();
 	MinimalTheory theory = new MinimalTheory();
 	theory.setEffect("W");

@@ -10,6 +10,7 @@ import models.Renderer;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
+import datastructures.graph.Graph;
 import datastructures.mt.MinimalTheorySet;
 
 public class CNAController extends Controller {
@@ -23,48 +24,45 @@ public class CNAController extends Controller {
 	render();
     }
 
-    public static void generateGraph(String numberOfAlterFactors,
-	    String numberOfBundles, String sizeOfBundles, String showBundleNum,
-	    String lines) {
+    public static void prepare(String layers) {
+	int i = Integer.parseInt(layers);
+	render(i);
+    }
 
-	showBundleNumRenderer = (showBundleNum != null);
+    public static void generateGraph(ArrayList<Integer> bundle1,
+	    ArrayList<Integer> bundle2, ArrayList<Integer> bundle3,
+	    ArrayList<Integer> bundle4, ArrayList<Integer> alter) {
+	RandomMTSetGenerator generator;
+	MinimalTheorySet theories;
+	ArrayList<ArrayList<Object>> list = new ArrayList<ArrayList<Object>>();
+	ArrayList<ArrayList<Integer>> bundles = new ArrayList<ArrayList<Integer>>();
+	bundles.add(bundle1);
+	bundles.add(bundle2);
+	bundles.add(bundle3);
+	bundles.add(bundle4);
 
-	// Generate a Graph with n bundles and a total of k factors
-	int numBundles = Integer.parseInt(numberOfBundles);
-	int numOfAlterFactors = Integer.parseInt(numberOfAlterFactors);
-	int sizeBundles = Integer.parseInt(sizeOfBundles);
-	int numFactors = numOfAlterFactors + (numBundles * sizeBundles);
-	renderer = new Renderer();
-	ArrayList<String> table = new ArrayList<String>();
+	for (int i = 0; i < bundles.size(); i++) {
+	    ArrayList<Integer> bundle = bundles.get(i);
+	    ArrayList<Object> objectList = new ArrayList<Object>();
+	    objectList.add(bundle);
+	    objectList.add(alter.get(i));
+	    if (i < 2)
+		objectList.add(false);
+	    else
+		objectList.add(true);
 
-	renderer.setEdgeLabels(showBundleNumRenderer);
-
-	if (numFactors >= (2 * numBundles) && numFactors <= 12) {
-	    timer = new Timer();
-	    generator = new RandomMTSetGenerator();
-	    Long time = timer.timeElapsed();
-	    // MTSetToGraph mtSetToGraph = new
-	    // MTSetToGraph(generator.getMTSet());
-	    // renderer.config(mtSetToGraph.getGraph());
-
-	    String generatedGraphPath = renderer.getImageSource();
-	    String elapsedTime = time.toString() + " ms";
-	    // TODO FL
-	    String generatedGraph = "TODO";
-
-	    if (numFactors <= 5) {
-		render(elapsedTime, generatedGraphPath, generatedGraph, table,
-			lines);
-
-	    } else {
-		render(elapsedTime, generatedGraphPath, generatedGraph, lines);
-	    }
-
-	} else {
-	    flash.error("Sorry it was not posible to generate a graph, the numbers of factros must be grater than twice as much of the number of bundls.");
-	    params.flash();
-	    setup();
+	    list.add(objectList);
 	}
+	generator = new RandomMTSetGenerator(list);
+	theories = generator.getMTSet();
+	Graph graph = new Graph(theories);
+	Renderer renderer = new Renderer();
+	renderer.setEdgeLabels(showBundleNumRenderer);
+	renderer.config(graph);
+
+	String graphPath = renderer.getImageSource();
+	String stringGraph = theories.toString();
+	render(graphPath, stringGraph);
     }
 
     public static void calcCNAGraph(String generatedGraphPath,
@@ -73,42 +71,42 @@ public class CNAController extends Controller {
 	renderer = new Renderer();
 	int randomLines = Integer.parseInt(lines);
 	renderer.setEdgeLabels(showBundleNumRenderer);
-//	try {
-	    // TODO Make GraphToTable Parser change this
-//	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
-//		    randomLines);
+	// try {
+	// TODO Make GraphToTable Parser change this
+	// CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
+	// randomLines);
 
-//	    MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
-	    ArrayList<String> graphPaths = new ArrayList<String>();
-	    ArrayList<String> stringGraphs = new ArrayList<String>();
+	// MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
+	ArrayList<String> graphPaths = new ArrayList<String>();
+	ArrayList<String> stringGraphs = new ArrayList<String>();
 
-	    // TODO Make rendering correct.
-	    renderer = new Renderer();
-	    renderer.setEdgeLabels(true);
-	    // renderer.config(treeToGraph);
-	    graphPaths.add(renderer.getImageSource());
-	    // stringGraphs.add(stringToTree.getTree().toString());
+	// TODO Make rendering correct.
+	renderer = new Renderer();
+	renderer.setEdgeLabels(true);
+	// renderer.config(treeToGraph);
+	graphPaths.add(renderer.getImageSource());
+	// stringGraphs.add(stringToTree.getTree().toString());
 
-//	    Long time = timer.timeElapsed();
+	// Long time = timer.timeElapsed();
 
-//	    String originalTable = cnaAlgorithm.getOriginalTable().toString();
-//	    String elapsedTime = time.toString() + " ms";
-//	    String effects = cnaAlgorithm.getEffects().toString();
-//	    String sufTable = cnaAlgorithm.getSufTable().toString();
-//	    String msufTable = cnaAlgorithm.getMsufTable().toString();
-//	    String necList = cnaAlgorithm.getNecList().toString();
-//	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
-//	    String deleted = cnaAlgorithm.getDeleted().toString();
-//	    String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
+	// String originalTable = cnaAlgorithm.getOriginalTable().toString();
+	// String elapsedTime = time.toString() + " ms";
+	// String effects = cnaAlgorithm.getEffects().toString();
+	// String sufTable = cnaAlgorithm.getSufTable().toString();
+	// String msufTable = cnaAlgorithm.getMsufTable().toString();
+	// String necList = cnaAlgorithm.getNecList().toString();
+	// String mnecTable = cnaAlgorithm.getMnecTable().toString();
+	// String deleted = cnaAlgorithm.getDeleted().toString();
+	// String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
 
-//	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
-//		    generatedGraphPath, generatedGraph, effects, sufTable,
-//		    msufTable, necList, mnecTable, fmt, deleted);
-//	} catch (NecException e) {
-//	    flash.error("NEC error.");
-//	    params.flash();
-//	    setup();
-//	}
+	// render(elapsedTime, originalTable, graphPaths, stringGraphs,
+	// generatedGraphPath, generatedGraph, effects, sufTable,
+	// msufTable, necList, mnecTable, fmt, deleted);
+	// } catch (NecException e) {
+	// flash.error("NEC error.");
+	// params.flash();
+	// setup();
+	// }
     }
 
     public static void baumgartnerSample() {
@@ -118,8 +116,16 @@ public class CNAController extends Controller {
 	    cnaAlgorithm = new CNAlgorithm(
 		    new BaumgartnerSampleTable().getSampleTable());
 	    MinimalTheorySet theories = cnaAlgorithm.getMinimalTheorySet();
-	    ArrayList<String> graphPaths = new ArrayList<String>();
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
+	    String graphPath;
+
+	    renderer = new Renderer();
+	    Graph graph = new Graph(theories);
+	    Renderer renderer = new Renderer();
+	    renderer.setEdgeLabels(showBundleNumRenderer);
+	    renderer.config(graph);
+	    graphPath = renderer.getImageSource();
+
 	    // TODO
 	    // for (MinimalTheorie theorie : theories) {
 	    // CNAList list = new CNAList();
@@ -143,7 +149,7 @@ public class CNAController extends Controller {
 	    String msufTable = cnaAlgorithm.getMsufTable().toString();
 	    String necList = cnaAlgorithm.getNecList().toString();
 	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	    render(elapsedTime, graphPaths, stringGraphs, effects, sufTable,
+	    render(elapsedTime, graphPath, stringGraphs, effects, sufTable,
 		    msufTable, necList, mnecTable);
 	} catch (NecException e) {
 	    flash.error("NEC error.");

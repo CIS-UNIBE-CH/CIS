@@ -1,8 +1,11 @@
 package controllers;
 
+import models.Renderer;
 import play.mvc.Controller;
 import algorithms.QuadroError;
 import algorithms.QuadroTest;
+import datastructures.graph.Graph;
+import datastructures.mt.MinimalTheorySet;
 
 public class QuadroTestController extends Controller {
 
@@ -41,20 +44,20 @@ public class QuadroTestController extends Controller {
 
 	try {
 	    QuadroTest quadroTest = new QuadroTest(coincidence, f1, f2);
+	    MinimalTheorySet theories = quadroTest.createMTTheorySet();
+	    Graph graph = new Graph(theories);
+	    Renderer renderer = new Renderer();
+	    renderer.setEdgeLabels(showBundleNumRenderer);
+	    renderer.config(graph);
+
+	    String graphPath = renderer.getImageSource();
+	    String stringGraph = theories.toString();
+	    render(graphPath, stringGraph);
 	} catch (QuadroError e) {
 	    flash.error(e.toString());
 	    params.flash();
-	    e.printStackTrace();
+	    setup();
 	}
 
-	// TODO renew this commented code
-	// Renderer renderer = new Renderer();
-	// renderer.setEdgeLabels(showBundleNumRenderer);
-	//
-	// renderer.config(new TreeToGraph(tree, 1, 3));
-	//
-	// String graphPath = renderer.getImageSource();
-	// String stringGraph = tree.toString();
-	// render(graphPath, stringGraph);
     }
 }

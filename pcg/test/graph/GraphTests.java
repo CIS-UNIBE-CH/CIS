@@ -37,7 +37,7 @@ public class GraphTests extends UnitTest {
 	MinimalTheory theorie = new MinimalTheory(factors, "R");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "R,S,TH");
+	factors = new CNAList(',', "R,S,THEL");
 	theorie = new MinimalTheory(factors, "W");
 	theories.add(theorie);
 

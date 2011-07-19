@@ -13,7 +13,6 @@ import java.util.Date;
 
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.TransformerUtils;
-import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import datastructures.graph.Edge;
 import datastructures.graph.Graph;
@@ -50,23 +49,23 @@ public class Renderer {
     public Renderer() {
 	now = new Date();
 	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
-	this.path = "../pcg/public/images/graphs/";
+	this.path = "./pcg/public/images/graphs/";
 	xPicSize = 0;
 	yPicSize = 0;
 	locationTransformer = new VertexLocationTransformer();
     }
 
-    public void config(Graph matrix) {
+    public void config(Graph graph) {
 
-	yPicSize = 800;
-	xPicSize = 800;
+	yPicSize = 1800;
+	xPicSize = 1800;
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
 	Transformer<Node, Point2D> vertexLocations = TransformerUtils
-		.mapTransformer(matrix.getGraph());
+		.mapTransformer(graph.getGraph());
 
-	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(matrix,
+	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(graph,
 		vertexLocations);
 
 	layout.setSize(new Dimension(xPicSize, yPicSize));

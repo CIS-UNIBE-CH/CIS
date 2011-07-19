@@ -33,8 +33,7 @@ public class Edge {
 	// Do some pythagoras
 	double cathetusX = Math.abs(firstX - secondX);
 	double cathetusY = Math.abs(firstY - secondY);
-	double hypotenuse = Math.sqrt(Math.pow(cathetusX, 2)
-		+ Math.pow(cathetusY, 2));
+	double hypotenuse = Math.hypot(cathetusX, cathetusY);
 
 	return hypotenuse;
     }

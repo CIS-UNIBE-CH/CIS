@@ -164,7 +164,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 
     public Map<Node, Point2D> getGraph() {
 	double x = 60;
-	double y = 100 * (deepest) + 30;
+	double y = 100 * (deepest) + 100;
 	identifyBundles();
 	ArrayList<Node> nodeList = nodes;
 	Collections.sort(nodeList);
@@ -179,9 +179,9 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		start = x - 30;
 		counter = 0;
 	    }
-	    double yo = y + ((node.getLevel() * -1) * 100);
+	    double yo = y + ((node.getLevel() * -1) * 130);
 	    graph.put(node, new Point2D.Double(x, y
-		    + ((node.getLevel() * -1) * 100)));
+		    + ((node.getLevel() * -1) * 130)));
 	    node.setCoordinates(x, yo);
 	    level = node.getLevel();
 	    counter++;
@@ -198,17 +198,32 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	nodes.clear();
 	for (Node node : nodesClone) {
 	    String str = node.toString();
-	    if (str.length() > 1) {
-		for (int i = 0; i < node.toString().length(); i++) {
-		    Node n = new Node("" + node.toString().charAt(i), false);
-		    n.setLevel(node.getLevel());
-		    n.setBundle("" + bundle);
+	    if (str.length() > 1 || (str.length() == 2 && str.charAt(0) == '¬')) {
+		for (int i = 0; i < str.length(); i++) {
+		    if (str.charAt(i) == '¬') {
+			Node n = new Node("" + str.charAt(i)
+				+ str.charAt(i + 1), false);
+			n.setLevel(node.getLevel());
+			n.setBundle("" + bundle);
 
-		    nodes.add(n);
-		    for (Edge edge : getIncidentEdges(node)) {
-			Edge e = new Edge(n, edge.getDestination());
-			e.setBundleLabel("" + bundle);
-			edges.add(e);
+			nodes.add(n);
+			for (Edge edge : getIncidentEdges(node)) {
+			    Edge e = new Edge(n, edge.getDestination());
+			    e.setBundleLabel("" + bundle);
+			    edges.add(e);
+			}
+			i++;
+		    } else {
+			Node n = new Node("" + str.charAt(i), false);
+			n.setLevel(node.getLevel());
+			n.setBundle("" + bundle);
+
+			nodes.add(n);
+			for (Edge edge : getIncidentEdges(node)) {
+			    Edge e = new Edge(n, edge.getDestination());
+			    e.setBundleLabel("" + bundle);
+			    edges.add(e);
+			}
 		    }
 		}
 		bundle++;
