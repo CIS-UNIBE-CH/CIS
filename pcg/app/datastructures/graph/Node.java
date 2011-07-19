@@ -7,6 +7,7 @@ public class Node implements Comparable<Node> {
     private String bundle;
     private int level;
     private boolean effect;
+    private boolean destination;
     private double x;
     private double y;
 
@@ -35,6 +36,7 @@ public class Node implements Comparable<Node> {
 
     // ToString
 
+    @Override
     public String toString() {
 	return name;
     }
@@ -87,4 +89,11 @@ public class Node implements Comparable<Node> {
 	return y;
     }
 
+    public boolean isDestination() {
+        return destination;
+    }
+
+    public void setDestination(boolean destination) {
+        this.destination = destination;
+    }
 }
