@@ -1,22 +1,22 @@
-package models;
+package datastructures.random;
 
 import java.util.ArrayList;
 
 public class Random {
     ArrayList<ArrayList<Integer>> bundleSizes;
-    ArrayList<Integer> alterFac;
-    ArrayList<Boolean> epi = new ArrayList<Boolean>();
-    boolean epiOn;
+    ArrayList<Integer> noOfAlterFactors;
+    ArrayList<Boolean> epiphenomenon = new ArrayList<Boolean>();
+    boolean makeEpiphenomenon;
 
     public Random(ArrayList<ArrayList<Integer>> bundleSizes,
-	    ArrayList<Integer> alterFac, boolean epiOn) {
+	    ArrayList<Integer> noOfAlterFactors, boolean makeEpiphenomenon) {
 	this.bundleSizes = bundleSizes;
-	this.alterFac = alterFac;
-	this.epiOn = epiOn;
+	this.noOfAlterFactors = noOfAlterFactors;
+	this.makeEpiphenomenon = makeEpiphenomenon;
 
-	removeAlterFacNull();
+	swapAlterFactorNullWithZero();
 	removeBundleSizesNull();
-	epi();
+	createEpiList();
     }
 
     private void removeBundleSizesNull() {
@@ -34,23 +34,23 @@ public class Random {
 	}
     }
 
-    private void removeAlterFacNull() {
-	for (int i = alterFac.size() - 1; i >= 0; i--) {
-	    Integer cur = alterFac.get(i);
+    private void swapAlterFactorNullWithZero() {
+	for (int i = noOfAlterFactors.size() - 1; i >= 0; i--) {
+	    Integer cur = noOfAlterFactors.get(i);
 	    if (cur == null) {
-		alterFac.set(i, 0);
+		noOfAlterFactors.set(i, 0);
 	    }
 	}
     }
 
-    private void epi() {
+    private void createEpiList() {
 	for (int i = 0; i < bundleSizes.size(); i++) {
-	    epi.add(false);
+	    epiphenomenon.add(false);
 	}
-	if (epiOn) {
+	if (makeEpiphenomenon) {
 	    int length = bundleSizes.size();
-	    epi.set(length - 1, true);
-	    epi.set(length - 2, true);
+	    epiphenomenon.set(length - 1, true);
+	    epiphenomenon.set(length - 2, true);
 	}
     }
 
@@ -58,11 +58,11 @@ public class Random {
         return bundleSizes;
     }
 
-    public ArrayList<Integer> getAlterFac() {
-        return alterFac;
+    public ArrayList<Integer> getNoOfAlterFactors() {
+        return noOfAlterFactors;
     }
 
     public ArrayList<Boolean> getEpi() {
-        return epi;
+        return epiphenomenon;
     }
 }

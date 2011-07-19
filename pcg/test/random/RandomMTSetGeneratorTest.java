@@ -1,10 +1,10 @@
+package random;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import models.RandomMTSetGenerator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +14,7 @@ import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
+import datastructures.random.RandomMTSetGenerator;
 
 public class RandomMTSetGeneratorTest extends UnitTest {
     private RandomMTSetGenerator generator;

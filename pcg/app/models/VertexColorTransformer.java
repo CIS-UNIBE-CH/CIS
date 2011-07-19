@@ -15,30 +15,30 @@ import datastructures.graph.Node;
  * bundle is cause or effect.
  */
 public class VertexColorTransformer implements Transformer<Node, Paint> {
-    private ArrayList<Color> color = new ArrayList<Color>();
-    private static int index = 0;
+    private ArrayList<Color> colors = new ArrayList<Color>();
 
     @Override
     public Paint transform(Node node) {
-	color.clear();
-	color.add(Color.blue);
-	color.add(Color.lightGray);
-	color.add(Color.magenta);
-	color.add(Color.pink);
-	color.add(Color.red);
-	color.add(Color.orange);
-	color.add(Color.cyan);
-	color.add(Color.yellow);
+	colors.clear();
+	colors.add(Color.blue);
+	colors.add(Color.lightGray);
+	colors.add(Color.magenta);
+	colors.add(Color.pink);
+	colors.add(Color.red);
+	colors.add(Color.orange);
+	colors.add(Color.cyan);
+	colors.add(Color.yellow);
+
 	
-	if (node.isEffect()) {
+	if (node.isEffect() || node.isInnerEffect()) {
 	    return new Color(255, 153, 0);
 	} else {
 	    if (node.isPartOfBundle()) {
-		if (node.isDestination()) {
+		if (node.isInnerEffect()) {
 		    return new Color(255, 153, 0);
 		} else {
 		    int bundleNumber = Integer.parseInt(node.getBundle());
-		    return color.get((bundleNumber-1)%8);
+		    return colors.get((bundleNumber - 1) % 8);
 		}
 	    } else {
 		return Color.GREEN;

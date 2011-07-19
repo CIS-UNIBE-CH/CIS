@@ -63,7 +63,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		if (matrix[i][j] == 1) {
 		    Node source = getNode(names.get(i));
 		    Node destination = getNode(names.get(j));
-		    destination.setDestination(true);
+		    destination.setIsInnerEffect(true);
 		    Edge edge = new Edge(source, destination);
 		    edges.add(edge);
 		}
@@ -141,7 +141,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		stack.push(names.get(i));
 		Node n = getNode(names.get(i));
 		n.setLevel(0);
-		n.setEffect(true);
+		n.setIsEffect(true);
 	    }
 	}
     }

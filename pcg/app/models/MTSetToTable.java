@@ -3,7 +3,6 @@ package models;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 
-/** Parses a CustomTree to Coincidence Table */
 public class MTSetToTable {
     /*private CustomTree tree;
     private String table[][];

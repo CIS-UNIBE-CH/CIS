@@ -5,14 +5,14 @@ import helpers.Timer;
 
 import java.util.ArrayList;
 
-import models.Random;
-import models.RandomMTSetGenerator;
 import models.Renderer;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
 import datastructures.graph.Graph;
 import datastructures.mt.MinimalTheorySet;
+import datastructures.random.Random;
+import datastructures.random.RandomMTSetGenerator;
 
 public class CNAController extends Controller {
 
@@ -43,7 +43,7 @@ public class CNAController extends Controller {
 	boolean epiOn = (epi != null);
 	Random random = new Random(list, alterFactors, epiOn);
 	generator = new RandomMTSetGenerator(random.getBundleSizes(),
-		random.getAlterFac(), random.getEpi());
+		random.getNoOfAlterFactors(), random.getEpi());
 	theories = generator.getMTSet();
 	Graph graph = new Graph(theories);
 	Renderer renderer = new Renderer();

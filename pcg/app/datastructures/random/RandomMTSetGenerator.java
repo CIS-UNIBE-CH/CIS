@@ -1,4 +1,4 @@
-package models;
+package datastructures.random;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
