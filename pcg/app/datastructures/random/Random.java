@@ -3,23 +3,30 @@ package datastructures.random;
 import java.util.ArrayList;
 
 public class Random {
-    ArrayList<ArrayList<Integer>> bundleSizes;
-    ArrayList<Integer> noOfAlterFactors;
-    ArrayList<Boolean> epiphenomenon = new ArrayList<Boolean>();
-    boolean makeEpiphenomenon;
+    private ArrayList<ArrayList<Integer>> bundleSizes;
+    private ArrayList<Integer> noOfAlterFactors;
+    private ArrayList<Boolean> epiphenomenon = new ArrayList<Boolean>();
+    private boolean makeEpiphenomenon;
+    private int size;
 
     public Random(ArrayList<ArrayList<Integer>> bundleSizes,
 	    ArrayList<Integer> noOfAlterFactors, boolean makeEpiphenomenon) {
 	this.bundleSizes = bundleSizes;
 	this.noOfAlterFactors = noOfAlterFactors;
 	this.makeEpiphenomenon = makeEpiphenomenon;
+	size = bundleSizes.size();
 
 	swapAlterFactorNullWithZero();
-	removeBundleSizesNull();
+	removeBundleSizesNulls();
 	createEpiList();
     }
+    
+    //For Testing only
+    public Random(int size){
+	this.size = size;
+    }
 
-    private void removeBundleSizesNull() {
+    public void removeBundleSizesNulls() {
 	for (int i = bundleSizes.size() - 1; i >= 0; i--) {
 	    ArrayList<Integer> list = bundleSizes.get(i);
 	    for (int j = list.size() - 1; j >= 0; j--) {
@@ -34,7 +41,7 @@ public class Random {
 	}
     }
 
-    private void swapAlterFactorNullWithZero() {
+    public void swapAlterFactorNullWithZero() {
 	for (int i = noOfAlterFactors.size() - 1; i >= 0; i--) {
 	    Integer cur = noOfAlterFactors.get(i);
 	    if (cur == null) {
@@ -43,12 +50,12 @@ public class Random {
 	}
     }
 
-    private void createEpiList() {
-	for (int i = 0; i < bundleSizes.size(); i++) {
+    public void createEpiList() {
+	for (int i = 0; i < size; i++) {
 	    epiphenomenon.add(false);
 	}
 	if (makeEpiphenomenon) {
-	    int length = bundleSizes.size();
+	    int length = size;
 	    epiphenomenon.set(length - 1, true);
 	    epiphenomenon.set(length - 2, true);
 	}
@@ -64,5 +71,21 @@ public class Random {
 
     public ArrayList<Boolean> getEpi() {
         return epiphenomenon;
+    }
+
+    public void setBundleSizes(ArrayList<ArrayList<Integer>> bundleSizes) {
+        this.bundleSizes = bundleSizes;
+    }
+
+    public void setNoOfAlterFactors(ArrayList<Integer> noOfAlterFactors) {
+        this.noOfAlterFactors = noOfAlterFactors;
+    }
+
+    public void setMakeEpiphenomenon(boolean makeEpiphenomenon) {
+        this.makeEpiphenomenon = makeEpiphenomenon;
+    }
+
+    public boolean isMakeEpiphenomenon() {
+        return makeEpiphenomenon;
     }
 }
