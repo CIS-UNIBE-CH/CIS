@@ -26,7 +26,7 @@ public class MinimalTheory {
 	    output += bundles.get(i) + "X" + (i + 1) + " ∨ ";
 	}
 	output += bundles.get(bundles.size() - 1) + "X" + bundles.size()
-		+ "Y" + effect + " => " + effect;
+		+ " ∨ " + "Y" + effect + " => " + effect;
 	return output;
     }
     

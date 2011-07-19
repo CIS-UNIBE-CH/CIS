@@ -12,16 +12,21 @@ import datastructures.mt.MinimalTheorySet;
 public class RandomMTSetGenerator {
     private CNATable namesOriginal;
     private CNATable namesEffects;
-    private CNATable namesCauses;
+    // Hold at ervery index: At index 0 an ArrayList of bundlesizes, at 1 a int
+    // (noOfAlterFactors) and at 2 if it's epiphenomenon.
     private ArrayList<ArrayList<Object>> userInput;
     private MinimalTheorySet set;
-    private String epiFactor = "";
-    private int epiCounter = 0;
+    private String epiFactor;
+    private int epiCounter;
+    private MinimalTheory prevMT;
 
-    public RandomMTSetGenerator(ArrayList<ArrayList<Object>> allInformation) {
-	this.userInput = allInformation;
+    public RandomMTSetGenerator(ArrayList<ArrayList<Object>> userInput) {
+	this.userInput = userInput;
 	namesOriginal = new CNATable();
 	set = new MinimalTheorySet();
+	epiFactor = "";
+	epiCounter = 0;
+	prevMT = null;
 
 	generateFactorNames();
 	generateMTSet();
@@ -31,6 +36,9 @@ public class RandomMTSetGenerator {
     public RandomMTSetGenerator() {
 	namesOriginal = new CNATable();
 	set = new MinimalTheorySet();
+	epiFactor = "";
+	epiCounter = 0;
+	prevMT = null;
     }
 
     public void generateFactorNames() {
@@ -56,45 +64,34 @@ public class RandomMTSetGenerator {
 	}
     }
 
-    private CNATable getCauseNames(ArrayList<Object> information) {
-	if (((Boolean) information.get(2) && epiCounter == 0)
-		|| epiCounter == 1) {
-	    if (namesCauses == null) {
-		namesCauses = namesEffects.clone();
-	    }
-	    return namesCauses;
-	} else {
-	    return namesEffects.clone();
-	}
-    }
-
-    public void addBundles(ArrayList<Object> information, MinimalTheory theorie) {
-	ArrayList<Integer> bundleSizes = (ArrayList<Integer>) information
-		.get(0);
-
-	CNATable names = getCauseNames(information);
+    public void addBundles(ArrayList<Object> level, MinimalTheory theory) {
+	ArrayList<Integer> bundleSizes = (ArrayList<Integer>) level.get(0);
+	CNATable names = namesEffects.clone();
 	String bundle = "";
-	names = removeEpi(names);
+
+	names = removeEpiFactor(names);
 	for (Integer number : bundleSizes) {
 	    bundle = "";
 	    for (int i = 0; i < number; i++) {
-		int random = random(names.size());
+		int random = randomIndex(names.size());
 		int randomSec = randomNegativePositiv();
-		bundle += (names.get(random).get(randomSec));
-		// If here is no remove factor could appear in more than one
-		// bundle in same MT
-		names.remove(random);
+		if (!factorExistsInPrevMT(names.get(random).get(randomSec))) {
+		    bundle += (names.get(random).get(randomSec));
+		    // If here is no remove, factor could appear in more than
+		    // one bundle in same MT
+		    names.remove(random);
+		} else {
+		    i--;
+		}
 	    }
-	    theorie.addBundle(bundle);
+	    theory.addBundle(bundle);
 	}
-	namesCauses = names;
-	
 	if (epiCounter == 1) {
-	    theorie = swapFirstWithEpi(theorie);
+	    theory = swapFirstFactorWithEpi(theory);
 	    epiCounter++;
 	}
-	if ((Boolean) information.get(2) && epiCounter == 0) {
-	    detectEpi(bundle);
+	if ((Boolean) level.get(2) && epiCounter == 0) {
+	    getEpiFactor(bundle);
 	    epiCounter++;
 	}
 	if (epiCounter == 2) {
@@ -102,43 +99,59 @@ public class RandomMTSetGenerator {
 	}
     }
 
-    public void addAlterFactors(MinimalTheory theorie,
-	    ArrayList<Object> information, String prevEffect) {
-	CNATable names = getCauseNames(information);
-	int noOfAlterFactors = (Integer) information.get(1);
+    public void addAlterFactors(MinimalTheory theory, ArrayList<Object> level,
+	    String prevEffect) {
+	CNATable names = namesEffects.clone();
+	int noOfAlterFactors = (Integer) level.get(1);
 
 	if (!prevEffect.equals("")) {
-	    theorie.addBundle(prevEffect);
+	    theory.addBundle(prevEffect);
 	    noOfAlterFactors--;
 	}
 	for (int i = 0; i < noOfAlterFactors; i++) {
-	    int random = random(names.size());
+	    int random = randomIndex(names.size());
 	    int randomSec = randomNegativePositiv();
-	    theorie.addBundle(names.get(random).get(randomSec));
-	    names.remove(random);
+	    if (!factorExistsInPrevMT(names.get(random).get(randomSec))) {
+		theory.addBundle(names.get(random).get(randomSec));
+		names.remove(random);
+	    } else {
+		i--;
+	    }
 	}
-	namesCauses = names;
     }
 
-    public String addEffect(CNATable names, MinimalTheory theorie) {
+    public String addEffect(CNATable names, MinimalTheory theory) {
 	String effect = "";
 	int random = 0;
+
 	while (true) {
-	    random = random(names.size());
+	    random = randomIndex(names.size());
 	    effect = names.get(random).get(0);
-	    if (!effectIsFactor(effect, theorie)) {
+	    if (!effectEqualsMTFactor(effect, theory)) {
 		break;
 	    }
 	}
-
-	theorie.setEffect(effect);
+	theory.setEffect(effect);
 	names.remove(random);
-	set.add(theorie);
+	prevMT = theory;
+	set.add(theory);
 	return effect;
     }
 
-    private boolean effectIsFactor(String effect, MinimalTheory theorie) {
-	CNAList factors = theorie.getFactors();
+    public boolean factorExistsInPrevMT(String current) {
+	if (prevMT == null) {
+	    return false;
+	}
+	for (String prevFactor : prevMT.getFactors()) {
+	    if (prevFactor.equals(current)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
+    private boolean effectEqualsMTFactor(String effect, MinimalTheory theory) {
+	CNAList factors = theory.getFactors();
 	int counter = 0;
 	for (String factor : factors) {
 	    if (factor.equals(effect)) {
@@ -152,7 +165,7 @@ public class RandomMTSetGenerator {
 	}
     }
 
-    private void detectEpi(String bundle) {
+    private void getEpiFactor(String bundle) {
 	if (bundle.charAt(bundle.length() - 2) == '¬') {
 	    epiFactor = "" + bundle.charAt(bundle.length() - 2)
 		    + bundle.charAt(bundle.length() - 1);
@@ -161,22 +174,22 @@ public class RandomMTSetGenerator {
 	}
     }
 
-    private MinimalTheory swapFirstWithEpi(MinimalTheory theorie) {
-	if (theorie.getBundles().get(0).charAt(0) == '¬') {
-	    String cur = theorie.getBundles().get(0);
+    private MinimalTheory swapFirstFactorWithEpi(MinimalTheory theory) {
+	if (theory.getBundles().get(0).charAt(0) == '¬') {
+	    String cur = theory.getBundles().get(0);
 	    cur = cur.substring(2);
 	    cur = epiFactor + cur;
-	    theorie.getBundles().set(0, cur);
+	    theory.getBundles().set(0, cur);
 	} else {
-	    String cur = theorie.getBundles().get(0);
+	    String cur = theory.getBundles().get(0);
 	    cur = cur.substring(1);
 	    cur = epiFactor + cur;
-	    theorie.getBundles().set(0, cur);
+	    theory.getBundles().set(0, cur);
 	}
-	return theorie;
+	return theory;
     }
 
-    private CNATable removeEpi(CNATable names) {
+    private CNATable removeEpiFactor(CNATable names) {
 	if (!epiFactor.equals("")) {
 	    for (int i = names.size() - 1; i >= 0; i--) {
 		if (names.get(i).get(0).equals(epiFactor)
@@ -190,7 +203,7 @@ public class RandomMTSetGenerator {
 	}
     }
 
-    public int random(int size) {
+    public int randomIndex(int size) {
 	return (int) (Math.random() * (size - 1));
     }
 
