@@ -4,6 +4,7 @@ package models;
 
 import java.awt.Color;
 import java.awt.Paint;
+import java.util.ArrayList;
 
 import org.apache.commons.collections15.Transformer;
 
@@ -14,24 +15,35 @@ import datastructures.graph.Node;
  * bundle is cause or effect.
  */
 public class VertexColorTransformer implements Transformer<Node, Paint> {
+    private ArrayList<Color> color = new ArrayList<Color>();
+    private static int index = 0;
+
     @Override
-    // TODO JR: Graph.isDestination ---> Viel Spass! ;)
     public Paint transform(Node node) {
-	Node current = node;
-	if (current.isEffect()) {
+	color.add(Color.blue);
+	color.add(Color.lightGray);
+	color.add(Color.magenta);
+	color.add(Color.pink);
+	color.add(Color.red);
+	color.add(Color.orange);
+	color.add(Color.cyan);
+	color.add(Color.yellow);
+
+	if (index == color.size() - 1) {
+	    index = 0;
+	}
+	
+	if (node.isEffect()) {
 	    return new Color(255, 153, 0);
 	} else {
-	    int bundleNumber;
-	    if (current.isPartOfBundle()) {
-		if (current.isEffect()) {
+	    if (node.isPartOfBundle()) {
+		if (node.isDestination()) {
 		    return new Color(255, 153, 0);
 		} else {
-		    bundleNumber = Integer.valueOf(current.getBundle());
-		    return new Color((100 + (30 * bundleNumber)) % 255, 200,
-			    (100 + (30 * bundleNumber)) % 255);
+		    index++;
+		    return color.get(index - 1);
 		}
 	    } else {
-		bundleNumber = 0;
 		return Color.GREEN;
 	    }
 	}

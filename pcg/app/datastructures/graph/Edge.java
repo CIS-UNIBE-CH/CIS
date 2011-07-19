@@ -18,17 +18,17 @@ public class Edge {
     public Edge(Node source, Node destination) {
 	this.source = source;
 	this.destination = destination;
+	source.setDestination(false);
+	destination.setDestination(true);
 	this.type = EdgeType.DIRECTED;
 	bundleLabel = "";
     }
 
     public double calcEdgeLength() {
-	Node firstNode = source;
-	Node secondNode = destination;
-	double firstX = firstNode.getX();
-	double firstY = firstNode.getY();
-	double secondX = secondNode.getX();
-	double secondY = secondNode.getY();
+	double firstX = source.getX();
+	double firstY = source.getY();
+	double secondX = destination.getX();
+	double secondY = destination.getY();
 
 	// Do some pythagoras
 	double cathetusX = Math.abs(firstX - secondX);
