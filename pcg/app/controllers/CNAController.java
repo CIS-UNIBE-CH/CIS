@@ -59,7 +59,16 @@ public class CNAController extends Controller {
 	    String generatedGraph = theories.toString();
 	    render(graphPath, generatedGraph);
 	} catch (OutOfMemoryError e) {
-	    flash.error("Phuu! This calculation was to complex! Server is out of Memory! Please wait one minute and try again.");
+	    flash.error("Phuu! This calculation was to complex! "
+		    + "Server is out of Memory! "
+		    + "Please wait one minute and try again.");
+	    params.flash();
+	    setup();
+	    e.printStackTrace();
+	}
+
+	catch (IllegalArgumentException e) {
+	    flash.error("You calculated a null graph ;)");
 	    params.flash();
 	    setup();
 	    e.printStackTrace();
