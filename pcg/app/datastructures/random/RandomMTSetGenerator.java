@@ -150,7 +150,6 @@ public class RandomMTSetGenerator {
 	theory.setEffect(effect);
 	namesEffects.remove(random);
 	prevMT = theory;
-	System.out.println("Theory: " + theory);
 	set.add(theory);
     }
 

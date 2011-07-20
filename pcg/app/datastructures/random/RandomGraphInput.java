@@ -12,17 +12,31 @@ public class RandomGraphInput {
 	this.bundleSizes = bundleSizes;
 	this.noOfAlterFactors = noOfAlterFactors;
 
+	removeBundleSizesZeros();
 	createLevelsList();
+	System.out.println("Levels: " + levels);
+	System.out.println("AlterFactors: " + noOfAlterFactors);
     }
-    
-    public void createLevelsList(){
-	for(int i = 0; i < bundleSizes.size(); i++){
+
+    public void removeBundleSizesZeros() {
+	for (int i = bundleSizes.size() - 1; i >= 0; i--) {
+	    ArrayList<Integer> list = bundleSizes.get(i);
+	    for (int j = list.size() - 1; j >= 0; j--) {
+		Integer cur = list.get(j);
+		if (cur == 0) {
+		    list.remove(j);
+		}
+	    }
+	}
+    }
+
+    public void createLevelsList() {
+	for (int i = 0; i < bundleSizes.size(); i++) {
 	    ArrayList<Object> level = new ArrayList<Object>();
 	    level.add(bundleSizes.get(i));
 	    level.add(noOfAlterFactors.get(i));
 	    levels.add(level);
 	}
-	System.out.println("Levels" + levels);
     }
 
     public ArrayList<ArrayList<Integer>> getBundleSizes() {
@@ -34,7 +48,7 @@ public class RandomGraphInput {
     }
 
     public ArrayList<ArrayList<Object>> getLevels() {
-        return levels;
+	return levels;
     }
 
     public void setBundleSizes(ArrayList<ArrayList<Integer>> bundleSizes) {
