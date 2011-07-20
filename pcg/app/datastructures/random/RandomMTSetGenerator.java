@@ -13,36 +13,55 @@ public class RandomMTSetGenerator {
     private CNATable namesOriginal;
     private CNATable namesEffects;
     private MinimalTheorySet set;
-    private String epiFactor;
-    private int epiCounter;
+    private ArrayList<ArrayList<Object>> levels;
     private MinimalTheory prevMT;
-    private ArrayList<ArrayList<Integer>> bundleSizes;
-    private ArrayList<Integer> alterFactors;
-    private ArrayList<Boolean> isEpiList;
-    private boolean bundleEpi;
+    private boolean makeEpi;
 
-    public RandomMTSetGenerator(ArrayList<ArrayList<Integer>> bundleSizes,
-	    ArrayList<Integer> alterFactors, ArrayList<Boolean> epi) {
+    public RandomMTSetGenerator(ArrayList<ArrayList<Object>> levels, boolean epi) {
 	namesOriginal = new CNATable();
 	set = new MinimalTheorySet();
-	epiFactor = "";
-	epiCounter = 0;
+	this.levels = levels;
 	prevMT = null;
-	this.bundleSizes = bundleSizes;
-	this.alterFactors = alterFactors;
-	this.isEpiList = epi;
+	this.makeEpi = epi;
 
 	generateFactorNames();
 	generateMTSet();
+	makeChain();
+	System.out.println("Final Set: " + set);
     }
 
     // For Testing only
     public RandomMTSetGenerator() {
 	namesOriginal = new CNATable();
 	set = new MinimalTheorySet();
-	epiFactor = "";
-	epiCounter = 0;
 	prevMT = null;
+    }
+
+    private void makeChain() {
+	String effect = "";
+	for (int i = 0; i < set.size(); i++) {
+	    MinimalTheory cur = set.get(i);
+	    if (!effect.equals("")) {
+		int lastBundle = cur.getBundleFactors().size() - 1;
+		int lastFactor = cur.getBundleFactors().get(lastBundle).size() - 1;
+		CNATable temp = cur.getBundleFactors();
+		temp.get(lastBundle).set(lastFactor, effect);
+		cur.setBundleFactors(temp);
+	    }
+	    effect = cur.getEffect();
+	    if (makeEpi && i == set.size() - 2) {
+		makeEpi(cur, set.get(i + 1));
+		break;
+	    }
+	}
+    }
+
+    private void makeEpi(MinimalTheory cur, MinimalTheory next) {
+	String curFirst = cur.getBundleFactors().get(0).get(0);
+	CNATable nextBundles = next.getBundleFactors();
+	nextBundles.get(0).set(0, curFirst);
+	next.setBundleFactors(nextBundles);
+
     }
 
     public void generateFactorNames() {
@@ -58,43 +77,37 @@ public class RandomMTSetGenerator {
     }
 
     public void generateMTSet() {
-	String prevEffect = "";
-	if (bundleSizes.size() > 0) {
-	    for (int i = 0; i < bundleSizes.size(); i++) {
-		bundleEpi = true;
-		MinimalTheory theorie = new MinimalTheory();
+	for (int i = 0; i < levels.size(); i++) {
+	    MinimalTheory theory = new MinimalTheory();
+	    boolean madeFactors = false;
 
-		addBundles(bundleSizes.get(i), theorie, isEpiList.get(i));
-		addAlterFactors(theorie, alterFactors.get(i), prevEffect,
-			isEpiList.get(i));
-		prevEffect = addEffect(namesEffects, theorie);
+	    if (!hasNoBundles((ArrayList<Integer>) levels.get(i).get(0))) {
+		addBundles(theory, (ArrayList<Integer>) levels.get(i).get(0));
+		madeFactors = true;
 	    }
-	} else {
-	    for (int i = 0; i < alterFactors.size(); i++) {
-		bundleEpi = false;
-		MinimalTheory theorie = new MinimalTheory();
-
-		addAlterFactors(theorie, alterFactors.get(i), prevEffect,
-			isEpiList.get(i));
-		prevEffect = addEffect(namesEffects, theorie);
+	    if ((Integer) levels.get(i).get(1) != 0) {
+		addAlterFactors(theory, (Integer) levels.get(i).get(1));
+		madeFactors = true;
+	    }
+	    if (madeFactors) {
+		addEffect(theory);
 	    }
 	}
     }
 
-    public void addBundles(ArrayList<Integer> level, MinimalTheory theory,
-	    boolean epi) {
-	ArrayList<Integer> bundleSizes = level;
+    public void addBundles(MinimalTheory theory, ArrayList<Integer> bundles) {
+	ArrayList<Integer> bundleSizes = bundles;
 	CNATable names = namesEffects.clone();
 	String bundle = "";
 
-	names = removeEpiFactor(names);
 	for (Integer number : bundleSizes) {
 	    bundle = "";
 	    for (int i = 0; i < number; i++) {
 		int random = randomIndex(names.size());
 		int randomSec = randomNegativePositiv();
-		if (!factorExistsInPrevMT(names.get(random).get(randomSec))) {
-		    bundle += (names.get(random).get(randomSec));
+		String factor = names.get(random).get(randomSec);
+		if (!factorExistsInPrevMT(factor)) {
+		    bundle += factor;
 		    // If here is no remove, factor could appear in more than
 		    // one bundle in same MT
 		    names.remove(random);
@@ -104,30 +117,11 @@ public class RandomMTSetGenerator {
 	    }
 	    theory.addBundle(bundle);
 	}
-	if (epiCounter == 1) {
-	    theory = swapFirstFactorWithEpi(theory);
-	    epiCounter++;
-	}
-	if (epi && epiCounter == 0) {
-	    getEpiFactor(bundle);
-	    epiCounter++;
-	}
-	if (epiCounter == 2) {
-	    epiCounter = 0;
-	}
     }
 
-    public void addAlterFactors(MinimalTheory theory, int noOfAlterFactors,
-	    String prevEffect, boolean epi) {
+    public void addAlterFactors(MinimalTheory theory, int noOfAlterFactors) {
 	CNATable names = namesEffects.clone();
 
-	if (!prevEffect.equals("")) {
-	    theory.addBundle(prevEffect);
-	    noOfAlterFactors--;
-	}
-	if (!bundleEpi) {
-	    names = removeEpiFactor(names);
-	}
 	String factor = "";
 	for (int i = 0; i < noOfAlterFactors; i++) {
 	    int random = randomIndex(names.size());
@@ -140,37 +134,23 @@ public class RandomMTSetGenerator {
 		i--;
 	    }
 	}
-	if (!bundleEpi) {
-	    if (epiCounter == 1) {
-		theory = swapFirstFactorWithEpi(theory);
-		epiCounter++;
-	    }
-	    if (epi && epiCounter == 0) {
-		getEpiFactor(factor);
-		epiCounter++;
-	    }
-	    if (epiCounter == 2) {
-		epiCounter = 0;
-	    }
-	}
     }
 
-    public String addEffect(CNATable names, MinimalTheory theory) {
+    public void addEffect(MinimalTheory theory) {
 	String effect = "";
 	int random = 0;
 
 	while (true) {
-	    random = randomIndex(names.size());
-	    effect = names.get(random).get(0);
+	    random = randomIndex(namesEffects.size());
+	    effect = namesEffects.get(random).get(0);
 	    if (!effectEqualsMTFactor(effect, theory)) {
 		break;
 	    }
 	}
 	theory.setEffect(effect);
-	names.remove(random);
+	namesEffects.remove(random);
 	prevMT = theory;
 	set.add(theory);
-	return effect;
     }
 
     public boolean factorExistsInPrevMT(String current) {
@@ -200,41 +180,15 @@ public class RandomMTSetGenerator {
 	}
     }
 
-    private void getEpiFactor(String bundle) {
-	if (bundle.length() > 1 && bundle.charAt(bundle.length() - 2) == '¬') {
-	    epiFactor = "" + bundle.charAt(bundle.length() - 2)
-		    + bundle.charAt(bundle.length() - 1);
-	} else {
-	    epiFactor = "" + bundle.charAt(bundle.length() - 1);
+    private boolean hasNoBundles(ArrayList<Integer> list) {
+	int counter = 0;
+	for (Integer cur : list) {
+	    counter += cur;
 	}
-    }
-
-    private MinimalTheory swapFirstFactorWithEpi(MinimalTheory theory) {
-	if (theory.getBundles().get(0).charAt(0) == '¬') {
-	    String cur = theory.getBundles().get(0);
-	    cur = cur.substring(2);
-	    cur = epiFactor + cur;
-	    theory.getBundles().set(0, cur);
+	if (counter == 0) {
+	    return true;
 	} else {
-	    String cur = theory.getBundles().get(0);
-	    cur = cur.substring(1);
-	    cur = epiFactor + cur;
-	    theory.getBundles().set(0, cur);
-	}
-	return theory;
-    }
-
-    private CNATable removeEpiFactor(CNATable names) {
-	if (!epiFactor.equals("")) {
-	    for (int i = names.size() - 1; i >= 0; i--) {
-		if (names.get(i).get(0).equals(epiFactor)
-			|| names.get(i).get(1).equals(epiFactor)) {
-		    names.remove(i);
-		}
-	    }
-	    return names;
-	} else {
-	    return names;
+	    return false;
 	}
     }
 

@@ -16,9 +16,9 @@ import datastructures.random.RandomMTSetGenerator;
 
 public class CNAController extends Controller {
 
-    private static Renderer renderer;
-    private static RandomMTSetGenerator generator;
-    private static Timer timer;
+    private Renderer renderer;
+    private RandomMTSetGenerator generator;
+    private Timer timer;
     private static boolean showBundleNumRenderer;
 
     public static void setup() {
@@ -35,18 +35,21 @@ public class CNAController extends Controller {
 	    ArrayList<Integer> alterFactors, String epi, String showBundleNum) {
 	try {
 	    showBundleNumRenderer = (showBundleNum != null);
+	    boolean makeEpi = (epi != null);
 	    RandomMTSetGenerator generator;
 	    MinimalTheorySet theories;
-	    ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+	    ArrayList<ArrayList<Integer>> list;
+	    RandomGraphInput input;
+
+	    list = new ArrayList<ArrayList<Integer>>();
 	    list.add(bundles1);
 	    list.add(bundles2);
 	    list.add(bundles3);
-	    boolean epiOn = (epi != null);
-	    RandomGraphInput random = new RandomGraphInput(list, alterFactors,
-		    epiOn);
-	    generator = new RandomMTSetGenerator(random.getBundleSizes(),
-		    random.getNoOfAlterFactors(), random.getEpi());
+
+	    input = new RandomGraphInput(list, alterFactors);
+	    generator = new RandomMTSetGenerator(input.getLevels(), makeEpi);
 	    theories = generator.getMTSet();
+
 	    Graph graph = new Graph(theories);
 	    Renderer renderer = new Renderer();
 	    renderer.setShowEdgeLabels(showBundleNumRenderer);
@@ -63,7 +66,7 @@ public class CNAController extends Controller {
 	}
     }
 
-    public static void calcCNAGraph(String generatedGraphPath,
+    public void calcCNAGraph(String generatedGraphPath,
 	    String generatedGraph, String lines) {
 	timer = new Timer();
 	renderer = new Renderer();
@@ -107,7 +110,7 @@ public class CNAController extends Controller {
 	// }
     }
 
-    public static void baumgartnerSample() {
+    public void baumgartnerSample() {
 	timer = new Timer();
 	CNAlgorithm cnaAlgorithm;
 	try {
