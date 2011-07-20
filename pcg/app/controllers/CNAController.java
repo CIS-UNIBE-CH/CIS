@@ -56,8 +56,8 @@ public class CNAController extends Controller {
 	    renderer.config(graph);
 
 	    String graphPath = renderer.getImageSource();
-	    String stringGraph = theories.toString();
-	    render(graphPath, stringGraph);
+	    String generatedGraph = theories.toString();
+	    render(graphPath, generatedGraph);
 	} catch (OutOfMemoryError e) {
 	    flash.error("Phuu! This calculation was to complex! Server is out of Memory! Please wait one minute and try again.");
 	    params.flash();
