@@ -13,6 +13,10 @@ public class CoincidenceTable {
 	
 	fillUpTableBinary();
     }
+    
+    private void addNames(){
+	
+    }
 
     private void fillUpTableBinary() {
 	

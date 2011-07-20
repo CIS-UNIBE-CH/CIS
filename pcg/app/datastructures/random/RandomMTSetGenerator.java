@@ -19,6 +19,7 @@ public class RandomMTSetGenerator {
     private ArrayList<ArrayList<Integer>> bundleSizes;
     private ArrayList<Integer> alterFactors;
     private ArrayList<Boolean> isEpiList;
+    private boolean bundleEpi;
 
     public RandomMTSetGenerator(ArrayList<ArrayList<Integer>> bundleSizes,
 	    ArrayList<Integer> alterFactors, ArrayList<Boolean> epi) {
@@ -58,12 +59,25 @@ public class RandomMTSetGenerator {
 
     public void generateMTSet() {
 	String prevEffect = "";
-	for (int i = 0; i < bundleSizes.size(); i++) {
-	    MinimalTheory theorie = new MinimalTheory();
+	if (bundleSizes.size() > 0) {
+	    for (int i = 0; i < bundleSizes.size(); i++) {
+		bundleEpi = true;
+		MinimalTheory theorie = new MinimalTheory();
 
-	    addBundles(bundleSizes.get(i), theorie, isEpiList.get(i));
-	    addAlterFactors(theorie, alterFactors.get(i), prevEffect);
-	    prevEffect = addEffect(namesEffects, theorie);
+		addBundles(bundleSizes.get(i), theorie, isEpiList.get(i));
+		addAlterFactors(theorie, alterFactors.get(i), prevEffect,
+			isEpiList.get(i));
+		prevEffect = addEffect(namesEffects, theorie);
+	    }
+	} else {
+	    for (int i = 0; i < alterFactors.size(); i++) {
+		bundleEpi = false;
+		MinimalTheory theorie = new MinimalTheory();
+
+		addAlterFactors(theorie, alterFactors.get(i), prevEffect,
+			isEpiList.get(i));
+		prevEffect = addEffect(namesEffects, theorie);
+	    }
 	}
     }
 
@@ -104,21 +118,39 @@ public class RandomMTSetGenerator {
     }
 
     public void addAlterFactors(MinimalTheory theory, int noOfAlterFactors,
-	    String prevEffect) {
+	    String prevEffect, boolean epi) {
 	CNATable names = namesEffects.clone();
 
 	if (!prevEffect.equals("")) {
 	    theory.addBundle(prevEffect);
 	    noOfAlterFactors--;
 	}
+	if (!bundleEpi) {
+	    names = removeEpiFactor(names);
+	}
+	String factor = "";
 	for (int i = 0; i < noOfAlterFactors; i++) {
 	    int random = randomIndex(names.size());
 	    int randomSec = randomNegativePositiv();
-	    if (!factorExistsInPrevMT(names.get(random).get(randomSec))) {
-		theory.addBundle(names.get(random).get(randomSec));
+	    factor = names.get(random).get(randomSec);
+	    if (!factorExistsInPrevMT(factor)) {
+		theory.addBundle(factor);
 		names.remove(random);
 	    } else {
 		i--;
+	    }
+	}
+	if (!bundleEpi) {
+	    if (epiCounter == 1) {
+		theory = swapFirstFactorWithEpi(theory);
+		epiCounter++;
+	    }
+	    if (epi && epiCounter == 0) {
+		getEpiFactor(factor);
+		epiCounter++;
+	    }
+	    if (epiCounter == 2) {
+		epiCounter = 0;
 	    }
 	}
     }
