@@ -50,9 +50,6 @@ public class Renderer {
     }
 
     public void config(Graph graph) {
-
-	// Use a static layout so vertexes will positioned ever time at the same
-	// place
 	Transformer<Node, Point2D> vertexLocations = TransformerUtils
 		.mapTransformer(graph.getGraph());
 
