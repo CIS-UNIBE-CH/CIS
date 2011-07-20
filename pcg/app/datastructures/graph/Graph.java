@@ -32,28 +32,23 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
+	System.out.println(names);
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
 	edges = new ArrayList<Edge>();
+	this.x = 1;
+	this.y = 1;
 	fillUpMatrixZero();
 	build(theories);
 	addNodes();
 	addEdges();
 	setLevels();
-	this.x = 1;
-	this.y = 1;
-    }
-
-    private void addNodes() {
-	for (String string : theories.getAllNames()) {
-	    nodes.add(new Node(string, false));
-	}
     }
 
     private void build(MinimalTheorySet theories) {
 	for (MinimalTheory theorie : theories) {
-	    for (String factor : theorie.getBundles()) {
+	    for (String factor : theorie.getFactors()) {
 		int posE = names.getIndex(theorie.getEffect());
 		int posF = names.getIndex(factor);
 		matrix[posF][posE] = 1;
@@ -61,16 +56,33 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
     }
 
+    private void addNodes() {
+	for (String string : names) {
+	    nodes.add(new Node(string, false));
+	}
+    }
+
     private void addEdges() {
-	for (int i = 0; i < matrix.length; i++) {
-	    for (int j = 0; j < matrix[i].length; j++) {
-		if (matrix[i][j] == 1) {
-		    Node source = getNode(names.get(i));
-		    Node destination = getNode(names.get(j));
-		    destination.setIsInnerEffect(true);
-		    Edge edge = new Edge(source, destination);
-		    edges.add(edge);
+	for (MinimalTheory theorie : theories) {
+	    Node source;
+	    Node destination;
+	    int bundleNum = 1;
+	    for (CNAList list : theorie.getBundleFactors()) {
+		destination = getNode(theorie.getEffect());
+		destination.setIsInnerEffect(true);
+		if (list.size() > 1) {
+		    for (String str : list) {
+			source = getNode(str);
+			source.setBundle("" + bundleNum);
+			Edge edge = new Edge(source, destination);
+			edge.setBundleLabel("" + bundleNum);
+			edges.add(edge);
+		    }
+		} else {
+		    source = getNode(list.get(0));
+		    edges.add(new Edge(source, destination));
 		}
+		bundleNum++;
 	    }
 	}
     }
@@ -169,77 +181,35 @@ public class Graph extends AbstractGraph<Node, Edge> {
 
     public Map<Node, Point2D> getGraph() {
 	double x = 60;
-	double y = 150 * (deepest) + 10;
-	identifyBundles();
+	double y = 160 * (deepest) + 20;
 	ArrayList<Node> nodeList = nodes;
 	Collections.sort(nodeList);
 	int level = deepest;
 	int counter = 0;
 	int prevCounter = 1;
+	int newX = 0;
 	double start = 30;
 	for (Node node : nodeList) {
 	    if (level != node.getLevel()) {
-
 		prevCounter = counter;
 		x = (60 * prevCounter / 2) + start;
 		start = x - 30;
 		counter = 0;
 	    }
-	    double yo = y + ((node.getLevel() * -1) * 130);
-	    graph.put(node, new Point2D.Double(x, y
-		    + ((node.getLevel() * -1) * 130)));
-	    node.setCoordinates(x, yo);
+	    graph.put(node,
+		    new Point2D.Double(x, y - ((node.getLevel()) * 130)));
+	    node.setCoordinates(x, y - ((node.getLevel() * 130)));
 	    level = node.getLevel();
 	    counter++;
 	    x += 60;
-
-	}
-	this.x = (int) (x + 30);
-	this.y = (int) (y + 100);
-	return graph;
-    }
-
-    private void identifyBundles() {
-	int bundle = 1;
-	ArrayList<Node> nodesClone = (ArrayList<Node>) nodes.clone();
-	nodes.clear();
-	for (Node node : nodesClone) {
-	    String str = node.toString();
-	    if (str.length() > 1 || (str.length() == 2 && str.charAt(0) == '¬')) {
-		for (int i = 0; i < str.length(); i++) {
-		    if (str.charAt(i) == '¬') {
-			Node n = new Node("" + str.charAt(i)
-				+ str.charAt(i + 1), false);
-			n.setLevel(node.getLevel());
-			n.setBundle("" + bundle);
-
-			nodes.add(n);
-			for (Edge edge : getIncidentEdges(node)) {
-			    Edge e = new Edge(n, edge.getDestination());
-			    e.setBundleLabel("" + bundle);
-			    edges.add(e);
-			}
-			i++;
-		    } else {
-			Node n = new Node("" + str.charAt(i), false);
-			n.setLevel(node.getLevel());
-			n.setBundle("" + bundle);
-
-			nodes.add(n);
-			for (Edge edge : getIncidentEdges(node)) {
-			    Edge e = new Edge(n, edge.getDestination());
-			    e.setBundleLabel("" + bundle);
-			    edges.add(e);
-			}
-		    }
-		}
-		bundle++;
-		edges.removeAll(getIncidentEdges(node));
-
-	    } else {
-		nodes.add(node);
+	    if (newX < x) {
+		newX = (int) x;
 	    }
 	}
+	this.x = newX;
+	this.y = (int) (y + 100);
+	System.gc();
+	return graph;
     }
 
     public Node getNode(String node) {
