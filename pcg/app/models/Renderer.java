@@ -50,14 +50,9 @@ public class Renderer {
     }
 
     public void config(Graph graph) {
-	System.out.println("****************");
-	System.out.println("Graph: " + graph.toString());
-	System.out.println("****************");
-	
-	yPicSize = 1800;
-	xPicSize = 1800;
 
-	// Our own map of vertex locations
+	// Use a static layout so vertexes will positioned ever time at the same
+	// place
 	Transformer<Node, Point2D> vertexLocations = TransformerUtils
 		.mapTransformer(graph.getGraph());
 
@@ -65,6 +60,9 @@ public class Renderer {
 	// place
 	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(graph,
 		vertexLocations);
+
+	yPicSize = graph.getY();
+	xPicSize = graph.getX();
 
 	layout.setSize(new Dimension(xPicSize, yPicSize));
 

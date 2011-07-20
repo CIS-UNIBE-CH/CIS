@@ -26,6 +26,8 @@ public class Graph extends AbstractGraph<Node, Edge> {
     private Map<Node, Point2D> graph = new HashMap<Node, Point2D>();
     private int deepest = 0;
     private int stackRuns = 1;
+    private int x;
+    private int y;
 
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
@@ -39,6 +41,8 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	addNodes();
 	addEdges();
 	setLevels();
+	this.x = 1;
+	this.y = 1;
     }
 
     private void addNodes() {
@@ -91,8 +95,9 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    for (int i = deep.size(); i > stack.size() + 1; i--) {
 		deep.pop();
 	    }
-
 	}
+	deep.clear();
+	stack.clear();
     }
 
     // Helpers
@@ -164,7 +169,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 
     public Map<Node, Point2D> getGraph() {
 	double x = 60;
-	double y = 100 * (deepest) + 100;
+	double y = 150 * (deepest) + 10;
 	identifyBundles();
 	ArrayList<Node> nodeList = nodes;
 	Collections.sort(nodeList);
@@ -174,6 +179,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	double start = 30;
 	for (Node node : nodeList) {
 	    if (level != node.getLevel()) {
+
 		prevCounter = counter;
 		x = (60 * prevCounter / 2) + start;
 		start = x - 30;
@@ -186,7 +192,10 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    level = node.getLevel();
 	    counter++;
 	    x += 60;
+
 	}
+	this.x = (int) (x + 30);
+	this.y = (int) (y + 100);
 	return graph;
     }
 
@@ -403,4 +412,13 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public boolean addEdge(Edge arg0, Pair<? extends Node> arg1, EdgeType arg2) {
 	return edges.add(arg0);
     }
+
+    public int getX() {
+	return x;
+    }
+
+    public int getY() {
+	return y;
+    }
+
 }
