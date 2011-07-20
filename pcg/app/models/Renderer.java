@@ -27,24 +27,19 @@ import edu.uci.ics.screencap.PNGDump;
 
 /**
  * 1. Holds all the configurations for the JUNG Graph rendering. Furthermore all
- * configs which are in the Transformer will here be called and applyed to the
+ * configs which are in the Transformer will here be called and applied to the
  * graphs config (For example the vertex positions will be applied from
  * VertexLocationTransformer). Here you can configure vertex color, in the
- * VetexLookTransformer you can config shape, apsect ratio and size of vertex.
- * 2. Makes dumping of graph in a PNG
+ * VetexLookTransformer you can config shape, aspect ratio and size of vertex.
+ * 2. Dumps graph in a PNG image.
  */
 public class Renderer {
     private static Date now;
     private static SimpleDateFormat dateFormat;
     private static String path;
-    // X and Y Size of picture which will be dumped
     private static int xPicSize;
     private static int yPicSize;
-    // Transformer which will set node positions
-
-    private VertexLocationTransformer locationTransformer;
     private boolean showLabels = true;
-    private boolean nodeColorAccordingToBundle = true;
 
     public Renderer() {
 	now = new Date();
@@ -52,7 +47,6 @@ public class Renderer {
 	this.path = "./pcg/public/images/graphs/";
 	xPicSize = 0;
 	yPicSize = 0;
-	locationTransformer = new VertexLocationTransformer();
     }
 
     public void config(Graph graph) {
@@ -62,6 +56,8 @@ public class Renderer {
 	Transformer<Node, Point2D> vertexLocations = TransformerUtils
 		.mapTransformer(graph.getGraph());
 
+	// Use a static layout so vertexes will positioned ever time at the same
+	// place
 	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(graph,
 		vertexLocations);
 
@@ -70,15 +66,6 @@ public class Renderer {
 
 	layout.setSize(new Dimension(xPicSize, yPicSize));
 
-	// Do a reset of vertex location transformation after every graph, else
-	// transformation WON'T work properly.
-	locationTransformer.reset();
-
-	// Print out the graph in console for development only used
-	// System.out.println("*****************");
-	// System.out.println(matrix.toString());
-	// System.out.println("*****************");
-
 	// Transformer which will set shape, size, aspect ratio of vertexes
 	VertexLookTransformer<Node, Shape> vertexLookTransformer = new VertexLookTransformer<Node, Shape>();
 
@@ -86,8 +73,7 @@ public class Renderer {
 	BasicVisualizationServer<Node, Edge> visServer = new BasicVisualizationServer<Node, Edge>(
 		layout);
 
-	// *************Configure BasicVisualizationServer*********
-
+	/** *************Configure BasicVisualizationServer********* */
 	if (showLabels) {
 	    // Offset of Edge Labels to Edge
 	    visServer.getRenderContext().setLabelOffset(15);
@@ -124,16 +110,17 @@ public class Renderer {
 	Color backgroundColor = new Color(255, 255, 255);
 	visServer.setBackground(backgroundColor);
 
-	// ************ PNG Dumping ****************
+	pngDumping(visServer);
+    }
+
+    private void pngDumping(BasicVisualizationServer<Node, Edge> visServer) {
 	// Size the PNG picture will have which will be dumped.
 	visServer.setSize(xPicSize, yPicSize);
 
 	PNGDump dumper = new PNGDump();
 	try {
-	    System.out.println(generateFileName());
 	    dumper.dumpComponent(new File(generateFileName()), visServer);
 	} catch (IOException e) {
-	    System.out.println("Image couldn't be generated!");
 	    e.printStackTrace();
 	}
     }
@@ -151,7 +138,7 @@ public class Renderer {
 	return path + dateFormat.format(now).toString() + ".png";
     }
 
-    public void setEdgeLabels(boolean edgeLabels) {
+    public void setShowEdgeLabels(boolean edgeLabels) {
 	this.showLabels = edgeLabels;
     }
 }

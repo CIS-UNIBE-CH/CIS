@@ -47,7 +47,7 @@ public class QuadroTestController extends Controller {
 	    MinimalTheorySet theories = quadroTest.createMTTheorySet();
 	    Graph graph = new Graph(theories);
 	    Renderer renderer = new Renderer();
-	    renderer.setEdgeLabels(showBundleNumRenderer);
+	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
 
 	    String graphPath = renderer.getImageSource();

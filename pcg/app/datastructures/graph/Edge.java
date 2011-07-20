@@ -4,10 +4,7 @@ import edu.uci.ics.jung.graph.util.EdgeType;
 
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
-/**
- * This class provides labeling of cause bundles with a number for every cause
- * in a bundle. Inherited from: org.jgrapht.graph.DefaultEdge
- */
+
 public class Edge {
 
     private String bundleLabel;
@@ -18,8 +15,6 @@ public class Edge {
     public Edge(Node source, Node destination) {
 	this.source = source;
 	this.destination = destination;
-	source.setDestination(false);
-	destination.setDestination(true);
 	this.type = EdgeType.DIRECTED;
 	bundleLabel = "";
     }
@@ -44,7 +39,6 @@ public class Edge {
     }
 
     // to String
-
     @Override
     public String toString() {
 	return bundleLabel;

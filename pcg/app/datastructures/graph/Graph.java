@@ -32,7 +32,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
-	System.out.println("names :" + names);
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -68,6 +67,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		if (matrix[i][j] == 1) {
 		    Node source = getNode(names.get(i));
 		    Node destination = getNode(names.get(j));
+		    destination.setIsInnerEffect(true);
 		    Edge edge = new Edge(source, destination);
 		    edges.add(edge);
 		}
@@ -146,7 +146,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		stack.push(names.get(i));
 		Node n = getNode(names.get(i));
 		n.setLevel(0);
-		n.setEffect(true);
+		n.setIsEffect(true);
 	    }
 	}
     }
@@ -201,7 +201,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 
     private void identifyBundles() {
 	int bundle = 1;
-	System.out.println(nodes);
 	ArrayList<Node> nodesClone = (ArrayList<Node>) nodes.clone();
 	nodes.clear();
 	for (Node node : nodesClone) {

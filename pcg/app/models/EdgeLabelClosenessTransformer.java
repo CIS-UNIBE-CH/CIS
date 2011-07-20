@@ -14,9 +14,7 @@ public class EdgeLabelClosenessTransformer implements
 	Transformer<Context<Graph<Node, Edge>, Edge>, Number> {
     @Override
     public Number transform(Context<Graph<Node, Edge>, Edge> edge) {
-	Edge curEdge = edge.element;
-	// TODO Fix this
-	Double length = curEdge.calcEdgeLength();
+	double length = edge.element.calcEdgeLength();
 	return ((length / 1000) * 3);
     }
 }

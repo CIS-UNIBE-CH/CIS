@@ -75,9 +75,7 @@ public class GraphTests extends UnitTest {
 	// theorie = new MinimalTheory(factors, "E");
 	// theories.add(theorie);
 
-	System.out.println(theories);
 	Graph matrix = new Graph(theories);
-	System.out.println(matrix);
 	Renderer renderer = new Renderer();
 	assert (matrix != null);
 	renderer.config(matrix);

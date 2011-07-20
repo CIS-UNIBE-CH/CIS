@@ -6,15 +6,15 @@ public class Node implements Comparable<Node> {
     private String name;
     private String bundle;
     private int level;
-    private boolean effect;
-    private boolean destination;
+    private boolean isEffect;
+    private boolean isInnerEffect;
     private double x;
     private double y;
 
-    public Node(String name, boolean effect) {
+    public Node(String name, boolean isEffect) {
 	level = -1;
 	this.name = name;
-	this.effect = effect;
+	this.isEffect = isEffect;
 	this.x = 0.0;
 	this.y = 0.0;
     }
@@ -55,8 +55,8 @@ public class Node implements Comparable<Node> {
 	this.bundle = bundle;
     }
 
-    public void setEffect(boolean effect) {
-	this.effect = effect;
+    public void setIsEffect(boolean isEffect) {
+	this.isEffect = isEffect;
     }
 
     public int getLevel() {
@@ -68,7 +68,7 @@ public class Node implements Comparable<Node> {
     }
 
     public boolean isEffect() {
-	return effect;
+	return isEffect;
     }
 
     @Override
@@ -89,11 +89,11 @@ public class Node implements Comparable<Node> {
 	return y;
     }
 
-    public boolean isDestination() {
-        return destination;
+    public boolean isInnerEffect() {
+        return isInnerEffect;
     }
 
-    public void setDestination(boolean destination) {
-        this.destination = destination;
+    public void setIsInnerEffect(boolean isInnerEffect) {
+        this.isInnerEffect = isInnerEffect;
     }
 }
