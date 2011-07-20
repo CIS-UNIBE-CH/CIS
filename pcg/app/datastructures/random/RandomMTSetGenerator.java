@@ -11,30 +11,20 @@ import datastructures.mt.MinimalTheorySet;
 
 public class RandomMTSetGenerator {
     private CNATable namesOriginal;
-    private CNATable namesEffects;
+    private CNATable names;
     private MinimalTheorySet set;
     private ArrayList<ArrayList<Object>> levels;
-    private MinimalTheory prevMT;
     private boolean makeEpi;
 
     public RandomMTSetGenerator(ArrayList<ArrayList<Object>> levels, boolean epi) {
 	namesOriginal = new CNATable();
 	set = new MinimalTheorySet();
 	this.levels = levels;
-	prevMT = null;
 	this.makeEpi = epi;
 
 	generateFactorNames();
 	generateMTSet();
 	makeChain();
-	System.out.println("Final Set: " + set);
-    }
-
-    // For Testing only
-    public RandomMTSetGenerator() {
-	namesOriginal = new CNATable();
-	set = new MinimalTheorySet();
-	prevMT = null;
     }
 
     private void makeChain() {
@@ -73,7 +63,7 @@ public class RandomMTSetGenerator {
 	    list.add(curLetterNegative);
 	    namesOriginal.add(list);
 	}
-	namesEffects = namesOriginal.clone();
+	names = namesOriginal.clone();
     }
 
     public void generateMTSet() {
@@ -97,7 +87,6 @@ public class RandomMTSetGenerator {
 
     public void addBundles(MinimalTheory theory, ArrayList<Integer> bundles) {
 	ArrayList<Integer> bundleSizes = bundles;
-	CNATable names = namesEffects.clone();
 	String bundle = "";
 
 	for (Integer number : bundleSizes) {
@@ -106,33 +95,24 @@ public class RandomMTSetGenerator {
 		int random = randomIndex(names.size());
 		int randomSec = randomNegativePositiv();
 		String factor = names.get(random).get(randomSec);
-		if (!factorExistsInPrevMT(factor)) {
-		    bundle += factor;
-		    // If here is no remove, factor could appear in more than
-		    // one bundle in same MT
-		    names.remove(random);
-		} else {
-		    i--;
-		}
+		bundle += factor;
+		// If here is no remove, factor could appear in more than
+		// one bundle in same MT
+		names.remove(random);
 	    }
 	    theory.addBundle(bundle);
 	}
     }
 
     public void addAlterFactors(MinimalTheory theory, int noOfAlterFactors) {
-	CNATable names = namesEffects.clone();
 
 	String factor = "";
 	for (int i = 0; i < noOfAlterFactors; i++) {
 	    int random = randomIndex(names.size());
 	    int randomSec = randomNegativePositiv();
 	    factor = names.get(random).get(randomSec);
-	    if (!factorExistsInPrevMT(factor)) {
-		theory.addBundle(factor);
-		names.remove(random);
-	    } else {
-		i--;
-	    }
+	    theory.addBundle(factor);
+	    names.remove(random);
 	}
     }
 
@@ -141,28 +121,15 @@ public class RandomMTSetGenerator {
 	int random = 0;
 
 	while (true) {
-	    random = randomIndex(namesEffects.size());
-	    effect = namesEffects.get(random).get(0);
+	    random = randomIndex(names.size());
+	    effect = names.get(random).get(0);
 	    if (!effectEqualsMTFactor(effect, theory)) {
 		break;
 	    }
 	}
 	theory.setEffect(effect);
-	namesEffects.remove(random);
-	prevMT = theory;
+	names.remove(random);
 	set.add(theory);
-    }
-
-    public boolean factorExistsInPrevMT(String current) {
-	if (prevMT == null) {
-	    return false;
-	}
-	for (String prevFactor : prevMT.getFactors()) {
-	    if (prevFactor.equals(current)) {
-		return true;
-	    }
-	}
-	return false;
     }
 
     private boolean effectEqualsMTFactor(String effect, MinimalTheory theory) {
