@@ -57,9 +57,6 @@ public class Renderer {
 
     public void config(Graph graph) {
 
-	yPicSize = 1800;
-	xPicSize = 1800;
-
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
 	Transformer<Node, Point2D> vertexLocations = TransformerUtils
@@ -67,6 +64,9 @@ public class Renderer {
 
 	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(graph,
 		vertexLocations);
+
+	yPicSize = graph.getY();
+	xPicSize = graph.getX();
 
 	layout.setSize(new Dimension(xPicSize, yPicSize));
 
