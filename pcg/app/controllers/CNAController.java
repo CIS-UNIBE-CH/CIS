@@ -16,9 +16,9 @@ import datastructures.random.RandomMTSetGenerator;
 
 public class CNAController extends Controller {
 
-    private Renderer renderer;
-    private RandomMTSetGenerator generator;
-    private Timer timer;
+    private static Renderer renderer;
+    private static RandomMTSetGenerator generator;
+    private static Timer timer;
     private static boolean showBundleNumRenderer;
 
     public static void setup() {
@@ -66,7 +66,7 @@ public class CNAController extends Controller {
 	}
     }
 
-    public void calcCNAGraph(String generatedGraphPath,
+    public static void calcCNAGraph(String generatedGraphPath,
 	    String generatedGraph, String lines) {
 	timer = new Timer();
 	renderer = new Renderer();
@@ -110,7 +110,7 @@ public class CNAController extends Controller {
 	// }
     }
 
-    public void baumgartnerSample() {
+    public static void baumgartnerSample() {
 	timer = new Timer();
 	CNAlgorithm cnaAlgorithm;
 	try {
