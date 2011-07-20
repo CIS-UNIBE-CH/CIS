@@ -17,7 +17,7 @@ import datastructures.random.RandomMTSetGenerator;
 public class CNAController extends Controller {
 
     private static Renderer renderer;
-    private static RandomMTSetGenerator generator;
+//    private static RandomMTSetGenerator generator;
     private static Timer timer;
     private static boolean showBundleNumRenderer;
 
@@ -34,25 +34,30 @@ public class CNAController extends Controller {
 	    ArrayList<Integer> bundles2, ArrayList<Integer> bundles3,
 	    ArrayList<Integer> alterFactors, String epi, String showBundleNum) {
 	showBundleNumRenderer = (showBundleNum != null);
-	RandomMTSetGenerator generator;
+//	RandomMTSetGenerator generator;
 	MinimalTheorySet theories;
 	ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 	list.add(bundles1);
 	list.add(bundles2);
 	list.add(bundles3);
+	System.out.println("List: " + list);
 	boolean epiOn = (epi != null);
-	RandomGraphInput random = new RandomGraphInput(list, alterFactors, epiOn);
-	generator = new RandomMTSetGenerator(random.getBundleSizes(),
-		random.getNoOfAlterFactors(), random.getEpi());
-	theories = generator.getMTSet();
-	Graph graph = new Graph(theories);
-	Renderer renderer = new Renderer();
-	renderer.setShowEdgeLabels(showBundleNumRenderer);
-	renderer.config(graph);
-
-	String graphPath = renderer.getImageSource();
-	String stringGraph = theories.toString();
-	render(graphPath, stringGraph);
+	RandomGraphInput input = new RandomGraphInput(list, alterFactors);
+	RandomMTSetGenerator gen = new RandomMTSetGenerator(input.getLevels(), epiOn);
+	System.out.println("Set: " + gen.getMTSet());
+//	RandomGraphInput random = new RandomGraphInput(list, alterFactors,
+//		epiOn);
+//	generator = new RandomMTSetGenerator(random.getBundleSizes(),
+//		random.getNoOfAlterFactors());
+//	theories = generator.getMTSet();
+//	Graph graph = new Graph(theories);
+//	Renderer renderer = new Renderer();
+//	renderer.setShowEdgeLabels(showBundleNumRenderer);
+//	renderer.config(graph);
+//
+//	String graphPath = renderer.getImageSource();
+//	String stringGraph = theories.toString();
+//	render(graphPath, stringGraph);
     }
 
     public static void calcCNAGraph(String generatedGraphPath,
