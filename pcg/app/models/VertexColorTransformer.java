@@ -29,17 +29,13 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 	colors.add(Color.cyan);
 	colors.add(Color.yellow);
 
-	
 	if (node.isEffect() || node.isInnerEffect()) {
 	    return new Color(255, 153, 0);
 	} else {
 	    if (node.isPartOfBundle()) {
-		if (node.isInnerEffect()) {
-		    return new Color(255, 153, 0);
-		} else {
-		    int bundleNumber = Integer.parseInt(node.getBundle());
-		    return colors.get((bundleNumber - 1) % 8);
-		}
+		int bundleNumber = Integer.parseInt(node.getBundle());
+		return colors.get((bundleNumber - 1) % 8);
+
 	    } else {
 		return Color.GREEN;
 	    }

@@ -50,6 +50,13 @@ public class Renderer {
     }
 
     public void config(Graph graph) {
+	System.gc();
+	System.out.println("****************");
+	System.out.println("Graph:\n" + graph.toString());
+	System.out.println("****************");
+
+	// Use a static layout so vertexes will positioned ever time at the same
+	// place
 	Transformer<Node, Point2D> vertexLocations = TransformerUtils
 		.mapTransformer(graph.getGraph());
 
@@ -117,6 +124,7 @@ public class Renderer {
 	PNGDump dumper = new PNGDump();
 	try {
 	    dumper.dumpComponent(new File(generateFileName()), visServer);
+	    System.gc();
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}

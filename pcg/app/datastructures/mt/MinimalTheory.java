@@ -68,9 +68,20 @@ public class MinimalTheory {
 	}
 	return table;
     }
+    
+    public void setBundleFactors(CNATable bundleFactors){
+	bundles.clear();
+	for(CNAList list : bundleFactors){
+	    String bundle = "";
+	    for(String cur : list){
+		bundle += cur;
+	    }
+	    bundles.add(bundle);
+	}
+    }
 
     public void addBundle(String bundle) {
-	bundles.add(bundle);
+	    bundles.add(bundle);
     }
 
     public void setBundles(CNAList bundles) {

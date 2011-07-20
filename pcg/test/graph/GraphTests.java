@@ -33,16 +33,16 @@ public class GraphTests extends UnitTest {
     public void shouldAddMTSet() {
 	MinimalTheorySet theories = new MinimalTheorySet();
 
-	CNAList factors = new CNAList(',', "C,B,L");
+	CNAList factors = new CNAList(',', "¬Q,BH,L");
 	MinimalTheory theorie = new MinimalTheory(factors, "R");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "R,S,THEL");
+	factors = new CNAList(',', "R¬O,S");
 	theorie = new MinimalTheory(factors, "W");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "S,J");
-	theorie = new MinimalTheory(factors, "I");
+	factors = new CNAList(',', "S,¬J");
+	theorie = new MinimalTheory(factors, "¬I");
 	theories.add(theorie);
 
 	// CNAList factors = new CNAList(',', "C,B,L");

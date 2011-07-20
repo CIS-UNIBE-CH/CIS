@@ -33,26 +33,46 @@ public class CNAController extends Controller {
     public static void generateGraph(ArrayList<Integer> bundles1,
 	    ArrayList<Integer> bundles2, ArrayList<Integer> bundles3,
 	    ArrayList<Integer> alterFactors, String epi, String showBundleNum) {
-	showBundleNumRenderer = (showBundleNum != null);
-	RandomMTSetGenerator generator;
-	MinimalTheorySet theories;
-	ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-	list.add(bundles1);
-	list.add(bundles2);
-	list.add(bundles3);
-	boolean epiOn = (epi != null);
-	RandomGraphInput random = new RandomGraphInput(list, alterFactors, epiOn);
-	generator = new RandomMTSetGenerator(random.getBundleSizes(),
-		random.getNoOfAlterFactors(), random.getEpi());
-	theories = generator.getMTSet();
-	Graph graph = new Graph(theories);
-	Renderer renderer = new Renderer();
-	renderer.setShowEdgeLabels(showBundleNumRenderer);
-	renderer.config(graph);
+	try {
+	    showBundleNumRenderer = (showBundleNum != null);
+	    boolean makeEpi = (epi != null);
+	    RandomMTSetGenerator generator;
+	    MinimalTheorySet theories;
+	    ArrayList<ArrayList<Integer>> list;
+	    RandomGraphInput input;
 
-	String graphPath = renderer.getImageSource();
-	String stringGraph = theories.toString();
-	render(graphPath, stringGraph);
+	    list = new ArrayList<ArrayList<Integer>>();
+	    list.add(bundles1);
+	    list.add(bundles2);
+	    list.add(bundles3);
+
+	    input = new RandomGraphInput(list, alterFactors);
+	    generator = new RandomMTSetGenerator(input.getLevels(), makeEpi);
+	    theories = generator.getMTSet();
+
+	    Graph graph = new Graph(theories);
+	    Renderer renderer = new Renderer();
+	    renderer.setShowEdgeLabels(showBundleNumRenderer);
+	    renderer.config(graph);
+
+	    String graphPath = renderer.getImageSource();
+	    String generatedGraph = theories.toString();
+	    render(graphPath, generatedGraph);
+	} catch (OutOfMemoryError e) {
+	    flash.error("Phuu! This calculation was to complex! "
+		    + "Server is out of Memory! "
+		    + "Please wait one minute and try again.");
+	    params.flash();
+	    setup();
+	    e.printStackTrace();
+	}
+
+	catch (IllegalArgumentException e) {
+	    flash.error("You calculated a null graph ;)");
+	    params.flash();
+	    setup();
+	    e.printStackTrace();
+	}
     }
 
     public static void calcCNAGraph(String generatedGraphPath,
