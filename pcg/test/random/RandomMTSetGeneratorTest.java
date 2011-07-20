@@ -1,10 +1,10 @@
 package random;
+
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +16,7 @@ import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import datastructures.random.RandomMTSetGenerator;
 
+/** Run Test 500 times because random stuff is going on */
 public class RandomMTSetGeneratorTest extends UnitTest {
     private RandomMTSetGenerator generator;
     private ArrayList<ArrayList<Integer>> sampleUserInput;
@@ -41,7 +42,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	alterFacNo.add(noOfAlterFactors);
 	alterFacNo.add(noOfAlterFactors);
 	alterFacNo.add(noOfAlterFactors);
-	
+
 	epi = new ArrayList<Boolean>();
 	epi.add(true);
 	epi.add(true);
@@ -115,7 +116,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     @Test
     public void shouldNotHaveSameFactorsAsCauseAndEffectInTheory() {
 	RandomMTSetGenerator generator = new RandomMTSetGenerator(
-		    sampleUserInput, alterFacNo, epi);
+		sampleUserInput, alterFacNo, epi);
 	MinimalTheorySet set = generator.getMTSet();
 	for (int i = 0; i < 500; i++) {
 	    for (MinimalTheory theory : set) {

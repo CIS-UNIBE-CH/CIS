@@ -12,19 +12,16 @@ import datastructures.mt.MinimalTheorySet;
 public class RandomMTSetGenerator {
     private CNATable namesOriginal;
     private CNATable namesEffects;
-    // Hold at ervery index: At index 0 an ArrayList of bundlesizes, at 1 a int
-    // (noOfAlterFactors) and at 2 if it's epiphenomenon.
-    //private ArrayList<ArrayList<Object>> userInput;
     private MinimalTheorySet set;
     private String epiFactor;
     private int epiCounter;
     private MinimalTheory prevMT;
     private ArrayList<ArrayList<Integer>> bundleSizes;
     private ArrayList<Integer> alterFactors;
-    private ArrayList<Boolean> epi;
+    private ArrayList<Boolean> isEpiList;
 
-    public RandomMTSetGenerator(ArrayList<ArrayList<Integer>> bundleSizes, ArrayList<Integer> alterFactors, ArrayList<Boolean> epi) {
-	//this.userInput = userInput;
+    public RandomMTSetGenerator(ArrayList<ArrayList<Integer>> bundleSizes,
+	    ArrayList<Integer> alterFactors, ArrayList<Boolean> epi) {
 	namesOriginal = new CNATable();
 	set = new MinimalTheorySet();
 	epiFactor = "";
@@ -32,7 +29,7 @@ public class RandomMTSetGenerator {
 	prevMT = null;
 	this.bundleSizes = bundleSizes;
 	this.alterFactors = alterFactors;
-	this.epi = epi;
+	this.isEpiList = epi;
 
 	generateFactorNames();
 	generateMTSet();
@@ -64,13 +61,14 @@ public class RandomMTSetGenerator {
 	for (int i = 0; i < bundleSizes.size(); i++) {
 	    MinimalTheory theorie = new MinimalTheory();
 
-	    addBundles(bundleSizes.get(i), theorie, epi.get(i));
+	    addBundles(bundleSizes.get(i), theorie, isEpiList.get(i));
 	    addAlterFactors(theorie, alterFactors.get(i), prevEffect);
 	    prevEffect = addEffect(namesEffects, theorie);
 	}
     }
 
-    public void addBundles(ArrayList<Integer> level, MinimalTheory theory, boolean epi) {
+    public void addBundles(ArrayList<Integer> level, MinimalTheory theory,
+	    boolean epi) {
 	ArrayList<Integer> bundleSizes = level;
 	CNATable names = namesEffects.clone();
 	String bundle = "";
@@ -108,7 +106,6 @@ public class RandomMTSetGenerator {
     public void addAlterFactors(MinimalTheory theory, int noOfAlterFactors,
 	    String prevEffect) {
 	CNATable names = namesEffects.clone();
-	//int noOfAlterFactors = (Integer) level.get(1);
 
 	if (!prevEffect.equals("")) {
 	    theory.addBundle(prevEffect);
@@ -172,7 +169,7 @@ public class RandomMTSetGenerator {
     }
 
     private void getEpiFactor(String bundle) {
-	if ( bundle.length() > 1 && bundle.charAt(bundle.length() - 2) == '¬') {
+	if (bundle.length() > 1 && bundle.charAt(bundle.length() - 2) == '¬') {
 	    epiFactor = "" + bundle.charAt(bundle.length() - 2)
 		    + bundle.charAt(bundle.length() - 1);
 	} else {

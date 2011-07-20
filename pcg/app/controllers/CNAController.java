@@ -11,7 +11,7 @@ import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
 import datastructures.graph.Graph;
 import datastructures.mt.MinimalTheorySet;
-import datastructures.random.Random;
+import datastructures.random.RandomGraphInput;
 import datastructures.random.RandomMTSetGenerator;
 
 public class CNAController extends Controller {
@@ -41,7 +41,7 @@ public class CNAController extends Controller {
 	list.add(bundles2);
 	list.add(bundles3);
 	boolean epiOn = (epi != null);
-	Random random = new Random(list, alterFactors, epiOn);
+	RandomGraphInput random = new RandomGraphInput(list, alterFactors, epiOn);
 	generator = new RandomMTSetGenerator(random.getBundleSizes(),
 		random.getNoOfAlterFactors(), random.getEpi());
 	theories = generator.getMTSet();

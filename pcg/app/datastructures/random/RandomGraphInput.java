@@ -2,14 +2,14 @@ package datastructures.random;
 
 import java.util.ArrayList;
 
-public class Random {
+public class RandomGraphInput {
     private ArrayList<ArrayList<Integer>> bundleSizes;
     private ArrayList<Integer> noOfAlterFactors;
     private ArrayList<Boolean> epiphenomenon = new ArrayList<Boolean>();
     private boolean makeEpiphenomenon;
     private int size;
 
-    public Random(ArrayList<ArrayList<Integer>> bundleSizes,
+    public RandomGraphInput(ArrayList<ArrayList<Integer>> bundleSizes,
 	    ArrayList<Integer> noOfAlterFactors, boolean makeEpiphenomenon) {
 	this.bundleSizes = bundleSizes;
 	this.noOfAlterFactors = noOfAlterFactors;
@@ -20,9 +20,9 @@ public class Random {
 	removeBundleSizesNulls();
 	createEpiList();
     }
-    
-    //For Testing only
-    public Random(int size){
+
+    // For Testing only
+    public RandomGraphInput(int size) {
 	this.size = size;
     }
 
@@ -62,30 +62,30 @@ public class Random {
     }
 
     public ArrayList<ArrayList<Integer>> getBundleSizes() {
-        return bundleSizes;
+	return bundleSizes;
     }
 
     public ArrayList<Integer> getNoOfAlterFactors() {
-        return noOfAlterFactors;
+	return noOfAlterFactors;
     }
 
     public ArrayList<Boolean> getEpi() {
-        return epiphenomenon;
+	return epiphenomenon;
     }
 
     public void setBundleSizes(ArrayList<ArrayList<Integer>> bundleSizes) {
-        this.bundleSizes = bundleSizes;
+	this.bundleSizes = bundleSizes;
     }
 
     public void setNoOfAlterFactors(ArrayList<Integer> noOfAlterFactors) {
-        this.noOfAlterFactors = noOfAlterFactors;
+	this.noOfAlterFactors = noOfAlterFactors;
     }
 
     public void setMakeEpiphenomenon(boolean makeEpiphenomenon) {
-        this.makeEpiphenomenon = makeEpiphenomenon;
+	this.makeEpiphenomenon = makeEpiphenomenon;
     }
 
     public boolean isMakeEpiphenomenon() {
-        return makeEpiphenomenon;
+	return makeEpiphenomenon;
     }
 }
