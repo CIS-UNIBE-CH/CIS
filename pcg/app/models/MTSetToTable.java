@@ -3,6 +3,7 @@ package models;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
@@ -27,8 +28,8 @@ public class MTSetToTable {
 
 	createTables();
 	mergeTables();
-//	coincTable.get(0).set(coincTable.get(0).size()-1, "W");
-//	System.out.println("Merged Tables\n" + coincTable);
+	// coincTable.get(0).set(coincTable.get(0).size()-1, "W");
+	// System.out.println("Merged Tables\n" + coincTable);
     }
 
     /** Step 1 */
@@ -112,11 +113,26 @@ public class MTSetToTable {
 		nextTable = mtCoincTables.get(i);
 		mergeZeroLines();
 		mergeOneLines();
-		coincTable.removeDuplicatedCol();
+		System.out.println("CoincTable: " + coincTable);
+		removeDuplicatedCol();
 		curTable = coincTable;
 	    }
 	}
 	System.out.println("Merged Tables\n" + coincTable);
+    }
+
+    public void removeDuplicatedCol() {
+	HashSet<String> map = new HashSet<String>();
+	
+	int index = 0;
+	for (int j = 0; j < coincTable.get(0).size() - 1; j++) {
+	    map.add(coincTable.get(0).get(j));
+	    if (map.contains(coincTable.get(0).get(j + 1))) {
+		index = j+1;
+		break;
+	    }
+	}
+	coincTable.removeCol(index);
     }
 
     private void mergeZeroLines() {
