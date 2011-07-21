@@ -5,6 +5,7 @@ import helpers.Timer;
 
 import java.util.ArrayList;
 
+import models.MTSetToTable;
 import models.Renderer;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
@@ -20,6 +21,7 @@ public class CNAController extends Controller {
     private static RandomMTSetGenerator generator;
     private static Timer timer;
     private static boolean showBundleNumRenderer;
+    private static MinimalTheorySet theories;
 
     public static void setup() {
 	render();
@@ -37,7 +39,6 @@ public class CNAController extends Controller {
 	    showBundleNumRenderer = (showBundleNum != null);
 	    boolean makeEpi = (epi != null);
 	    RandomMTSetGenerator generator;
-	    MinimalTheorySet theories;
 	    ArrayList<ArrayList<Integer>> list;
 	    RandomGraphInput input;
 
@@ -77,46 +78,41 @@ public class CNAController extends Controller {
 
     public static void calcCNAGraph(String generatedGraphPath,
 	    String generatedGraph, String lines) {
-	timer = new Timer();
-	renderer = new Renderer();
-	int randomLines = Integer.parseInt(lines);
-	renderer.setShowEdgeLabels(showBundleNumRenderer);
-	// try {
-	// TODO Make GraphToTable Parser change this
-	// CNAlgorithm cnaAlgorithm = new CNAlgorithm(generator.getTable(),
-	// randomLines);
+	// int randomLines = Integer.parseInt(lines);
+	try {
+	    timer = new Timer();
+	    MTSetToTable parser = new MTSetToTable(theories);
+	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(parser.getCoincTable());
 
-	// MinimalTheorieSet theories = cnaAlgorithm.getMinimalTheorieSet();
-	ArrayList<String> graphPaths = new ArrayList<String>();
-	ArrayList<String> stringGraphs = new ArrayList<String>();
+	    ArrayList<String> graphPaths = new ArrayList<String>();
+	    ArrayList<String> stringGraphs = new ArrayList<String>();
 
-	// TODO Make rendering correct.
-	renderer = new Renderer();
-	renderer.setShowEdgeLabels(true);
-	// renderer.config(treeToGraph);
-	graphPaths.add(renderer.getImageSource());
-	// stringGraphs.add(stringToTree.getTree().toString());
+	    Graph graph = new Graph(cnaAlgorithm.getMinimalTheorySet());
+	    Renderer renderer = new Renderer();
+	    renderer.setShowEdgeLabels(showBundleNumRenderer);
+	    renderer.config(graph);
+	    graphPaths.add(renderer.getImageSource());
 
-	// Long time = timer.timeElapsed();
+	    Long time = timer.timeElapsed();
 
-	// String originalTable = cnaAlgorithm.getOriginalTable().toString();
-	// String elapsedTime = time.toString() + " ms";
-	// String effects = cnaAlgorithm.getEffects().toString();
-	// String sufTable = cnaAlgorithm.getSufTable().toString();
-	// String msufTable = cnaAlgorithm.getMsufTable().toString();
-	// String necList = cnaAlgorithm.getNecList().toString();
-	// String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	// String deleted = cnaAlgorithm.getDeleted().toString();
-	// String fmt = cnaAlgorithm.getMinimalTheorieSet().toString();
+	    String originalTable = cnaAlgorithm.getOriginalTable().toString();
+	    String elapsedTime = time.toString() + " ms";
+	    String effects = cnaAlgorithm.getEffects().toString();
+	    String sufTable = cnaAlgorithm.getSufTable().toString();
+	    String msufTable = cnaAlgorithm.getMsufTable().toString();
+	    String necList = cnaAlgorithm.getNecList().toString();
+	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
+//	    String deleted = cnaAlgorithm.getDeleted().toString();
+	    String fmt = cnaAlgorithm.getMinimalTheorySet().toString();
 
-	// render(elapsedTime, originalTable, graphPaths, stringGraphs,
-	// generatedGraphPath, generatedGraph, effects, sufTable,
-	// msufTable, necList, mnecTable, fmt, deleted);
-	// } catch (NecException e) {
-	// flash.error("NEC error.");
-	// params.flash();
-	// setup();
-	// }
+	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
+		    generatedGraphPath, generatedGraph, effects, sufTable,
+		    msufTable, necList, mnecTable, fmt, "");
+	} catch (NecException e) {
+	    flash.error("NEC error.");
+	    params.flash();
+	    setup();
+	}
     }
 
     public static void baumgartnerSample() {

@@ -27,6 +27,8 @@ public class MTSetToTable {
 
 	createTables();
 	mergeTables();
+//	coincTable.get(0).set(coincTable.get(0).size()-1, "W");
+//	System.out.println("Merged Tables\n" + coincTable);
     }
 
     /** Step 1 */
