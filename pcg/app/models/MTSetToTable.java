@@ -3,7 +3,6 @@ package models;
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
@@ -11,153 +10,44 @@ import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 
 public class MTSetToTable {
-    private MinimalTheorySet set = new MinimalTheorySet();
-    ArrayList<CNATable> tables = new ArrayList<CNATable>();
-    CNATable curMTTable = new CNATable();
-    MinimalTheory curMT = new MinimalTheory();
-    CNATable finalTable = new CNATable();
-    CNATable table1;
-    CNATable table2;
-    CNATable finalList = new CNATable();
+    private MinimalTheorySet set;
+    ArrayList<CNATable> mtCoincTables;
+    CNATable curMTTable;
+    MinimalTheory curMT;
+    CNATable curTable;
+    CNATable nextTable;
+    CNATable coincTable;
 
     public MTSetToTable(MinimalTheorySet set) {
 	this.set = set;
+	mtCoincTables = new ArrayList<CNATable>();
+	curMTTable = new CNATable();
+	curMT = new MinimalTheory();
+	coincTable = new CNATable();
 
 	createTables();
-	table1 = tables.get(0);
-	table2 = tables.get(1);
 	mergeTables();
     }
 
-    private void mergeTables() {
-	mergeZeroLines();
-	mergeOneLines();
-
-	HashMap map = new HashMap();
-	for (int j = 0; j < finalList.get(0).size() - 1; j++) {
-	    map.put(finalList.get(0).get(j), finalList.get(0).get(j));
-	    if(map.containsKey(finalList.get(0).get(j + 1))){
-		finalList.removeCol(j);
-		break;
-	    }
-	}
-	System.out.println("Merged List\n" + finalList);
-    }
-
-    private int getIndexEffect(String effectName) {
-	System.out.println("Effect Name: " + effectName);
-	for (int i = 0; i < table1.get(0).size(); i++) {
-	    String cur = table1.get(0).get(i);
-	    System.out.println("Potential: " + cur);
-	    if (cur.equals(effectName)) {
-		return i;
-	    }
-	}
-	return -1;
-    }
-
-    private void mergeZeroLines() {
-	CNATable tempMerge = new CNATable();
-	CNATable table1temp = new CNATable();
-	CNATable table2temp = new CNATable();
-
-	// OK
-	for (CNAList cur : table1) {
-	    if (cur.lastElementIsZero()) {
-		table1temp.add(cur);
-	    }
-	}
-
-	String effectName = table1.get(0).getLastElement();
-	int index = getIndexEffect(effectName);
-	for (CNAList cur : table2) {
-	    if (cur.ElementIsZero(index)) {
-		table2temp.add(cur);
-	    }
-	}
-	int howMany = table2temp.size();
-	System.out.println("Many: " + howMany);
-
-	for (CNAList cur : table1temp) {
-	    for (int i = 0; i < howMany; i++) {
-		tempMerge.add(cur);
-	    }
-	}
-	// Add names
-	finalList.add(mergeTwoCNALists(table1.get(0), table2.get(0)));
-	for (int i = 0; i < tempMerge.size(); i++) {
-	    CNAList cur1 = tempMerge.get(i);
-	    CNAList cur2 = table2temp.get(i % table2temp.size());
-	    finalList.add(mergeTwoCNALists(cur1, cur2));
-	}
-
-    }
-
-    private void mergeOneLines() {
-	CNATable tempMerge = new CNATable();
-	CNATable table1temp = new CNATable();
-	CNATable table2temp = new CNATable();
-
-	// OK
-	for (CNAList cur : table1) {
-	    if (cur.lastElementIsOne()) {
-		table1temp.add(cur);
-	    }
-	}
-
-	String effectName = table1.get(0).getLastElement();
-	int index = getIndexEffect(effectName);
-	for (CNAList cur : table2) {
-	    if (cur.ElementIsOne(index)) {
-		table2temp.add(cur);
-	    }
-	}
-	int howMany = table2temp.size();
-	System.out.println("Many: " + howMany);
-
-	for (CNAList cur : table1temp) {
-	    for (int i = 0; i < howMany; i++) {
-		tempMerge.add(cur);
-	    }
-	}
-	System.out.println("TempMerge\n" + tempMerge);
-	System.out.println("Temp2\n" + table2temp);
-
-	// Add names
-	// finalList.add(mergeTwoCNALists(table1.get(0), table2.get(0)));
-	for (int i = 0; i < tempMerge.size(); i++) {
-	    CNAList cur1 = tempMerge.get(i);
-	    CNAList cur2 = table2temp.get(i % table2temp.size());
-	    finalList.add(mergeTwoCNALists(cur1, cur2));
-	}
-
-    }
-
-    public CNAList mergeTwoCNALists(CNAList first, CNAList second) {
-	CNAList merged = new CNAList();
-	merged.addAll(first);
-	merged.addAll(second);
-	return merged;
-    }
-
-    public void createTables() {
+    /** Step 1 */
+    private void createTables() {
 	for (MinimalTheory theory : set) {
 	    curMT = theory;
 	    curMTTable = new CNATable();
 
 	    addFactorNames();
 	    binaryFillUp();
-	    makeEffectCol();
-	    tables.add(curMTTable);
-	    System.out.println("***************");
-	    for (CNATable table : tables) {
-		System.out.println("Table:\n" + table);
-	    }
-	    System.out.println("***************");
+	    fillUpEffectCol();
+	    mtCoincTables.add(curMTTable);
 	}
+	System.out.println("***************");
+	for (CNATable table : mtCoincTables) {
+	    System.out.println("All Tables\n" + table);
+	}
+	System.out.println("***************");
     }
 
-    public void addFactorNames() {
+    private void addFactorNames() {
 	CNAList factorNames = new CNAList();
 	for (String cur : curMT.getFactors()) {
 	    factorNames.add(cur);
@@ -165,7 +55,7 @@ public class MTSetToTable {
 	curMTTable.add(factorNames);
     }
 
-    public void binaryFillUp() {
+    private void binaryFillUp() {
 	// Generate Binary Numbers
 	int countTo = (int) Math.pow(2, curMTTable.get(0).size());
 	for (int i = 0; i < countTo; i++) {
@@ -186,7 +76,7 @@ public class MTSetToTable {
 	}
     }
 
-    public void makeEffectCol() {
+    private void fillUpEffectCol() {
 	// Add effect name
 	String effect = curMT.getEffect();
 	curMTTable.get(0).add(effect);
@@ -210,6 +100,113 @@ public class MTSetToTable {
 	}
     }
 
+    /** Step 2 */
+    private void mergeTables() {
+	curTable = mtCoincTables.get(0);
+	if (mtCoincTables.size() == 1) {
+	    coincTable = curTable;
+	} else {
+	    for (int i = 1; i < mtCoincTables.size(); i++) {
+		nextTable = mtCoincTables.get(i);
+		mergeZeroLines();
+		mergeOneLines();
+		coincTable.removeDuplicatedCol();
+		curTable = coincTable;
+	    }
+	}
+	System.out.println("Merged Tables\n" + coincTable);
+    }
+
+    private void mergeZeroLines() {
+	CNATable zeroLinesMerge = new CNATable();
+	CNATable firstOnlyZeroLines = new CNATable();
+	CNATable secondOnlyZeroLines = new CNATable();
+
+	for (CNAList cur : curTable) {
+	    if (cur.lastElementIsZero()) {
+		firstOnlyZeroLines.add(cur);
+	    }
+	}
+
+	String effectName = curTable.get(0).getLastElement();
+	int index = getIndexOfEffectInNextTable(effectName);
+	for (CNAList cur : nextTable) {
+	    if (cur.elementIsZero(index)) {
+		secondOnlyZeroLines.add(cur);
+	    }
+	}
+
+	int howMany = secondOnlyZeroLines.size();
+	for (CNAList cur : firstOnlyZeroLines) {
+	    for (int i = 0; i < howMany; i++) {
+		zeroLinesMerge.add(cur);
+	    }
+	}
+	// Add factor names
+	coincTable = new CNATable();
+	coincTable.add(mergeTwoCNALists(curTable.get(0), nextTable.get(0)));
+
+	for (int i = 0; i < zeroLinesMerge.size(); i++) {
+	    CNAList cur1 = zeroLinesMerge.get(i);
+	    CNAList cur2 = secondOnlyZeroLines.get(i
+		    % secondOnlyZeroLines.size());
+	    coincTable.add(mergeTwoCNALists(cur1, cur2));
+	}
+    }
+
+    private void mergeOneLines() {
+	CNATable oneLinesMerge = new CNATable();
+	CNATable firstOnlyOneLines = new CNATable();
+	CNATable secondOnlyOneLines = new CNATable();
+
+	for (CNAList cur : curTable) {
+	    if (cur.lastElementIsOne()) {
+		firstOnlyOneLines.add(cur);
+	    }
+	}
+
+	String effectName = curTable.get(0).getLastElement();
+	int index = getIndexOfEffectInNextTable(effectName);
+	for (CNAList cur : nextTable) {
+	    if (cur.ElementIsOne(index)) {
+		secondOnlyOneLines.add(cur);
+	    }
+	}
+
+	int howMany = secondOnlyOneLines.size();
+	for (CNAList cur : firstOnlyOneLines) {
+	    for (int i = 0; i < howMany; i++) {
+		oneLinesMerge.add(cur);
+	    }
+	}
+
+	for (int i = 0; i < oneLinesMerge.size(); i++) {
+	    CNAList cur1 = oneLinesMerge.get(i);
+	    CNAList cur2 = secondOnlyOneLines
+		    .get(i % secondOnlyOneLines.size());
+	    coincTable.add(mergeTwoCNALists(cur1, cur2));
+	}
+
+    }
+
+    /** Helpers */
+    private int getIndexOfEffectInNextTable(String effectName) {
+	for (int i = 0; i < nextTable.get(0).size(); i++) {
+	    String cur = nextTable.get(0).get(i);
+	    if (cur.equals(effectName)) {
+		return i;
+	    }
+	}
+	return -1;
+    }
+
+    public CNAList mergeTwoCNALists(CNAList first, CNAList second) {
+	CNAList merged = new CNAList();
+	merged.addAll(first);
+	merged.addAll(second);
+	return merged;
+    }
+
     private boolean isBundleInstantiated(int index, int end, CNAList row) {
 	String bundle = "";
 	for (int i = index; i < end; i++) {
@@ -223,11 +220,11 @@ public class MTSetToTable {
 
     }
 
-    public ArrayList<CNATable> getTables() {
-	return tables;
+    public ArrayList<CNATable> getMTCoincTables() {
+	return mtCoincTables;
     }
 
-    public CNATable getOneMT() {
-	return curMTTable;
+    public CNATable getCoincTable() {
+	return coincTable;
     }
 }

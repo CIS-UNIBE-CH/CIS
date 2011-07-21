@@ -112,7 +112,7 @@ public class CNAList extends ArrayList<String> {
 	return -1;
     }
 
-    public boolean ElementIsZero(int index) {
+    public boolean elementIsZero(int index) {
 	if(this.get(index).equals("0")){
 	    return true;
 	}else{

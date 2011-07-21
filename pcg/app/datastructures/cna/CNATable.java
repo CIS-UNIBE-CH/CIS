@@ -1,6 +1,7 @@
 package datastructures.cna;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class CNATable extends ArrayList<CNAList> {
@@ -143,6 +144,16 @@ public class CNATable extends ArrayList<CNAList> {
 	}
 	return necList;
     }
+    
+    public void removeDuplicatedCol() {
+   	HashMap map = new HashMap();
+   	for (int j = 0; j < this.get(0).size() - 1; j++) {
+   	    map.put(this.get(0).get(j), this.get(0).get(j));
+   	    if(map.containsKey(this.get(0).get(j + 1))){
+   		this.removeCol(j);
+   	    }
+   	}
+       }
 
     // toString
 

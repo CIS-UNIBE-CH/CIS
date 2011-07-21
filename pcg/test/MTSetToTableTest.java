@@ -21,8 +21,13 @@ public class MTSetToTableTest extends UnitTest {
 	CNAList factors1 = new CNAList(',', "C,E,");
 	MinimalTheory theory1 = new MinimalTheory(factors1, "F");
 	
+	CNAList factors2 = new CNAList(',', "F,G,");
+	MinimalTheory theory2 = new MinimalTheory(factors2, "H");
+	
 	set.add(theory);
 	set.add(theory1);
+	set.add(theory2);
+	System.out.println("Set: " + set);
     }
 
     @Test
