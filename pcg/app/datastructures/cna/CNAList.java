@@ -54,6 +54,22 @@ public class CNAList extends ArrayList<String> {
 	int i = index;
 	return super.remove(i);
     }
+    
+    public boolean lastElementIsZero(){
+	if(this.getLastElement().equals("0")){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+    
+    public boolean lastElementIsOne(){
+	if(this.getLastElement().equals("1")){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
 
     public CNAList split() {
 	HashSet<String> set = new HashSet<String>();
@@ -73,6 +89,7 @@ public class CNAList extends ArrayList<String> {
     }
 
     // toString
+    @Override
     public String toString() {
 	String str = new String();
 	for (String string : this) {
@@ -93,5 +110,21 @@ public class CNAList extends ArrayList<String> {
 		return i;
 	}
 	return -1;
+    }
+
+    public boolean ElementIsZero(int index) {
+	if(this.get(index).equals("0")){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+    
+    public boolean ElementIsOne(int index) {
+	if(this.get(index).equals("1")){
+	    return true;
+	}else{
+	    return false;
+	}
     }
 }
