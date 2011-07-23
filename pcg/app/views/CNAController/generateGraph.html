@@ -29,10 +29,10 @@
 		</table>
 	</center>
 	#{/if}
-	<h3>Choose an Algorithm</h3>
+	<h3>Run</h3>
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
-		<input type="hidden" name="generatedGraphPath" value="${generatedGraphPath}"/>
+		<input type="hidden" name="graphPath" value="${graphPath}"/>
 		<input type="hidden" name="generatedGraph"     value="${generatedGraph}"/>
 		<input type="hidden" name="lines"              value="${lines}"/>
-		<input type="submit" name="booleanTest"        value="Calculate"/>
+		<input type="submit" name="cnaTest"        value="Calculate"/>
 	</form>

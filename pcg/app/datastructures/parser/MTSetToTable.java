@@ -122,12 +122,12 @@ public class MTSetToTable {
 
     public void removeDuplicatedCol() {
 	HashSet<String> map = new HashSet<String>();
-	
+
 	int index = 0;
 	for (int j = 0; j < coincTable.get(0).size() - 1; j++) {
 	    map.add(coincTable.get(0).get(j));
 	    if (map.contains(coincTable.get(0).get(j + 1))) {
-		index = j+1;
+		index = j + 1;
 		break;
 	    }
 	}

@@ -21,29 +21,12 @@ public class CNAlgorithm {
     private CNATable msufTable;
     private CNAList necList;
     private MinimalTheorySet theories;
-    private CNATable deleted;
 
     private CNATable mnecTable;
 
-    public CNAlgorithm(String[][] table, int randomLines) throws NecException {
-	originalTable = new CNATable(table);
-	deleted = new CNATable();
-	for (int i = 0; i < randomLines; i++) {
-	    int rand = (int) Math.random() * (originalTable.size() - 1) + 1;
-	    deleted.add(originalTable.get(rand));
-	    originalTable.remove(rand);
-	}
-	init();
-
-    }
-
     public CNAlgorithm(CNATable table) throws NecException {
-	originalTable = table;
-	init();
-    }
-
-    private void init() throws NecException {
 	theories = new MinimalTheorySet();
+	originalTable = table;
 	identifyPE(originalTable);
     }
 
@@ -148,10 +131,19 @@ public class CNAlgorithm {
 	    throws NecException {
 	CNATable bundleTable = msufTable.summarizeBundles(msufTable,
 		originalTable);
+
 	necList = msufTable.getNecList();
 	necList.negate();
 	// Add effect column
 	necList.add("1");
+
+	// // TODO Nec Check
+	// // Check if NEC Line does not exist in table.
+	// for (CNAList list : bundleTable) {
+	// if (list.equals(necList)) {
+	// throw new NecException();
+	// }
+	// }
 
 	// Check if NEC Line does not exist in table.
 	boolean necOK = false;
@@ -165,12 +157,17 @@ public class CNAlgorithm {
 	    }
 	}
 	if (necOK) {
+	    necList.clear();
+	    necList = msufTable.getNecList();
 	    identifyMNEC(necList, bundleTable, originalTable);
+
 	}
     }
 
     private void identifyMNEC(CNAList necList, CNATable bundleTable,
 	    CNATable originalTable) {
+	System.out.println("bundle\n" + bundleTable);
+	System.out.println(necList);
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	// Remove effect column
@@ -183,11 +180,13 @@ public class CNAlgorithm {
 	mnecTree.walk(root, bundleTable, mnecTable);
 	mnecTable.removeDuplicated();
 	mnecTable.negate();
+	System.out.println(mnecTable);
 
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-	MinimalTheory theorie = new MinimalTheory(mnecNames, originalTable
-		.get(0).getLastElement());
+	MinimalTheory theorie = new MinimalTheory(mnecNames, originalTable.get(
+		0).getLastElement());
 	theories.add(theorie);
+	System.out.println(theorie);
     }
 
     // Getters and Setters
@@ -219,9 +218,4 @@ public class CNAlgorithm {
     public MinimalTheorySet getMinimalTheorySet() {
 	return theories;
     }
-
-    public CNATable getDeleted() {
-	return deleted;
-    }
-
 }

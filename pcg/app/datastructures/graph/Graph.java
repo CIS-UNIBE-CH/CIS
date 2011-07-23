@@ -100,7 +100,9 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    if (deepest < deep.peek()) {
 		deepest = deep.peek();
 	    }
+
 	    deep.pop();
+
 	    if (hasFactor(effect)) {
 		addFactors(effect, stack, deep);
 	    }
@@ -108,8 +110,8 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		deep.pop();
 	    }
 	}
-	deep.clear();
-	stack.clear();
+	deep = null;
+	stack = null;
     }
 
     // Helpers
@@ -209,6 +211,9 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	this.x = newX;
 	this.y = (int) (y + 100);
 	System.gc();
+	for (Node node : nodes) {
+	    System.out.println(node.toString() + " L: " + node.getLevel());
+	}
 	return graph;
     }
 

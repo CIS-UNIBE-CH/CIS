@@ -131,12 +131,11 @@ public class CNATable extends ArrayList<CNAList> {
 
     public CNAList getNecList() {
 	CNAList necList = new CNAList();
-	for (int i = 0; i < table.size(); i++) {
-	    String line = "";
-	    ArrayList<String> curMsuf = table.get(i);
-	    for (int j = 0; j < curMsuf.size(); j++) {
-		if (curMsuf.get(j).equals("1") || curMsuf.get(j).equals("0")) {
-		    line += curMsuf.get(j);
+	for (CNAList list : table) {
+	    String line = new String();
+	    for (String str : list) {
+		if (str.equals("1") || str.equals("0")) {
+		    line += str;
 		}
 	    }
 	    necList.add(line);
@@ -144,15 +143,15 @@ public class CNATable extends ArrayList<CNAList> {
 	return necList;
     }
 
-//    public void removeDuplicatedCol() {
-//	HashMap map = new HashMap();
-//	for (int j = 0; j < table.get(0).size() - 1; j++) {
-//	    map.put(table.get(0).get(j), table.get(0).get(j));
-//	    if (map.containsKey(table.get(0).get(j + 1))) {
-//		table.removeCol(j);
-//	    }
-//	}
-//    }
+    // public void removeDuplicatedCol() {
+    // HashMap map = new HashMap();
+    // for (int j = 0; j < table.get(0).size() - 1; j++) {
+    // map.put(table.get(0).get(j), table.get(0).get(j));
+    // if (map.containsKey(table.get(0).get(j + 1))) {
+    // table.removeCol(j);
+    // }
+    // }
+    // }
 
     // toString
 

@@ -9,6 +9,7 @@ import models.Renderer;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
+import datastructures.cna.CNATable;
 import datastructures.graph.Graph;
 import datastructures.mt.MinimalTheorySet;
 import datastructures.parser.MTSetToTable;
@@ -48,7 +49,8 @@ public class CNAController extends Controller {
 	    list.add(bundles3);
 
 	    input = new RandomMTGeneratorHelper(list, alterFactors);
-	    generator = new RandomMTSetGenerator(input.getCompleteList(), makeEpi);
+	    generator = new RandomMTSetGenerator(input.getCompleteList(),
+		    makeEpi);
 	    theories = generator.getMTSet();
 
 	    Graph graph = new Graph(theories);
@@ -76,14 +78,14 @@ public class CNAController extends Controller {
 	}
     }
 
-    public static void calcCNAGraph(String generatedGraphPath,
-	    String generatedGraph, String lines) {
+    public static void calcCNAGraph(String graphPath, String generatedGraph,
+	    String lines) {
 	// int randomLines = Integer.parseInt(lines);
 	try {
 	    timer = new Timer();
 	    MTSetToTable parser = new MTSetToTable(theories);
-	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(parser.getCoincTable());
-
+	    CNATable table = parser.getCoincTable();
+	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
 	    ArrayList<String> graphPaths = new ArrayList<String>();
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
 
@@ -102,12 +104,12 @@ public class CNAController extends Controller {
 	    String msufTable = cnaAlgorithm.getMsufTable().toString();
 	    String necList = cnaAlgorithm.getNecList().toString();
 	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
-//	    String deleted = cnaAlgorithm.getDeleted().toString();
+	    // String deleted = cnaAlgorithm.getDeleted().toString();
 	    String fmt = cnaAlgorithm.getMinimalTheorySet().toString();
 
 	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
-		    generatedGraphPath, generatedGraph, effects, sufTable,
-		    msufTable, necList, mnecTable, fmt, "");
+		    graphPath, generatedGraph, effects, sufTable, msufTable,
+		    necList, mnecTable, fmt, "");
 	} catch (NecException e) {
 	    flash.error("NEC error.");
 	    params.flash();

@@ -1,12 +1,11 @@
 package datastructures;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import play.test.UnitTest;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
-
-
-import play.test.UnitTest;
 
 public class CNATableTests extends UnitTest {
     private static CNAList list;
@@ -41,11 +40,11 @@ public class CNATableTests extends UnitTest {
 	assertEquals(table.toString(), testTable.toString());
     }
 
-    @Test(expected = AssertionError.class)
-    public void shouldNotBeSameRegex() {
-	@SuppressWarnings("unused")
-	CNATable testTable = new CNATable(';', ',', "0,2,3;3,2,0");
-    }
+    // @Test(expected = AssertionError.class)
+    // public void shouldNotBeSameRegex() {
+    // @SuppressWarnings("unused")
+    // CNATable testTable = new CNATable(';', ',', "0,2,3;3,2,0");
+    // }
 
     @Test
     public void shoudRemoveZeroEffect() {

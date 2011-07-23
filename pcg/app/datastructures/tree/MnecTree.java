@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
-
 public class MnecTree extends CNATree {
 
     public MnecTree(CNATreeNode node) {

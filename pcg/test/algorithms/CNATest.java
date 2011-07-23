@@ -1,23 +1,27 @@
 package algorithms;
+
 /** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 import helpers.BaumgartnerSampleTable;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.ArrayList;
 
-import datastructures.cna.CNAList;
-import datastructures.cna.CNATable;
+import org.junit.Before;
+import org.junit.Test;
 
 import play.test.UnitTest;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
+import datastructures.cna.CNAList;
+import datastructures.cna.CNATable;
+import datastructures.random.RandomMTGeneratorHelper;
+import datastructures.random.RandomMTSetGenerator;
 
 public class CNATest extends UnitTest {
     private static CNAlgorithm cnaAlgorithm;
 
-    @BeforeClass
-    public static void setup() throws NecException {
+    @Before
+    public void setup() throws NecException {
 
 	cnaAlgorithm = new CNAlgorithm(
 		new BaumgartnerSampleTable().getSampleTable());
@@ -52,11 +56,28 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyMinimatTheorieSet() {
-
+	assertEquals("[DX1 ∨ BX2 ∨ YE => E, BX1 ∨ AX2 ∨ YC => C]", cnaAlgorithm
+		.getMinimalTheorySet().toString());
     }
 
     // Random Tests
 
+    @Test
+    public void shouldTestWithGeneratedTable() {
+	ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+	ArrayList<Integer> bundle1 = new ArrayList<Integer>();
+	ArrayList<Integer> alterFactros = new ArrayList<Integer>();
+	bundle1.add(2);
+	alterFactros.add(1);
+	list.add(bundle1);
+	RandomMTGeneratorHelper helper = new RandomMTGeneratorHelper(list,
+		alterFactros);
+	RandomMTSetGenerator generator = new RandomMTSetGenerator(
+		helper.getCompleteList(), false);
+
+	assertNotNull(generator.getMTSet());
+
+    }
     // TODO
     // @Test
     // public void randomFactorTest() {

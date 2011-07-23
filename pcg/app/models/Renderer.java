@@ -44,16 +44,16 @@ public class Renderer {
     public Renderer() {
 	now = new Date();
 	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
-	this.path = "./pcg/public/images/graphs/";
+	this.path = "pcg/public/images/graphs/";
 	xPicSize = 0;
 	yPicSize = 0;
     }
 
     public void config(Graph graph) {
-	System.gc();
-	System.out.println("****************");
-	System.out.println("Graph:\n" + graph.toString());
-	System.out.println("****************");
+	// System.gc();
+	// System.out.println("****************");
+	// System.out.println("Graph:\n" + graph.toString());
+	// System.out.println("****************");
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place

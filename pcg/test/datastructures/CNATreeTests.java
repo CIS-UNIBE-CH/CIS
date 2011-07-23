@@ -1,17 +1,17 @@
 package datastructures;
+
 import helpers.BaumgartnerSampleTable;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import play.test.UnitTest;
+import algorithms.cna.CNAlgorithm;
+import algorithms.cna.NecException;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.tree.CNATreeNode;
 import datastructures.tree.MsufTree;
-
-import play.test.UnitTest;
-import algorithms.cna.CNAlgorithm;
-import algorithms.cna.NecException;
 
 public class CNATreeTests extends UnitTest {
 
@@ -35,17 +35,14 @@ public class CNATreeTests extends UnitTest {
     @Test
     public void shouldTestTreeFillUp() {
 	msufTree.fillUpTree(node);
-	assertEquals("[$, 1, 1, 1][$, $, 1, 1]" + "[$, $, $, 1][$, $, 1, $]"
-		+ "[$, 1, $, 1][$, $, $, 1]" + "[$, 1, $, $][$, 1, 1, $]"
-		+ "[$, $, 1, $][$, 1, $, $]" + "[1, $, 1, 1][$, $, 1, 1]"
-		+ "[$, $, $, 1][$, $, 1, $]" + "[1, $, $, 1][$, $, $, 1]"
-		+ "[1, $, $, $][1, $, 1, $]" + "[$, $, 1, $][1, $, $, $]"
-		+ "[1, 1, $, 1][$, 1, $, 1]" + "[$, $, $, 1][$, 1, $, $]"
-		+ "[1, $, $, 1][$, $, $, 1]" + "[1, $, $, $][1, 1, $, $]"
-		+ "[$, 1, $, $][1, $, $, $]" + "[1, 1, 1, $][$, 1, 1, $]"
-		+ "[$, $, 1, $][$, 1, $, $]" + "[1, $, 1, $][$, $, 1, $]"
-		+ "[1, $, $, $][1, 1, $, $]" + "[$, 1, $, $][1, $, $, $]",
+	assertEquals("$ 1 1 1 $ $ 1 1 " + "$ $ $ 1 $ $ 1 $ "
+		+ "$ 1 $ 1 $ $ $ 1 " + "$ 1 $ $ $ 1 1 $ " + "$ $ 1 $ $ 1 $ $ "
+		+ "1 $ 1 1 $ $ 1 1 " + "$ $ $ 1 $ $ 1 $ " + "1 $ $ 1 $ $ $ 1 "
+		+ "1 $ $ $ 1 $ 1 $ " + "$ $ 1 $ 1 $ $ $ " + "1 1 $ 1 $ 1 $ 1 "
+		+ "$ $ $ 1 $ 1 $ $ " + "1 $ $ 1 $ $ $ 1 " + "1 $ $ $ 1 1 $ $ "
+		+ "$ 1 $ $ 1 $ $ $ " + "1 1 1 $ $ 1 1 $ " + "$ $ 1 $ $ 1 $ $ "
+		+ "1 $ 1 $ $ $ 1 $ " + "1 $ $ $ 1 1 $ $ " + "$ 1 $ $ 1 $ $ $ ",
 		msufTree.toString(node));
-	assertEquals("[1, 1, 1, 1]", msufTree.getRoot().toString());
+	assertEquals("1 1 1 1 ", msufTree.getRoot().toString());
     }
 }

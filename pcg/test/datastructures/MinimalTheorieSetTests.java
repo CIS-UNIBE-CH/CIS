@@ -1,6 +1,6 @@
 package datastructures;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
@@ -15,19 +15,17 @@ public class MinimalTheorieSetTests extends UnitTest {
     static CNAList factors;
     static String effect;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
 	theories = new MinimalTheorySet();
 	factors = new CNAList(',', "A,B,C,DE");
 	effect = "W";
 	theorie = new MinimalTheory(factors, effect);
-
+	theories.add(theorie);
     }
 
     @Test
     public void shouldAdd() {
-	assertEquals(0, theories.size());
-	theories.add(theorie);
 	assertEquals(1, theories.size());
 	assertEquals(theorie, theories.get(0));
 
@@ -42,6 +40,10 @@ public class MinimalTheorieSetTests extends UnitTest {
 
     @Test
     public void shouldRemove() {
+	CNAList newfactors = new CNAList(',', "W,F,H");
+	String newEffect = "R";
+	MinimalTheory newTheorie = new MinimalTheory(newfactors, newEffect);
+	theories.add(newTheorie);
 	assertEquals(2, theories.size());
 	theories.remove(1);
 	assertEquals(1, theories.size());
@@ -60,22 +62,22 @@ public class MinimalTheorieSetTests extends UnitTest {
 
     @Test
     public void shouldGetNumbersOfFactors() {
-	assertEquals(7, theories.getNumberOfFactors());
+	assertEquals(5, theories.getNumberOfFactors());
     }
 
     @Test
     public void shouldGetNumbersOfEffects() {
-	assertEquals(2, theories.getNumberOfEffects());
+	assertEquals(1, theories.getNumberOfEffects());
     }
 
     @Test
     public void shouldGetAllFactors() {
-	assertEquals("F W A B C DE H ", theories.getAllFactors().toString());
+	assertEquals("D E A B C ", theories.getAllFactors().toString());
     }
 
     @Test
     public void shouldGetAllEffects() {
-	assertEquals("W R ", theories.getAllEffects().toString());
+	assertEquals("W ", theories.getAllEffects().toString());
     }
 
 }

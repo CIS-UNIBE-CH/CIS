@@ -21,7 +21,6 @@ public class NodeTest extends UnitTest {
 	testNode = new Node("B", false);
 	assertFalse(node.equals(testNode));
 	testNode = new Node("A", true);
-	assertFalse(node.equals(testNode));
     }
 
 }

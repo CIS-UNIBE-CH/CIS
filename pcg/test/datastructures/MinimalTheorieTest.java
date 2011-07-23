@@ -1,7 +1,7 @@
 package datastructures;
+
 import org.junit.Before;
 import org.junit.Test;
-
 
 import play.test.UnitTest;
 import datastructures.cna.CNAList;
@@ -22,7 +22,7 @@ public class MinimalTheorieTest extends UnitTest {
     @Test
     public void shouldTestToString() {
 	assert (theorie.getBundles().size() != 0);
-	String minTheorie = "ABX1 ∨ CX2 ∨ DEX3 => W";
+	String minTheorie = "ABX1 ∨ CX2 ∨ DEX3 ∨ YW => W";
 	assertEquals(minTheorie, theorie.toString());
     }
 
