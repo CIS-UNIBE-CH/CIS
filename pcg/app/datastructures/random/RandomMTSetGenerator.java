@@ -27,7 +27,95 @@ public class RandomMTSetGenerator {
 	makeChain();
     }
 
-    private void makeChain() {
+    // For Testing only
+    public RandomMTSetGenerator() {
+	namesOriginal = new CNATable();
+	set = new MinimalTheorySet();
+	this.levels = new ArrayList<ArrayList<Object>>();
+    }
+
+    /** Step 0 */
+    public void generateFactorNames() {
+	for (int i = 65; i <= (65 + 22); i++) {
+	    String curLetter = "" + (char) i;
+	    String curLetterNegative = "¬" + (char) i;
+	    CNAList list = new CNAList();
+	    list.add(curLetter);
+	    list.add(curLetterNegative);
+	    namesOriginal.add(list);
+	}
+	names = namesOriginal.clone();
+    }
+
+    /** Step 1 */
+    public void generateMTSet() {
+	for (int i = 0; i < levels.size(); i++) {
+	    MinimalTheory theory = new MinimalTheory();
+	    boolean madeFactors = false;
+
+	    if (!hasNoBundles((ArrayList<Integer>) levels.get(i).get(0))) {
+		addBundles(theory, (ArrayList<Integer>) levels.get(i).get(0));
+		madeFactors = true;
+	    }
+	    if ((Integer) levels.get(i).get(1) != 0) {
+		addAlterFactors(theory, (Integer) levels.get(i).get(1));
+		madeFactors = true;
+	    }
+	    if (madeFactors) {
+		addEffect(theory);
+	    }
+	}
+    }
+
+    private void addBundles(MinimalTheory theory, ArrayList<Integer> bundles) {
+	ArrayList<Integer> bundleSizes = bundles;
+	String bundle = "";
+
+	for (Integer number : bundleSizes) {
+	    bundle = "";
+	    for (int i = 0; i < number; i++) {
+		int random = randomIndex(names.size());
+		int randomSec = randomNegativePositiv();
+		String factor = names.get(random).get(randomSec);
+		bundle += factor;
+		// If here is no remove, factor could appear in more than
+		// one bundle in same MT
+		names.remove(random);
+	    }
+	    theory.addBundle(bundle);
+	}
+    }
+
+    private void addAlterFactors(MinimalTheory theory, int noOfAlterFactors) {
+
+	String factor = "";
+	for (int i = 0; i < noOfAlterFactors; i++) {
+	    int random = randomIndex(names.size());
+	    int randomSec = randomNegativePositiv();
+	    factor = names.get(random).get(randomSec);
+	    theory.addBundle(factor);
+	    names.remove(random);
+	}
+    }
+
+    private void addEffect(MinimalTheory theory) {
+	String effect = "";
+	int random = 0;
+
+	while (true) {
+	    random = randomIndex(names.size());
+	    effect = names.get(random).get(0);
+	    if (!effectEqualsMTFactor(effect, theory)) {
+		break;
+	    }
+	}
+	theory.setEffect(effect);
+	names.remove(random);
+	set.add(theory);
+    }
+
+    /** Step 2 */
+    public void makeChain() {
 	String effect = "";
 	for (int i = 0; i < set.size(); i++) {
 	    MinimalTheory cur = set.get(i);
@@ -54,84 +142,7 @@ public class RandomMTSetGenerator {
 
     }
 
-    public void generateFactorNames() {
-	for (int i = 65; i <= (65 + 22); i++) {
-	    String curLetter = "" + (char) i;
-	    String curLetterNegative = "¬" + (char) i;
-	    CNAList list = new CNAList();
-	    list.add(curLetter);
-	    list.add(curLetterNegative);
-	    namesOriginal.add(list);
-	}
-	names = namesOriginal.clone();
-    }
-
-    public void generateMTSet() {
-	for (int i = 0; i < levels.size(); i++) {
-	    MinimalTheory theory = new MinimalTheory();
-	    boolean madeFactors = false;
-
-	    if (!hasNoBundles((ArrayList<Integer>) levels.get(i).get(0))) {
-		addBundles(theory, (ArrayList<Integer>) levels.get(i).get(0));
-		madeFactors = true;
-	    }
-	    if ((Integer) levels.get(i).get(1) != 0) {
-		addAlterFactors(theory, (Integer) levels.get(i).get(1));
-		madeFactors = true;
-	    }
-	    if (madeFactors) {
-		addEffect(theory);
-	    }
-	}
-    }
-
-    public void addBundles(MinimalTheory theory, ArrayList<Integer> bundles) {
-	ArrayList<Integer> bundleSizes = bundles;
-	String bundle = "";
-
-	for (Integer number : bundleSizes) {
-	    bundle = "";
-	    for (int i = 0; i < number; i++) {
-		int random = randomIndex(names.size());
-		int randomSec = randomNegativePositiv();
-		String factor = names.get(random).get(randomSec);
-		bundle += factor;
-		// If here is no remove, factor could appear in more than
-		// one bundle in same MT
-		names.remove(random);
-	    }
-	    theory.addBundle(bundle);
-	}
-    }
-
-    public void addAlterFactors(MinimalTheory theory, int noOfAlterFactors) {
-
-	String factor = "";
-	for (int i = 0; i < noOfAlterFactors; i++) {
-	    int random = randomIndex(names.size());
-	    int randomSec = randomNegativePositiv();
-	    factor = names.get(random).get(randomSec);
-	    theory.addBundle(factor);
-	    names.remove(random);
-	}
-    }
-
-    public void addEffect(MinimalTheory theory) {
-	String effect = "";
-	int random = 0;
-
-	while (true) {
-	    random = randomIndex(names.size());
-	    effect = names.get(random).get(0);
-	    if (!effectEqualsMTFactor(effect, theory)) {
-		break;
-	    }
-	}
-	theory.setEffect(effect);
-	names.remove(random);
-	set.add(theory);
-    }
-
+    /** Helpers */
     private boolean effectEqualsMTFactor(String effect, MinimalTheory theory) {
 	CNAList factors = theory.getFactors();
 	int counter = 0;
@@ -174,5 +185,13 @@ public class RandomMTSetGenerator {
 
     public MinimalTheorySet getMTSet() {
 	return set;
+    }
+
+    public void setLevels(ArrayList<ArrayList<Object>> levels) {
+	this.levels = levels;
+    }
+
+    public void setMakeEpi(boolean makeEpi) {
+	this.makeEpi = makeEpi;
     }
 }
