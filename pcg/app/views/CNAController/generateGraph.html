@@ -12,23 +12,12 @@
 	<center>
 		<img src="${generatedGraphSource}" />
 		<h3>${generatedGraphString}</h3>
+		<font size="1">Note: X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	</center>
-	#{if table}
-	<h3>Coincidence Table</h3>
-	<center>
-		<table>
-		#{list items:table, as:'l'}
-			#{if l == "/n"}<tr>#{/if}
-			#{else}
-			<td>${l}</td>
-			#{/else}
-			#{if l == "/n"}</tr>#{/if}
-		#{/list}
-		</table>
-	</center>
-	#{/if}
+	<br>
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
 		<input type="hidden" name="generatedGraphString" value="${generatedGraphString}"/>
 		<input type="submit" name="cnaTest"        value="Calculate Graph"/>
 	</form>
+	

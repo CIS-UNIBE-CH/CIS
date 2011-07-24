@@ -29,7 +29,7 @@
 		<center>
 		<img src="${generatedGraphSource}" />
 		<h3>${generatedGraphString}</h3>
-			<a href="#" id="orig-toggle">Show original Table</a>
+			<a href="#" id="orig-toggle">Show Coincidence Table</a>
 			<div id="orig">
 					<table>
 		#{list items:coincTable, as:'l'}
@@ -42,6 +42,7 @@
 		</table>
 			</div>
 		</center>
+	<hr>
 	<h3>Calculated Graph</h3>
 	Calculation Time: ${elapsedTime}
 	<br />
@@ -88,5 +89,6 @@
 	<center>
 		<img src="${calcGraphSource}" />
 		<h3>${calcGraphString}</h3>
+		<font size="1">Note: X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	</center>
 		
