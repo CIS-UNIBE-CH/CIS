@@ -12,7 +12,7 @@ public class Node implements Comparable<Node> {
     private double y;
 
     public Node(String name, boolean isEffect) {
-	level = -1;
+	level = 0;
 	this.name = name;
 	this.isEffect = isEffect;
 	this.x = 0.0;
@@ -90,10 +90,10 @@ public class Node implements Comparable<Node> {
     }
 
     public boolean isInnerEffect() {
-        return isInnerEffect;
+	return isInnerEffect;
     }
 
     public void setIsInnerEffect(boolean isInnerEffect) {
-        this.isInnerEffect = isInnerEffect;
+	this.isInnerEffect = isInnerEffect;
     }
 }

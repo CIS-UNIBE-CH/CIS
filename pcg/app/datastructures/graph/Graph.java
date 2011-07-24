@@ -213,6 +213,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	for (Node node : nodes) {
 	    System.out.println(node.toString() + " L: " + node.getLevel());
 	}
+
 	return graph;
     }
 
