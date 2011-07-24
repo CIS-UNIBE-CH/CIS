@@ -137,11 +137,11 @@ public class CNAlgorithm {
 	// Add effect column
 	necList.add("1");
 
-	// for (CNAList list : bundleTable) {
-	// if (list.equals(necList)) {
-	// throw new NecException();
-	// }
-	// }
+	for (CNAList list : bundleTable) {
+	    if (list.equals(necList)) {
+		throw new NecException();
+	    }
+	}
 
 	this.necList = msufTable.getNecList();
 	identifyMNEC(necList, bundleTable, originalTable);
