@@ -15,9 +15,14 @@
 		<font size="1">Note: X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	</center>
 	<br>
+	#{if calc}
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
 		<input type="hidden" name="generatedGraphString" value="${generatedGraphString}"/>
 		<input type="submit" name="cnaTest"        value="Calculate Graph"/>
+	#{/if}
+	#{else}
+		<center><p>${canCalc} You can't use the cna algotrithm with more then seven nodes</p></center>
+	#{/else}
 	</form>
 	
