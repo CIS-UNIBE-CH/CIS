@@ -1,12 +1,5 @@
 <script type="text/javascript">		
 	$(document).ready(function() {
-		 $('#slickbox').hide();
-  	$('#slick-toggle').click(function() {
-    $('#slickbox').toggle(100);
-    return false;
-  	});
-});
-	$(document).ready(function() {
 		$('#orig').hide();
 	$('#orig-toggle').click(function() {
 	$('#orig').toggle(100);
@@ -25,23 +18,6 @@
 	<div class="steps">
 	Step 3/3
 	</div>
-	<h3>Generated Graph</h3>
-		<center>
-		<img src="${generatedGraphSource}" />
-		<h3>${generatedGraphString}</h3>
-			<a href="#" id="orig-toggle">Show original Table</a>
-			<div id="orig">
-					<table>
-		#{list items:coincTable, as:'l'}
-			#{if l == "\n"}<tr>#{/if}
-			#{else}
-			<td>${l}</td>
-			#{/else}
-			#{if l == "\n"}</tr>#{/if}
-		#{/list}
-		</table>
-			</div>
-		</center>
 	<h3>Calculated Graph</h3>
 	Calculation Time: ${elapsedTime}
 	<br />

@@ -48,9 +48,9 @@ abstract class CNATree extends DefaultTreeModel {
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (child.isLeaf()) {
-		string += child.toString();
+		string += child.toString() + "\n";
 	    } else {
-		string += child.toString();
+		string += child.toString() + "\n";
 		toString(child);
 	    }
 	}

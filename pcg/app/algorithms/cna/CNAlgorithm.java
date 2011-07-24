@@ -137,56 +137,36 @@ public class CNAlgorithm {
 	// Add effect column
 	necList.add("1");
 
-	// // TODO Nec Check
-	// // Check if NEC Line does not exist in table.
 	// for (CNAList list : bundleTable) {
 	// if (list.equals(necList)) {
 	// throw new NecException();
 	// }
 	// }
 
-	// Check if NEC Line does not exist in table.
-	boolean necOK = false;
-	for (int j = 0; j < bundleTable.size(); j++) {
-	    if (bundleTable.get(j).equals(necList)) {
-		necOK = false;
-		System.out.println("NEC Line check has FAILED!");
-		throw new NecException();
-	    } else {
-		necOK = true;
-	    }
-	}
-	if (necOK) {
-	    necList.clear();
-	    necList = msufTable.getNecList();
-	    identifyMNEC(necList, bundleTable, originalTable);
-
-	}
+	this.necList = msufTable.getNecList();
+	identifyMNEC(necList, bundleTable, originalTable);
     }
 
     private void identifyMNEC(CNAList necList, CNATable bundleTable,
 	    CNATable originalTable) {
-	System.out.println("bundle\n" + bundleTable);
-	System.out.println(necList);
+
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
-	// Remove effect column
-	necList.remove(necList.size() - 1);
-
 	CNATreeNode root = new CNATreeNode(necList);
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
 	mnecTree.walk(root, bundleTable, mnecTable);
 	mnecTable.removeDuplicated();
-	mnecTable.negate();
-	System.out.println(mnecTable);
+
+	if (mnecTable.size() == 0) {
+	    mnecTable.add(necList);
+	}
 
 	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
 	MinimalTheory theorie = new MinimalTheory(mnecNames, originalTable.get(
 		0).getLastElement());
 	theories.add(theorie);
-	System.out.println(theorie);
     }
 
     // Getters and Setters

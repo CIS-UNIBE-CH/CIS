@@ -8,7 +8,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import datastructures.cna.CNAList;
 
-
 public class CNATreeNode extends DefaultMutableTreeNode {
     private CNAList coincLine;
 

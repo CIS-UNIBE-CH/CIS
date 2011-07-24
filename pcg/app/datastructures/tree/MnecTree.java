@@ -1,7 +1,5 @@
 package datastructures.tree;
 
-import java.util.ArrayList;
-
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
@@ -42,15 +40,30 @@ public class MnecTree extends CNATree {
     }
 
     private boolean compare(CNAList list, CNATable bundleTable) {
+	// CNAList newList = (CNAList) list.clone();
+	// newList.negate();
+	// for (CNAList bundle : bundleTable) {
+	// boolean equal = true;
+	// for (int i = 0; i < bundle.size() - 1; i++) {
+	// if (!list.get(1).equals(bundle.get(i))
+	// && !bundle.get(i).equals("$")
+	// && bundle.getLastElement().equals("0")) {
+	// equal = false;
+	// break;
+	// }
+	// if(eaual){
+	// }
+	// }
 	boolean isEqual = false;
-	for (int r = 1; r < bundleTable.size(); r++) {
-	    ArrayList<String> curRow = bundleTable.get(r);
+	CNAList newList = (CNAList) list.clone();
+	newList.negate();
+	for (CNAList bundle : bundleTable) {
 	    for (int i = 0; i < list.size(); i++) {
 		// Only if there is a 1 or 0 in nodes data compare, when a
 		// dollar do nothing.
-		if (list.get(i).equals("1") || list.get(i).equals("0")
-			|| list.get(i).length() > 1) {
-		    if (list.get(i).equals(curRow.get(i))) {
+		if (newList.get(i).equals("1") || newList.get(i).equals("0")
+			|| newList.get(i).length() > 1) {
+		    if (newList.get(i).equals(bundle.get(i))) {
 			isEqual = true;
 		    } else {
 			isEqual = false;
@@ -59,7 +72,7 @@ public class MnecTree extends CNATree {
 		}
 	    }
 	    if (isEqual) {
-		if (curRow.get(curRow.size() - 1).equals("1")) {
+		if (bundle.getLastElement().equals("1")) {
 		    return false;
 		}
 	    }

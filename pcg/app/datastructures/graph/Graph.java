@@ -32,7 +32,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
-	System.out.println(names);
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();

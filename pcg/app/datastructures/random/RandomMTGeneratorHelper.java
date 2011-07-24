@@ -7,17 +7,30 @@ public class RandomMTGeneratorHelper {
     private ArrayList<ArrayList<Integer>> bundleSizesLevels;
     private ArrayList<Integer> alterFactors;
 
-    public RandomMTGeneratorHelper(ArrayList<ArrayList<Integer>> bundleSizesLeveled,
+    public RandomMTGeneratorHelper(
+	    ArrayList<ArrayList<Integer>> bundleSizesLeveled,
 	    ArrayList<Integer> alterFactors) {
 	this.bundleSizesLevels = bundleSizesLeveled;
 	this.alterFactors = alterFactors;
 
+	cleanupNulls(bundleSizesLevels);
 	removeZerosInBundles();
 	createLevelsList();
+
     }
-    
-    //For Testing only.
-    public RandomMTGeneratorHelper(){
+
+    // For Testing only.
+    public RandomMTGeneratorHelper() {
+    }
+
+    private void cleanupNulls(ArrayList<ArrayList<Integer>> bundleSizesLevels) {
+	for (ArrayList<Integer> list : bundleSizesLevels) {
+	    for (int i = 0; i < list.size(); i++) {
+		if (list.get(i) == null)
+		    list.set(i, 0);
+	    }
+	}
+
     }
 
     public void removeZerosInBundles() {
@@ -44,9 +57,9 @@ public class RandomMTGeneratorHelper {
     public ArrayList<ArrayList<Integer>> getBundleSizesLevels() {
 	return bundleSizesLevels;
     }
-    
+
     public ArrayList<Integer> getAlterFactors() {
-        return alterFactors;
+	return alterFactors;
     }
 
     public ArrayList<ArrayList<Object>> getCompleteList() {
@@ -54,11 +67,11 @@ public class RandomMTGeneratorHelper {
     }
 
     public void setBundleSizesLevels(
-    	ArrayList<ArrayList<Integer>> bundleSizesLevels) {
-        this.bundleSizesLevels = bundleSizesLevels;
+	    ArrayList<ArrayList<Integer>> bundleSizesLevels) {
+	this.bundleSizesLevels = bundleSizesLevels;
     }
 
     public void setAlterFactors(ArrayList<Integer> alterFactors) {
-        this.alterFactors = alterFactors;
+	this.alterFactors = alterFactors;
     }
 }

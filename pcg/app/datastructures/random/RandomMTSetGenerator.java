@@ -22,9 +22,19 @@ public class RandomMTSetGenerator {
 	this.levels = levels;
 	this.makeEpi = epi;
 
+	cleanupNulls(levels);
 	generateFactorNames();
 	generateMTSet();
 	makeChain();
+    }
+
+    private void cleanupNulls(ArrayList<ArrayList<Object>> levels) {
+	for (ArrayList<Object> list : levels) {
+	    for (int i = 0; i < list.size(); i++) {
+		System.out.println(list.get(i));
+	    }
+	}
+
     }
 
     // For Testing only

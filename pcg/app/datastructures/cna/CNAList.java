@@ -9,7 +9,7 @@ public class CNAList extends ArrayList<String> {
 	super();
     }
 
-    public CNAList(char regex, String string) {
+    public CNAList(String regex, String string) {
 	String[] array = string.split("" + regex);
 	for (int i = 0; i < array.length; i++) {
 	    String temp = array[i];
@@ -54,19 +54,19 @@ public class CNAList extends ArrayList<String> {
 	int i = index;
 	return super.remove(i);
     }
-    
-    public boolean lastElementIsZero(){
-	if(this.getLastElement().equals("0")){
+
+    public boolean lastElementIsZero() {
+	if (this.getLastElement().equals("0")) {
 	    return true;
-	}else{
+	} else {
 	    return false;
 	}
     }
-    
-    public boolean lastElementIsOne(){
-	if(this.getLastElement().equals("1")){
+
+    public boolean lastElementIsOne() {
+	if (this.getLastElement().equals("1")) {
 	    return true;
-	}else{
+	} else {
 	    return false;
 	}
     }
@@ -113,17 +113,17 @@ public class CNAList extends ArrayList<String> {
     }
 
     public boolean elementIsZero(int index) {
-	if(this.get(index).equals("0")){
+	if (this.get(index).equals("0")) {
 	    return true;
-	}else{
+	} else {
 	    return false;
 	}
     }
-    
+
     public boolean ElementIsOne(int index) {
-	if(this.get(index).equals("1")){
+	if (this.get(index).equals("1")) {
 	    return true;
-	}else{
+	} else {
 	    return false;
 	}
     }

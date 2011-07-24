@@ -14,7 +14,7 @@ public class CNATable extends ArrayList<CNAList> {
 	this.table = arrayToCNATable(table);
     }
 
-    public CNATable(char regexTable, char regexList, String string) {
+    public CNATable(String regexTable, String regexList, String string) {
 	table = new ArrayList<CNAList>();
 
 	String[] array = string.split("" + regexTable);
@@ -97,7 +97,7 @@ public class CNATable extends ArrayList<CNAList> {
 	    str += "1" + ",";
 	}
 	str += "1";
-	CNAList list = new CNAList(',', str);
+	CNAList list = new CNAList(",", str);
 	table.add(list);
     }
 

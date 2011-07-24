@@ -9,8 +9,10 @@ import models.Renderer;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
+import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.graph.Graph;
+import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import datastructures.parser.MTSetToTable;
 import datastructures.random.RandomMTGeneratorHelper;
@@ -18,8 +20,6 @@ import datastructures.random.RandomMTSetGenerator;
 
 public class CNAController extends Controller {
 
-    private static Renderer renderer;
-    private static RandomMTSetGenerator generator;
     private static Timer timer;
     private static boolean showBundleNumRenderer;
     private static MinimalTheorySet theories;
@@ -58,9 +58,11 @@ public class CNAController extends Controller {
 	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
 
-	    String graphPath = renderer.getImageSource();
-	    String generatedGraph = theories.toString();
-	    render(graphPath, generatedGraph);
+	    String generatedGraphSource = renderer.getImageSource();
+	    String generatedGraphString = theories.toString();
+
+	    render(generatedGraphSource, generatedGraphString);
+
 	} catch (OutOfMemoryError e) {
 	    flash.error("Phuu! This calculation was to complex! "
 		    + "Server is out of Memory! "
@@ -78,38 +80,35 @@ public class CNAController extends Controller {
 	}
     }
 
-    public static void calcCNAGraph(String graphPath, String generatedGraph,
-	    String lines) {
-	// int randomLines = Integer.parseInt(lines);
+    public static void calcCNAGraph(String generatedGraphSource,
+	    String generatedGraphString) {
 	try {
 	    timer = new Timer();
 	    MTSetToTable parser = new MTSetToTable(theories);
 	    CNATable table = parser.getCoincTable();
 	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
-	    ArrayList<String> graphPaths = new ArrayList<String>();
-	    ArrayList<String> stringGraphs = new ArrayList<String>();
 
 	    Graph graph = new Graph(cnaAlgorithm.getMinimalTheorySet());
 	    Renderer renderer = new Renderer();
 	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
-	    graphPaths.add(renderer.getImageSource());
 
 	    Long time = timer.timeElapsed();
 
-	    String originalTable = cnaAlgorithm.getOriginalTable().toString();
+	    String calcGraphString = cnaAlgorithm.getMinimalTheorySet()
+		    .toString();
+	    String calcGraphSource = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";
 	    String effects = cnaAlgorithm.getEffects().toString();
 	    String sufTable = cnaAlgorithm.getSufTable().toString();
 	    String msufTable = cnaAlgorithm.getMsufTable().toString();
 	    String necList = cnaAlgorithm.getNecList().toString();
 	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
-	    // String deleted = cnaAlgorithm.getDeleted().toString();
-	    String fmt = cnaAlgorithm.getMinimalTheorySet().toString();
+	    String coincTable = table.toString();
 
-	    render(elapsedTime, originalTable, graphPaths, stringGraphs,
-		    graphPath, generatedGraph, effects, sufTable, msufTable,
-		    necList, mnecTable, fmt, "");
+	    render(elapsedTime, calcGraphString, calcGraphSource,
+		    generatedGraphSource, generatedGraphString, effects,
+		    sufTable, msufTable, necList, mnecTable, coincTable);
 	} catch (NecException e) {
 	    flash.error("NEC error.");
 	    params.flash();
@@ -127,28 +126,12 @@ public class CNAController extends Controller {
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
 	    String graphPath;
 
-	    renderer = new Renderer();
 	    Graph graph = new Graph(theories);
 	    Renderer renderer = new Renderer();
 	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
 	    graphPath = renderer.getImageSource();
 
-	    // TODO
-	    // for (MinimalTheorie theorie : theories) {
-	    // CNAList list = new CNAList();
-	    // list.add(theorie.toString());
-	    // StringToTree stringToTree = new StringToTree(list);
-	    // TreeToGraph treeToGraph = new TreeToGraph(
-	    // stringToTree.getTree(), stringToTree.getNumOfEffects(),
-	    // stringToTree.getTotalFactors());
-	    // renderer = new Renderer();
-	    // renderer.setEdgeLabels(true);
-	    // renderer.setChangingVertexColors(true);
-	    // renderer.config(treeToGraph);
-	    // graphPaths.add(renderer.getImageSource());
-	    // stringGraphs.add(stringToTree.getTree().toString());
-	    // }
 	    Long time = timer.timeElapsed();
 	    // String calculatedGraph =
 	    String elapsedTime = time.toString() + " ms";
@@ -165,6 +148,79 @@ public class CNAController extends Controller {
 	    setup();
 	    e.printStackTrace();
 	}
+    }
 
+    public static void inputTable(String table) {
+
+	CNATable cnatable = new CNATable("\r\n", ",", table);
+	System.out.println(cnatable);
+	try {
+	    timer = new Timer();
+	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable);
+	    Graph graph = new Graph(cnaAlgorithm.getMinimalTheorySet());
+	    Renderer renderer = new Renderer();
+	    renderer.setShowEdgeLabels(showBundleNumRenderer);
+	    renderer.config(graph);
+
+	    Long time = timer.timeElapsed();
+
+	    String calcGraphString = cnaAlgorithm.getMinimalTheorySet()
+		    .toString();
+	    String calcGraphSource = renderer.getImageSource();
+	    String elapsedTime = time.toString() + " ms";
+	    String effects = cnaAlgorithm.getEffects().toString();
+	    String sufTable = cnaAlgorithm.getSufTable().toString();
+	    String msufTable = cnaAlgorithm.getMsufTable().toString();
+	    String necList = cnaAlgorithm.getNecList().toString();
+	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
+
+	    render(elapsedTime, calcGraphString, calcGraphSource, effects,
+		    sufTable, msufTable, necList, mnecTable);
+	} catch (NecException e) {
+	    flash.error("NEC error.");
+	    params.flash();
+	    setup();
+	} catch (ArrayIndexOutOfBoundsException e) {
+	    flash.error("Please give us more data!");
+	    params.flash();
+	    setup();
+	} catch (IndexOutOfBoundsException e) {
+	    flash.error("Please give us more data!");
+	    params.flash();
+	    setup();
+	} catch (IllegalArgumentException e) {
+	    flash.error("Sorry, something went very wrong!");
+	    params.flash();
+	    setup();
+
+	}
+    }
+
+    public static void inputMT(String mtset) {
+	CNAList list = new CNAList("\r\n", mtset);
+	System.out.println(list);
+	CNAList factors;
+	theories = new MinimalTheorySet();
+	MinimalTheory theorie;
+	for (String str : list) {
+	    factors = new CNAList();
+	    String[] array = str.split("=>");
+	    String[] fac = array[0].split("v");
+	    for (int i = 0; i < fac.length; i++) {
+		factors.add(fac[i]);
+	    }
+	    theorie = new MinimalTheory(factors, array[1]);
+	    System.out.println(theorie);
+	    theories.add(theorie);
+	}
+	Graph graph = new Graph(theories);
+	Renderer renderer = new Renderer();
+	renderer.setShowEdgeLabels(showBundleNumRenderer);
+	renderer.config(graph);
+
+	String generatedGraphSource = renderer.getImageSource();
+	String generatedGraphString = theories.toString();
+
+	render(generatedGraphSource, generatedGraphString);
     }
 }
