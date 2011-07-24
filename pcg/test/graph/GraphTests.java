@@ -33,45 +33,45 @@ public class GraphTests extends UnitTest {
     public void shouldAddMTSet() {
 	MinimalTheorySet theories = new MinimalTheorySet();
 
-	CNAList factors = new CNAList(',', "¬Q,BH,L");
+	CNAList factors = new CNAList(",", "¬Q,BH,L");
 	MinimalTheory theorie = new MinimalTheory(factors, "R");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "R¬O,S");
+	factors = new CNAList(",", "R¬O,S");
 	theorie = new MinimalTheory(factors, "W");
 	theories.add(theorie);
 
-	factors = new CNAList(',', "S,¬J");
+	factors = new CNAList(",", "S,¬J");
 	theorie = new MinimalTheory(factors, "¬I");
 	theories.add(theorie);
 
-	// CNAList factors = new CNAList(',', "C,B,L");
+	// CNAList factors = new CNAList(",", "C,B,L");
 	// MinimalTheory theorie = new MinimalTheory(factors, "R");
 	// theories.add(theorie);
 
 	//
-	// factors = new CNAList(',', "R,S,TH");
+	// factors = new CNAList(",", "R,S,TH");
 	// theorie = new MinimalTheory(factors, "W");
 	// theories.add(theorie);
 	//
-	// factors = new CNAList(',', "S,J");
+	// factors = new CNAList(",", "S,J");
 	// theorie = new MinimalTheory(factors, "I");
 	// theories.add(theorie);
 
 	// System.out.println(theories);
-	// CNAList factors = new CNAList(',', "A,1,11");
+	// CNAList factors = new CNAList(",", "A,1,11");
 	// MinimalTheory theorie = new MinimalTheory(factors, "B");
 	// theories.add(theorie);
 	//
-	// factors = new CNAList(',', "B,2,22");
+	// factors = new CNAList(",", "B,2,22");
 	// theorie = new MinimalTheory(factors, "C");
 	// theories.add(theorie);
 	//
-	// factors = new CNAList(',', "C,3,33");
+	// factors = new CNAList(",", "C,3,33");
 	// theorie = new MinimalTheory(factors, "D");
 	// theories.add(theorie);
 	//
-	// factors = new CNAList(',', "D,4,44");
+	// factors = new CNAList(",", "D,4,44");
 	// theorie = new MinimalTheory(factors, "E");
 	// theories.add(theorie);
 

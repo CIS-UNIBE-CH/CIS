@@ -29,7 +29,7 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifySUF() {
-	CNATable sufTable = new CNATable(';', ',', "A,B,D,E,C;" + "1,1,1,1,1;"
+	CNATable sufTable = new CNATable(";", ",", "A,B,D,E,C;" + "1,1,1,1,1;"
 		+ "1,1,0,1,1;" + "1,0,1,1,1;" + "0,1,1,1,1;" + "0,1,0,1,1;"
 		+ "1,0,0,0,1");
 	assertEquals(sufTable, cnaAlgorithm.getSufTable());
@@ -37,20 +37,20 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyMSUF() {
-	CNATable msufTable = new CNATable(';', ',', "$,1,$,$;" + "$,$,0,1;"
+	CNATable msufTable = new CNATable(";", ",", "$,1,$,$;" + "$,$,0,1;"
 		+ "1,$,$,$;");
 	assertEquals(msufTable, cnaAlgorithm.getMsufTable());
     }
 
     @Test
     public void shouldTestIdentifyNEC() {
-	CNAList necList = new CNAList(',', "0,10,0");
+	CNAList necList = new CNAList(",", "0,10,0");
 	assertEquals(necList, cnaAlgorithm.getNecList());
     }
 
     @Test
     public void shouldTestIdentifyMNEC() {
-	CNATable mnecTable = new CNATable(';', ',', "1,$,$;$,$,1");
+	CNATable mnecTable = new CNATable(";", ",", "1,$,$;$,$,1");
 	assertEquals(mnecTable, cnaAlgorithm.getMnecTable());
     }
 
