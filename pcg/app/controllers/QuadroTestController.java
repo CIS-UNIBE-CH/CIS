@@ -2,8 +2,8 @@ package controllers;
 
 import models.Renderer;
 import play.mvc.Controller;
-import algorithms.QuadroError;
-import algorithms.QuadroTest;
+import algorithms.quadro.QuadroException;
+import algorithms.quadro.QuadroTest;
 import datastructures.graph.Graph;
 import datastructures.mt.MinimalTheorySet;
 
@@ -56,7 +56,7 @@ public class QuadroTestController extends Controller {
 	    String graphPath = renderer.getImageSource();
 	    String stringGraph = theories.toString();
 	    render(graphPath, stringGraph);
-	} catch (QuadroError e) {
+	} catch (QuadroException e) {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();

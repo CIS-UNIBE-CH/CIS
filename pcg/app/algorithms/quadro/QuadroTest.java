@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.quadro;
 
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
@@ -12,7 +12,7 @@ public class QuadroTest {
     private String name1, name2, name1Nec, name2Nec;
 
     public QuadroTest(String coincidence, String name1, String name2)
-	    throws QuadroError {
+	    throws QuadroException {
 	this.coincidence = coincidence;
 	this.name1 = name1;
 	this.name2 = name2;
@@ -22,7 +22,7 @@ public class QuadroTest {
 	createMTTheorySet();
     }
 
-    public MinimalTheorySet createMTTheorySet() throws QuadroError {
+    public MinimalTheorySet createMTTheorySet() throws QuadroException {
 	MinimalTheorySet set = new MinimalTheorySet();
 	MinimalTheory theory = new MinimalTheory();
 	theory.setEffect("W");
@@ -43,7 +43,7 @@ public class QuadroTest {
 	    theory.addBundle(name1Nec + name2Nec);
 	    return set;
 	} else if (coincidence.equals("1100")) {
-	    throw new QuadroError(
+	    throw new QuadroException(
 		    "The second factor is not part of at least one minimal sufficient condition which contains the first factor.");
 	} else if (coincidence.equals("1010")) {
 	    theory.addBundle(name1);
@@ -83,9 +83,9 @@ public class QuadroTest {
 	    theory.addBundle(name1Nec);
 	    return set;
 	} else if (coincidence.equals("0000")) {
-	    throw new QuadroError("No causal inference is possible.");
+	    throw new QuadroException("No causal inference is possible.");
 	} else {
-	    throw new QuadroError("No causal inference is possible.");
+	    throw new QuadroException("No causal inference is possible.");
 	}
     }
 }

@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 
 
-public class ListComparator implements Comparator<CNAList> {
+public class CNAListComparator implements Comparator<CNAList> {
 
     @Override
     public int compare(CNAList list1, CNAList list2) {

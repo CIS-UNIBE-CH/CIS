@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
-import datastructures.cna.ListComparator;
+import datastructures.cna.CNAListComparator;
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import datastructures.tree.CNATreeNode;
@@ -39,7 +39,7 @@ public class CNAlgorithm {
     private void identifyPE(CNATable originalTable) throws NecException {
 	effects = new CNAList();
 	CNATable table = originalTable.clone();
-	ListComparator comparator = new ListComparator();
+	CNAListComparator comparator = new CNAListComparator();
 
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int row = 1; row < table.size(); row++) {

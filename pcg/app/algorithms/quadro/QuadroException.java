@@ -1,9 +1,9 @@
-package algorithms;
+package algorithms.quadro;
 
-public class QuadroError extends Exception {
+public class QuadroException extends Exception {
     private String errorMsg;
 
-    public QuadroError(String errorMsg) {
+    public QuadroException(String errorMsg) {
 	this.errorMsg = errorMsg;
     }
 
