@@ -44,23 +44,21 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyNEC() {
-	CNAList necList = new CNAList(",", "0,10,0");
+	CNAList necList = new CNAList(",", "1,01,1");
 	assertEquals(necList, cnaAlgorithm.getNecList());
     }
 
     @Test
     public void shouldTestIdentifyMNEC() {
-	CNATable mnecTable = new CNATable(";", ",", "1,$,$;$,$,1");
+	CNATable mnecTable = new CNATable(";", ",", "$,$,1;1,$,$");
 	assertEquals(mnecTable, cnaAlgorithm.getMnecTable());
     }
 
     @Test
     public void shouldTestIdentifyMinimatTheorieSet() {
-	assertEquals("[DX1 ∨ BX2 ∨ YE => E, BX1 ∨ AX2 ∨ YC => C]", cnaAlgorithm
+	assertEquals("[DX1 ∨ BX2 ∨ YE => E, AX1 ∨ BX2 ∨ YC => C]", cnaAlgorithm
 		.getMinimalTheorySet().toString());
     }
-
-    // Random Tests
 
     @Test
     public void shouldTestWithGeneratedTable() {
@@ -78,20 +76,4 @@ public class CNATest extends UnitTest {
 	assertNotNull(generator.getMTSet());
 
     }
-    // TODO
-    // @Test
-    // public void randomFactorTest() {
-    // // Factors between 1 and 6
-    // int factors = (int) (Math.random() * 6 + 1);
-    // int bundleSize = (int) (Math.random() * factors + 1);
-    // int bundles = (int) (Math.random() * (factors / bundleSize));
-    // RandomGraphGenerator generator = new RandomGraphGenerator(bundles,
-    // factors, bundleSize);
-    // CNATable table = new CNATable(generator.getTableAsArray());
-    // cnaAlgorithm = new CNAlgorithm(table);
-    // // TODO
-    // String can = cnaAlgorithm.getFmtTable().get(1);
-    // assertEquals(generator.getTree().toString(),
-    // cnaAlgorithm.getFmt().get(1));
-    // }
 }
