@@ -33,6 +33,6 @@ public class MTSetToTableTest extends UnitTest {
 
     @Test
     public void shouldTest() {
-	MTSetToTable parser = new MTSetToTable(set);
+	MTSetToTable parser = new MTSetToTable(set, true);
     }
 }

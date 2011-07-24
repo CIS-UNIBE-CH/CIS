@@ -23,6 +23,7 @@ public class CNAController extends Controller {
     private static Timer timer;
     private static boolean showBundleNumRenderer;
     private static MinimalTheorySet theories;
+    private static boolean makeEpi;
 
     public static void setup() {
 	render();
@@ -38,7 +39,7 @@ public class CNAController extends Controller {
 	    ArrayList<Integer> alterFactors, String epi, String showBundleNum) {
 	try {
 	    showBundleNumRenderer = (showBundleNum != null);
-	    boolean makeEpi = (epi != null);
+	    makeEpi = (epi != null);
 	    RandomMTSetGenerator generator;
 	    ArrayList<ArrayList<Integer>> list;
 	    RandomMTGeneratorHelper input;
@@ -84,7 +85,7 @@ public class CNAController extends Controller {
 	    String generatedGraphString) {
 	try {
 	    timer = new Timer();
-	    MTSetToTable parser = new MTSetToTable(theories);
+	    MTSetToTable parser = new MTSetToTable(theories, makeEpi);
 	    CNATable table = parser.getCoincTable();
 	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
 
