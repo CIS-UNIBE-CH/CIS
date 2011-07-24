@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-<h2>Difference Test - Table</h2>
+<h2>Simple Quadro - Table</h2>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
@@ -32,6 +32,12 @@
 		  <tr>
 		  	<td align="right">¬${f1}</td><td><input type="number" name="l" value="0" /></td><td><input type="number" name="ll" value="0" /></td>
 		  <tr>
+		    <td><br></td><td></td><td></td>
+		  </tr>
+		  <tr>
+	  	    <td></td><td colspan="2"><input type="checkbox" name="showBundleNum"> Show Bundle Numbering</td>
+	 	  </tr>
+	      <tr>
 		    <td><br></td><td></td><td></td>
 		  </tr>
 		  <tr>

@@ -15,14 +15,17 @@ public class QuadroTestController extends Controller {
 	render();
     }
 
-    public static void setTable(String f1, String f2, String showBundleNum) {
-	showBundleNumRenderer = (showBundleNum != null);
+    public static void setTable(String f1, String f2) {
+	if(f1.equals("") || f2.equals("")){
+	    flash.error("Please insert factor names");
+	    setup();
+	}
 	render(f1, f2);
     }
 
     public static void calcQuadroGraph(String f1, String f2, String i,
 	    String ii, String l, String ll, String showBundleNum) {
-
+	showBundleNumRenderer = (showBundleNum != null);
 	int[] numbers = new int[4];
 	String coincidence = i + ii + l + ll;
 
@@ -58,6 +61,5 @@ public class QuadroTestController extends Controller {
 	    params.flash();
 	    setup();
 	}
-
     }
 }

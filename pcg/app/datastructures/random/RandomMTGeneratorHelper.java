@@ -13,7 +13,8 @@ public class RandomMTGeneratorHelper {
 	this.bundleSizesLevels = bundleSizesLeveled;
 	this.alterFactors = alterFactors;
 
-	cleanupNulls(bundleSizesLevels);
+	cleanupNulls();
+	nullToZeros();
 	removeZerosInBundles();
 	createLevelsList();
 
@@ -23,7 +24,7 @@ public class RandomMTGeneratorHelper {
     public RandomMTGeneratorHelper() {
     }
 
-    private void cleanupNulls(ArrayList<ArrayList<Integer>> bundleSizesLevels) {
+    private void cleanupNulls() {
 	for (ArrayList<Integer> list : bundleSizesLevels) {
 	    for (int i = 0; i < list.size(); i++) {
 		if (list.get(i) == null)
@@ -32,6 +33,14 @@ public class RandomMTGeneratorHelper {
 	}
 
     }
+    
+   private void nullToZeros(){
+       for(int i = 0; i< alterFactors.size(); i++){
+	   if(alterFactors.get(i) == null){
+	       alterFactors.set(i, 0);
+	   }
+       }
+   }
 
     public void removeZerosInBundles() {
 	for (int i = bundleSizesLevels.size() - 1; i >= 0; i--) {
