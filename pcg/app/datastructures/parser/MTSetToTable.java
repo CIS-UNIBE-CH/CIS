@@ -28,7 +28,6 @@ public class MTSetToTable {
 
 	createTables();
 	mergeTables();
-	System.out.println("Table FInal:\n" + coincTable);
     }
 
     /** Step 1 */
@@ -42,11 +41,11 @@ public class MTSetToTable {
 	    fillUpEffectCol();
 	    mtCoincTables.add(curMTTable);
 	}
-	System.out.println("***************");
-	for (CNATable table : mtCoincTables) {
-	    System.out.println("All Tables\n" + table);
-	}
-	System.out.println("***************");
+//	System.out.println("***************");
+//	for (CNATable table : mtCoincTables) {
+//	    System.out.println("All Tables\n" + table);
+//	}
+//	System.out.println("***************");
     }
 
     private void addFactorNames() {
@@ -112,12 +111,12 @@ public class MTSetToTable {
 		nextTable = mtCoincTables.get(i);
 		mergeZeroLines();
 		mergeOneLines();
-		System.out.println("CoincTable: " + coincTable);
+//		System.out.println("CoincTable: " + coincTable);
 		removeDuplicatedCol();
 		curTable = coincTable;
 	    }
 	}
-	System.out.println("Merged Tables\n" + coincTable);
+//	System.out.println("Merged Tables\n" + coincTable);
     }
 
     public void removeDuplicatedCol() {

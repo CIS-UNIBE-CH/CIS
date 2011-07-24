@@ -16,10 +16,10 @@ public class MTSetToTableTest extends UnitTest {
     public void setup() {
 	set = new MinimalTheorySet();
 	
-	CNAList factors = new CNAList(',', "LA,¬VE,");
+	CNAList factors = new CNAList(",", "LA,¬VE,");
 	MinimalTheory theory = new MinimalTheory(factors, "S");
 	
-	CNAList factors1 = new CNAList(',', "US,");
+	CNAList factors1 = new CNAList(",", "US,");
 	MinimalTheory theory1 = new MinimalTheory(factors1, "Q");
 	
 //	CNAList factors2 = new CNAList(',', "F,G,");

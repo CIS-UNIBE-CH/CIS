@@ -28,7 +28,7 @@ public class CNATableTests extends UnitTest {
 
     @Test
     public void shouldTestRegex() {
-	CNATable testTable = new CNATable('\n', ',', "1,2,3\n3,2,1");
+	CNATable testTable = new CNATable("\n", ",", "1,2,3\n3,2,1");
 	assertEquals(2, table.size());
 	assertEquals(table.toString(), testTable.toString());
     }
@@ -36,33 +36,33 @@ public class CNATableTests extends UnitTest {
     @Test
     public void shouldNegate() {
 	table.negate();
-	CNATable testTable = new CNATable(';', ',', "0,2,3;3,2,0");
+	CNATable testTable = new CNATable(";", ",", "0,2,3;3,2,0");
 	assertEquals(table.toString(), testTable.toString());
     }
 
     // @Test(expected = AssertionError.class)
     // public void shouldNotBeSameRegex() {
     // @SuppressWarnings("unused")
-    // CNATable testTable = new CNATable(';', ',', "0,2,3;3,2,0");
+    // CNATable testTable = new CNATable(";", ",", "0,2,3;3,2,0");
     // }
 
     @Test
     public void shoudRemoveZeroEffect() {
-	CNATable testTable = new CNATable(';', ',', "0,2,3");
+	CNATable testTable = new CNATable(";", ",", "0,2,3");
 	table.removeZeroEffects();
 	assertEquals(testTable.toString(), table.toString());
-	table = new CNATable(';', ',', "1,0,0;" + "0,1,0;" + "0,0,1;"
+	table = new CNATable(";", ",", "1,0,0;" + "0,1,0;" + "0,0,1;"
 		+ "0,0,0;");
 
 	table.removeZeroEffects();
-	testTable = new CNATable(';', ',', "0,0,1");
+	testTable = new CNATable(";", ",", "0,0,1");
 	assertEquals(testTable.toString(), table.toString());
 
     }
 
     @Test
     public void shouldRemove() {
-	table = new CNATable(';', ',', "0,2,3;3,2,0");
+	table = new CNATable(";", ",", "0,2,3;3,2,0");
 	assertEquals(2, table.size());
 	table.remove(0);
 	assertEquals(1, table.size());
@@ -70,7 +70,7 @@ public class CNATableTests extends UnitTest {
 
     @Test
     public void shoudClone() {
-	table = new CNATable(';', ',', "0,2,3;3,2,0");
+	table = new CNATable(";", ",", "0,2,3;3,2,0");
 	CNATable newTable = table.clone();
 	assertEquals(table, newTable);
 	assertEquals(table.size(), newTable.size());
@@ -81,16 +81,16 @@ public class CNATableTests extends UnitTest {
 
     @Test
     public void shouldRemoveCol() {
-	table = new CNATable(';', ',', "0,2,3;3,2,0");
+	table = new CNATable(";", ",", "0,2,3;3,2,0");
 	table.removeCol(1);
-	CNATable testTable = new CNATable(';', ',', "0,3;3,0");
+	CNATable testTable = new CNATable(";", ",", "0,3;3,0");
 	assertEquals(testTable, table);
     }
 
     @Test
     public void shouldSwap() {
-	table = new CNATable(';', ',', "0,2,3;3,2,0");
-	CNATable testTable = new CNATable(';', ',', "3,2,0;0,2,3");
+	table = new CNATable(";", ",", "0,2,3;3,2,0");
+	CNATable testTable = new CNATable(";", ",", "3,2,0;0,2,3");
 	table.swap(0, 2);
 	assertEquals(testTable, table);
 
