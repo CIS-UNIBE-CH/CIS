@@ -134,7 +134,6 @@ public class CNAController extends Controller {
 	    graphPath = renderer.getImageSource();
 
 	    Long time = timer.timeElapsed();
-	    // String calculatedGraph =
 	    String elapsedTime = time.toString() + " ms";
 	    String effects = cnaAlgorithm.getEffects().toString();
 	    String sufTable = cnaAlgorithm.getSufTable().toString();

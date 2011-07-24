@@ -1,16 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-<h2>CNA Analysis - Generated</h2>
+<h2>CNA Analysis - Graph Generation</h2>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
 		</div>
 	#{/if}
-	<h3>Generated Graph</h3>
 	<div class="steps">
 	Step 2/3
 	</div>
-	Generation Time: ${elapsedTime}
 	<center>
 		<img src="${generatedGraphSource}" />
 		<h3>${generatedGraphString}</h3>
@@ -29,9 +27,8 @@
 		</table>
 	</center>
 	#{/if}
-	<h3>Run</h3>
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
 		<input type="hidden" name="generatedGraphString" value="${generatedGraphString}"/>
-		<input type="submit" name="cnaTest"        value="Calculate"/>
+		<input type="submit" name="cnaTest"        value="Calculate Graph"/>
 	</form>

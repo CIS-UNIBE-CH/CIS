@@ -1,5 +1,12 @@
 <script type="text/javascript">		
 	$(document).ready(function() {
+		 $('#slickbox').hide();
+  	$('#slick-toggle').click(function() {
+    $('#slickbox').toggle(100);
+    return false;
+  	});
+});
+	$(document).ready(function() {
 		$('#orig').hide();
 	$('#orig-toggle').click(function() {
 	$('#orig').toggle(100);
@@ -9,7 +16,7 @@
 </script>
 #{extends 'main.html' /}
 #{set title:'Home' /}
-<h2>CNA Analysis - Calculated</h2>
+<h2>CNA Analysis - Table Input, Calculated Graph</h2>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
