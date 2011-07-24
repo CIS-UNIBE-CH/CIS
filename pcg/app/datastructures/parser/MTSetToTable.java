@@ -43,11 +43,6 @@ public class MTSetToTable {
 	    fillUpEffectCol();
 	    mtCoincTables.add(curMTTable);
 	}
-	// System.out.println("***************");
-	// for (CNATable table : mtCoincTables) {
-	// System.out.println("All Tables\n" + table);
-	// }
-	// System.out.println("***************");
     }
 
     private void addFactorNames() {
@@ -119,17 +114,14 @@ public class MTSetToTable {
 				mtCoincTables.get(mtCoincTables.size() - 1));
 		    }
 		    nextTable = mtCoincTables.get(i);
-		    System.out.println("Tables\n" + mtCoincTables);
 		    mergeZeroLines();
 		    mergeOneLines();
 		    removeDuplicatedCol();
 		    curTable = coincTable;
 		} else {
 		    nextTable = mtCoincTables.get(i);
-		    System.out.println("Tables\n" + mtCoincTables);
 		    mergeZeroLines();
 		    mergeOneLines();
-		    // System.out.println("CoincTable: " + coincTable);
 		    removeDuplicatedCol();
 		    curTable = coincTable;
 		    if (makeEpi && i == mtCoincTables.size() - 2) {
@@ -139,7 +131,6 @@ public class MTSetToTable {
 		}
 	    }
 	}
-	// System.out.println("Merged Tables\n" + coincTable);
     }
 
     private void mergeZeroLines() {
@@ -147,7 +138,6 @@ public class MTSetToTable {
 	CNATable firstOnlyZeroLines = new CNATable();
 	CNATable secondOnlyZeroLines = new CNATable();
 
-	System.out.println("CurTable: " + curTable);
 	for (CNAList cur : curTable) {
 	    if (cur.lastElementIsZero()) {
 		firstOnlyZeroLines.add(cur);

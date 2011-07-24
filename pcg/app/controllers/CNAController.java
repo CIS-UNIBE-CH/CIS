@@ -154,7 +154,6 @@ public class CNAController extends Controller {
     public static void inputTable(String table) {
 
 	CNATable cnatable = new CNATable("\r\n", ",", table);
-	System.out.println(cnatable);
 	try {
 	    timer = new Timer();
 	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable);
@@ -199,7 +198,6 @@ public class CNAController extends Controller {
 
     public static void inputMT(String mtset) {
 	CNAList list = new CNAList("\r\n", mtset);
-	System.out.println(list);
 	CNAList factors;
 	theories = new MinimalTheorySet();
 	MinimalTheory theorie;
@@ -211,7 +209,6 @@ public class CNAController extends Controller {
 		factors.add(fac[i]);
 	    }
 	    theorie = new MinimalTheory(factors, array[1]);
-	    System.out.println(theorie);
 	    theories.add(theorie);
 	}
 	Graph graph = new Graph(theories);

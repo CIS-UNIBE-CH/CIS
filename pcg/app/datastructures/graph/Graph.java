@@ -210,9 +210,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	this.x = newX;
 	this.y = (int) (y + 100);
 	System.gc();
-	for (Node node : nodes) {
-	    System.out.println(node.toString() + " L: " + node.getLevel());
-	}
 	return graph;
     }
 

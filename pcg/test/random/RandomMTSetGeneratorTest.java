@@ -169,7 +169,6 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
 		    input.getCompleteList(), true);
 	    MinimalTheorySet set = generator.getMTSet();
-	    System.out.println("Set: " + set);
 
 	    assertEquals(set.get(set.size() - 2).getFactors().get(0),
 		    set.get(set.size() - 1).getFactors().get(0));

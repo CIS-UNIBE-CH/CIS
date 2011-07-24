@@ -51,9 +51,6 @@ public class Renderer {
 
     public void config(Graph graph) {
 	System.gc();
-	System.out.println("****************");
-	System.out.println("Graph:\n" + graph.toString());
-	System.out.println("****************");
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
