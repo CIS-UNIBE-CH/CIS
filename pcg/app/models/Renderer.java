@@ -65,7 +65,7 @@ public class Renderer {
 	StaticLayout<Node, Edge> layout = new StaticLayout<Node, Edge>(graph,
 		vertexLocations);
 
-	yPicSize = graph.getY() + 50;
+	yPicSize = graph.getY();
 	xPicSize = graph.getX();
 
 	layout.setSize(new Dimension(xPicSize, yPicSize));
