@@ -8,6 +8,7 @@ import java.util.HashSet;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNAListComparator;
 import datastructures.cna.CNATable;
+import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import datastructures.tree.CNATreeNode;
 import datastructures.tree.MnecTree;
@@ -19,13 +20,12 @@ public class CNAlgorithm {
     private CNATable sufTable;
     private CNATable msufTable;
     private CNAList necList;
-    private MinimalTheorySet theories;
-
+    private ArrayList<MinimalTheorySet> sets;
     private CNATable mnecTable;
 
     public CNAlgorithm(CNATable table) throws NecException {
-	theories = new MinimalTheorySet();
 	originalTable = table;
+	sets = new ArrayList<MinimalTheorySet>();
 	identifyPE(originalTable);
     }
 
@@ -88,7 +88,7 @@ public class CNAlgorithm {
 	for (int i = 0; i < indexes.size(); i++) {
 	    table = originalTable.clone();
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
-	    System.out.println("Effect: " + originalTable.get(0).get(originalTable.get(0).size() - 1));
+	    System.out.println("Effect: " + table.get(0).getLastElement());
 	    identifySUF(table);
 	}
     }
@@ -153,7 +153,7 @@ public class CNAlgorithm {
 	    CNATable originalTable) {
 
 	necList.negate();
-	System.out.println("Final NEC: " + necList);
+	System.out.println("NEC Negated: " + necList);
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	CNATreeNode root = new CNATreeNode(necList);
@@ -167,25 +167,61 @@ public class CNAlgorithm {
 	    mnecTable.add(necList);
 	}
 
-	CNATable test = new CNATable();
-	for(CNAList list : mnecTable){
-	    CNAList list1 = new CNAList();
-	    for(int i = 0; i< list.size(); i++){
-		if(!list.get(i).equals("$")){
-		    list1.add(bundleTable.get(0).get(i));
+	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
+	for (CNAList list : mnecTable) {
+	    CNAList mtNames = new CNAList();
+	    for (int i = 0; i < list.size(); i++) {
+		if (!list.get(i).equals("$")) {
+		    mtNames.add(bundleTable.get(0).get(i));
 		}
 	    }
-	    test.add(list1);
+	    MinimalTheory theory = new MinimalTheory(mtNames, originalTable
+		    .get(0).getLastElement());
+	    mtList.add(theory);
 	}
-	
-//	CNAList mnecNames = mnecTable.getFactorNames(bundleTable.get(0));
-//	MinimalTheory theorie = new MinimalTheory(mnecNames, originalTable.get(
-//		0).getLastElement());
-//	theories.add(theorie);
-	System.out.println("Test****\n" + test);
+	System.out.println("List: " + mtList);
+
+	createMTSets(mtList);
+	System.out.println("Sets:\n" + sets);
+	System.out.println("Sets size " + sets.size());
     }
 
     // Getters and Setters
+
+    private void createMTSets(ArrayList<MinimalTheory> mtList) {
+	if (sets.size() == 0) {
+	    for (MinimalTheory theory : mtList) {
+		MinimalTheorySet set = new MinimalTheorySet();
+		set.add(theory);
+		sets.add(set);
+	    }
+	    System.out.println("i was here*******************");
+	} else {
+	    if (sets.size() < mtList.size()) {
+		fillUpSets(mtList.size());
+	    }
+	    for (int i = 0; i < sets.size(); i++) {
+		MinimalTheory theory = mtList.get(i);
+		System.out.println("setSize " + sets.size());
+		System.out.println("Theory" + theory);
+		MinimalTheorySet set = sets.get(i);
+		set.add(theory);
+		System.out.println("set i: " +sets.get(i));
+	    }
+	}
+
+    }
+
+    private void fillUpSets(int size) {
+	while (sets.size() < size) {
+	    MinimalTheorySet set = sets.get(0);
+	    MinimalTheorySet newSet = new MinimalTheorySet();
+	    for(MinimalTheory theory : set){
+		newSet.add(theory);
+	    }
+	    sets.add(newSet);
+	}
+    }
 
     public CNATable getOriginalTable() {
 	return originalTable;
@@ -211,7 +247,7 @@ public class CNAlgorithm {
 	return effects;
     }
 
-    public MinimalTheorySet getMinimalTheorySet() {
-	return theories;
+    public ArrayList<MinimalTheorySet> getSets() {
+	return sets;
     }
 }

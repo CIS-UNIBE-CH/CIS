@@ -175,20 +175,9 @@ public class CNATable extends ArrayList<CNAList> {
 	}
 	return output;
     }
-
-//    public CNAList getFactorNames(CNAList names) {
-//	CNAList output = new CNAList();
-//	for (int row = 0; row < table.size(); row++) {
-//	    for (int col = 0; col < table.get(row).size(); col++) {
-//		if (!table.get(row).get(col).equals("$"))
-//		    output.add(names.get(col));
-//	    }
-//	}
-//	return output;
-//    }
-
+    
     // Getters and Setters
-
+    
     public ArrayList<CNAList> getTable() {
 	return table;
     }

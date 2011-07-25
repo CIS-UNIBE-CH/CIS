@@ -93,15 +93,15 @@ public class CNAController extends Controller {
 	    MTSetToTable parser = new MTSetToTable(theories, makeEpi);
 	    CNATable table = parser.getCoincTable();
 	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
-
-	    Graph graph = new Graph(cnaAlgorithm.getMinimalTheorySet());
+//	    TODO Für meherere Graphen
+	    Graph graph = new Graph(cnaAlgorithm.getSets().get(0));
 	    Renderer renderer = new Renderer();
 	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
 
 	    Long time = timer.timeElapsed();
-
-	    String calcGraphString = cnaAlgorithm.getMinimalTheorySet()
+//	    TODO Für meherere Graphen
+	    String calcGraphString = cnaAlgorithm.getSets().get(0)
 		    .toString();
 	    String calcGraphSource = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";
@@ -128,7 +128,8 @@ public class CNAController extends Controller {
 	try {
 	    cnaAlgorithm = new CNAlgorithm(
 		    new BaumgartnerSampleTable().getSampleTable());
-	    MinimalTheorySet theories = cnaAlgorithm.getMinimalTheorySet();
+//	    TODO Für meherere Graphen
+	    MinimalTheorySet theories = cnaAlgorithm.getSets().get(0);
 	    ArrayList<String> stringGraphs = new ArrayList<String>();
 	    String graphPath;
 
@@ -166,14 +167,16 @@ public class CNAController extends Controller {
 	try {
 	    timer = new Timer();
 	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable);
-	    Graph graph = new Graph(cnaAlgorithm.getMinimalTheorySet());
+//	    TODO Für meherere Graphen
+	    Graph graph = new Graph(cnaAlgorithm.getSets().get(0));
 	    Renderer renderer = new Renderer();
 	    renderer.setShowEdgeLabels(showBundleNumRenderer);
 	    renderer.config(graph);
 
 	    Long time = timer.timeElapsed();
 
-	    String calcGraphString = cnaAlgorithm.getMinimalTheorySet()
+//	    TODO Für mehere Graphen
+	    String calcGraphString = cnaAlgorithm.getSets().get(0)
 		    .toString();
 	    String calcGraphSource = renderer.getImageSource();
 	    String elapsedTime = time.toString() + " ms";
