@@ -62,7 +62,7 @@ public class CNAController extends Controller {
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
 
-	    boolean calc = (theories.getAllNames().size() <= 7);
+	    boolean calc = (theories.getAllNames().size() < 7);
 	    System.out.println(calc);
 	    render(calc, generatedGraphSource, generatedGraphString);
 
@@ -158,7 +158,7 @@ public class CNAController extends Controller {
     public static void inputTable(String table) {
 
 	CNATable cnatable = new CNATable("\r\n", ",", table);
-	if (cnatable.get(0).size() <= 7) {
+	if (cnatable.get(0).size() > 7) {
 	    flash.error("Sorry! Not more than 7 factors are allowed.");
 	    params.flash();
 	    setup();
@@ -189,18 +189,18 @@ public class CNAController extends Controller {
 	    flash.error("NEC error.");
 	    params.flash();
 	    setup();
-	} catch (ArrayIndexOutOfBoundsException e) {
-	    flash.error("Please give us more data!");
-	    params.flash();
-	    setup();
-	} catch (IndexOutOfBoundsException e) {
-	    flash.error("Please give us more data!");
-	    params.flash();
-	    setup();
-	} catch (IllegalArgumentException e) {
-	    flash.error("Sorry, something went very wrong!");
-	    params.flash();
-	    setup();
+//	} catch (ArrayIndexOutOfBoundsException e) {
+//	    flash.error("Please give us more data!");
+//	    params.flash();
+//	    setup();
+//	} catch (IndexOutOfBoundsException e) {
+//	    flash.error("Please give us more data!");
+//	    params.flash();
+//	    setup();
+//	} catch (IllegalArgumentException e) {
+//	    flash.error("Sorry, something went very wrong!");
+//	    params.flash();
+//	    setup();
 	}
     }
 
@@ -227,7 +227,7 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() <= 7);
+	    boolean calc = (theories.getAllNames().size() < 7);
 
 	    render(generatedGraphSource, generatedGraphString, calc);
 	} catch (ArrayIndexOutOfBoundsException e) {

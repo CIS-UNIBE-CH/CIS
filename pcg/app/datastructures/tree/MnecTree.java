@@ -9,75 +9,57 @@ public class MnecTree extends CNATree {
 	super(node);
     }
 
+    @Override
     public void walk(CNATreeNode parent, CNATable bundleTable,
 	    CNATable mnecTable) {
-	int breaks = 0;
-	int childCount = parent.getChildCount();
-
-	// Count how many "broken" childs current parent has.
-	for (int i = 0; i < childCount; i++) {
-	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
+	int childsFound = 0;
+//	System.out.println("Bundle Table\n"+ bundleTable);
+//	System.out.println("\nParent: " + parent.getCoincLine());
+	for (int j = 0; j < parent.getChildCount(); j++) {
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(j);
+//	    System.out.println("Child: " + child.getCoincLine());
 	    if (compare(child.getCoincLine(), bundleTable)) {
-		breaks++;
+//		System.out.println("true");
+		childsFound++;
+	    }else{
+//		System.out.println("false");
 	    }
 	}
-	// If every child of current parent breaks and parent itself does not
-	// break, we got a MNEC!
-	if (breaks == childCount
-		&& !compare(parent.getCoincLine(), bundleTable)) {
+	if (childsFound == parent.getChildCount() && !compare(parent.getCoincLine(), bundleTable)) {
 	    mnecTable.add(parent.getCoincLine());
 	}
-	for (int i = 0; i < childCount; i++) {
+
+	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
-	    // Special condition for leaves, when they itself not break they are
-	    // a MNEC!
-	    if (child.isLeaf() && (!compare(child.getCoincLine(), bundleTable))) {
-		mnecTable.add(child.getCoincLine());
-	    } else {
+	    if (!child.isLeaf()) {
 		walk(child, bundleTable, mnecTable);
 	    }
 	}
     }
 
     private boolean compare(CNAList list, CNATable bundleTable) {
-	// CNAList newList = (CNAList) list.clone();
-	// newList.negate();
-	// for (CNAList bundle : bundleTable) {
-	// boolean equal = true;
-	// for (int i = 0; i < bundle.size() - 1; i++) {
-	// if (!list.get(1).equals(bundle.get(i))
-	// && !bundle.get(i).equals("$")
-	// && bundle.getLastElement().equals("0")) {
-	// equal = false;
-	// break;
-	// }
-	// if(eaual){
-	// }
-	// }
-	boolean isEqual = false;
+	
+	boolean wasFound = false;
 	CNAList newList = (CNAList) list.clone();
-	newList.negate();
-	for (CNAList bundle : bundleTable) {
-	    for (int i = 0; i < list.size(); i++) {
-		// Only if there is a 1 or 0 in nodes data compare, when a
-		// dollar do nothing.
-		if (newList.get(i).equals("1") || newList.get(i).equals("0")
-			|| newList.get(i).length() > 1) {
-		    if (newList.get(i).equals(bundle.get(i))) {
-			isEqual = true;
+	newList.add("1");
+
+	for (int i = 1; i < bundleTable.size(); i++) {
+	    CNAList bundle = bundleTable.get(i);
+	    for (int j = 0; j < newList.size(); j++) {
+		if (!newList.get(j).equals("$")) {
+		    if (newList.get(j).equals(bundle.get(j))) {
+			wasFound = true;
 		    } else {
-			isEqual = false;
+			wasFound = false;
 			break;
 		    }
 		}
 	    }
-	    if (isEqual) {
-		if (bundle.getLastElement().equals("1")) {
-		    return false;
-		}
+	    if(wasFound){
+		return wasFound;
 	    }
 	}
-	return true;
+	return wasFound;
     }
 
 }
