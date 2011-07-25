@@ -13,22 +13,16 @@ public class MnecTree extends CNATree {
     public void walk(CNATreeNode parent, CNATable bundleTable,
 	    CNATable mnecTable) {
 	int childsFound = 0;
-//	System.out.println("Bundle Table\n"+ bundleTable);
-//	System.out.println("\nParent: " + parent.getCoincLine());
 	for (int j = 0; j < parent.getChildCount(); j++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(j);
-//	    System.out.println("Child: " + child.getCoincLine());
 	    if (compare(child.getCoincLine(), bundleTable)) {
-//		System.out.println("true");
 		childsFound++;
-	    }else{
-//		System.out.println("false");
 	    }
 	}
-	if (childsFound == parent.getChildCount() && !compare(parent.getCoincLine(), bundleTable)) {
+	if (childsFound == parent.getChildCount()
+		&& !compare(parent.getCoincLine(), bundleTable)) {
 	    mnecTable.add(parent.getCoincLine());
 	}
-
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (!child.isLeaf()) {
@@ -38,8 +32,7 @@ public class MnecTree extends CNATree {
     }
 
     private boolean compare(CNAList list, CNATable bundleTable) {
-	
-	boolean wasFound = false;
+	boolean found = false;
 	CNAList newList = (CNAList) list.clone();
 	newList.add("1");
 
@@ -48,18 +41,17 @@ public class MnecTree extends CNATree {
 	    for (int j = 0; j < newList.size(); j++) {
 		if (!newList.get(j).equals("$")) {
 		    if (newList.get(j).equals(bundle.get(j))) {
-			wasFound = true;
+			found = true;
 		    } else {
-			wasFound = false;
+			found = false;
 			break;
 		    }
 		}
 	    }
-	    if(wasFound){
-		return wasFound;
+	    if (found) {
+		return found;
 	    }
 	}
-	return wasFound;
+	return found;
     }
-
 }

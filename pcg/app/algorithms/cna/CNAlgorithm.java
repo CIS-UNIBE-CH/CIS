@@ -103,6 +103,11 @@ public class CNAlgorithm {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	System.out.println("SufTable:\n" + sufTable);
+	// TODO Determine how big at min it must be.
+	if (sufTable.size() <= 2) {
+	    System.out.println("SUF Table too small!");
+	    throw new NecException("SUF Table too small!");
+	}
 	indentifyMSUF(originalTable, sufTable);
     }
 
@@ -179,11 +184,9 @@ public class CNAlgorithm {
 		    .get(0).getLastElement());
 	    mtList.add(theory);
 	}
-	System.out.println("List: " + mtList);
 
 	createMTSets(mtList);
-	System.out.println("Sets:\n" + sets);
-	System.out.println("Sets size " + sets.size());
+	System.out.println("All MTSets:\n" + sets);
     }
 
     // Getters and Setters
@@ -195,18 +198,14 @@ public class CNAlgorithm {
 		set.add(theory);
 		sets.add(set);
 	    }
-	    System.out.println("i was here*******************");
 	} else {
 	    if (sets.size() < mtList.size()) {
 		fillUpSets(mtList.size());
 	    }
 	    for (int i = 0; i < sets.size(); i++) {
 		MinimalTheory theory = mtList.get(i);
-		System.out.println("setSize " + sets.size());
-		System.out.println("Theory" + theory);
 		MinimalTheorySet set = sets.get(i);
 		set.add(theory);
-		System.out.println("set i: " +sets.get(i));
 	    }
 	}
 
@@ -216,7 +215,7 @@ public class CNAlgorithm {
 	while (sets.size() < size) {
 	    MinimalTheorySet set = sets.get(0);
 	    MinimalTheorySet newSet = new MinimalTheorySet();
-	    for(MinimalTheory theory : set){
+	    for (MinimalTheory theory : set) {
 		newSet.add(theory);
 	    }
 	    sets.add(newSet);
