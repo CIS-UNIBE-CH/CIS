@@ -105,10 +105,16 @@ div.steps {
 
 div.error {
 	margin-top:10px;
-	font-size: 14px;
-	font-weight: bold;
-	color: #500000;
-	border-bottom: 1px solid #500000;
+	margin-bottom:10px;
+	font-size: 15px;
+	font-weight: normal;
+	color: #000000;
+	line-height: 30px;
+	text-indent: 14pt;
+	height: 30px;
+	/* CSS 3!*/
+	background-color:rgba(255,0,0,0.4);
+	
 }
 
 /*********************** 
