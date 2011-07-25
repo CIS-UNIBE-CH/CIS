@@ -104,7 +104,7 @@ public class CNAlgorithm {
 	sufTable.removeZeroEffects();
 	System.out.println("SufTable:\n" + sufTable);
 	// TODO Determine how big at min it must be.
-	if (sufTable.size() <= 2) {
+	if (sufTable.size() <= 3) {
 	    System.out.println("SUF Table too small!");
 	    throw new NecException("SUF Table too small!");
 	}
