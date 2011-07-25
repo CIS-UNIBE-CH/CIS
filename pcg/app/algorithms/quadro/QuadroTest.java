@@ -74,9 +74,10 @@ public class QuadroTest {
 	    theory.addBundle(name2Nec);
 	    return set;
 	} else if (coincidence.equals("1011")) {
-	    // TODO JR: Spezialfall, scholl fragen, ob erwähnen.
+	    // TODO JR: Spezialfall, wie handeln?
 	    theory.addBundle(name1);
 	    theory.addBundle(name1Nec);
+	  
 	    return set;
 	} else if (coincidence.equals("0111")) {
 	    theory.addBundle(name1);

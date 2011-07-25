@@ -87,8 +87,14 @@
 		</table>
 	</div>	
 	<center>
-		<img src="${calcGraphSource}" />
-		<h3>${calcGraphString}</h3>
+		#{list items:graphsView, as:'l'}
+			#{if l_parity == "odd"}
+				<center><img src="${l}" /></center>
+			#{/if}
+			#{if l_parity == "even"}
+				<center><h3>${l}</h3><br></center><br>
+			#{/if}
+		#{/list}
 		<font size="1">Note: X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	</center>
 		

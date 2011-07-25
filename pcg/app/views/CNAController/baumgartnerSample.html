@@ -10,6 +10,11 @@
 	Calculation Time: ${elapsedTime}
 	<br />
 	<br />
+	<center>
+	<img src="${graphPath}" />
+		<h3>${graphString}</h3>
+		</center>
+		<br>
 	<a href="#" id="slick-toggle">More Informations</a>
 	<div id="slickbox">
 	<h4>CNA Step O - Identification for potential effects</h4>
@@ -61,11 +66,6 @@
 		
 	</div>
 	<center>
-		<img src="${graphPath}" /><br/>
-
-		#{list items:stringGraphs, as:'s'}
-		<p>${s}</p>
-	#{/list}
 	<font size="1">Note: X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	<br/>
 	</center>
