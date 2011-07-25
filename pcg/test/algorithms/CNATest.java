@@ -56,8 +56,7 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyMinimatTheorieSet() {
-	assertEquals("[DX1 ∨ BX2 ∨ YE => E, AX1 ∨ BX2 ∨ YC => C]", cnaAlgorithm
-		.getMinimalTheorySet().toString());
+	assertEquals("[DX1 ∨ BX2 ∨ YE => E, AX1 ∨ BX2 ∨ YC => C]", cnaAlgorithm.getSets().get(0));
     }
 
     @Test
