@@ -186,14 +186,14 @@ public class CNAController extends Controller {
 	    flash.error("NEC error.");
 	    params.flash();
 	    setup();
-	} catch (ArrayIndexOutOfBoundsException e) {
-	    flash.error("Please give us more data!");
-	    params.flash();
-	    setup();
-	} catch (IndexOutOfBoundsException e) {
-	    flash.error("Please give us more data!");
-	    params.flash();
-	    setup();
+//	} catch (ArrayIndexOutOfBoundsException e) {
+//	    flash.error("Please give us more data!");
+//	    params.flash();
+//	    setup();
+//	} catch (IndexOutOfBoundsException e) {
+//	    flash.error("Please give us more data!");
+//	    params.flash();
+//	    setup();
 	} catch (IllegalArgumentException e) {
 	    flash.error("Sorry, something went very wrong!");
 	    params.flash();

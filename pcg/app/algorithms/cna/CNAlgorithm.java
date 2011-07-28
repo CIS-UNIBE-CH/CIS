@@ -123,26 +123,26 @@ public class CNAlgorithm {
 
 	    // IMPORTANT: Remove effect column of suffLine, if not tree we not
 	    // correctly be built.
-//	    System.out.println("Walked trough before: " + list);
-	    list.remove(list.size()-1);
-//	    System.out.println("Walked trough after: " + list);
-//	    System.out.println("Given orig. Table:\n" + originalTable);
+	    // System.out.println("Walked trough before: " + list);
+	    list.remove(list.size() - 1);
+	    // System.out.println("Walked trough after: " + list);
+	    // System.out.println("Given orig. Table:\n" + originalTable);
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);
 	    msufTree.fillUpTree(root);
-	    
-//	    System.out.println("MSUF Tree:\n" + msufTree.toString(root));
 
-//	    CNATable newOrig = originalTable.clone();
-//	    newOrig.remove(newOrig.size()-1);
-//	    System.out.println("Given Orig Table\n" + originalTable);
+	    // System.out.println("MSUF Tree:\n" + msufTree.toString(root));
+
+	    // CNATable newOrig = originalTable.clone();
+	    // newOrig.remove(newOrig.size()-1);
+	    // System.out.println("Given Orig Table\n" + originalTable);
 	    msufTree.walk(root, originalTable, msufTable);
-//	    System.out.println("Found Msuf's:\n" + msufTable);
+	    // System.out.println("Found Msuf's:\n" + msufTable);
 	    msufTable.removeDuplicated();
 	}
-//	System.out.println("MSUF Tree:\n" + msufTree.toString());
+	// System.out.println("MSUF Tree:\n" + msufTree.toString());
 	System.out.println("MsufTable\n" + msufTable);
-        identifyNEC(msufTable, originalTable);
+	identifyNEC(msufTable, originalTable);
     }
 
     private void identifyNEC(CNATable msufTable, CNATable originalTable)
@@ -196,7 +196,7 @@ public class CNAlgorithm {
 		    .get(0).getLastElement());
 	    mtList.add(theory);
 	}
-
+	System.out.println("MNEC's:\n" + mnecTable);
 	createMTSets(mtList);
 	System.out.println("All MTSets:\n" + sets);
     }
@@ -213,11 +213,27 @@ public class CNAlgorithm {
 	} else {
 	    if (sets.size() < mtList.size()) {
 		fillUpSets(mtList.size());
-	    }
-	    for (int i = 0; i < sets.size(); i++) {
-		MinimalTheory theory = mtList.get(i);
-		MinimalTheorySet set = sets.get(i);
-		set.add(theory);
+		for (int i = 0; i < sets.size(); i++) {
+		    MinimalTheory theory = mtList.get(i);
+		    MinimalTheorySet set = sets.get(i);
+		    set.add(theory);
+		}
+	    } else if (sets.size() > mtList.size()) {
+		ArrayList<MinimalTheorySet> temp = new ArrayList<MinimalTheorySet>();
+		for (MinimalTheorySet set : sets) {
+		    for (MinimalTheory theory : mtList) {
+			set.add(theory);
+			temp.add(set);
+		    }
+		}
+		sets.clear();
+		sets.addAll(temp);
+	    } else {
+		for (int i = 0; i < sets.size(); i++) {
+		    MinimalTheory theory = mtList.get(i);
+		    MinimalTheorySet set = sets.get(i);
+		    set.add(theory);
+		}
 	    }
 	}
 
