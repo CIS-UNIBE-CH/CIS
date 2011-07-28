@@ -1,9 +1,7 @@
-###Bachelor Thesis: Causal Inference Simulator (University of Berne Switzerland)  
+##Bachelor Thesis: Causal Inference Simulator (University of Berne Switzerland)  
  
- 
-####Authors:  
+####Authors  
 Jonas Ruef & Felix Langenegger
- 
  
 ####License
 
