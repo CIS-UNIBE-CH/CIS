@@ -26,7 +26,7 @@ public class CNATreeTests extends UnitTest {
 	cnaAlgorithm = new CNAlgorithm(originalTable);
 	// Second Line of Suftable without Effects
 	CNAList list = cnaAlgorithm.getSufTable().get(1);
-	list.removeLastElement();
+	list.remove(list.size()-1);
 	node = new CNATreeNode(list);
 
 	msufTree = new MsufTree(node);

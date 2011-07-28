@@ -31,14 +31,6 @@ public class CNAListTests extends UnitTest {
     }
 
     @Test
-    public void shouldRemoveLastElement() {
-	int newSize = list.size() - 1;
-	list.removeLastElement();
-	assertEquals(newSize, list.size());
-	assertEquals("0 2 ", list.toString());
-    }
-
-    @Test
     public void shouldSwap() {
 	CNAList list = new CNAList(",", "1,2,3");
 	list.swap(1, 2);

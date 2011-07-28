@@ -40,10 +40,6 @@ public class CNAList extends ArrayList<String> {
 	this.set(second, firstStr);
     }
 
-    public void removeLastElement() {
-	this.remove(this.getLastElement());
-    }
-
     public void removeDuplicated() {
 	HashSet duplicate = new HashSet(this);
 	this.clear();

@@ -74,11 +74,6 @@ public class CNATable extends ArrayList<CNAList> {
 	table.addAll(duplicate);
     }
 
-    public void removeLastElements() {
-	for (CNAList list : table)
-	    list.removeLastElement();
-    }
-
     public void removeCol(int index) {
 	for (CNAList list : table)
 	    list.remove(index);
