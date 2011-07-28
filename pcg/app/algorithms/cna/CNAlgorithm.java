@@ -105,10 +105,8 @@ public class CNAlgorithm {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	System.out.println("SufTable:\n" + sufTable);
-	// TODO Determine how big at min it must be.
-	if (sufTable.size() <= 3) {
-	    System.out.println("SUF Table too small!");
-	    throw new NecException("SUF Table too small!");
+	if (sufTable.size() <= 1) {
+	    throw new NecException();
 	}
 	indentifyMSUF(originalTable, sufTable);
     }
