@@ -1,5 +1,12 @@
 package datastructures;
 
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
+
 import helpers.BaumgartnerSampleTable;
 
 import org.junit.BeforeClass;
@@ -26,7 +33,7 @@ public class CNATreeTests extends UnitTest {
 	cnaAlgorithm = new CNAlgorithm(originalTable);
 	// Second Line of Suftable without Effects
 	CNAList list = cnaAlgorithm.getSufTable().get(1);
-	list.remove(list.size()-1);
+	list.remove(list.size() - 1);
 	node = new CNATreeNode(list);
 
 	msufTree = new MsufTree(node);

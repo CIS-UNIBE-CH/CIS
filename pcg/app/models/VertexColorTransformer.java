@@ -1,7 +1,5 @@
 package models;
 
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
-
 import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;

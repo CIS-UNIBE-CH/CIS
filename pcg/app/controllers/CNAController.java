@@ -1,5 +1,12 @@
 package controllers;
 
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
+
 import helpers.BaumgartnerSampleTable;
 import helpers.Timer;
 

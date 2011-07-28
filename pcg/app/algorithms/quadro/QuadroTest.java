@@ -1,9 +1,14 @@
 package algorithms.quadro;
 
+/** 
+ * Copyright (C) <2011> 
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown 
+ */
+
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
-
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
 
 /** Hardcoded 16 possibilities of quadro test */
 public class QuadroTest {

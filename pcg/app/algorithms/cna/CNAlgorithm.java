@@ -1,6 +1,10 @@
 package algorithms.cna;
 
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+/** 
+ * Copyright (C) <2011> 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown 
+ */
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -139,7 +143,8 @@ public class CNAlgorithm {
 
 	for (CNAList list : bundleTable) {
 	    if (list.equals(necList)) {
-		throw new NecException("No necessary condition could be identified.");
+		throw new NecException(
+			"No necessary condition could be identified.");
 	    }
 	}
 

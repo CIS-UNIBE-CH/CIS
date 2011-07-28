@@ -1,6 +1,11 @@
 package random;
 
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -104,13 +109,14 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     }
 
     @Test
-    public void shouldNotHaveSameFactorsAsCauseAndEffectInTheory() throws NecException {
+    public void shouldNotHaveSameFactorsAsCauseAndEffectInTheory()
+	    throws NecException {
 	for (int i = 0; i < 500; i++) {
 	    generateRandomInput();
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
 		    input.getCompleteList(), false);
 	    MinimalTheorySet set = generator.getMTSet();
-	    
+
 	    for (MinimalTheory theory : set) {
 		CNAList factors = theory.getFactors();
 		for (String factor : factors) {

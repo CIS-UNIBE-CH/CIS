@@ -1,5 +1,12 @@
 package datastructures.random;
 
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
+
 import java.util.ArrayList;
 
 import algorithms.cna.NecException;
@@ -45,13 +52,14 @@ public class RandomMTGeneratorHelper {
 
     private void bundlesCheck() throws NecException {
 	int counter = 0;
-	for(ArrayList<Integer> list : bundleSizesLevels){
-	    for(Integer cur : list){
+	for (ArrayList<Integer> list : bundleSizesLevels) {
+	    for (Integer cur : list) {
 		counter += cur;
 	    }
 	}
-	if(counter > 0){
-	    throw new NecException("You can generate an epiphenomenon only with alternate Factors.");
+	if (counter > 0) {
+	    throw new NecException(
+		    "You can generate an epiphenomenon only with alternate Factors.");
 	}
     }
 

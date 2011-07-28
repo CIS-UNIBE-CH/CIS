@@ -1,5 +1,12 @@
 package controllers;
 
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
+
 import models.Renderer;
 import play.mvc.Controller;
 import algorithms.quadro.QuadroException;
@@ -16,7 +23,7 @@ public class QuadroTestController extends Controller {
     }
 
     public static void setTable(String f1, String f2) {
-	if(f1.equals("") || f2.equals("")){
+	if (f1.equals("") || f2.equals("")) {
 	    flash.error("Please insert in the fields two factor names.");
 	    setup();
 	}
@@ -58,7 +65,7 @@ public class QuadroTestController extends Controller {
 	    String graphPath = renderer.getImageSource();
 	    String stringGraph = theories.toString();
 	    String specialCase = quadroTest.getSpecialCase();
-	    
+
 	    render(graphPath, stringGraph, specialCase);
 	} catch (QuadroException e) {
 	    flash.error(e.toString());

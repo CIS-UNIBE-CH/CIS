@@ -1,5 +1,12 @@
 package datastructures.mt;
 
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
+
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
@@ -29,7 +36,7 @@ public class MinimalTheory {
 		+ " ∨ " + "Y" + effect + " => " + effect;
 	return output;
     }
-    
+
     // Getters and Setters
     public CNAList getBundles() {
 	return bundles;
@@ -68,12 +75,12 @@ public class MinimalTheory {
 	}
 	return table;
     }
-    
-    public void setBundleFactors(CNATable bundleFactors){
+
+    public void setBundleFactors(CNATable bundleFactors) {
 	bundles.clear();
-	for(CNAList list : bundleFactors){
+	for (CNAList list : bundleFactors) {
 	    String bundle = "";
-	    for(String cur : list){
+	    for (String cur : list) {
 		bundle += cur;
 	    }
 	    bundles.add(bundle);
@@ -81,7 +88,7 @@ public class MinimalTheory {
     }
 
     public void addBundle(String bundle) {
-	    bundles.add(bundle);
+	bundles.add(bundle);
     }
 
     public void setBundles(CNAList bundles) {

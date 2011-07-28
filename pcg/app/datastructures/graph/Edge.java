@@ -1,9 +1,13 @@
 package datastructures.graph;
 
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
+
 import edu.uci.ics.jung.graph.util.EdgeType;
-
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
-
 
 public class Edge {
 

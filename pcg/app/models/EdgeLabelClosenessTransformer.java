@@ -1,7 +1,5 @@
 package models;
 
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
-
 import org.apache.commons.collections15.Transformer;
 
 import datastructures.graph.Edge;

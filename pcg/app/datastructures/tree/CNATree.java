@@ -1,6 +1,11 @@
 package datastructures.tree;
 
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
 
 import java.util.ArrayList;
 

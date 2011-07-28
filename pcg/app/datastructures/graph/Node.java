@@ -1,6 +1,11 @@
 package datastructures.graph;
 
-/** Copyright 2011 (C) Felix Langenegger & Jonas Ruef */
+/**
+ * Copyright (C) <2011>
+ * 
+ * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @license GPLv3, see Readme.mdown
+ */
 
 public class Node implements Comparable<Node> {
     private String name;
@@ -19,7 +24,6 @@ public class Node implements Comparable<Node> {
 	this.y = 0.0;
     }
 
-    // TODO Delete?
     /** Checks if the node is part of cause bundle */
     public boolean isPartOfBundle() {
 	if (bundle != null) {
