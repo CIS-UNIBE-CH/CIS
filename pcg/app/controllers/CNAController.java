@@ -61,8 +61,7 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() <= 9);
-//	    boolean calc = true;
+	    boolean calc = (theories.getAllNames().size() <= 10);
 
 	    render(calc, generatedGraphSource, generatedGraphString);
 	} catch (OutOfMemoryError e) {

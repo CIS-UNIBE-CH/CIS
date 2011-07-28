@@ -88,6 +88,8 @@ public class CNAlgorithm {
 	for (int i = 0; i < indexes.size(); i++) {
 	    table = originalTable.clone();
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
+	    System.out.println("***************************************");
+	    System.out.println("***************************************");
 	    System.out.println("Effect: " + table.get(0).getLastElement());
 	    identifySUF(table);
 	}
@@ -118,6 +120,7 @@ public class CNAlgorithm {
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
 	    CNAList list = (CNAList) sufTable.get(i).clone();
+	    System.out.println("Walked trough: " + list);
 
 	    // IMPORTANT: Remove effect column of suffLine, if not tree we not
 	    // correctly be built.
@@ -126,9 +129,13 @@ public class CNAlgorithm {
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);
 	    msufTree.fillUpTree(root);
+	    System.out.println("MSUF Tree:\n" + msufTree.toString(root));
+
 	    msufTree.walk(root, originalTable, msufTable);
+	    System.out.println("Found Msuf's:\n" + msufTable);
 	    msufTable.removeDuplicated();
 	}
+//	System.out.println("MSUF Tree:\n" + msufTree.toString());
 	System.out.println("MsufTable\n" + msufTable);
 	identifyNEC(msufTable, originalTable);
     }
