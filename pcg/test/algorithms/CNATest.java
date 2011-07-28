@@ -60,7 +60,7 @@ public class CNATest extends UnitTest {
     }
 
     @Test
-    public void shouldTestWithGeneratedTable() {
+    public void shouldTestWithGeneratedTable() throws NecException {
 	ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 	ArrayList<Integer> bundle1 = new ArrayList<Integer>();
 	ArrayList<Integer> alterFactros = new ArrayList<Integer>();
@@ -68,7 +68,7 @@ public class CNATest extends UnitTest {
 	alterFactros.add(1);
 	list.add(bundle1);
 	RandomMTGeneratorHelper helper = new RandomMTGeneratorHelper(list,
-		alterFactros);
+		alterFactros, false);
 	RandomMTSetGenerator generator = new RandomMTSetGenerator(
 		helper.getCompleteList(), false);
 

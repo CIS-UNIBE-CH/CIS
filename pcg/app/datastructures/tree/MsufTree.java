@@ -54,9 +54,6 @@ public class MsufTree extends CNATree {
 		}
 	    }
 	    if (found) {
-		// System.out.println("compare: " + newList);
-		// System.out.println("Orig. Table Line: " + line);
-		// System.out.println("Found: " + found);
 		return found;
 	    }
 	}

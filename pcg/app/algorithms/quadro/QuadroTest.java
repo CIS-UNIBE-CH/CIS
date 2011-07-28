@@ -10,6 +10,7 @@ public class QuadroTest {
 
     private String coincidence;
     private String name1, name2, name1Nec, name2Nec;
+    private String specialCase;
 
     public QuadroTest(String coincidence, String name1, String name2)
 	    throws QuadroException {
@@ -18,6 +19,7 @@ public class QuadroTest {
 	this.name2 = name2;
 	this.name1Nec = "¬" + name1;
 	this.name2Nec = "¬" + name2;
+	specialCase = "";
 
 	createMTTheorySet();
     }
@@ -44,7 +46,9 @@ public class QuadroTest {
 	    return set;
 	} else if (coincidence.equals("1100")) {
 	    throw new QuadroException(
-		    "The second factor is not part of at least one minimal sufficient condition which contains the first factor.");
+		    "The factor "
+			    + name2
+			    + " is not part of at least one minimal sufficient condition which contains the first factor.");
 	} else if (coincidence.equals("1010")) {
 	    theory.addBundle(name1);
 	    theory.addBundle(name2);
@@ -74,10 +78,12 @@ public class QuadroTest {
 	    theory.addBundle(name2Nec);
 	    return set;
 	} else if (coincidence.equals("1011")) {
-	    // TODO JR: Spezialfall, wie handeln?
 	    theory.addBundle(name1);
 	    theory.addBundle(name1Nec);
-	  
+	    specialCase = "Note: The factor " + name2
+		    + " can be localized in two ways: (1) " + name1 + name2
+		    + "X1 v " + name1Nec + "X2 v YW => W (2) " + name1
+		    + "X1 v " + name1Nec + "X2 v " + name2 + "X3 v YW => W";
 	    return set;
 	} else if (coincidence.equals("0111")) {
 	    theory.addBundle(name1);
@@ -88,5 +94,9 @@ public class QuadroTest {
 	} else {
 	    throw new QuadroException("No causal inference is possible.");
 	}
+    }
+
+    public String getSpecialCase() {
+	return specialCase;
     }
 }

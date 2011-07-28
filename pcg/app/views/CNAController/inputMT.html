@@ -29,8 +29,12 @@
 		</table>
 	</center>
 	#{/if}
+	#{if calc}
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
 		<input type="hidden" name="generatedGraphString" value="${generatedGraphString}"/>
 		<input type="submit" name="cnaTest"        value="Calculate Graph"/>
+	#{/if}
+	#{else}
+	#{/else}
 	</form>

@@ -7,10 +7,6 @@ public class NecException extends Exception {
     public NecException(String errorMsg) {
 	this.errorMsg = errorMsg;
     }
-    
-    public NecException() {
-	
-    }
 
     @Override
     public String toString() {

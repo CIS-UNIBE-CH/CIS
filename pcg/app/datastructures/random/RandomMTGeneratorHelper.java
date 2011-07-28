@@ -2,19 +2,28 @@ package datastructures.random;
 
 import java.util.ArrayList;
 
+import algorithms.cna.NecException;
+
 public class RandomMTGeneratorHelper {
-    ArrayList<ArrayList<Object>> completeList = new ArrayList<ArrayList<Object>>();
+    private ArrayList<ArrayList<Object>> completeList = new ArrayList<ArrayList<Object>>();
     private ArrayList<ArrayList<Integer>> bundleSizesLevels;
     private ArrayList<Integer> alterFactors;
+    private boolean makeEpi;
 
     public RandomMTGeneratorHelper(
 	    ArrayList<ArrayList<Integer>> bundleSizesLeveled,
-	    ArrayList<Integer> alterFactors) {
+	    ArrayList<Integer> alterFactors, boolean makeEpi)
+	    throws NecException {
 	this.bundleSizesLevels = bundleSizesLeveled;
 	this.alterFactors = alterFactors;
+	this.makeEpi = makeEpi;
 
 	cleanupNulls();
 	nullToZeros();
+	if (makeEpi) {
+	    bundlesCheck();
+	    alterFactorCheck();
+	}
 	removeZerosInBundles();
 	createLevelsList();
 
@@ -33,14 +42,39 @@ public class RandomMTGeneratorHelper {
 	}
 
     }
-    
-   private void nullToZeros(){
-       for(int i = 0; i< alterFactors.size(); i++){
-	   if(alterFactors.get(i) == null){
-	       alterFactors.set(i, 0);
-	   }
-       }
-   }
+
+    private void bundlesCheck() throws NecException {
+	int counter = 0;
+	for(ArrayList<Integer> list : bundleSizesLevels){
+	    for(Integer cur : list){
+		counter += cur;
+	    }
+	}
+	if(counter > 0){
+	    throw new NecException("You can generate an epiphenomenon only with alternate Factors.");
+	}
+    }
+
+    private void nullToZeros() {
+	for (int i = 0; i < alterFactors.size(); i++) {
+	    if (alterFactors.get(i) == null) {
+		alterFactors.set(i, 0);
+	    }
+	}
+    }
+
+    private void alterFactorCheck() throws NecException {
+	int counter = 0;
+	for (Integer cur : alterFactors) {
+	    if (cur != 0) {
+		counter++;
+	    }
+	}
+	if (counter < 2) {
+	    throw new NecException(
+		    "There must be at least two minimal theories with alternate factors to generate an epiphenomenon.");
+	}
+    }
 
     public void removeZerosInBundles() {
 	for (int i = bundleSizesLevels.size() - 1; i >= 0; i--) {

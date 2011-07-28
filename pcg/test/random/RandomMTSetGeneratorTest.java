@@ -9,6 +9,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import play.test.UnitTest;
+import algorithms.cna.NecException;
 import datastructures.cna.CNAList;
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
@@ -19,7 +20,7 @@ import datastructures.random.RandomMTSetGenerator;
 public class RandomMTSetGeneratorTest extends UnitTest {
     private RandomMTGeneratorHelper input;
 
-    public void generateRandomInput() {
+    public void generateRandomInput() throws NecException {
 	ArrayList<ArrayList<Integer>> bundleSizes = new ArrayList<ArrayList<Integer>>();
 	int levels = 3;
 	for (int i = 0; i < levels; i++) {
@@ -36,7 +37,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    alterFactor.add((int) (Math.random() * 2));
 	}
 
-	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor);
+	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor, false);
     }
 
     @Test
@@ -53,7 +54,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     }
 
     @Test
-    public void shouldMakeChain() {
+    public void shouldMakeChain() throws NecException {
 	for (int i = 0; i < 500; i++) {
 	    generateRandomInput();
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
@@ -71,7 +72,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     }
 
     @Test
-    public void shouldNotHaveDuplicatedFactorsInMTSet() {
+    public void shouldNotHaveDuplicatedFactorsInMTSet() throws NecException {
 	for (int i = 0; i < 500; i++) {
 	    generateRandomInput();
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
@@ -103,7 +104,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     }
 
     @Test
-    public void shouldNotHaveSameFactorsAsCauseAndEffectInTheory() {
+    public void shouldNotHaveSameFactorsAsCauseAndEffectInTheory() throws NecException {
 	for (int i = 0; i < 500; i++) {
 	    generateRandomInput();
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
@@ -119,7 +120,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	}
     }
 
-    public void generateRandomEpiInput() {
+    public void generateRandomEpiInput() throws NecException {
 	ArrayList<ArrayList<Integer>> bundleSizes = new ArrayList<ArrayList<Integer>>();
 	Random random = new Random();
 	boolean twoLevelBundles = random.nextBoolean();
@@ -159,11 +160,11 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 		alterFactor.add((int) (Math.random() * 2));
 	    }
 	}
-	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor);
+	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor, false);
     }
 
     @Test
-    public void shouldMakeEpiphenomenon() {
+    public void shouldMakeEpiphenomenon() throws NecException {
 	for (int j = 0; j < 500; j++) {
 	    generateRandomEpiInput();
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(
@@ -176,7 +177,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
     }
 
     @Test
-    public void shouldMakeEpiAndChain() {
+    public void shouldMakeEpiAndChain() throws NecException {
 	for (int i = 0; i < 500; i++) {
 	    generateRandomEpiInput();
 	    RandomMTSetGenerator generator = new RandomMTSetGenerator(

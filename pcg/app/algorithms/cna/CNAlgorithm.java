@@ -88,9 +88,6 @@ public class CNAlgorithm {
 	for (int i = 0; i < indexes.size(); i++) {
 	    table = originalTable.clone();
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
-	    System.out.println("***************************************");
-	    System.out.println("***************************************");
-	    System.out.println("Effect: " + table.get(0).getLastElement());
 	    identifySUF(table);
 	}
     }
@@ -104,9 +101,9 @@ public class CNAlgorithm {
     private void identifySUF(CNATable originalTable) throws NecException {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
-	System.out.println("SufTable:\n" + sufTable);
 	if (sufTable.size() <= 1) {
-	    throw new NecException();
+	    throw new NecException(
+		    "You entered a coincidence table where no line with instantiated effect exists. The algorithm cannot process such tables.");
 	}
 	indentifyMSUF(originalTable, sufTable);
     }
@@ -127,7 +124,6 @@ public class CNAlgorithm {
 	    msufTree.walk(root, originalTable, msufTable);
 	    msufTable.removeDuplicated();
 	}
-	System.out.println("MsufTable\n" + msufTable);
 	identifyNEC(msufTable, originalTable);
     }
 
@@ -143,12 +139,11 @@ public class CNAlgorithm {
 
 	for (CNAList list : bundleTable) {
 	    if (list.equals(necList)) {
-		throw new NecException();
+		throw new NecException("No necessary condition could be identified.");
 	    }
 	}
 
 	this.necList = msufTable.getNecList();
-	System.out.println("NEC: " + necList);
 	identifyMNEC(necList, bundleTable, originalTable);
     }
 
@@ -156,7 +151,6 @@ public class CNAlgorithm {
 	    CNATable originalTable) {
 
 	necList.negate();
-	System.out.println("NEC Negated: " + necList);
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	CNATreeNode root = new CNATreeNode(necList);
@@ -182,9 +176,7 @@ public class CNAlgorithm {
 		    .get(0).getLastElement());
 	    mtList.add(theory);
 	}
-	System.out.println("MNEC's:\n" + mnecTable);
 	createMTSets(mtList);
-	System.out.println("All MTSets:\n" + sets);
     }
 
     private void createMTSets(ArrayList<MinimalTheory> mtList) {

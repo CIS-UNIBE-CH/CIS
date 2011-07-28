@@ -17,7 +17,7 @@ public class QuadroTestController extends Controller {
 
     public static void setTable(String f1, String f2) {
 	if(f1.equals("") || f2.equals("")){
-	    flash.error("Please insert factor names");
+	    flash.error("Please insert in the fields two factor names.");
 	    setup();
 	}
 	render(f1, f2);
@@ -34,15 +34,17 @@ public class QuadroTestController extends Controller {
 	    numbers[1] = Integer.parseInt(ii);
 	    numbers[2] = Integer.parseInt(l);
 	    numbers[3] = Integer.parseInt(ll);
-	} catch (Exception e) {
-	    flash.error(e.toString());
+	} catch (NumberFormatException e) {
+	    flash.error("Please insert in the fields only ones or zeros.");
 	    params.flash();
+	    setup();
 	}
 	if (numbers[0] < 0 || numbers[0] > 1 || numbers[1] < 0
 		|| numbers[1] > 1 || numbers[2] < 0 || numbers[2] > 1
 		|| numbers[3] < 0 || numbers[3] > 1) {
-	    flash.error("Please insert only 1 or 0.");
+	    flash.error("Please insert in the fields only ones or zeros.");
 	    params.flash();
+	    setup();
 	}
 
 	try {
@@ -55,7 +57,9 @@ public class QuadroTestController extends Controller {
 
 	    String graphPath = renderer.getImageSource();
 	    String stringGraph = theories.toString();
-	    render(graphPath, stringGraph);
+	    String specialCase = quadroTest.getSpecialCase();
+	    
+	    render(graphPath, stringGraph, specialCase);
 	} catch (QuadroException e) {
 	    flash.error(e.toString());
 	    params.flash();

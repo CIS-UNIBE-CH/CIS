@@ -36,7 +36,8 @@ public class CNAController extends Controller {
 
     public static void generateGraph(ArrayList<Integer> bundles1,
 	    ArrayList<Integer> bundles2, ArrayList<Integer> bundles3,
-	    ArrayList<Integer> alterFactors, String epi, String showBundleNum) {
+	    ArrayList<Integer> alterFactors, String epi, String showBundleNum)
+	    throws NecException {
 	try {
 	    showBundleNumRenderer = (showBundleNum != null);
 	    makeEpi = (epi != null);
@@ -49,7 +50,7 @@ public class CNAController extends Controller {
 	    list.add(bundles2);
 	    list.add(bundles3);
 
-	    input = new RandomMTGeneratorHelper(list, alterFactors);
+	    input = new RandomMTGeneratorHelper(list, alterFactors, makeEpi);
 	    generator = new RandomMTSetGenerator(input.getCompleteList(),
 		    makeEpi);
 	    theories = generator.getMTSet();
@@ -62,25 +63,29 @@ public class CNAController extends Controller {
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
 	    boolean calc = (theories.getAllNames().size() <= 10);
+	    if (!calc) {
+		flash.error("Only up to 10 factors allowed.");
+		params.flash();
+	    }
 
 	    render(calc, generatedGraphSource, generatedGraphString);
+	} catch (NecException e) {
+	    flash.error(e.toString());
+	    params.flash();
+	    setup();
 	} catch (OutOfMemoryError e) {
-	    flash.error("Phuu! This calculation was to complex! "
-		    + "Server is out of Memory! "
-		    + "Please wait one minute and try again.");
+	    flash.error("Server is out of memory, please wait a minute.");
 	    params.flash();
 	    setup();
-	    e.printStackTrace();
 	} catch (IllegalArgumentException e) {
-	    flash.error("You calculated a null graph ;)");
+	    flash.error("All minimal theories have zero factors. Please specifiy the number of factors and bundles.");
 	    params.flash();
 	    setup();
-	    e.printStackTrace();
+	    // TODO Mail to us.
 	} catch (IndexOutOfBoundsException e) {
 	    flash.error("Too much data!");
 	    params.flash();
 	    setup();
-	    e.printStackTrace();
 	}
     }
 
@@ -114,7 +119,7 @@ public class CNAController extends Controller {
 		    generatedGraphString, effects, sufTable, msufTable,
 		    necList, mnecTable, coincTable);
 	} catch (NecException e) {
-	    flash.error("NEC error.");
+	    flash.error(e.toString());
 	    params.flash();
 	    setup();
 	}
@@ -145,18 +150,21 @@ public class CNAController extends Controller {
 	    render(elapsedTime, graphPath, graphString, effects, sufTable,
 		    msufTable, necList, mnecTable);
 	} catch (NecException e) {
-	    flash.error("NEC error.");
+	    flash.error(e.toString());
 	    params.flash();
 	    setup();
-	    e.printStackTrace();
 	}
     }
 
     public static void inputTable(String table) {
 
 	CNATable cnatable = new CNATable("\r\n", ",", table);
-	if (cnatable.get(0).size() > 7) {
-	    flash.error("Sorry! Not more than 7 factors are allowed.");
+	if (cnatable.get(0).size() > 10) {
+	    flash.error("Only up to 10 are factors allowed.");
+	    params.flash();
+	    setup();
+	} else if (cnatable.get(0).size() < 2) {
+	    flash.error("There must be at least two factors.");
 	    params.flash();
 	    setup();
 	}
@@ -183,17 +191,20 @@ public class CNAController extends Controller {
 	    render(elapsedTime, graphsView, effects, sufTable, msufTable,
 		    necList, mnecTable);
 	} catch (NecException e) {
-	    flash.error("NEC error.");
+	    flash.error(e.toString());
 	    params.flash();
 	    setup();
-//	} catch (ArrayIndexOutOfBoundsException e) {
-//	    flash.error("Please give us more data!");
-//	    params.flash();
-//	    setup();
-//	} catch (IndexOutOfBoundsException e) {
-//	    flash.error("Please give us more data!");
-//	    params.flash();
-//	    setup();
+	    // TODO Mail to us
+	} catch (ArrayIndexOutOfBoundsException e) {
+	    flash.error("Please give us more data!");
+	    params.flash();
+	    setup();
+	    // TODO Mail to us
+	} catch (IndexOutOfBoundsException e) {
+	    flash.error("Please give us more data!");
+	    params.flash();
+	    setup();
+	    // TODO Mail to us
 	} catch (IllegalArgumentException e) {
 	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
@@ -224,17 +235,24 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() < 7);
+	    boolean calc = (theories.getAllNames().size() < 11);
+	    if (!calc) {
+		flash.error("Only up to 10 factors allowed.");
+		params.flash();
+
+	    }
 
 	    render(generatedGraphSource, generatedGraphString, calc);
 	} catch (ArrayIndexOutOfBoundsException e) {
-	    flash.error("Wrong MT Syntax!");
+	    flash.error("You're input is not according to our syntax. Please correct it.");
 	    params.flash();
 	    setup();
+	    // TODO mail us.
 	} catch (IndexOutOfBoundsException e) {
 	    flash.error("Please give us more data!");
 	    params.flash();
 	    setup();
+	    // TODO Mail us.
 	} catch (IllegalArgumentException e) {
 	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
