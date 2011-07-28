@@ -1,10 +1,7 @@
 package datastructures.tree;
 
-import java.util.ArrayList;
-
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
-
 
 public class MsufTree extends CNATree {
 
@@ -12,61 +9,60 @@ public class MsufTree extends CNATree {
 	super(node);
     }
 
+    @Override
     public void walk(CNATreeNode parent, CNATable originalTable,
 	    CNATable msufTable) {
-	int breaks = 0;
-	int childCount = parent.getChildCount();
+	int childsFound = 0;
 
-	// Count how many "broken" children current parent has.
-	for (int i = 0; i < childCount; i++) {
-	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
+	for (int j = 0; j < parent.getChildCount(); j++) {
+	    CNATreeNode child = (CNATreeNode) parent.getChildAt(j);
 	    if (compare(child.getCoincLine(), originalTable)) {
-		breaks++;
+		childsFound++;
 	    }
 	}
-	// If every child of current parent breaks and parent itself does not
-	// break, we got a msuf!
-	if (breaks == childCount
+	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), originalTable)) {
+	    System.out.println("*******Added: " + parent.getCoincLine());
 	    msufTable.add(parent.getCoincLine());
 	}
-	for (int i = 0; i < childCount; i++) {
+	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
-	    // Special condition for leaves, when they itself not break they are
-	    // a msuf!
-	    if (child.isLeaf()
-		    && !(compare(child.getCoincLine(), originalTable))) {
-		msufTable.add(child.getCoincLine());
-	    } else {
+	    if (!child.isLeaf()) {
 		walk(child, originalTable, msufTable);
+	    } else {
+		if (!compare(child.getCoincLine(), originalTable)) {
+		    msufTable.add(child.getCoincLine());
+		}
 	    }
 	}
     }
 
-    private boolean compare(ArrayList<String> line, CNATable originalTable) {
-	boolean isEqual = false;
-	for (int row = 1; row < originalTable.size(); row++) {
-	    CNAList curRow = originalTable.get(row);
-	    for (int i = 0; i < line.size(); i++) {
-		// Only if there is a 1 or 0 in nodes data compare, when a
-		// dollar do nothing.
-		if (line.get(i).equals("1") || line.get(i).equals("0")) {
-		    if (line.get(i).equals(curRow.get(i))) {
-			isEqual = true;
+    private boolean compare(CNAList list, CNATable originalTable) {
+	boolean found = false;
+	CNAList newList = (CNAList) list.clone();
+	newList.add("0");
+
+	for (int i = 1; i < originalTable.size(); i++) {
+	    CNAList line = originalTable.get(i);
+	    for (int j = 0; j < newList.size(); j++) {
+		if (!newList.get(j).equals("$")) {
+		    if (newList.get(j).equals(line.get(j))) {
+//			System.out.println("newList: " + newList);
+			found = true;
 		    } else {
-			isEqual = false;
+			found = false;
 			break;
 		    }
 		}
 	    }
-	    // Check if there is a line in sample table with effect = 0 which
-	    // matches nodes data.
-	    if (isEqual) {
-		if (curRow.getLastElement().equals("0")) {
-		    return true;
-		}
+	    if (found) {
+		System.out.println("compare: " + newList);
+		System.out.println("Orig. Table Line: " + line);
+		System.out.println("Found: " + found);
+		return found;
 	    }
 	}
-	return false;
+//	System.out.println("Found: " + found);
+	return found;
     }
 }

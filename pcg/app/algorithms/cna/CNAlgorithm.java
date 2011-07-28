@@ -120,24 +120,29 @@ public class CNAlgorithm {
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
 	    CNAList list = (CNAList) sufTable.get(i).clone();
-	    System.out.println("Walked trough: " + list);
 
 	    // IMPORTANT: Remove effect column of suffLine, if not tree we not
 	    // correctly be built.
-	    list.removeLastElement();
-
+//	    System.out.println("Walked trough before: " + list);
+	    list.remove(list.size()-1);
+//	    System.out.println("Walked trough after: " + list);
+//	    System.out.println("Given orig. Table:\n" + originalTable);
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);
 	    msufTree.fillUpTree(root);
-	    System.out.println("MSUF Tree:\n" + msufTree.toString(root));
+	    
+//	    System.out.println("MSUF Tree:\n" + msufTree.toString(root));
 
+//	    CNATable newOrig = originalTable.clone();
+//	    newOrig.remove(newOrig.size()-1);
+//	    System.out.println("Given Orig Table\n" + originalTable);
 	    msufTree.walk(root, originalTable, msufTable);
-	    System.out.println("Found Msuf's:\n" + msufTable);
+//	    System.out.println("Found Msuf's:\n" + msufTable);
 	    msufTable.removeDuplicated();
 	}
 //	System.out.println("MSUF Tree:\n" + msufTree.toString());
 	System.out.println("MsufTable\n" + msufTable);
-	identifyNEC(msufTable, originalTable);
+        identifyNEC(msufTable, originalTable);
     }
 
     private void identifyNEC(CNATable msufTable, CNATable originalTable)
