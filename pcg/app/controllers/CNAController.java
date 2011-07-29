@@ -20,7 +20,7 @@ import org.apache.commons.mail.SimpleEmail;
 import play.libs.Mail;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
-import algorithms.cna.NecException;
+import algorithms.cna.CNAException;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.graph.Graph;
@@ -49,7 +49,7 @@ public class CNAController extends Controller {
     public static void generateGraph(ArrayList<Integer> bundles1,
 	    ArrayList<Integer> bundles2, ArrayList<Integer> bundles3,
 	    ArrayList<Integer> alterFactors, String epi, String showBundleNum)
-	    throws NecException {
+	    throws CNAException {
 	try {
 	    showBundleNumRenderer = (showBundleNum != null);
 	    makeEpi = (epi != null);
@@ -80,7 +80,7 @@ public class CNAController extends Controller {
 		params.flash();
 	    }
 	    render(calc, generatedGraphSource, generatedGraphString);
-	} catch (NecException e) {
+	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
@@ -139,7 +139,7 @@ public class CNAController extends Controller {
 	    render(elapsedTime, graphsView, generatedGraphSource,
 		    generatedGraphString, effects, sufTable, msufTable,
 		    necList, mnecTable, coincTable);
-	} catch (NecException e) {
+	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
@@ -170,7 +170,7 @@ public class CNAController extends Controller {
 
 	    render(elapsedTime, graphPath, graphString, effects, sufTable,
 		    msufTable, necList, mnecTable);
-	} catch (NecException e) {
+	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
@@ -211,7 +211,7 @@ public class CNAController extends Controller {
 
 	    render(elapsedTime, graphsView, effects, sufTable, msufTable,
 		    necList, mnecTable);
-	} catch (NecException e) {
+	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();

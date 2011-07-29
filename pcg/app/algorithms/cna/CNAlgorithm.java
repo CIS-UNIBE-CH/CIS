@@ -27,7 +27,7 @@ public class CNAlgorithm {
     private ArrayList<MinimalTheorySet> sets;
     private CNATable mnecTable;
 
-    public CNAlgorithm(CNATable table) throws NecException {
+    public CNAlgorithm(CNATable table) throws CNAException {
 	originalTable = table;
 	sets = new ArrayList<MinimalTheorySet>();
 	identifyPE(originalTable);
@@ -37,9 +37,9 @@ public class CNAlgorithm {
      * Step 0
      * 
      * @param originalTable
-     * @throws NecException
+     * @throws CNAException
      */
-    private void identifyPE(CNATable originalTable) throws NecException {
+    private void identifyPE(CNATable originalTable) throws CNAException {
 	effects = new CNAList();
 	CNATable table = originalTable.clone();
 	CNAListComparator comparator = new CNAListComparator();
@@ -69,6 +69,9 @@ public class CNAlgorithm {
 	    }
 
 	}
+	if (effects.size() < 1) {
+	    throw new CNAException("No effects could be identified.");
+	}
 	run(effects, originalTable);
     }
 
@@ -76,10 +79,10 @@ public class CNAlgorithm {
      * Step 1
      * 
      * @param effects
-     * @throws NecException
+     * @throws CNAException
      */
     private void run(CNAList effects, CNATable originalTable)
-	    throws NecException {
+	    throws CNAException {
 	CNATable table;
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
@@ -100,20 +103,20 @@ public class CNAlgorithm {
      * Step 2
      * 
      * @param table
-     * @throws NecException
+     * @throws CNAException
      **/
-    private void identifySUF(CNATable originalTable) throws NecException {
+    private void identifySUF(CNATable originalTable) throws CNAException {
 	sufTable = originalTable.clone();
 	sufTable.removeZeroEffects();
 	if (sufTable.size() <= 1) {
-	    throw new NecException(
+	    throw new CNAException(
 		    "You entered a coincidence table where no line with instantiated effect exists. The algorithm cannot process such tables.");
 	}
 	indentifyMSUF(originalTable, sufTable);
     }
 
     private void indentifyMSUF(CNATable originalTable, CNATable sufTable)
-	    throws NecException {
+	    throws CNAException {
 	MsufTree msufTree;
 	msufTable = new CNATable();
 	// i = 1 because first line holds factor names.
@@ -132,7 +135,7 @@ public class CNAlgorithm {
     }
 
     private void identifyNEC(CNATable msufTable, CNATable originalTable)
-	    throws NecException {
+	    throws CNAException {
 	CNATable bundleTable = msufTable.summarizeBundles(msufTable,
 		originalTable);
 
@@ -143,7 +146,7 @@ public class CNAlgorithm {
 
 	for (CNAList list : bundleTable) {
 	    if (list.equals(necList)) {
-		throw new NecException(
+		throw new CNAException(
 			"No necessary condition could be identified.");
 	    }
 	}

@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import algorithms.cna.CNAlgorithm;
-import algorithms.cna.NecException;
+import algorithms.cna.CNAException;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.tree.CNATreeNode;
@@ -28,7 +28,7 @@ public class CNATreeTests extends UnitTest {
     private static CNATable originalTable;
 
     @BeforeClass
-    public static void setup() throws NecException {
+    public static void setup() throws CNAException {
 	originalTable = new BaumgartnerSampleTable().getSampleTable();
 	cnaAlgorithm = new CNAlgorithm(originalTable);
 	// Second Line of Suftable without Effects

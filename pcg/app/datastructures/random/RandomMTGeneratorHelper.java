@@ -9,7 +9,7 @@ package datastructures.random;
 
 import java.util.ArrayList;
 
-import algorithms.cna.NecException;
+import algorithms.cna.CNAException;
 
 public class RandomMTGeneratorHelper {
     private ArrayList<ArrayList<Object>> completeList = new ArrayList<ArrayList<Object>>();
@@ -20,7 +20,7 @@ public class RandomMTGeneratorHelper {
     public RandomMTGeneratorHelper(
 	    ArrayList<ArrayList<Integer>> bundleSizesLeveled,
 	    ArrayList<Integer> alterFactors, boolean makeEpi)
-	    throws NecException {
+	    throws CNAException {
 	this.bundleSizesLevels = bundleSizesLeveled;
 	this.alterFactors = alterFactors;
 	this.makeEpi = makeEpi;
@@ -50,7 +50,7 @@ public class RandomMTGeneratorHelper {
 
     }
 
-    private void bundlesCheck() throws NecException {
+    private void bundlesCheck() throws CNAException {
 	int counter = 0;
 	for (ArrayList<Integer> list : bundleSizesLevels) {
 	    for (Integer cur : list) {
@@ -58,7 +58,7 @@ public class RandomMTGeneratorHelper {
 	    }
 	}
 	if (counter > 0) {
-	    throw new NecException(
+	    throw new CNAException(
 		    "You can generate an epiphenomenon only with alternate Factors.");
 	}
     }
@@ -71,7 +71,7 @@ public class RandomMTGeneratorHelper {
 	}
     }
 
-    private void alterFactorCheck() throws NecException {
+    private void alterFactorCheck() throws CNAException {
 	int counter = 0;
 	for (Integer cur : alterFactors) {
 	    if (cur != 0) {
@@ -79,7 +79,7 @@ public class RandomMTGeneratorHelper {
 	    }
 	}
 	if (counter < 2) {
-	    throw new NecException(
+	    throw new CNAException(
 		    "There must be at least two minimal theories with alternate factors to generate an epiphenomenon.");
 	}
     }

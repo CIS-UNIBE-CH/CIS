@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import play.test.UnitTest;
 import algorithms.cna.CNAlgorithm;
-import algorithms.cna.NecException;
+import algorithms.cna.CNAException;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.random.RandomMTGeneratorHelper;
@@ -26,7 +26,7 @@ public class CNATest extends UnitTest {
     private static CNAlgorithm cnaAlgorithm;
 
     @Before
-    public void setup() throws NecException {
+    public void setup() throws CNAException {
 
 	cnaAlgorithm = new CNAlgorithm(
 		new BaumgartnerSampleTable().getSampleTable());
@@ -66,7 +66,7 @@ public class CNATest extends UnitTest {
     }
 
     @Test
-    public void shouldTestWithGeneratedTable() throws NecException {
+    public void shouldTestWithGeneratedTable() throws CNAException {
 	ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 	ArrayList<Integer> bundle1 = new ArrayList<Integer>();
 	ArrayList<Integer> alterFactros = new ArrayList<Integer>();
