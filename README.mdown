@@ -1,11 +1,15 @@
 ###Bachelor Thesis: Causal Inference Simulator (University of Berne Switzerland)  
+
+Our software provides an algorithm to calculate out of coincidence tables causal graphs. You can enter a coincidence table, a minimal theory or
+generate a random graph. We provide support for multiple theories, e.g. calculating out of a table a causal chain and it's corresponding 
+crossed epiphenomenon. Our software is complete webbased, all you need is a webbrowser. 
  
 ####Authors  
 Jonas Ruef & Felix Langenegger
  
 ####License
 
-This program is free software: you can redistribute it and/or modify
+    This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
