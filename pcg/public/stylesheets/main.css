@@ -80,7 +80,9 @@ div.content {
 	color: #000;
 	min-height: 650px;
 }
-
+div.content a {
+	text-decoration: underline;
+}
 div.con {
 	float:left;
 	font-size: 10pt; 
