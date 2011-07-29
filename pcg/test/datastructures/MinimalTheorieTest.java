@@ -15,9 +15,9 @@ import datastructures.cna.CNAList;
 import datastructures.mt.MinimalTheory;
 
 public class MinimalTheorieTest extends UnitTest {
-    static MinimalTheory theorie;
-    static CNAList factors;
-    static String effect;
+    private static MinimalTheory theorie;
+    private static CNAList factors;
+    private static String effect;
 
     @Before
     public void setup() {

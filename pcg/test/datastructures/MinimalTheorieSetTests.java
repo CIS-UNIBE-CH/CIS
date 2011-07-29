@@ -17,10 +17,10 @@ import datastructures.mt.MinimalTheorySet;
 
 public class MinimalTheorieSetTests extends UnitTest {
 
-    static MinimalTheorySet theories;
-    static MinimalTheory theorie;
-    static CNAList factors;
-    static String effect;
+    private static MinimalTheorySet theories;
+    private static MinimalTheory theorie;
+    private static CNAList factors;
+    private static String effect;
 
     @Before
     public void setup() {

@@ -16,8 +16,8 @@ import datastructures.random.RandomMTGeneratorHelper;
 
 /** Run Test 500 times because random stuff is going on */
 public class RandomMTGeneratorHelperTest extends UnitTest {
-    ArrayList<ArrayList<Integer>> bundleSizes;
-    ArrayList<Integer> alterFactor;
+    private ArrayList<ArrayList<Integer>> bundleSizes;
+    private ArrayList<Integer> alterFactor;
 
     public void generateRandomInput() {
 	bundleSizes = new ArrayList<ArrayList<Integer>>();
