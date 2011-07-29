@@ -276,6 +276,11 @@ public class CNAController extends Controller {
 		for (int i = 0; i < fac.length; i++) {
 		    factors.add(fac[i]);
 		}
+		if (array[1].length() > 1) {
+		    flash.error("Please insert as effect only a positive and only one factor.");
+		    params.flash();
+		    setup();
+		}
 		theorie = new MinimalTheory(factors, array[1]);
 		theories.add(theorie);
 	    }

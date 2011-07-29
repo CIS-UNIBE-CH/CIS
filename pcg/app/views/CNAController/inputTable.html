@@ -38,48 +38,8 @@
 				#{ifnot l_isLast}<hr>#{/ifnot}
 			#{/if}
 		#{/list}
-	<br>
-	<br>
-	<a href="#" id="slick-toggle">More Informations</a>
-	<div id="slickbox">
-	<h4>CNA Step O - Identification for potential effects</h4>
-	Effects: ${effects}
-	<h4>CNA Step 2 - Identification of sufficient conditions</h4>
-		<table>
-		#{list items:sufTable, as:'l'}
-			#{if l == "\n"}<tr>#{/if}
-			#{else}
-			<td>${l}</td>
-			#{/else}
-			#{if l == "\n"}</tr>#{/if}
-		#{/list}
-		</table>
-	<h4>CNA Step 3 - Minimalization of sufficient conditions</h4>
-	<p>($ means don't care)</p>
-			<table>
-		#{list items:msufTable, as:'l'}
-			#{if l == "\n"}<tr>#{/if}
-			#{else}
-			<td>${l}</td>
-			#{/else}
-			#{if l == "\n"}</tr>#{/if}
-		#{/list}
-		</table>
-		<h4>CNA Step 5 - Identification of necessary conditions</h4>
-		${necList}
-		</table>
-		<h4>CNA Step 6 - Minimalization of necessary conditions</h4>
-		<table>
-		#{list items:mnecTable, as:'l'}
-			#{if l == "\n"}<tr>#{/if}
-			#{else}
-			<td>${l}</td>
-			#{/else}
-			#{if l == "\n"}</tr>#{/if}
-		#{/list}
-		</table>
-	</div>	
-	<br><br>
+	<br/>
+	<br/>
 	<center>
 	<font size="1">Note: Alternative Factors will always be shown in green<br> and X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	</center>
