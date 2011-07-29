@@ -17,10 +17,6 @@ public class CNATable extends ArrayList<CNAList> {
 	table = new ArrayList<CNAList>();
     }
 
-    public CNATable(String[][] table) {
-	this.table = arrayToCNATable(table);
-    }
-
     public CNATable(String regexTable, String regexList, String string) {
 	table = new ArrayList<CNAList>();
 
@@ -84,23 +80,6 @@ public class CNATable extends ArrayList<CNAList> {
     public void removeCol(int index) {
 	for (CNAList list : table)
 	    list.remove(index);
-    }
-
-    public void negate() {
-	for (int row = 0; row < table.size(); row++) {
-	    table.get(row).negate();
-	}
-
-    }
-
-    public void addOneLine() {
-	String str = "";
-	for (int i = 0; i < table.get(0).size() - 1; i++) {
-	    str += "1" + ",";
-	}
-	str += "1";
-	CNAList list = new CNAList(",", str);
-	table.add(list);
     }
 
     /**
@@ -189,36 +168,4 @@ public class CNATable extends ArrayList<CNAList> {
 	return table.get(i);
     }
 
-    public void setFactors(CNAList list) {
-	CNAList temp;
-	for (int col = 0; col < list.size(); col++) {
-	    temp = new CNAList();
-	    int i = 0;
-	    while (i < list.get(col).length()) {
-		// If Factor is negative. j+2 because of ¬ character
-		if (list.get(col).charAt(i) == '¬') {
-		    temp.add("" + list.get(col).charAt(i)
-			    + list.get(col).charAt(i + 1));
-		    i = i + 2;
-		} else {
-		    temp.add("" + list.get(col).charAt(i));
-		    i++;
-		}
-	    }
-	    this.add(temp);
-	}
-    }
-
-    // Helpers
-
-    private ArrayList<CNAList> arrayToCNATable(String[][] table) {
-	ArrayList<CNAList> list = new ArrayList<CNAList>();
-	for (int r = 0; r < table.length; r++) {
-	    list.add(new CNAList());
-	    for (int c = 0; c < table[r].length; c++) {
-		list.get(r).add(table[r][c]);
-	    }
-	}
-	return list;
-    }
 }

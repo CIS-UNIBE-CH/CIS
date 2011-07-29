@@ -189,7 +189,7 @@ public class MTSetToTable {
 	String effectName = curTable.get(0).getLastElement();
 	int index = getIndexOfEffectInNextTable(effectName);
 	for (CNAList cur : nextTable) {
-	    if (cur.ElementIsOne(index)) {
+	    if (cur.elementIsOne(index)) {
 		secondOnlyOneLines.add(cur);
 	    }
 	}

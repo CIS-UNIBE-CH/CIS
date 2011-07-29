@@ -102,7 +102,6 @@ public class CNAController extends Controller {
 		email.setMsg("CNA Random Gen\n" + msg);
 		Mail.send(email);
 	    } catch (EmailException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	    flash.error("Too much data!");
@@ -226,7 +225,6 @@ public class CNAController extends Controller {
 		email.setMsg("CNA Input Table\n" + msg);
 		Mail.send(email);
 	    } catch (EmailException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	    flash.error("Please give us more data!");
@@ -242,13 +240,11 @@ public class CNAController extends Controller {
 		email.setMsg("CNA Input Table\n" + msg);
 		Mail.send(email);
 	    } catch (EmailException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	    flash.error("Please give us more data!");
 	    params.flash();
 	    setup();
-	    // TODO Mail to us
 	} catch (IllegalArgumentException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
@@ -259,7 +255,6 @@ public class CNAController extends Controller {
 		email.setMsg("CNA Input Table\n" + msg);
 		Mail.send(email);
 	    } catch (EmailException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	    flash.error("Sorry, something went very wrong!");
@@ -295,15 +290,12 @@ public class CNAController extends Controller {
 	    if (!calc) {
 		flash.error("Only up to 10 factors allowed.");
 		params.flash();
-
 	    }
-
 	    render(generatedGraphSource, generatedGraphString, calc);
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    flash.error("You're input is not according to our syntax. Please correct it.");
 	    params.flash();
 	    setup();
-	    // TODO mail us.
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
@@ -314,13 +306,11 @@ public class CNAController extends Controller {
 		email.setMsg("CNA Input MT\n" + msg);
 		Mail.send(email);
 	    } catch (EmailException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	    flash.error("Please give us more data!");
 	    params.flash();
 	    setup();
-	    // TODO Mail us.
 	} catch (IllegalArgumentException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
@@ -331,7 +321,6 @@ public class CNAController extends Controller {
 		email.setMsg("CNA Input MT\n" + msg);
 		Mail.send(email);
 	    } catch (EmailException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	    }
 	    flash.error("Sorry, something went very wrong!");

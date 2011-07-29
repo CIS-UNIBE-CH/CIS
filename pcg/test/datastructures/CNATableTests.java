@@ -7,7 +7,7 @@ package datastructures;
  * @license GPLv3, see Readme.mdown
  */
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
@@ -15,11 +15,11 @@ import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
 public class CNATableTests extends UnitTest {
-    private static CNAList list;
-    private static CNATable table;
+    private CNAList list;
+    private CNATable table;
 
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
 	table = new CNATable();
 	list = new CNAList();
 	list.add("1");
@@ -36,34 +36,17 @@ public class CNATableTests extends UnitTest {
     @Test
     public void shouldTestRegex() {
 	CNATable testTable = new CNATable("\n", ",", "1,2,3\n3,2,1");
-	assertEquals(2, table.size());
+	assertEquals(2, testTable.size());
 	assertEquals(table.toString(), testTable.toString());
     }
-
-    @Test
-    public void shouldNegate() {
-	table.negate();
-	CNATable testTable = new CNATable(";", ",", "0,2,3;3,2,0");
-	assertEquals(table.toString(), testTable.toString());
-    }
-
-    // @Test(expected = AssertionError.class)
-    // public void shouldNotBeSameRegex() {
-    // @SuppressWarnings("unused")
-    // CNATable testTable = new CNATable(";", ",", "0,2,3;3,2,0");
-    // }
 
     @Test
     public void shoudRemoveZeroEffect() {
-	CNATable testTable = new CNATable(";", ",", "0,2,3");
-	table.removeZeroEffects();
-	assertEquals(testTable.toString(), table.toString());
-	table = new CNATable(";", ",", "1,0,0;" + "0,1,0;" + "0,0,1;"
-		+ "0,0,0;");
-
-	table.removeZeroEffects();
-	testTable = new CNATable(";", ",", "0,0,1");
-	assertEquals(testTable.toString(), table.toString());
+	CNATable testTable = new CNATable(";", ",", "1,0,0;" + "0,1,0;"
+		+ "0,0,1;" + "0,0,0;");
+	CNATable noEffectTable = new CNATable(";", ",", "0,0,1");
+	testTable.removeZeroEffects();
+	assertEquals(noEffectTable.toString(), testTable.toString());
 
     }
 

@@ -49,19 +49,20 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyNEC() {
-	CNAList necList = new CNAList(",", "1,01,1");
+	CNAList necList = new CNAList(",", "0,10,0");
 	assertEquals(necList, cnaAlgorithm.getNecList());
     }
 
     @Test
     public void shouldTestIdentifyMNEC() {
-	CNATable mnecTable = new CNATable(";", ",", "$,$,1;1,$,$");
+	CNATable mnecTable = new CNATable(";", ",", "0,$,0");
 	assertEquals(mnecTable, cnaAlgorithm.getMnecTable());
     }
 
     @Test
     public void shouldTestIdentifyMinimatTheorieSet() {
-	assertEquals("[DX1 ∨ BX2 ∨ YE => E, AX1 ∨ BX2 ∨ YC => C]", cnaAlgorithm.getSets().get(0));
+	assertEquals("[BX1 ∨ DX2 ∨ YE => E, BX1 ∨ AX2 ∨ YC => C]", cnaAlgorithm
+		.getSets().get(0).toString());
     }
 
     @Test

@@ -74,23 +74,6 @@ public class CNAList extends ArrayList<String> {
 	}
     }
 
-    public CNAList split() {
-	HashSet<String> set = new HashSet<String>();
-	for (String str : this) {
-	    if (str.length() > 1) {
-		for (int i = 0; i < str.length(); i++) {
-		    set.add("" + str.charAt(i));
-		}
-	    } else {
-		set.add(str);
-	    }
-
-	}
-	CNAList list = new CNAList();
-	list.addAll(set);
-	return list;
-    }
-
     // toString
     @Override
     public String toString() {
@@ -123,7 +106,7 @@ public class CNAList extends ArrayList<String> {
 	}
     }
 
-    public boolean ElementIsOne(int index) {
+    public boolean elementIsOne(int index) {
 	if (this.get(index).equals("1")) {
 	    return true;
 	} else {
