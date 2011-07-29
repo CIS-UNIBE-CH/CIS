@@ -13,6 +13,11 @@ import helpers.Timer;
 import java.util.ArrayList;
 
 import models.Renderer;
+
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
+import play.libs.Mail;
 import play.mvc.Controller;
 import algorithms.cna.CNAlgorithm;
 import algorithms.cna.NecException;
@@ -74,7 +79,6 @@ public class CNAController extends Controller {
 		flash.error("Only up to 10 factors allowed.");
 		params.flash();
 	    }
-
 	    render(calc, generatedGraphSource, generatedGraphString);
 	} catch (NecException e) {
 	    flash.error(e.toString());
@@ -88,8 +92,19 @@ public class CNAController extends Controller {
 	    flash.error("All minimal theories have zero factors. Please specifiy the number of factors and bundles.");
 	    params.flash();
 	    setup();
-	    // TODO Mail to us.
 	} catch (IndexOutOfBoundsException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom("pcg.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setSubject("Error: IndexOutOfBoundsException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Random Gen\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    flash.error("Too much data!");
 	    params.flash();
 	    setup();
@@ -201,18 +216,52 @@ public class CNAController extends Controller {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
-	    // TODO Mail to us
 	} catch (ArrayIndexOutOfBoundsException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom("pcg.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setSubject("Error: IndexOutOfBoundsException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    flash.error("Please give us more data!");
 	    params.flash();
 	    setup();
-	    // TODO Mail to us
 	} catch (IndexOutOfBoundsException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom("pcg.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setSubject("Error: IndexOutOfBoundsException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    flash.error("Please give us more data!");
 	    params.flash();
 	    setup();
 	    // TODO Mail to us
 	} catch (IllegalArgumentException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom("pcg.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setSubject("Error: IllegalArgumentException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
 	    setup();
@@ -256,11 +305,35 @@ public class CNAController extends Controller {
 	    setup();
 	    // TODO mail us.
 	} catch (IndexOutOfBoundsException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom("pcg.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setSubject("Error: IllegalArgumentException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input MT\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    flash.error("Please give us more data!");
 	    params.flash();
 	    setup();
 	    // TODO Mail us.
 	} catch (IllegalArgumentException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom("pcg.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setSubject("Error: IllegalArgumentException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input MT\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	    }
 	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
 	    setup();
