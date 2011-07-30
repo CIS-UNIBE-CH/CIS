@@ -28,8 +28,6 @@ public class MnecTree extends CNATree {
 	}
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), bundleTable)) {
-	    // System.out.println("Found***************************: " +
-	    // parent.getCoincLine());
 	    mnecTable.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
@@ -43,7 +41,7 @@ public class MnecTree extends CNATree {
 		// set which cannot handle those special cases.
 		if (!compare(child.getCoincLine(), bundleTable)) {
 		    mnecTable.add(child.getCoincLine());
-		    System.out.println("That case*********************");
+		    System.out.println("********* ATTENTION SPECIAL CASE*********\n" + child.getCoincLine());
 		}
 	    }
 	}
