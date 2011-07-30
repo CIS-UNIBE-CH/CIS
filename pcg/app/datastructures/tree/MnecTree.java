@@ -28,7 +28,7 @@ public class MnecTree extends CNATree {
 	}
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), bundleTable)) {
-	    System.out.println("Found***************************: " + parent.getCoincLine());
+//	    System.out.println("Found***************************: " + parent.getCoincLine());
 	    mnecTable.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
@@ -36,10 +36,11 @@ public class MnecTree extends CNATree {
 	    if (!child.isLeaf()) {
 		walk(child, bundleTable, mnecTable);
 	    } else{
-		if (!compare(child.getCoincLine(), bundleTable) && !compare(parent.getCoincLine(), bundleTable)) {
-		    System.out.println("Found***************************: " + parent.getCoincLine());
-		    mnecTable.add(child.getCoincLine());
-		}
+		//TODO find the working condition
+//		if (!compare(child.getCoincLine(), bundleTable)) {
+////		    System.out.println("Found***************************: " + parent.getCoincLine());
+//		    mnecTable.add(child.getCoincLine());
+//		}
 	    }
 	}
     }

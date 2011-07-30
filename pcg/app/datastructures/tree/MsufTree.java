@@ -41,6 +41,7 @@ public class MsufTree extends CNATree {
 		if (!compare(child.getCoincLine(), originalTable)) {
 //		    System.out.println("Added leaf: " + child.getCoincLine());
 		    msufTable.add(child.getCoincLine());
+//		    System.out.println("Added: " + child.getCoincLine());
 		}
 	    }
 	}

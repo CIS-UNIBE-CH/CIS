@@ -41,6 +41,14 @@ public class MinimalTheorySet extends ArrayList<MinimalTheory> {
     public MinimalTheory get(int arg0) {
 	return theories.get(arg0);
     }
+    
+    public MinimalTheorySet duplicate(MinimalTheorySet set){
+	MinimalTheorySet clone = new MinimalTheorySet();
+	for(MinimalTheory theory : set){
+	    clone.add(theory);
+	}
+	return clone;
+    }
 
     public int getNumberOfFactors() {
 	return this.getAllFactors().size();

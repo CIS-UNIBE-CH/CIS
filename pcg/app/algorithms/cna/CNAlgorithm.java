@@ -130,6 +130,7 @@ public class CNAlgorithm {
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);
 	    msufTree.fillUpTree(root);
+	    // System.out.println("MSufTree: " + msufTree.toString(root));
 
 	    msufTree.walk(root, originalTable, msufTable);
 	    msufTable.removeDuplicated();
@@ -169,16 +170,16 @@ public class CNAlgorithm {
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
-	System.out.println("Bundle Table\n" + bundleTable);
-	System.out.println("Mnec Tree: " + mnecTree.toString(root));
+	// System.out.println("Bundle Table\n" + bundleTable);
+	// System.out.println("Mnec Tree: " + mnecTree.toString(root));
 	mnecTree.walk(root, bundleTable, mnecTable);
-	System.out.println("Fresh mnecTable: " + mnecTable);
+	// System.out.println("Fresh mnecTable: " + mnecTable);
 	mnecTable.removeDuplicated();
 
-	//TODO correct this special case!!!!
-//	if (mnecTable.size() == 0) {
-//	    mnecTable.add(necList);
-//	}
+	// TODO correct this special case!!!!
+	// if (mnecTable.size() == 0) {
+	// mnecTable.add(necList);
+	// }
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
 	for (CNAList list : mnecTable) {
@@ -205,43 +206,18 @@ public class CNAlgorithm {
 		sets.add(set);
 	    }
 	} else {
-	    if (sets.size() < mtList.size()) {
-		fillUpSets(mtList.size());
-		for (int i = 0; i < sets.size(); i++) {
-		    MinimalTheory theory = mtList.get(i);
-		    MinimalTheorySet set = sets.get(i);
-		    set.add(theory);
-		}
-	    } else if (sets.size() > mtList.size()) {
-		ArrayList<MinimalTheorySet> temp = new ArrayList<MinimalTheorySet>();
-		for (MinimalTheorySet set : sets) {
-		    for (MinimalTheory theory : mtList) {
-			set.add(theory);
-			temp.add(set);
-		    }
-		}
-		sets.clear();
-		sets.addAll(temp);
-	    } else {
-		for (int i = 0; i < sets.size(); i++) {
-		    MinimalTheory theory = mtList.get(i);
-		    MinimalTheorySet set = sets.get(i);
-		    set.add(theory);
+	    ArrayList<MinimalTheorySet> temp = new ArrayList<MinimalTheorySet>();
+	    for (MinimalTheorySet set : sets) {
+		for (MinimalTheory theory : mtList) {
+		    MinimalTheorySet clone = set.duplicate(set);
+		    clone.add(theory);
+		    temp.add(clone);
 		}
 	    }
+	    sets.clear();
+	    sets.addAll(temp);
 	}
 
-    }
-
-    private void fillUpSets(int size) {
-	while (sets.size() < size) {
-	    MinimalTheorySet set = sets.get(0);
-	    MinimalTheorySet newSet = new MinimalTheorySet();
-	    for (MinimalTheory theory : set) {
-		newSet.add(theory);
-	    }
-	    sets.add(newSet);
-	}
     }
 
     // Getters and Setters
