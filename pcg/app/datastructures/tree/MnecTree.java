@@ -35,6 +35,11 @@ public class MnecTree extends CNATree {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (!child.isLeaf()) {
 		walk(child, bundleTable, mnecTable);
+	    } else{
+		if (!compare(child.getCoincLine(), bundleTable) && !compare(parent.getCoincLine(), bundleTable)) {
+		    System.out.println("Found***************************: " + parent.getCoincLine());
+		    mnecTable.add(child.getCoincLine());
+		}
 	    }
 	}
     }
@@ -57,8 +62,8 @@ public class MnecTree extends CNATree {
 		}
 	    }
 	    if (found) {
-		System.out.println("Check: " + newList);
-		System.out.println("origLine: " + bundle);
+//		System.out.println("Check: " + newList);
+//		System.out.println("origLine: " + bundle);
 		return found;
 	    }
 	}

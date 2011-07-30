@@ -169,15 +169,16 @@ public class CNAlgorithm {
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
+	System.out.println("Bundle Table\n" + bundleTable);
 	System.out.println("Mnec Tree: " + mnecTree.toString(root));
 	mnecTree.walk(root, bundleTable, mnecTable);
 	System.out.println("Fresh mnecTable: " + mnecTable);
 	mnecTable.removeDuplicated();
 
 	//TODO correct this special case!!!!
-	if (mnecTable.size() == 0) {
-	    mnecTable.add(necList);
-	}
+//	if (mnecTable.size() == 0) {
+//	    mnecTable.add(necList);
+//	}
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
 	for (CNAList list : mnecTable) {
