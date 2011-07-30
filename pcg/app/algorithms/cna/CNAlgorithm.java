@@ -176,10 +176,11 @@ public class CNAlgorithm {
 	// System.out.println("Fresh mnecTable: " + mnecTable);
 	mnecTable.removeDuplicated();
 
-	// TODO correct this special case!!!!
-	// if (mnecTable.size() == 0) {
-	// mnecTable.add(necList);
-	// }
+	// TODO If this is on graphs with bundles won't be handeld correct and
+	// this if clause is not according to baumgartner paper!
+	if (mnecTable.size() == 0) {
+	    mnecTable.add(necList);
+	}
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
 	for (CNAList list : mnecTable) {

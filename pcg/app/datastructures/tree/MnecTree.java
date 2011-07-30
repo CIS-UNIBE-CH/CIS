@@ -28,19 +28,23 @@ public class MnecTree extends CNATree {
 	}
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), bundleTable)) {
-//	    System.out.println("Found***************************: " + parent.getCoincLine());
+	    // System.out.println("Found***************************: " +
+	    // parent.getCoincLine());
 	    mnecTable.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
 	    if (!child.isLeaf()) {
 		walk(child, bundleTable, mnecTable);
-	    } else{
-		//TODO find the working condition
-//		if (!compare(child.getCoincLine(), bundleTable)) {
-////		    System.out.println("Found***************************: " + parent.getCoincLine());
-//		    mnecTable.add(child.getCoincLine());
-//		}
+	    } else {
+		// TODO This is according to baumgartner paper, if this is on
+		// graphs with bundles will be plottet correct hoewever there
+		// are some cases we have a problem. But it is in the creat mt
+		// set which cannot handle those special cases.
+		if (!compare(child.getCoincLine(), bundleTable)) {
+		    mnecTable.add(child.getCoincLine());
+		    System.out.println("That case*********************");
+		}
 	    }
 	}
     }
@@ -63,8 +67,8 @@ public class MnecTree extends CNATree {
 		}
 	    }
 	    if (found) {
-//		System.out.println("Check: " + newList);
-//		System.out.println("origLine: " + bundle);
+		// System.out.println("Check: " + newList);
+		// System.out.println("origLine: " + bundle);
 		return found;
 	    }
 	}
