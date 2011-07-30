@@ -95,6 +95,8 @@ public class CNAlgorithm {
 	for (int i = 0; i < indexes.size(); i++) {
 	    table = originalTable.clone();
 	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
+	    System.out.println("**********************");
+	    System.out.println("Effect: " + table.get(0).getLastElement());
 	    identifySUF(table);
 	}
     }
@@ -112,6 +114,7 @@ public class CNAlgorithm {
 	    throw new CNAException(
 		    "You entered a coincidence table where no line with instantiated effect exists. The algorithm cannot process such tables.");
 	}
+	System.out.println("SufTable\n" + sufTable);
 	indentifyMSUF(originalTable, sufTable);
     }
 
@@ -131,6 +134,7 @@ public class CNAlgorithm {
 	    msufTree.walk(root, originalTable, msufTable);
 	    msufTable.removeDuplicated();
 	}
+	System.out.println("MsufTable\n" + msufTable);
 	identifyNEC(msufTable, originalTable);
     }
 
@@ -165,9 +169,12 @@ public class CNAlgorithm {
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
+	System.out.println("Mnec Tree: " + mnecTree.toString(root));
 	mnecTree.walk(root, bundleTable, mnecTable);
+	System.out.println("Fresh mnecTable: " + mnecTable);
 	mnecTable.removeDuplicated();
 
+	//TODO correct this special case!!!!
 	if (mnecTable.size() == 0) {
 	    mnecTable.add(necList);
 	}
@@ -184,6 +191,8 @@ public class CNAlgorithm {
 		    .get(0).getLastElement());
 	    mtList.add(theory);
 	}
+	System.out.println("MnecTable:\n" + mnecTable);
+	System.out.println("mtList:\n" + mtList);
 	createMTSets(mtList);
     }
 

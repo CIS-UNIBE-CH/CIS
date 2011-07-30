@@ -28,6 +28,7 @@ public class MnecTree extends CNATree {
 	}
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), bundleTable)) {
+	    System.out.println("Found***************************: " + parent.getCoincLine());
 	    mnecTable.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
@@ -56,6 +57,8 @@ public class MnecTree extends CNATree {
 		}
 	    }
 	    if (found) {
+		System.out.println("Check: " + newList);
+		System.out.println("origLine: " + bundle);
 		return found;
 	    }
 	}

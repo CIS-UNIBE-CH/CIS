@@ -24,11 +24,13 @@ public class MsufTree extends CNATree {
 	for (int j = 0; j < parent.getChildCount(); j++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(j);
 	    if (compare(child.getCoincLine(), originalTable)) {
+//		System.out.println("Found: " + child.getCoincLine());
 		childsFound++;
 	    }
 	}
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), originalTable)) {
+//	    System.out.println("Added not leaf: " + parent.getCoincLine());
 	    msufTable.add(parent.getCoincLine());
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
@@ -37,6 +39,7 @@ public class MsufTree extends CNATree {
 		walk(child, originalTable, msufTable);
 	    } else {
 		if (!compare(child.getCoincLine(), originalTable)) {
+//		    System.out.println("Added leaf: " + child.getCoincLine());
 		    msufTable.add(child.getCoincLine());
 		}
 	    }
@@ -61,6 +64,8 @@ public class MsufTree extends CNATree {
 		}
 	    }
 	    if (found) {
+//		System.out.println("Check: " + newList);
+//		System.out.println("orig: " + line);
 		return found;
 	    }
 	}
