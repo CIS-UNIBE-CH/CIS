@@ -41,7 +41,6 @@ public class MnecTree extends CNATree {
 		// set which cannot handle those special cases.
 		if (!compare(child.getCoincLine(), bundleTable)) {
 		    mnecTable.add(child.getCoincLine());
-		    System.out.println("********* ATTENTION SPECIAL CASE*********\n" + child.getCoincLine());
 		}
 	    }
 	}
@@ -65,8 +64,6 @@ public class MnecTree extends CNATree {
 		}
 	    }
 	    if (found) {
-		// System.out.println("Check: " + newList);
-		// System.out.println("origLine: " + bundle);
 		return found;
 	    }
 	}

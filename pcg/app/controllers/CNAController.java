@@ -19,8 +19,8 @@ import org.apache.commons.mail.SimpleEmail;
 
 import play.libs.Mail;
 import play.mvc.Controller;
-import algorithms.cna.CNAlgorithm;
 import algorithms.cna.CNAException;
+import algorithms.cna.CNAlgorithm;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.graph.Graph;
@@ -84,10 +84,6 @@ public class CNAController extends Controller {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
-	} catch (OutOfMemoryError e) {
-	    flash.error("Server is out of memory, please wait a minute.");
-	    params.flash();
-	    setup();
 	} catch (IllegalArgumentException e) {
 	    flash.error("All minimal theories have zero factors. Please specifiy the number of factors and bundles.");
 	    params.flash();
@@ -104,7 +100,11 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Too much data!");
+	    flash.error("Sorry, something went very wrong!");
+	    params.flash();
+	    setup();
+	} catch (OutOfMemoryError e) {
+	    flash.error("Server is out of memory, please wait a minute.");
 	    params.flash();
 	    setup();
 	}
@@ -129,16 +129,40 @@ public class CNAController extends Controller {
 	    }
 
 	    String elapsedTime = timer.timeElapsed() + " ms";
-	    String effects = cnaAlgorithm.getEffects().toString();
-	    String sufTable = cnaAlgorithm.getSufTable().toString();
-	    String msufTable = cnaAlgorithm.getMsufTable().toString();
-	    String necList = cnaAlgorithm.getNecList().toString();
-	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
 	    String coincTable = table.toString();
-
+	    boolean specialcase = false;
 	    render(elapsedTime, graphsView, generatedGraphSource,
-		    generatedGraphString, effects, sufTable, msufTable,
-		    necList, mnecTable, coincTable);
+		    generatedGraphString, coincTable, specialcase);
+	} catch (OutOfMemoryError e) {
+	    try {
+		ArrayList<String> graphsView = new ArrayList<String>();
+		timer = new Timer();
+		MTSetToTable parser = new MTSetToTable(theories, makeEpi);
+		CNATable table = parser.getCoincTable();
+		CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
+
+		ArrayList<MinimalTheory> theories = cnaAlgorithm
+			.getAllTheories();
+		for (MinimalTheory theory : theories) {
+		    graphsView.add(theory.toString());
+		}
+		if (graphsView.size() < 1) {
+		    flash.error("It was not possible to calculate a graph.");
+		    params.flash();
+		    setup();
+		}
+
+		String elapsedTime = timer.timeElapsed() + " ms";
+		String coincTable = table.toString();
+		boolean specialcase = true;
+
+		render(elapsedTime, graphsView, generatedGraphSource,
+			generatedGraphString, coincTable, specialcase);
+	    } catch (CNAException e1) {
+		flash.error(e1.toString());
+		params.flash();
+		setup();
+	    }
 	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
@@ -162,24 +186,22 @@ public class CNAController extends Controller {
 	    String graphString = theories.toString();
 
 	    String elapsedTime = timer.timeElapsed() + " ms";
-	    String effects = cnaAlgorithm.getEffects().toString();
-	    String sufTable = cnaAlgorithm.getSufTable().toString();
-	    String msufTable = cnaAlgorithm.getMsufTable().toString();
-	    String necList = cnaAlgorithm.getNecList().toString();
-	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
 
-	    render(elapsedTime, graphPath, graphString, effects, sufTable,
-		    msufTable, necList, mnecTable);
+	    render(elapsedTime, graphPath, graphString);
 	} catch (CNAException e) {
 	    flash.error(e.toString());
+	    params.flash();
+	    setup();
+	} catch (OutOfMemoryError e) {
+	    flash.error("Server is out of memory, please wait a minute.");
 	    params.flash();
 	    setup();
 	}
     }
 
     public static void inputTable(String table) {
-
 	CNATable cnatable = new CNATable("\r\n", ",", table);
+	
 	if (cnatable.get(0).size() > 10) {
 	    flash.error("Only up to 10 are factors allowed.");
 	    params.flash();
@@ -203,14 +225,33 @@ public class CNAController extends Controller {
 	    }
 
 	    String elapsedTime = timer.timeElapsed() + " ms";
-	    String effects = cnaAlgorithm.getEffects().toString();
-	    String sufTable = cnaAlgorithm.getSufTable().toString();
-	    String msufTable = cnaAlgorithm.getMsufTable().toString();
-	    String necList = cnaAlgorithm.getNecList().toString();
-	    String mnecTable = cnaAlgorithm.getMnecTable().toString();
+	    boolean specialcase = false;
+	    render(elapsedTime, graphsView, specialcase);
+	} catch (OutOfMemoryError e) {
+	    try {
+		ArrayList<String> graphsView = new ArrayList<String>();
+		timer = new Timer();
+		CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable);
 
-	    render(elapsedTime, graphsView, effects, sufTable, msufTable,
-		    necList, mnecTable);
+		ArrayList<MinimalTheory> theories = cnaAlgorithm
+			.getAllTheories();
+		for (MinimalTheory theory : theories) {
+		    graphsView.add(theory.toString());
+		}
+		if (graphsView.size() < 1) {
+		    flash.error("It was not possible to calculate a graph.");
+		    params.flash();
+		    setup();
+		}
+
+		String elapsedTime = timer.timeElapsed() + " ms";
+		boolean specialcase = true;
+		render(elapsedTime, graphsView, specialcase);
+	    } catch (CNAException e1) {
+		flash.error(e1.toString());
+		params.flash();
+		setup();
+	    }
 	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
@@ -227,7 +268,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Please give us more data!");
+	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
 	    setup();
 	} catch (IndexOutOfBoundsException e) {
@@ -242,7 +283,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Please give us more data!");
+	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
 	    setup();
 	} catch (IllegalArgumentException e) {
@@ -297,6 +338,10 @@ public class CNAController extends Controller {
 		params.flash();
 	    }
 	    render(generatedGraphSource, generatedGraphString, calc);
+	} catch (OutOfMemoryError e) {
+	    flash.error("Server is out of memory, please wait a minute.");
+	    params.flash();
+	    setup();
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    flash.error("You're input is not according to our syntax. Please correct it.");
 	    params.flash();
@@ -313,7 +358,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Please give us more data!");
+	    flash.error("Sorry, something went very wrong!");
 	    params.flash();
 	    setup();
 	} catch (IllegalArgumentException e) {

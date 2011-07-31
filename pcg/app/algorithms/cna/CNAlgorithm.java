@@ -26,10 +26,12 @@ public class CNAlgorithm {
     private CNAList necList;
     private ArrayList<MinimalTheorySet> sets;
     private CNATable mnecTable;
+    private ArrayList<MinimalTheory> allTheories;
 
     public CNAlgorithm(CNATable table) throws CNAException {
 	originalTable = table;
 	sets = new ArrayList<MinimalTheorySet>();
+	allTheories = new ArrayList<MinimalTheory>();
 	identifyPE(originalTable);
     }
 
@@ -130,7 +132,6 @@ public class CNAlgorithm {
 	    CNATreeNode root = new CNATreeNode(list);
 	    msufTree = new MsufTree(root);
 	    msufTree.fillUpTree(root);
-	    // System.out.println("MSufTree: " + msufTree.toString(root));
 
 	    msufTree.walk(root, originalTable, msufTable);
 	    msufTable.removeDuplicated();
@@ -170,17 +171,8 @@ public class CNAlgorithm {
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
-	// System.out.println("Bundle Table\n" + bundleTable);
-	// System.out.println("Mnec Tree: " + mnecTree.toString(root));
 	mnecTree.walk(root, bundleTable, mnecTable);
-	// System.out.println("Fresh mnecTable: " + mnecTable);
 	mnecTable.removeDuplicated();
-
-	// TODO If this is on, graphs with bundles won't be handeld correct and
-	// this if clause is not according to baumgartner paper!
-//	if (mnecTable.size() == 0) {
-//	    mnecTable.add(necList);
-//	}
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
 	for (CNAList list : mnecTable) {
@@ -194,8 +186,10 @@ public class CNAlgorithm {
 		    .get(0).getLastElement());
 	    mtList.add(theory);
 	}
-	System.out.println("MnecTable:\n" + mnecTable);
-	System.out.println("mtList:\n" + mtList);
+	allTheories.addAll(mtList);
+	System.out.println("MnecTable\n" + mnecTable);
+	System.out.println("mtList\n" + mtList);
+	System.out.println("**********************");
 	createMTSets(mtList);
     }
 
@@ -249,5 +243,9 @@ public class CNAlgorithm {
 
     public ArrayList<MinimalTheorySet> getSets() {
 	return sets;
+    }
+
+    public ArrayList<MinimalTheory> getAllTheories() {
+	return allTheories;
     }
 }

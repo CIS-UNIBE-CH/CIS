@@ -15,8 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
-import algorithms.cna.CNAlgorithm;
 import algorithms.cna.CNAException;
+import algorithms.cna.CNAlgorithm;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.random.RandomMTGeneratorHelper;
@@ -55,7 +55,7 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyMNEC() {
-	CNATable mnecTable = new CNATable(";", ",", "0,$,0");
+	CNATable mnecTable = new CNATable(";", ",", "0,$,0;$,10,$");
 	assertEquals(mnecTable, cnaAlgorithm.getMnecTable());
     }
 

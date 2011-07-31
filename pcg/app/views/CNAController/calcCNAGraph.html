@@ -44,6 +44,7 @@
 		</center>
 	<br/>
 	<hr>
+	#{ifnot specialcase}
 	<h3>Calculated Graph</h3>
 	Calculation Time: ${elapsedTime}
 	<br />
@@ -57,6 +58,15 @@
 				<center><h3>${l}</h3><br></center><br>
 			#{/if}
 		#{/list}
-<font size="1">Note: Alternative Factors will always be shown in green<br> and X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
+		<font size="1">Note: Alternative Factors will always be shown in green<br> and X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
 	</center>
-		
+	#{/ifnot}
+	#{else}
+	<br>
+	<h4>Unfortunately our algorithm was not able to calculate graphs.<br><br><br> But it was possible to calculate the following minimal theories:</h4>
+		#{list items:graphsView, as:'l'}
+		<ul>
+		<li>${l}</li>
+		</ul>
+		#{/list}
+	#{/else}

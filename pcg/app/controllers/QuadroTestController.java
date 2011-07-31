@@ -71,6 +71,10 @@ public class QuadroTestController extends Controller {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
+	} catch (OutOfMemoryError e) {
+	    flash.error("Server is out of memory, please wait a minute.");
+	    params.flash();
+	    setup();
 	}
     }
 }
