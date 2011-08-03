@@ -106,9 +106,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    if (deepest < deep.peek()) {
 		deepest = deep.peek();
 	    }
-
 	    deep.pop();
-
 	    if (hasFactor(effect)) {
 		addFactors(effect, stack, deep);
 	    }
@@ -116,8 +114,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		deep.pop();
 	    }
 	}
-	deep = null;
-	stack = null;
     }
 
     // Helpers
@@ -192,7 +188,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	double y = 160 * (deepest) + 20;
 	ArrayList<Node> nodeList = nodes;
 	Collections.sort(nodeList);
-	int level = deepest;
+	int level = deepest + 1;
 	int counter = 0;
 	int prevCounter = 1;
 	int newX = 0;
@@ -216,7 +212,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
 	this.x = newX;
 	this.y = (int) (y + 100);
-	System.gc();
 	return graph;
     }
 

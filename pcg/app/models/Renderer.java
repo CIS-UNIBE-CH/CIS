@@ -43,12 +43,11 @@ public class Renderer {
 	now = new Date();
 	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
 	this.path = "public/images/graphs/";
-	xPicSize = 0;
-	yPicSize = 0;
+	xPicSize = 1000;
+	yPicSize = 1000;
     }
 
     public void config(Graph graph) {
-	System.gc();
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
