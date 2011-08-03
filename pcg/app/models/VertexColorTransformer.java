@@ -18,7 +18,6 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
     @Override
     public Paint transform(Node node) {
 	colors.clear();
-	colors.add(Color.blue);
 	colors.add(Color.lightGray);
 	colors.add(Color.magenta);
 	colors.add(Color.pink);
