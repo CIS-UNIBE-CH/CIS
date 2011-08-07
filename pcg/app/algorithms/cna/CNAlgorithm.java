@@ -186,6 +186,7 @@ public class CNAlgorithm {
 		    .get(0).getLastElement());
 	    mtList.add(theory);
 	}
+	System.out.println("Bundle Table\n" + bundleTable);
 	allTheories.addAll(mtList);
 	System.out.println("MnecTable\n" + mnecTable);
 	System.out.println("mtList\n" + mtList);

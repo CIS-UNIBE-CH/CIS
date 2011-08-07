@@ -39,6 +39,8 @@ public class MnecTree extends CNATree {
 		// graphs with bundles will be plottet correct hoewever there
 		// are some cases we have a problem. But it is in the creat mt
 		// set which cannot handle those special cases.
+		//TODO Problem here, is this condition always right.
+		//TODO non redundandency check is missing!
 		if (!compare(child.getCoincLine(), bundleTable)) {
 		    mnecTable.add(child.getCoincLine());
 		}
