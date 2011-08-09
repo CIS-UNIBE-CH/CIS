@@ -7,6 +7,10 @@ package datastructures.tree;
  * @license GPLv3, see Readme.mdown
  */
 
+import helpers.CombinationGenerator;
+
+import java.util.Arrays;
+
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
@@ -39,12 +43,12 @@ public class MnecTree extends CNATree {
 		// graphs with bundles will be plottet correct hoewever there
 		// are some cases we have a problem. But it is in the creat mt
 		// set which cannot handle those special cases.
-		//TODO Problem here, is this condition always right.
-		//TODO non redundandency check is missing!
-//		if (!compare(child.getCoincLine(), bundleTable)) {
-//		    System.out.println("Added leaf");
-//		    mnecTable.add(child.getCoincLine());
-//		}
+		// TODO Problem here, is this condition always right.
+		// TODO non redundandency check is missing!
+		if (!compare(child.getCoincLine(), bundleTable)) {
+		    System.out.println("Added leaf");
+		    mnecTable.add(child.getCoincLine());
+		}
 	    }
 	}
     }
@@ -54,6 +58,8 @@ public class MnecTree extends CNATree {
 	CNAList newList = (CNAList) list.clone();
 	newList.add("1");
 
+	newStuff();
+	
 	for (int i = 1; i < bundleTable.size(); i++) {
 	    CNAList bundle = bundleTable.get(i);
 	    for (int j = 0; j < newList.size(); j++) {
@@ -71,5 +77,17 @@ public class MnecTree extends CNATree {
 	    }
 	}
 	return found;
+    }
+
+    private void newStuff() {
+	String input[] = new String[2];
+	input[0] = "0";
+	input[1] = "1";
+	CombinationGenerator<String> generator = new CombinationGenerator<String>(
+		3, input);
+	for (String s[] : generator) {
+	    System.out.println(Arrays.toString(s));
+	}
+	System.out.println("****************");
     }
 }
