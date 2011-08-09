@@ -41,9 +41,10 @@ public class MnecTree extends CNATree {
 		// set which cannot handle those special cases.
 		//TODO Problem here, is this condition always right.
 		//TODO non redundandency check is missing!
-		if (!compare(child.getCoincLine(), bundleTable)) {
-		    mnecTable.add(child.getCoincLine());
-		}
+//		if (!compare(child.getCoincLine(), bundleTable)) {
+//		    System.out.println("Added leaf");
+//		    mnecTable.add(child.getCoincLine());
+//		}
 	    }
 	}
     }
