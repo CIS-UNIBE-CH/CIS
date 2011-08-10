@@ -10,6 +10,7 @@ package datastructures.parser;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import algorithms.cna.CNAException;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 import datastructures.mt.MinimalTheory;
@@ -25,7 +26,7 @@ public class MTSetToTable {
 
     // private boolean makeEpi;
 
-    public MTSetToTable(MinimalTheorySet set, boolean makeEpi) {
+    public MTSetToTable(MinimalTheorySet set, boolean makeEpi) throws CNAException {
 	this.set = set;
 	mtCoincTables = new ArrayList<CNATable>();
 	curMTTable = new CNATable();
@@ -104,13 +105,14 @@ public class MTSetToTable {
 	}
     }
 
-    private void inputCheck() {
+    private void inputCheck() throws CNAException {
 	if (mtCoincTables.size() > 1) {
 	    for (int i = 0; i < mtCoincTables.size() - 1; i++) {
 		CNATable table1 = mtCoincTables.get(i);
 		CNATable table2 = mtCoincTables.get(i + 1);
 		if (!isEpi(table1, table2) && !isChain(table1, table2)) {
-		    // TODO Throw and catch CNAException
+		    throw new CNAException(
+			    "You can only enter a simple MT, a chain, a epiphenomenon, or a mix of epiphenomenon and chain.");
 		}
 	    }
 	}
