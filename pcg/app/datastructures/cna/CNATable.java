@@ -124,6 +124,17 @@ public class CNATable extends ArrayList<CNAList> {
 	return necList;
     }
 
+    public CNAList getFactors() {
+	CNAList factors = table.get(0).clone(table.get(0));
+	factors.remove(factors.size() - 1);
+	return factors;
+    }
+
+    public String getEffect() {
+	String effect = table.get(0).get(table.get(0).size()-1);
+	return effect;
+    }
+
     @Override
     public String toString() {
 	String string = "";
