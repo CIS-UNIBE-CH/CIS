@@ -26,6 +26,7 @@ import java.util.Iterator;
  * </pre>
  * 
  * @author Marco13 (http://www.java-forum.org/members/8636.html)
+ * @source http://www.java-forum.org/codeschnipsel-u-projekte/81973-combinatorics.html
  */
 public class CombinationGenerator<T> implements Iterable<T[]> {
     private T input[];

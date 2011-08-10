@@ -3,7 +3,7 @@ package datastructures.tree;
 /**
  * Copyright (C) <2011>
  * 
- * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @author Jonas Ruef & Felix Langenegger <cis.unibe@gmail.com>
  * @license GPLv3, see Readme.mdown
  */
 
@@ -33,6 +33,8 @@ public class MnecTree extends CNATree {
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), bundleTable)) {
 	    mnecTable.add(parent.getCoincLine());
+	}
+	if(compare(parent.getCoincLine(), bundleTable)){
 	    stopWalk = true;
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
@@ -110,16 +112,11 @@ public class MnecTree extends CNATree {
 		}
 	    }
 	}
-	System.out.println("list: " + list.toString());
-	System.out.println("Negations\n" + negations);
-	System.out.println("****************************");
-
 	for (CNAList cur : negations) {
 	    cur.add("1");
 	}
 
 	return negations;
-
     }
 
     private CNAList generatePermutations(int size, String str) {
@@ -141,17 +138,11 @@ public class MnecTree extends CNATree {
 	list.add(str);
 	list.negate();
 
-	// System.out.println("List" + list);
-	// System.out.println("Negated List: " + list);
-	// System.out.println("Permutations: " + permutations);
-
 	for (int i = permutations.size() - 1; i >= 0; i--) {
 	    if (permutations.get(i).equals(list.get(0))) {
 		permutations.remove(i);
 	    }
 	}
-
-	// System.out.println("Permutations after: " + permutations);
 
 	return permutations;
     }

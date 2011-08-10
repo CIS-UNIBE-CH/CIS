@@ -3,7 +3,7 @@ package datastructures.tree;
 /**
  * Copyright (C) <2011>
  * 
- * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @author Jonas Ruef & Felix Langenegger <cis.unibe@gmail.com>
  * @license GPLv3, see Readme.mdown
  */
 
@@ -11,13 +11,13 @@ import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
 public class MsufTree extends CNATree {
-
+    
     public MsufTree(CNATreeNode node) {
 	super(node);
     }
 
     public void walk(CNATreeNode parent, CNATable originalTable,
-	    CNATable msufTable) {
+	    CNATable msufTable, boolean stopWalk) {
 	int childsFound = 0;
 
 	for (int j = 0; j < parent.getChildCount(); j++) {
@@ -30,16 +30,21 @@ public class MsufTree extends CNATree {
 		&& !compare(parent.getCoincLine(), originalTable)) {
 	    msufTable.add(parent.getCoincLine());
 	}
+	if(compare(parent.getCoincLine(), originalTable)){
+	    stopWalk = true;
+	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
-	    if (!child.isLeaf()) {
-		walk(child, originalTable, msufTable);
-	    } else {
+	    
+	    if (!child.isLeaf() && !stopWalk) {
+		walk(child, originalTable, msufTable, stopWalk);
+	    } else if(!stopWalk){
 		if (!compare(child.getCoincLine(), originalTable)) {
 		    msufTable.add(child.getCoincLine());
 		}
 	    }
 	}
+	stopWalk = false;
     }
 
     private boolean compare(CNAList list, CNATable originalTable) {

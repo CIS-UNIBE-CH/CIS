@@ -3,7 +3,7 @@ package helpers;
 /**
  * Copyright (C) <2011>
  * 
- * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @author Jonas Ruef & Felix Langenegger <cis.unibe@gmail.com>
  * @license GPLv3, see Readme.mdown
  */
 

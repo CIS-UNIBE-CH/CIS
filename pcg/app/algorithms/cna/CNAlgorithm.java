@@ -2,7 +2,7 @@ package algorithms.cna;
 
 /** 
  * Copyright (C) <2011> 
- * @author Jonas Ruef & Felix Langenegger <pcg.unibe.ch@gmail.com>
+ * @author Jonas Ruef & Felix Langenegger <cis.unibe@gmail.com>
  * @license GPLv3, see Readme.mdown 
  */
 
@@ -133,7 +133,9 @@ public class CNAlgorithm {
 	    msufTree = new MsufTree(root);
 	    msufTree.fillUpTree(root);
 
-	    msufTree.walk(root, originalTable, msufTable);
+	    boolean stopWalk = false;
+	    msufTree.walk(root, originalTable, msufTable, stopWalk);
+	    System.out.println("*******************");
 	    msufTable.removeDuplicated();
 	}
 	System.out.println("MsufTable\n" + msufTable);
