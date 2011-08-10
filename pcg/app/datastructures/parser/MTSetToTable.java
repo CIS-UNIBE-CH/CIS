@@ -123,7 +123,12 @@ public class MTSetToTable {
 	    coincTable = mtCoincTables.get(0);
 	} else {
 	    for (int i = 0; i < mtCoincTables.size() - 1; i++) {
-		CNATable cur = mtCoincTables.get(i);
+		CNATable cur;
+		if(i == 0){
+		   cur = mtCoincTables.get(i);
+		} else{
+		   cur = curTable;
+		}
 		CNATable next = mtCoincTables.get(i + 1);
 		if (isEpi(cur, next)) {
 		    prepareTablesForEpi(cur, next);
