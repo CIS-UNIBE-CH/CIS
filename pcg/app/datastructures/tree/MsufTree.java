@@ -16,7 +16,6 @@ public class MsufTree extends CNATree {
 	super(node);
     }
 
-    @Override
     public void walk(CNATreeNode parent, CNATable originalTable,
 	    CNATable msufTable) {
 	int childsFound = 0;

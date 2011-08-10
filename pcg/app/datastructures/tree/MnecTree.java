@@ -20,9 +20,9 @@ public class MnecTree extends CNATree {
 	super(node);
     }
 
-    @Override
+    
     public void walk(CNATreeNode parent, CNATable bundleTable,
-	    CNATable mnecTable) {
+	    CNATable mnecTable, boolean stopWalk) {
 	int childsFound = 0;
 	for (int j = 0; j < parent.getChildCount(); j++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(j);
@@ -33,24 +33,15 @@ public class MnecTree extends CNATree {
 	if (childsFound == parent.getChildCount()
 		&& !compare(parent.getCoincLine(), bundleTable)) {
 	    mnecTable.add(parent.getCoincLine());
+	    stopWalk = true;
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
-	    if (!child.isLeaf()) {
-		walk(child, bundleTable, mnecTable);
-	    } else {
-		// TODO This is according to baumgartner paper, if this is on
-		// graphs with bundles will be plottet correct hoewever there
-		// are some cases we have a problem. But it is in the creat mt
-		// set which cannot handle those special cases.
-		// TODO Problem here, is this condition always right.
-		// TODO non redundandency check is missing!
-		if (!compare(child.getCoincLine(), bundleTable)) {
-		    System.out.println("Added leaf");
-		    mnecTable.add(child.getCoincLine());
-		}
+	    if (!child.isLeaf() && !stopWalk) {
+		walk(child, bundleTable, mnecTable, stopWalk);
 	    }
 	}
+	stopWalk = false;
     }
 
     private boolean compare(CNAList list, CNATable bundleTable) {

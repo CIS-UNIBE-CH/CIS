@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.tree.DefaultTreeModel;
 
 import datastructures.cna.CNAList;
-import datastructures.cna.CNATable;
 
 abstract class CNATree extends DefaultTreeModel {
     private String string;
@@ -38,8 +37,8 @@ abstract class CNATree extends DefaultTreeModel {
 	}
     }
 
-    abstract public void walk(CNATreeNode parent, CNATable originalTable,
-	    CNATable table);
+//    abstract public void walk(CNATreeNode parent, CNATable originalTable,
+//	    CNATable table);
 
     /**
      * Helper for fillUpTree(). Sets the $ character.

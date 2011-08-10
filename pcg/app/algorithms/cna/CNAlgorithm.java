@@ -171,7 +171,8 @@ public class CNAlgorithm {
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
-	mnecTree.walk(root, bundleTable, mnecTable);
+	boolean stopWalk = false;
+	mnecTree.walk(root, bundleTable, mnecTable, stopWalk);
 	mnecTable.removeDuplicated();
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
