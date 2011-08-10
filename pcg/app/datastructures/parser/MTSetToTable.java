@@ -34,7 +34,6 @@ public class MTSetToTable {
 	// this.makeEpi = makeEpi;
 
 	createTables();
-	System.out.println("All Tables: " + mtCoincTables);
 	inputCheck();
 	mergeTables();
     }
@@ -124,10 +123,10 @@ public class MTSetToTable {
 	} else {
 	    for (int i = 0; i < mtCoincTables.size() - 1; i++) {
 		CNATable cur;
-		if(i == 0){
-		   cur = mtCoincTables.get(i);
-		} else{
-		   cur = curTable;
+		if (i == 0) {
+		    cur = mtCoincTables.get(i);
+		} else {
+		    cur = curTable;
 		}
 		CNATable next = mtCoincTables.get(i + 1);
 		if (isEpi(cur, next)) {
@@ -144,35 +143,6 @@ public class MTSetToTable {
 		}
 	    }
 	}
-
-	// else {
-	// if (makeEpi) {
-	// }
-	// for (int i = 1; i < mtCoincTables.size(); i++) {
-	// if (mtCoincTables.size() == 2) {
-	// if (makeEpi) {
-	// prepareTablesForEpi(
-	// mtCoincTables.get(mtCoincTables.size() - 2),
-	// mtCoincTables.get(mtCoincTables.size() - 1));
-	// }
-	// nextTable = mtCoincTables.get(i);
-	// mergeZeroLines();
-	// mergeOneLines();
-	// removeDuplicatedCol();
-	// curTable = coincTable;
-	// } else {
-	// nextTable = mtCoincTables.get(i);
-	// mergeZeroLines();
-	// mergeOneLines();
-	// removeDuplicatedCol();
-	// curTable = coincTable;
-	// if (makeEpi && i == mtCoincTables.size() - 2) {
-	// prepareTablesForEpi(curTable,
-	// mtCoincTables.get(mtCoincTables.size() - 1));
-	// }
-	// }
-	// }
-	// }
     }
 
     private boolean isEpi(CNATable table1, CNATable table2) {
@@ -192,8 +162,6 @@ public class MTSetToTable {
     }
 
     private boolean isChain(CNATable table1, CNATable table2) {
-	System.out.println("Table1\n" + table1);
-	System.out.println("Table2\n" + table2);
 	String effect = table1.getEffect();
 	CNAList nextFactors = table2.getFactors();
 

@@ -36,10 +36,7 @@ abstract class CNATree extends DefaultTreeModel {
 	    }
 	}
     }
-
-//    abstract public void walk(CNATreeNode parent, CNATable originalTable,
-//	    CNATable table);
-
+    
     /**
      * Helper for fillUpTree(). Sets the $ character.
      */

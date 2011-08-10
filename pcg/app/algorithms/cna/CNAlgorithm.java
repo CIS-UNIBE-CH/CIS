@@ -135,7 +135,6 @@ public class CNAlgorithm {
 
 	    boolean stopWalk = false;
 	    msufTree.walk(root, originalTable, msufTable, stopWalk);
-	    System.out.println("*******************");
 	    msufTable.removeDuplicated();
 	}
 	System.out.println("MsufTable\n" + msufTable);
