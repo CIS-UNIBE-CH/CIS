@@ -9,7 +9,7 @@ package datastructures.tree;
 
 import helpers.CombinationGenerator;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
@@ -55,39 +55,113 @@ public class MnecTree extends CNATree {
 
     private boolean compare(CNAList list, CNATable bundleTable) {
 	boolean found = false;
-	CNAList newList = (CNAList) list.clone();
-	newList.add("1");
-
-	newStuff();
+	CNAList clone = (CNAList) list.clone();
+	ArrayList<CNAList> negations = makeNegations(clone);
 	
-	for (int i = 1; i < bundleTable.size(); i++) {
-	    CNAList bundle = bundleTable.get(i);
-	    for (int j = 0; j < newList.size(); j++) {
-		if (!newList.get(j).equals("$")) {
-		    if (newList.get(j).equals(bundle.get(j))) {
-			found = true;
-		    } else {
-			found = false;
-			break;
+	for (int i = 0; i < negations.size(); i++) {
+	    CNAList newList = negations.get(i);
+	    for (int i1 = 1; i1 < bundleTable.size(); i1++) {
+		CNAList bundle = bundleTable.get(i1);
+		for (int j = 0; j < newList.size(); j++) {
+		    if (!newList.get(j).equals("$")) {
+			if (newList.get(j).equals(bundle.get(j))) {
+			    found = true;
+			} else {
+			    found = false;
+			    break;
+			}
 		    }
 		}
-	    }
-	    if (found) {
-		return found;
+		if (found) {
+		    return found;
+		}
 	    }
 	}
 	return found;
     }
 
-    private void newStuff() {
+    private ArrayList<CNAList> makeNegations(CNAList list) {
+	ArrayList<CNAList> negations = new ArrayList<CNAList>();
+
+	for (String str : list) {
+	    if (str.length() == 1) {
+		if (negations.size() == 0) {
+		    CNAList list1 = new CNAList();
+		    list1.add(str);
+		    negations.add(list1);
+		} else {
+		    for (CNAList list1 : negations) {
+			list1.add(str);
+		    }
+		}
+
+	    } else {
+		int size = str.length();
+		CNAList permutations = generatePermutations(size, str);
+
+		if (negations.size() == 0) {
+		    for (String perm : permutations) {
+			CNAList list1 = new CNAList();
+			list1.add(perm);
+			negations.add(list1);
+		    }
+		} else {
+		    ArrayList<CNAList> swap = new ArrayList<CNAList>();
+		    for (CNAList curList : negations) {
+			for (String perm : permutations) {
+			    CNAList clone = curList.clone(curList);
+			    clone.add(perm);
+			    swap.add(clone);
+			}
+		    }
+		    negations.clear();
+		    negations.addAll(swap);
+		}
+	    }
+	}
+	System.out.println("list: " + list.toString());
+	System.out.println("Negations\n" + negations);
+	System.out.println("****************************");
+
+	for (CNAList cur : negations) {
+	    cur.add("1");
+	}
+
+	return negations;
+
+    }
+
+    private CNAList generatePermutations(int size, String str) {
+	CNAList permutations = new CNAList();
 	String input[] = new String[2];
 	input[0] = "0";
 	input[1] = "1";
 	CombinationGenerator<String> generator = new CombinationGenerator<String>(
-		3, input);
+		size, input);
+
 	for (String s[] : generator) {
-	    System.out.println(Arrays.toString(s));
+	    String cur = "";
+	    for (int i = 0; i < s.length; i++) {
+		cur += s[i];
+	    }
+	    permutations.add(cur);
 	}
-	System.out.println("****************");
+	CNAList list = new CNAList();
+	list.add(str);
+	list.negate();
+
+	// System.out.println("List" + list);
+	// System.out.println("Negated List: " + list);
+	// System.out.println("Permutations: " + permutations);
+
+	for (int i = permutations.size() - 1; i >= 0; i--) {
+	    if (permutations.get(i).equals(list.get(0))) {
+		permutations.remove(i);
+	    }
+	}
+
+	// System.out.println("Permutations after: " + permutations);
+
+	return permutations;
     }
 }

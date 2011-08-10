@@ -73,6 +73,14 @@ public class CNAList extends ArrayList<String> {
 	    return false;
 	}
     }
+    
+    public CNAList clone(CNAList list){
+	CNAList clone = new CNAList();
+	for(String str : list){
+	    clone.add(str);
+	}
+	return clone;
+    }
 
     // toString
     @Override
