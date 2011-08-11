@@ -17,7 +17,7 @@ public class Node {
     private double y;
 
     public Node(String name, boolean isEffect) {
-	level = 0;
+	level = -1;
 	this.name = name;
 	this.isEffect = isEffect;
 	this.x = 0.0;

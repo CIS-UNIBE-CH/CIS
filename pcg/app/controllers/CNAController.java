@@ -74,9 +74,9 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() < 9);
+	    boolean calc = (theories.getAllNames().size() <= 9);
 	    if (!calc) {
-		flash.error("Only up to 8 factors allowed.");
+		flash.error("Only up to 9 factors allowed.");
 		params.flash();
 	    }
 	    render(calc, generatedGraphSource, generatedGraphString);
@@ -202,8 +202,8 @@ public class CNAController extends Controller {
     public static void inputTable(String table) {
 	CNATable cnatable = new CNATable("\r\n", ",", table);
 
-	if (cnatable.get(0).size() <= 8) {
-	    flash.error("Only up to 8 are factors allowed.");
+	if (cnatable.get(0).size() <= 9) {
+	    flash.error("Only up to 9 are factors allowed.");
 	    params.flash();
 	    setup();
 	} else if (cnatable.get(0).size() < 2) {
@@ -332,9 +332,9 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() < 9);
+	    boolean calc = (theories.getAllNames().size() <= 9);
 	    if (!calc) {
-		flash.error("Only up to 8 factors allowed.");
+		flash.error("Only up to 9 factors allowed.");
 		params.flash();
 	    }
 	    render(generatedGraphSource, generatedGraphString, calc);

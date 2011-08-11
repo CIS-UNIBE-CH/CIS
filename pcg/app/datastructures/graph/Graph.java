@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Stack;
 
 import datastructures.cna.CNAList;
-import datastructures.cna.CNAStringComperator;
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import edu.uci.ics.jung.graph.AbstractGraph;
@@ -43,7 +42,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
-	Collections.sort(names, new CNAStringComperator());
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -51,12 +49,12 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	this.x = 1;
 	this.y = 1;
 	bundleNum = 1;
-	stackRuns = 1;
+	stackRuns = 0;
 	fillUpMatrixZero();
 	build(theories);
 	addNodes();
 	addEdges();
-	setLevels();
+	addMasterEffects();
 	calculateGraph();
     }
 
@@ -100,21 +98,40 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
     }
 
+    private synchronized void addMasterEffects() {
+	for (int i = 0; i < matrix.length; i++) {
+	    boolean allZero = true;
+	    for (int j = 0; j < matrix[i].length; j++) {
+		if (matrix[i][j] == 1) {
+		    allZero = false;
+		}
+	    }
+	    if (allZero) {
+		stackRuns = 1;
+		stack = new Stack<String>();
+		deep = new Stack<Integer>();
+		stack.push(names.get(i));
+		deep.push(0);
+		Node n = getNode(names.get(i));
+		n.setLevel(0);
+		n.setIsEffect(true);
+		System.out.println("===========" + n);
+		setLevels();
+	    }
+	}
+    }
+
     private synchronized void setLevels() {
 	System.out.println();
 	System.out.println(this);
-	stack = new Stack<String>();
-	deep = new Stack<Integer>();
-	addMasterEffects(stack);
-	for (int i = 0; i < stack.size(); i++) {
-	    deep.push(0);
-	}
 	while (!stack.empty()) {
 	    System.out.println("S: " + stack);
 	    System.out.println("D: " + deep);
 	    String effect = stack.peek();
 	    stack.pop();
-	    getNode(effect).setLevel(deep.peek());
+	    Node node = getNode(effect);
+	    if (node.getLevel() == -1 || node.getLevel() < deep.peek())
+		node.setLevel(deep.peek());
 
 	    if (deepest < deep.peek()) {
 		deepest = deep.peek();
@@ -125,22 +142,16 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	    System.out.println(effect);
 	    if (hasFactor(effect)) {
 		addFactors(effect);
+		stackRuns++;
 	    }
 	}
     }
 
     private synchronized void addFactors(String effect) {
-	int d;
-	d = stackRuns;
-	stackRuns++;
-	if (deep.empty()) {
-
-	}
-
 	for (int i = 0; i < matrix.length; i++) {
 	    if (matrix[i][names.getIndex(effect)] == 1) {
 		stack.push(names.get(i));
-		deep.push(d);
+		deep.push(stackRuns);
 	    }
 	}
 	System.out.println("-->S: " + stack);
@@ -161,23 +172,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	for (int i = 0; i < matrix.length; i++) {
 	    for (int j = 0; j < matrix[i].length; j++) {
 		matrix[i][j] = 0;
-	    }
-	}
-    }
-
-    private synchronized void addMasterEffects(Stack<String> stack) {
-	for (int i = 0; i < matrix.length; i++) {
-	    boolean allZero = true;
-	    for (int j = 0; j < matrix[i].length; j++) {
-		if (matrix[i][j] == 1) {
-		    allZero = false;
-		}
-	    }
-	    if (allZero) {
-		stack.push(names.get(i));
-		Node n = getNode(names.get(i));
-		n.setLevel(0);
-		n.setIsEffect(true);
 	    }
 	}
     }
