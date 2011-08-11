@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import datastructures.cna.CNAList;
+import datastructures.cna.CNAStringComperator;
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import edu.uci.ics.jung.graph.AbstractGraph;
@@ -32,7 +33,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     private int side;
     private Map<Node, Point2D> graph = new HashMap<Node, Point2D>();
     private int deepest = 0;
-    private int stackRuns = 1;
+    private int stackRuns;
     private int x;
     private int y;
     private int bundleNum;
@@ -42,6 +43,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
+	Collections.sort(names, new CNAStringComperator());
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -49,6 +51,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	this.x = 1;
 	this.y = 1;
 	bundleNum = 1;
+	stackRuns = 1;
 	fillUpMatrixZero();
 	build(theories);
 	addNodes();
@@ -98,43 +101,50 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     private synchronized void setLevels() {
+	System.out.println();
+	System.out.println(this);
 	stack = new Stack<String>();
 	deep = new Stack<Integer>();
 	addMasterEffects(stack);
 	for (int i = 0; i < stack.size(); i++) {
 	    deep.push(0);
 	}
-	while (stack.size() != 0) {
-	    String effect = stack.pop();
+	while (!stack.empty()) {
+	    System.out.println("S: " + stack);
+	    System.out.println("D: " + deep);
+	    String effect = stack.peek();
+	    stack.pop();
 	    getNode(effect).setLevel(deep.peek());
-	    System.out.println(getNode(effect) + ":"
-		    + getNode(effect).getLevel());
+
 	    if (deepest < deep.peek()) {
 		deepest = deep.peek();
 	    }
 	    deep.pop();
+	    System.out.println("S: " + stack);
+	    System.out.println("D: " + deep);
+	    System.out.println(effect);
 	    if (hasFactor(effect)) {
 		addFactors(effect);
-	    }
-	    for (int i = deep.size(); i > stack.size() + 1; i--) {
-		deep.pop();
 	    }
 	}
     }
 
     private synchronized void addFactors(String effect) {
 	int d;
-	if (deep.size() == 0) {
-	    d = stackRuns;
-	    stackRuns++;
-	} else
-	    d = deep.peek() + 1;
+	d = stackRuns;
+	stackRuns++;
+	if (deep.empty()) {
+
+	}
+
 	for (int i = 0; i < matrix.length; i++) {
 	    if (matrix[i][names.getIndex(effect)] == 1) {
 		stack.push(names.get(i));
 		deep.push(d);
 	    }
 	}
+	System.out.println("-->S: " + stack);
+	System.out.println("-->D: " + deep);
     }
 
     private synchronized boolean hasFactor(String effect) {
