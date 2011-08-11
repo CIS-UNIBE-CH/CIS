@@ -30,7 +30,7 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 	    return new Color(255, 153, 0);
 	} else {
 	    if (node.isPartOfBundle()) {
-		int bundleNumber = Integer.parseInt(node.getBundle());
+		int bundleNumber = node.getBundle();
 		return colors.get((bundleNumber - 1) % 8);
 
 	    } else {

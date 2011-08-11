@@ -7,9 +7,9 @@ package datastructures.graph;
  * @license GPLv3, see Readme.mdown
  */
 
-public class Node implements Comparable<Node> {
+public class Node {
     private String name;
-    private String bundle;
+    private int bundle;
     private int level;
     private boolean isEffect;
     private boolean isInnerEffect;
@@ -22,15 +22,12 @@ public class Node implements Comparable<Node> {
 	this.isEffect = isEffect;
 	this.x = 0.0;
 	this.y = 0.0;
+	bundle = 0;
     }
 
     /** Checks if the node is part of cause bundle */
     public boolean isPartOfBundle() {
-	if (bundle != null) {
-	    return true;
-	} else {
-	    return false;
-	}
+	return bundle != 0;
     }
 
     @Override
@@ -47,7 +44,7 @@ public class Node implements Comparable<Node> {
 
     // Getters and Setters
 
-    public String getBundle() {
+    public int getBundle() {
 	return bundle;
     }
 
@@ -55,7 +52,7 @@ public class Node implements Comparable<Node> {
 	this.name = name;
     }
 
-    public void setBundle(String bundle) {
+    public void setBundle(int bundle) {
 	this.bundle = bundle;
     }
 
@@ -73,11 +70,6 @@ public class Node implements Comparable<Node> {
 
     public boolean isEffect() {
 	return isEffect;
-    }
-
-    @Override
-    public int compareTo(Node o) {
-	return o.getLevel() - level;
     }
 
     public void setCoordinates(double x, double y) {

@@ -35,6 +35,9 @@ public class Graph extends AbstractGraph<Node, Edge> {
     private int stackRuns = 1;
     private int x;
     private int y;
+    private int bundleNum;
+    private Stack<String> stack;
+    private Stack<Integer> deep;
 
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
@@ -45,11 +48,13 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	edges = new ArrayList<Edge>();
 	this.x = 1;
 	this.y = 1;
+	bundleNum = 1;
 	fillUpMatrixZero();
 	build(theories);
 	addNodes();
 	addEdges();
 	setLevels();
+	calculateGraph();
     }
 
     private void build(MinimalTheorySet theories) {
@@ -62,40 +67,39 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
     }
 
-    private void addNodes() {
+    private synchronized void addNodes() {
 	for (String string : names) {
 	    nodes.add(new Node(string, false));
 	}
     }
 
-    private void addEdges() {
+    private synchronized void addEdges() {
 	for (MinimalTheory theorie : theories) {
 	    Node source;
 	    Node destination;
-	    int bundleNum = 1;
 	    for (CNAList list : theorie.getBundleFactors()) {
 		destination = getNode(theorie.getEffect());
 		destination.setIsInnerEffect(true);
 		if (list.size() > 1) {
 		    for (String str : list) {
 			source = getNode(str);
-			source.setBundle("" + bundleNum);
+			source.setBundle(bundleNum);
 			Edge edge = new Edge(source, destination);
 			edge.setBundleLabel("" + bundleNum);
 			edges.add(edge);
 		    }
+		    bundleNum++;
 		} else {
 		    source = getNode(list.get(0));
 		    edges.add(new Edge(source, destination));
 		}
-		bundleNum++;
 	    }
 	}
     }
 
-    private void setLevels() {
-	Stack<String> stack = new Stack<String>();
-	Stack<Integer> deep = new Stack<Integer>();
+    private synchronized void setLevels() {
+	stack = new Stack<String>();
+	deep = new Stack<Integer>();
 	addMasterEffects(stack);
 	for (int i = 0; i < stack.size(); i++) {
 	    deep.push(0);
@@ -103,12 +107,14 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	while (stack.size() != 0) {
 	    String effect = stack.pop();
 	    getNode(effect).setLevel(deep.peek());
+	    System.out.println(getNode(effect) + ":"
+		    + getNode(effect).getLevel());
 	    if (deepest < deep.peek()) {
 		deepest = deep.peek();
 	    }
 	    deep.pop();
 	    if (hasFactor(effect)) {
-		addFactors(effect, stack, deep);
+		addFactors(effect);
 	    }
 	    for (int i = deep.size(); i > stack.size() + 1; i--) {
 		deep.pop();
@@ -116,26 +122,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
     }
 
-    // Helpers
-    private void fillUpMatrixZero() {
-	for (int i = 0; i < matrix.length; i++) {
-	    for (int j = 0; j < matrix[i].length; j++) {
-		matrix[i][j] = 0;
-	    }
-	}
-    }
-
-    private boolean hasFactor(String effect) {
-	for (int i = 0; i < matrix.length; i++) {
-	    if (matrix[i][names.getIndex(effect)] == 1) {
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    private void addFactors(String effect, Stack<String> stack,
-	    Stack<Integer> deep) {
+    private synchronized void addFactors(String effect) {
 	int d;
 	if (deep.size() == 0) {
 	    d = stackRuns;
@@ -150,7 +137,25 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
     }
 
-    private void addMasterEffects(Stack<String> stack) {
+    private synchronized boolean hasFactor(String effect) {
+	for (int i = 0; i < matrix.length; i++) {
+	    if (matrix[i][names.getIndex(effect)] == 1) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
+    // Helpers
+    private synchronized void fillUpMatrixZero() {
+	for (int i = 0; i < matrix.length; i++) {
+	    for (int j = 0; j < matrix[i].length; j++) {
+		matrix[i][j] = 0;
+	    }
+	}
+    }
+
+    private synchronized void addMasterEffects(Stack<String> stack) {
 	for (int i = 0; i < matrix.length; i++) {
 	    boolean allZero = true;
 	    for (int j = 0; j < matrix[i].length; j++) {
@@ -167,33 +172,19 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
     }
 
-    // toString
-    @Override
-    public String toString() {
-	String str = "  " + names.toString() + "\n";
-	for (int i = 0; i < matrix.length; i++) {
-	    str += names.get(i) + " ";
-	    for (int j = 0; j < matrix[i].length; j++) {
-		str += matrix[i][j] + " ";
-	    }
-	    str += "\n";
-	}
-	return str;
-    }
-
-    // Getters and Setters
-
-    public Map<Node, Point2D> getGraph() {
+    private synchronized void calculateGraph() {
 	double x = 60;
 	double y = 160 * (deepest) + 20;
-	ArrayList<Node> nodeList = nodes;
-	Collections.sort(nodeList);
+	NodeLevelComperator byLevel = new NodeLevelComperator();
+	NodeBundleComperator byBundle = new NodeBundleComperator();
+	Collections.sort(nodes, byLevel);
+	Collections.sort(nodes, byBundle);
 	int level = deepest + 1;
 	int counter = 0;
 	int prevCounter = 1;
 	int newX = 0;
 	double start = 30;
-	for (Node node : nodeList) {
+	for (Node node : nodes) {
 	    if (level != node.getLevel()) {
 		prevCounter = counter;
 		x = (60 * prevCounter / 2) + start;
@@ -212,10 +203,30 @@ public class Graph extends AbstractGraph<Node, Edge> {
 	}
 	this.x = newX;
 	this.y = (int) (y + 100);
+
+    }
+
+    // toString
+    @Override
+    public synchronized String toString() {
+	String str = "  " + names.toString() + "\n";
+	for (int i = 0; i < matrix.length; i++) {
+	    str += names.get(i) + " ";
+	    for (int j = 0; j < matrix[i].length; j++) {
+		str += matrix[i][j] + " ";
+	    }
+	    str += "\n";
+	}
+	return str;
+    }
+
+    // Getters and Setters
+
+    public synchronized Map<Node, Point2D> getGraph() {
 	return graph;
     }
 
-    public Node getNode(String node) {
+    public synchronized Node getNode(String node) {
 	for (Node n : nodes) {
 	    if (n.equals(node))
 		return n;
@@ -224,12 +235,12 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Node getDest(Edge arg0) {
+    public synchronized Node getDest(Edge arg0) {
 	return arg0.getDestination();
     }
 
     @Override
-    public Pair<Node> getEndpoints(Edge arg0) {
+    public synchronized Pair<Node> getEndpoints(Edge arg0) {
 	ArrayList<Node> list = new ArrayList<Node>();
 	list.add(arg0.getSource());
 	list.add(arg0.getDestination());
@@ -237,7 +248,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Collection<Edge> getInEdges(Node arg0) {
+    public synchronized Collection<Edge> getInEdges(Node arg0) {
 	ArrayList<Edge> in = new ArrayList<Edge>();
 	for (Edge e : edges) {
 	    if (e.getDestination().equals(arg0))
@@ -247,7 +258,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Collection<Edge> getOutEdges(Node arg0) {
+    public synchronized Collection<Edge> getOutEdges(Node arg0) {
 	ArrayList<Edge> out = new ArrayList<Edge>();
 	for (Edge e : edges) {
 	    if (e.getSource().equals(arg0))
@@ -257,7 +268,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Collection<Node> getPredecessors(Node arg0) {
+    public synchronized Collection<Node> getPredecessors(Node arg0) {
 	ArrayList<Node> pre = new ArrayList<Node>();
 	for (Edge e : getInEdges(arg0)) {
 	    pre.add(e.getSource());
@@ -266,12 +277,12 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Node getSource(Edge arg0) {
+    public synchronized Node getSource(Edge arg0) {
 	return arg0.getSource();
     }
 
     @Override
-    public Collection<Node> getSuccessors(Node arg0) {
+    public synchronized Collection<Node> getSuccessors(Node arg0) {
 	ArrayList<Node> suc = new ArrayList<Node>();
 	for (Edge e : getOutEdges(arg0)) {
 	    suc.add(e.getSource());
@@ -280,42 +291,42 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public boolean isDest(Node arg0, Edge arg1) {
+    public synchronized boolean isDest(Node arg0, Edge arg1) {
 	return arg0.equals(arg1.getDestination());
     }
 
     @Override
-    public boolean isSource(Node arg0, Edge arg1) {
+    public synchronized boolean isSource(Node arg0, Edge arg1) {
 	return arg0.equals(arg1.getSource());
     }
 
     @Override
-    public boolean addVertex(Node arg0) {
+    public synchronized boolean addVertex(Node arg0) {
 	return nodes.add(arg0);
     }
 
     @Override
-    public boolean containsEdge(Edge arg0) {
+    public synchronized boolean containsEdge(Edge arg0) {
 	return edges.contains(arg0);
     }
 
     @Override
-    public boolean containsVertex(Node arg0) {
+    public synchronized boolean containsVertex(Node arg0) {
 	return nodes.contains(arg0);
     }
 
     @Override
-    public EdgeType getDefaultEdgeType() {
+    public synchronized EdgeType getDefaultEdgeType() {
 	return EdgeType.DIRECTED;
     }
 
     @Override
-    public int getEdgeCount() {
+    public synchronized int getEdgeCount() {
 	return edges.size();
     }
 
     @Override
-    public int getEdgeCount(EdgeType arg0) {
+    public synchronized int getEdgeCount(EdgeType arg0) {
 	int i = 0;
 	for (Edge e : edges)
 	    if (e.getType().equals(arg0))
@@ -324,17 +335,17 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public EdgeType getEdgeType(Edge arg0) {
+    public synchronized EdgeType getEdgeType(Edge arg0) {
 	return arg0.getType();
     }
 
     @Override
-    public Collection<Edge> getEdges() {
+    public synchronized Collection<Edge> getEdges() {
 	return edges;
     }
 
     @Override
-    public Collection<Edge> getEdges(EdgeType arg0) {
+    public synchronized Collection<Edge> getEdges(EdgeType arg0) {
 	ArrayList<Edge> e = new ArrayList<Edge>();
 	for (Edge edge : edges) {
 	    if (edge.getType().equals(arg0))
@@ -344,7 +355,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Collection<Edge> getIncidentEdges(Node arg0) {
+    public synchronized Collection<Edge> getIncidentEdges(Node arg0) {
 	ArrayList<Edge> inc = new ArrayList<Edge>();
 	for (Edge e : edges) {
 	    if (e.getSource().equals(arg0) || e.getDestination().equals(arg0))
@@ -354,7 +365,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public Collection<Node> getNeighbors(Node arg0) {
+    public synchronized Collection<Node> getNeighbors(Node arg0) {
 	ArrayList<Node> neighbours = new ArrayList<Node>();
 	neighbours.addAll(getPredecessors(arg0));
 	neighbours.addAll(getSuccessors(arg0));
@@ -362,35 +373,36 @@ public class Graph extends AbstractGraph<Node, Edge> {
     }
 
     @Override
-    public int getVertexCount() {
+    public synchronized int getVertexCount() {
 	return nodes.size();
     }
 
     @Override
-    public Collection<Node> getVertices() {
+    public synchronized Collection<Node> getVertices() {
 	return nodes;
     }
 
     @Override
-    public boolean removeEdge(Edge arg0) {
+    public synchronized boolean removeEdge(Edge arg0) {
 	return edges.remove(arg0);
     }
 
     @Override
-    public boolean removeVertex(Node arg0) {
+    public synchronized boolean removeVertex(Node arg0) {
 	return nodes.remove(arg0);
     }
 
     @Override
-    public boolean addEdge(Edge arg0, Pair<? extends Node> arg1, EdgeType arg2) {
+    public synchronized boolean addEdge(Edge arg0, Pair<? extends Node> arg1,
+	    EdgeType arg2) {
 	return edges.add(arg0);
     }
 
-    public int getX() {
+    public synchronized int getX() {
 	return x;
     }
 
-    public int getY() {
+    public synchronized int getY() {
 	return y;
     }
 

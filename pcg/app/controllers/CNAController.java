@@ -201,7 +201,7 @@ public class CNAController extends Controller {
 
     public static void inputTable(String table) {
 	CNATable cnatable = new CNATable("\r\n", ",", table);
-	
+
 	if (cnatable.get(0).size() > 10) {
 	    flash.error("Only up to 10 are factors allowed.");
 	    params.flash();

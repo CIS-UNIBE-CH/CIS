@@ -47,7 +47,7 @@ public class Renderer {
 	yPicSize = 1000;
     }
 
-    public void config(Graph graph) {
+    public synchronized void config(Graph graph) {
 
 	// Use a static layout so vertexes will positioned ever time at the same
 	// place
@@ -111,7 +111,8 @@ public class Renderer {
 	pngDumping(visServer);
     }
 
-    private void pngDumping(BasicVisualizationServer<Node, Edge> visServer) {
+    private synchronized void pngDumping(
+	    BasicVisualizationServer<Node, Edge> visServer) {
 	// Size the PNG picture will have which will be dumped.
 	visServer.setSize(xPicSize, yPicSize);
 
