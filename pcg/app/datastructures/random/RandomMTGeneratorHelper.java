@@ -70,7 +70,6 @@ public class RandomMTGeneratorHelper {
 	    }
 	}
 	if (counter >= 2) {
-	    System.out.println("I was here...");
 	    return true;
 	}
 
