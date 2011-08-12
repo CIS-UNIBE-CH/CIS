@@ -28,8 +28,7 @@ public class RandomMTGeneratorHelper {
 	cleanupNulls();
 	nullToZeros();
 	if (makeEpi) {
-	    bundlesCheck();
-	    alterFactorCheck();
+	    inputCheck();
 	}
 	removeZerosInBundles();
 	createLevelsList();
@@ -50,17 +49,33 @@ public class RandomMTGeneratorHelper {
 
     }
 
-    private void bundlesCheck() throws CNAException {
+    private boolean inputCheck() throws CNAException {
 	int counter = 0;
-	for (ArrayList<Integer> list : bundleSizesLevels) {
-	    for (Integer cur : list) {
-		counter += cur;
+	
+	for (Integer cur : alterFactors) {
+	    if (cur != 0) {
+		counter++;
 	    }
 	}
-	if (counter > 0) {
-	    throw new CNAException(
-		    "You can generate an epiphenomenon only with alternate Factors.");
+	if (counter >= 2) {
+	    System.out.println("I was here...");
+	    return true;
 	}
+	
+	counter = 0;
+	for (ArrayList<Integer> list : bundleSizesLevels) {
+	    for (Integer cur : list) {
+		if(cur != 0){
+		    counter++;
+		    break;
+		}
+	    }
+	}
+	if (counter >= 2) {
+	    return true;
+	}
+	throw new CNAException(
+		    "Generating an epiphenomenon is only possible with at least two minimal theories.");
     }
 
     private void nullToZeros() {
@@ -68,19 +83,6 @@ public class RandomMTGeneratorHelper {
 	    if (alterFactors.get(i) == null) {
 		alterFactors.set(i, 0);
 	    }
-	}
-    }
-
-    private void alterFactorCheck() throws CNAException {
-	int counter = 0;
-	for (Integer cur : alterFactors) {
-	    if (cur != 0) {
-		counter++;
-	    }
-	}
-	if (counter < 2) {
-	    throw new CNAException(
-		    "There must be at least two minimal theories with alternate factors to generate an epiphenomenon.");
 	}
     }
 

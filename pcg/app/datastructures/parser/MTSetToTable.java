@@ -24,15 +24,12 @@ public class MTSetToTable {
     private CNATable coincTable;
     private CNATable curTable;
 
-    // private boolean makeEpi;
-
-    public MTSetToTable(MinimalTheorySet set, boolean makeEpi) throws CNAException {
+    public MTSetToTable(MinimalTheorySet set) throws CNAException {
 	this.set = set;
 	mtCoincTables = new ArrayList<CNATable>();
 	curMTTable = new CNATable();
 	curMT = new MinimalTheory();
 	coincTable = new CNATable();
-	// this.makeEpi = makeEpi;
 
 	createTables();
 	inputCheck();

@@ -114,7 +114,7 @@ public class CNAController extends Controller {
 	    String generatedGraphString) {
 	try {
 	    timer = new Timer();
-	    MTSetToTable parser = new MTSetToTable(theories, makeEpi);
+	    MTSetToTable parser = new MTSetToTable(theories);
 	    CNATable table = parser.getCoincTable();
 	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
 	    ArrayList<String> graphsView = new ArrayList<String>();
@@ -137,7 +137,7 @@ public class CNAController extends Controller {
 	    try {
 		ArrayList<String> graphsView = new ArrayList<String>();
 		timer = new Timer();
-		MTSetToTable parser = new MTSetToTable(theories, makeEpi);
+		MTSetToTable parser = new MTSetToTable(theories);
 		CNATable table = parser.getCoincTable();
 		CNAlgorithm cnaAlgorithm = new CNAlgorithm(table);
 
