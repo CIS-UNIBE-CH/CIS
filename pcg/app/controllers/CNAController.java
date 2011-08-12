@@ -202,12 +202,12 @@ public class CNAController extends Controller {
     public static void inputTable(String table) {
 	CNATable cnatable = new CNATable("\r\n", ",", table);
 
-	if (cnatable.get(0).size() <= 9) {
+	if (cnatable.get(0).size() >= 9) {
 	    flash.error("Only up to 9 are factors allowed.");
 	    params.flash();
 	    setup();
-	} else if (cnatable.get(0).size() < 2) {
-	    flash.error("There must be at least two factors.");
+	} else if (cnatable.get(0).size() < 3) {
+	    flash.error("Violation of Minimal Diversity pre-condition: Every MT must have at least two bundles, alternate factors, or a bundle and a alternate factor.");
 	    params.flash();
 	    setup();
 	}
@@ -324,6 +324,13 @@ public class CNAController extends Controller {
 		}
 		theorie = new MinimalTheory(factors, array[1]);
 		theories.add(theorie);
+	    }
+	    for(MinimalTheory theory: theories){
+		if(theory.getBundleFactors().size() < 2){
+		    flash.error("Violation of Minimal Diversity pre-condition: Every MT must have at least two bundles, alternate factors, or a bundle and a alternate factor.");
+		    params.flash();
+		    setup();
+		}
 	    }
 	    Graph graph = new Graph(theories);
 	    Renderer renderer = new Renderer();

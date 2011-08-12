@@ -27,8 +27,9 @@ public class RandomMTGeneratorHelper {
 
 	cleanupNulls();
 	nullToZeros();
+	minimalDiversityInputCheck();
 	if (makeEpi) {
-	    inputCheck();
+	    epiInputCheck();
 	}
 	removeZerosInBundles();
 	createLevelsList();
@@ -39,19 +40,30 @@ public class RandomMTGeneratorHelper {
     public RandomMTGeneratorHelper() {
     }
 
-    private void cleanupNulls() {
-	for (ArrayList<Integer> list : bundleSizesLevels) {
-	    for (int i = 0; i < list.size(); i++) {
-		if (list.get(i) == null)
-		    list.set(i, 0);
+    /** User Input handling */
+    private void minimalDiversityInputCheck() throws CNAException {
+	for (int i = 0; i < alterFactors.size(); i++) {
+	    int counter = 0;
+	    for (int j = 0; j < bundleSizesLevels.get(i).size(); j++) {
+		if (bundleSizesLevels.get(i).get(j) != 0) {
+		    counter++;
+		}
+	    }
+	    if (alterFactors.get(i) != 0) {
+		counter += alterFactors.get(i);
+	    }
+	    if (counter < 2 && counter != 0) {
+		throw new CNAException(
+			"Violation of Minimal Diversity pre-condition: Every MT must have at least two bundles, alternate factors, or a bundle and a alternate factor.");
 	    }
 	}
 
     }
 
-    private boolean inputCheck() throws CNAException {
+    /** User Input handling */
+    private boolean epiInputCheck() throws CNAException {
 	int counter = 0;
-	
+
 	for (Integer cur : alterFactors) {
 	    if (cur != 0) {
 		counter++;
@@ -61,11 +73,11 @@ public class RandomMTGeneratorHelper {
 	    System.out.println("I was here...");
 	    return true;
 	}
-	
+
 	counter = 0;
 	for (ArrayList<Integer> list : bundleSizesLevels) {
 	    for (Integer cur : list) {
-		if(cur != 0){
+		if (cur != 0) {
 		    counter++;
 		    break;
 		}
@@ -75,7 +87,17 @@ public class RandomMTGeneratorHelper {
 	    return true;
 	}
 	throw new CNAException(
-		    "Generating an epiphenomenon is only possible with at least two minimal theories.");
+		"Generating an epiphenomenon is only possible with at least two minimal theories.");
+    }
+
+    private void cleanupNulls() {
+	for (ArrayList<Integer> list : bundleSizesLevels) {
+	    for (int i = 0; i < list.size(); i++) {
+		if (list.get(i) == null)
+		    list.set(i, 0);
+	    }
+	}
+
     }
 
     private void nullToZeros() {
