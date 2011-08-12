@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import datastructures.cna.CNAList;
+import datastructures.cna.CNAStringComperator;
 import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 import edu.uci.ics.jung.graph.AbstractGraph;
@@ -42,6 +43,7 @@ public class Graph extends AbstractGraph<Node, Edge> {
     public Graph(MinimalTheorySet theories) {
 	this.theories = theories;
 	names = theories.getAllNames();
+	Collections.sort(names, new CNAStringComperator());
 	side = names.size();
 	matrix = new int[side][side];
 	nodes = new ArrayList<Node>();
@@ -115,18 +117,13 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		Node n = getNode(names.get(i));
 		n.setLevel(0);
 		n.setIsEffect(true);
-		System.out.println("===========" + n);
 		setLevels();
 	    }
 	}
     }
 
     private synchronized void setLevels() {
-	System.out.println();
-	System.out.println(this);
 	while (!stack.empty()) {
-	    System.out.println("S: " + stack);
-	    System.out.println("D: " + deep);
 	    String effect = stack.peek();
 	    stack.pop();
 	    Node node = getNode(effect);
@@ -137,9 +134,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		deepest = deep.peek();
 	    }
 	    deep.pop();
-	    System.out.println("S: " + stack);
-	    System.out.println("D: " + deep);
-	    System.out.println(effect);
 	    if (hasFactor(effect)) {
 		addFactors(effect);
 		stackRuns++;
@@ -154,8 +148,6 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		deep.push(stackRuns);
 	    }
 	}
-	System.out.println("-->S: " + stack);
-	System.out.println("-->D: " + deep);
     }
 
     private synchronized boolean hasFactor(String effect) {
