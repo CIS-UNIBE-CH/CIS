@@ -86,7 +86,7 @@ public class RandomMTGeneratorHelper {
 	    return true;
 	}
 	throw new CNAException(
-		"Generating an epiphenomenon is only possible with at least two minimal theories.");
+		"Generating an epiphenomenon requires at least two minimal theories.");
     }
 
     private void cleanupNulls() {
