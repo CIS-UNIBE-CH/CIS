@@ -1,0 +1,17 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h2>Simple Quadro - Graph</h2>
+	<div class="steps">
+	Step 3/3
+</div>
+<center>
+<br>
+<br>
+<img alt="Graph" src="${graphPath}">
+<br />
+<h3>${stringGraph}</h3>
+#{ifnot specialCase == ""}
+<strong>${specialCase}</strong><br><br><br>
+#{/ifnot}
+<font size="1">Note: Alternative Factors will always be shown in green<br> and X and Y factor will not be shown in picture<br> to keep the graph readable.</font>
+</center>

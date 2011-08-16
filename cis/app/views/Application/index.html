@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{set title:'Causal Inference Theory' /}
+
+<div class="con">
+	<h2>Welcome</h2>
+	<p>This page was created as part of a bachelor thesis. is to test the accuracy and robustness of 
+	various algorithms for causal inference. The simulator allows the user to input, or to generate 
+	randomly, complex causal structures. Each causal structure defines a so-called coincidence table, 
+	in which all permissible co-occurrences of variables are listed. It is assumed that coincidence 
+	tables are the empirical manifestation of complex causal structures. Our algorithms are then 
+	concerned with inferring the original causal structure from its coincidence table.</p>
+	<h3>Causal Theory</h3>
+	<p>Our approach is based on the regularity theoretic approach to causality developed in Baumgartner and Gra&szlig;hoff (2004) 
+	and Baumgartner (2008). We have so far implemented the algorithm described in Baumgartner (2009).</p>
+	<h3>References</h3>
+	<ul>
+	<li>Baumgartner, M., and G. Gra&szlig;hoff. 2004. Kausalit&auml;t und kausales Schliessen: Eine Einf&uuml;hrung mit interaktiven &Uuml;bungen. Bern Studies in the History and Philosophy of Science.</li>
+	<li>Baumgartner, M. 2008. Regularity Theories Reassessed. Philosophia 36: 327-354.</li>
+	<li>Baumgartner, M. 2009. Uncovering deterministic causal structures: a Boolean approach. Synthese 170: 71-96.</li>
+	</ul>
+	<br>
+	<center><img alt="simple graph" src="@{'/public/images/graph.png'}" /></center>
+</div><!--  end con -->

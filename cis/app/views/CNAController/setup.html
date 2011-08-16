@@ -1,0 +1,126 @@
+<script type="text/javascript">		
+	$(document).ready(function() {
+		 $('#info-mt').hide();
+	$('#info-mt-toggle').click(function() {
+    $('#info-mt').toggle(100);
+    return false;
+  });
+});
+	$(document).ready(function() {
+		 $('#info-table').hide();
+	$('#info-table-toggle').click(function() {
+	$('#info-table').toggle(100);
+   return false;
+ });
+});
+</script>
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h2>CNA Analysis - Setup</h2>
+	#{if flash.error}
+		<div class="error">
+			${flash.error}
+		</div>
+	#{/if}
+<hr />
+<h3>Manchester Factory Hooters:</h3>
+<p>Run the famous Manchester Factory Hooters Sample:<p/>
+<form action="@{CNAController.baumgartnerSample()}" method="POST">
+<input type="submit" name="quick" value="Manchester Factory Hooters" />
+</form>
+<br />
+<hr />
+<div class="steps">
+Step 1/3
+</div>
+<h3>Use a Random Generator</h3>
+
+<form id="form" action="@{CNAController.generateGraph()}" method="POST">
+<table class="f">
+<th></th>
+<th align = "center"># Factors<br> in Bundle 1</th>
+<th># Factors<br> in Bundle 2</th>
+<th># Alternate Factors</th>
+<tr class="f">
+	<td class="f">Minimal Theory 1</td>
+	<td class="f"><input type="number" class="f" name="bundles1" value="0" /></td>
+	<td class="f"><input type="number" class="f" name="bundles1" value="0" /></td>
+	<td class="f"><input type="number" class="f" name="alterFactors" value="0" /></td>
+</tr>
+<tr class="f">
+	<td class="f">Minimal Theory 2</td>
+	<td class="f"><input type="number" class="f" name="bundles2" value="0" /></td>
+	<td class="f"><input type="number" class="f" name="bundles2" value="0" /></td>
+	<td class="f"><input type="number" class="f" name="alterFactors" value="0" /></td>
+</tr>
+<tr class="f">
+	<td class="f">Minimal Theory 3</td>
+	<td class="f"><input type="number" class="f" name="bundles3" value="0" /></td>
+	<td class="f"><input type="number" class="f" name="bundles3" value="0" /></td>
+	<td class="f"><input type="number" class="f" name="alterFactors" value="0" /></td>
+</tr>
+</table>
+<br/>
+<input type="checkbox" name="epi"> Epiphenomenon<br/>
+<input type="checkbox" name="showBundleNum"> Show Bundle Numbering <br/>
+<br/>
+<input type="submit" value="Next"/>
+</form>
+<hr>
+<div class="steps">
+Step 1/3
+</div>
+<h3>Use a Minimal Theory Input</h3>
+<br />
+<a href="#" id="info-mt-toggle">Learn how to enter a MT</a>
+<div id="info-mt">
+<br>
+<table>
+
+<tr><td>Simple MT:</td><td>A v B v C => D</td></tr>
+<tr><td>MT with Bundles:</td><td>AB v CD v E => F</td></tr>
+<tr><td><br></td><td></td></tr>
+<tr><td valign = "top">Chain:</td><td>A v BC => D <br>D v EF => G</td></tr>
+<tr><td valign = "top">Epiphenomenon:</td><td>AB v C =>D <br> EF v C =>G</td></tr>
+</table>
+</div>
+<br/>
+<br>
+Enter here:
+<br />
+<form action="@{CNAController.inputMT()}" method="POST">
+	<textarea rows="10" cols="40" name="mtset"></textarea>
+	<br />
+	<p></p>
+	<input type="submit" name="Next" value="Next" />
+</form>
+<hr>
+<div class="steps">
+Step 1/2
+</div>
+<h3>Use a Coincidence Table Input</h3>
+<br>
+<a href="#" id="info-table-toggle">Learn how to enter a table.</a>
+<div id="info-table">
+<br>
+<table>
+<tr><td>Example:</td><td></td></tr>
+<tr><td></td><td>A,B,C,D</td></tr>
+<tr><td></td><td>0,0,1,1</td></tr>
+<tr><td></td><td>0,1,0,0</td></tr>
+<tr><td></td><td>1,0,0,0</td></tr>
+<tr><td></td><td>1,0,1,1</td></tr>
+<tr><td></td><td>1,1,0,1</td></tr>
+<tr><td></td><td>1,1,1,1</td></tr>
+</table>
+</div>
+<br />
+<br/>
+Enter here:
+<br />
+<form action="@{CNAController.inputTable}" method="POST">
+	<textarea rows="15" cols="20" name="table"></textarea>
+	<br />
+	<p></p>
+	<input type="submit" name="Next" value="Next" />
+</form>
