@@ -3,8 +3,8 @@ package datastructures.tree;
 /**
  * Copyright (C) <2011>
  * 
- * @author Jonas Ruef & Felix Langenegger <cis.unibe@gmail.com>
- * @license GPLv3, see Readme.mdown
+ * @author Jonas Ruef & Felix Langenegger <cis.unibe.ch@gmail.com>
+ * @license GPLv3, for more informations see Readme.mdown
  */
 
 import java.util.ArrayList;

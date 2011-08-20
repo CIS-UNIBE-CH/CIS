@@ -3,8 +3,8 @@ package controllers;
 /**
  * Copyright (C) <2011>
  * 
- * @author Jonas Ruef & Felix Langenegger <cis.unibe@gmail.com>
- * @license GPLv3, see Readme.mdown
+ * @author Jonas Ruef & Felix Langenegger <cis.unibe.ch@gmail.com>
+ * @license GPLv3, for more informations see Readme.mdown
  */
 
 import helpers.BaumgartnerSampleTable;
@@ -91,8 +91,8 @@ public class CNAController extends Controller {
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe@arcadeweb.ch");
-		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setFrom("cis.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe.ch@arcadeweb.ch");
 		email.setSubject("Error: IndexOutOfBoundsException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Random Gen\n" + msg);
@@ -259,8 +259,8 @@ public class CNAController extends Controller {
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe@arcadeweb.ch");
-		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setFrom("cis.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe.ch@arcadeweb.ch");
 		email.setSubject("Error: IndexOutOfBoundsException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input Table\n" + msg);
@@ -274,8 +274,8 @@ public class CNAController extends Controller {
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe@arcadeweb.ch");
-		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setFrom("cis.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe.ch@arcadeweb.ch");
 		email.setSubject("Error: IndexOutOfBoundsException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input Table\n" + msg);
@@ -289,8 +289,8 @@ public class CNAController extends Controller {
 	} catch (IllegalArgumentException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe@arcadeweb.ch");
-		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setFrom("cis.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe.ch@arcadeweb.ch");
 		email.setSubject("Error: IllegalArgumentException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input Table\n" + msg);
@@ -356,8 +356,8 @@ public class CNAController extends Controller {
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe@arcadeweb.ch");
-		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setFrom("cis.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe.ch@arcadeweb.ch");
 		email.setSubject("Error: IllegalArgumentException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input MT\n" + msg);
@@ -371,8 +371,8 @@ public class CNAController extends Controller {
 	} catch (IllegalArgumentException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe@arcadeweb.ch");
-		email.addTo("cis.unibe@arcadeweb.ch");
+		email.setFrom("cis.unibe.ch@arcadeweb.ch");
+		email.addTo("cis.unibe.ch@arcadeweb.ch");
 		email.setSubject("Error: IllegalArgumentException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input MT\n" + msg);
