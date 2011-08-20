@@ -1,20 +1,20 @@
 # do not commit all the eclipse stuff
 /.metadata
-/pcg/.buildpath
-/pcg/.classpath
-/pcg/.project
-/pcg/.settings
-/pcg/cache
-/pcg/log
-/pcg/eclipse/
+/cis/.buildpath
+/cis/.classpath
+/cis/.project
+/cis/.settings
+/cis/cache
+/cis/log
+/cis/eclipse/
 
 
 # do not commit all temporary play stuff
-/pcg/cobertura.ser
-/pcg/logs
-/pcg/server.pid
-/pcg/tmp
-/pcg/test-result
+/cis/cobertura.ser
+/cis/logs
+/cis/server.pid
+/cis/tmp
+/cis/test-result
 
 # and do not commit the stuff from mac users
 .DS_Store
