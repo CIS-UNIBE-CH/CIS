@@ -3,7 +3,7 @@
 Our software provides an algorithm to calculate out of coincidence tables causal graphs. You can enter a coincidence table, a minimal theory or
 generate a random graph. The implemented algorithm is described in Baumgartner, "Uncovering deterministic causal structures: a Boolean approach",
 2009. If a non exhaustive coincidence table is the input, this algorithm is able to calculate ambiguous causal graphs. Our software is a 
-webapplication and based on the Play! Framework (http://www.playframework.org/) and completely written in Java.
+webapplication based on the Play! Framework (http://www.playframework.org/) and completely written in Java.
  
 ####Authors  
 Jonas Ruef & Felix Langenegger (University of Berne, Switzerland)
