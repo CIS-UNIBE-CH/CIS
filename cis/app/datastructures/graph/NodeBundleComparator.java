@@ -2,7 +2,7 @@ package datastructures.graph;
 
 import java.util.Comparator;
 
-public class NodeBundleComperator implements Comparator<Node> {
+public class NodeBundleComparator implements Comparator<Node> {
 
     @Override
     public int compare(Node o1, Node o2) {

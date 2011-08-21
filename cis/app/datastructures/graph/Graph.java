@@ -25,13 +25,13 @@ import edu.uci.ics.jung.graph.util.Pair;
 
 public class Graph extends AbstractGraph<Node, Edge> {
 
-    private ArrayList<Node> nodes;
-    private ArrayList<Edge> edges;
-    private MinimalTheorySet theories;
-    private int[][] matrix;
-    private CNAList names;
-    private int side;
-    private Map<Node, Point2D> graph = new HashMap<Node, Point2D>();
+    private final ArrayList<Node> nodes;
+    private final ArrayList<Edge> edges;
+    private final MinimalTheorySet theories;
+    private final int[][] matrix;
+    private final CNAList names;
+    private final int side;
+    private final Map<Node, Point2D> graph = new HashMap<Node, Point2D>();
     private int deepest = 0;
     private int stackRuns;
     private int x;
@@ -94,7 +94,11 @@ public class Graph extends AbstractGraph<Node, Edge> {
 		    bundleNum++;
 		} else {
 		    source = getNode(list.get(0));
-		    edges.add(new Edge(source, destination));
+		    source.setBundle(bundleNum);
+		    Edge edge = new Edge(source, destination);
+		    edge.setBundleLabel("" + bundleNum);
+		    edges.add(edge);
+		    bundleNum++;
 		}
 	    }
 	}
@@ -171,8 +175,8 @@ public class Graph extends AbstractGraph<Node, Edge> {
     private synchronized void calculateGraph() {
 	double x = 60;
 	double y = 160 * (deepest) + 20;
-	NodeLevelComperator byLevel = new NodeLevelComperator();
-	NodeBundleComperator byBundle = new NodeBundleComperator();
+	NodeLevelComparator byLevel = new NodeLevelComparator();
+	NodeBundleComparator byBundle = new NodeBundleComparator();
 	Collections.sort(nodes, byLevel);
 	Collections.sort(nodes, byBundle);
 	int level = deepest + 1;

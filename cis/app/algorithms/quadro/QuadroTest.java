@@ -13,8 +13,8 @@ import datastructures.mt.MinimalTheorySet;
 /** Hardcoded 16 possibilities of quadro test */
 public class QuadroTest {
 
-    private String coincidence;
-    private String name1, name2, name1Nec, name2Nec;
+    private final String coincidence;
+    private final String name1, name2, name1Nec, name2Nec;
     private String specialCase;
 
     public QuadroTest(String coincidence, String name1, String name2)
@@ -87,7 +87,7 @@ public class QuadroTest {
 	    theory.addBundle(name1Nec);
 	    specialCase = "Note: The factor " + name2
 		    + " can be localized in two ways: (1) " + name1 + name2
-		    + "X1 v " + name1Nec + "X2 v YW => W (2) " + name1
+		    + "X1 v " + name1Nec + "X2 v YW => W, (2) " + name1
 		    + "X1 v " + name1Nec + "X2 v " + name2 + "X3 v YW => W";
 	    return set;
 	} else if (coincidence.equals("0111")) {

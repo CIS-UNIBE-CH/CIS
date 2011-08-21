@@ -8,7 +8,7 @@
 /cis/log
 /cis/eclipse/
 /cis/precompiled/
-/cis/images/graphs/
+/cis/public/images/graphs/
 
 # do not commit all temporary play stuff
 /cis/cobertura.ser

@@ -21,10 +21,10 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 	colors.add(Color.lightGray);
 	colors.add(Color.magenta);
 	colors.add(Color.green);
-	colors.add(Color.gray);
 	colors.add(Color.orange);
 	colors.add(Color.red);
 	colors.add(Color.cyan);
+	colors.add(Color.gray);
 	colors.add(Color.pink);
 	colors.add(Color.yellow);
 
@@ -32,7 +32,7 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
 	    return new Color(255, 153, 0);
 	} else {
 	    int bundleNumber = node.getBundle();
-	    return colors.get((bundleNumber % 9) - 1);
+	    return colors.get((bundleNumber % 9));
 	}
     }
 }
