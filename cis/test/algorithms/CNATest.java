@@ -55,7 +55,7 @@ public class CNATest extends UnitTest {
 
     @Test
     public void shouldTestIdentifyMNEC() {
-	CNATable mnecTable = new CNATable(";", ",", "0,$,0;$,10,$");
+	CNATable mnecTable = new CNATable(";", ",", "0,$,0");
 	assertEquals(mnecTable, cnaAlgorithm.getMnecTable());
     }
 

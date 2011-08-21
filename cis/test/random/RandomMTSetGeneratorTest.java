@@ -32,14 +32,14 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    ArrayList<Integer> level = new ArrayList<Integer>();
 	    int bundlesPerLevel = 2;
 	    for (int j = 0; j < bundlesPerLevel; j++) {
-		level.add((int) (Math.random() * 2));
+		level.add((int) (Math.random() * 2)+1);
 	    }
 	    bundleSizes.add(level);
 	}
 
 	ArrayList<Integer> alterFactor = new ArrayList<Integer>();
 	for (int j = 0; j < levels; j++) {
-	    alterFactor.add((int) (Math.random() * 2));
+	    alterFactor.add((int) (Math.random() * 2)+1);
 	}
 
 	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor, false);
@@ -145,11 +145,10 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 		for (int j = 0; j < bundlesPerLevel; j++) {
 		    level.add((int) (Math.random() * 2) + 1);
 		}
-		level.set((int) (Math.random() * 2), 0);
 		bundleSizes.add(level);
 	    } else {
 		for (int j = 0; j < bundlesPerLevel; j++) {
-		    level.add((int) (Math.random() * 2));
+		    level.add((int) (Math.random() * 2)+1);
 		}
 		bundleSizes.add(level);
 	    }
@@ -160,10 +159,9 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    for (int j = 0; j < levels; j++) {
 		alterFactor.add((int) (Math.random() * 2) + 1);
 	    }
-	    alterFactor.set((int) (Math.random() * 2), 0);
 	} else {
 	    for (int j = 0; j < levels; j++) {
-		alterFactor.add((int) (Math.random() * 2));
+		alterFactor.add((int) (Math.random() * 2)+1);
 	    }
 	}
 	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor, false);

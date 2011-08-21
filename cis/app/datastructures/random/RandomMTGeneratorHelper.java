@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import algorithms.cna.CNAException;
 
 public class RandomMTGeneratorHelper {
-    private ArrayList<ArrayList<Object>> completeList = new ArrayList<ArrayList<Object>>();
+    private final ArrayList<ArrayList<Object>> completeList = new ArrayList<ArrayList<Object>>();
     private ArrayList<ArrayList<Integer>> bundleSizesLevels;
     private ArrayList<Integer> alterFactors;
     private boolean makeEpi;
