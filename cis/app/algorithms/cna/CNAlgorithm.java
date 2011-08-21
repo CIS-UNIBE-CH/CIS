@@ -85,7 +85,6 @@ public class CNAlgorithm {
      */
     private void run(CNAList effects, CNATable originalTable)
 	    throws CNAException {
-	CNATable table;
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
 	    for (int i = 0; i < effects.size(); i++) {
@@ -94,13 +93,8 @@ public class CNAlgorithm {
 		}
 	    }
 	}
-	for (int i = 0; i < indexes.size(); i++) {
-	    table = originalTable.clone();
-	    table.swap(indexes.get(i), originalTable.get(0).size() - 1);
-	    System.out.println("**********************");
-	    System.out.println("Effect: " + table.get(0).getLastElement());
-	    identifySUF(table);
-	}
+	System.out.println("Table: " + originalTable);
+	identifySUF(originalTable, indexes);
     }
 
     /**
@@ -109,15 +103,29 @@ public class CNAlgorithm {
      * @param table
      * @throws CNAException
      **/
-    private void identifySUF(CNATable originalTable) throws CNAException {
-	sufTable = originalTable.clone();
-	sufTable.removeZeroEffects();
-	if (sufTable.size() <= 1) {
-	    throw new CNAException(
-		    "You entered a coincidence table where no line with instantiated effect exists. The algorithm cannot process such tables.");
+    private void identifySUF(CNATable originalTable, ArrayList<Integer> indexes)
+	    throws CNAException {
+	CNATable newOrderedOrigTable = new CNATable();
+	for (int i = 0; i < indexes.size(); i++) {
+	    newOrderedOrigTable = originalTable.clone();
+	    newOrderedOrigTable.swap(indexes.get(i), originalTable.get(0)
+		    .size() - 1);
+	    System.out.println("**********************");
+	    System.out.println("Effect: "
+		    + newOrderedOrigTable.get(0).getLastElement());
+
+	    sufTable = newOrderedOrigTable.clone();
+	    sufTable.removeZeroEffects();
+	    if (sufTable.size() <= 1) {
+		if (i == indexes.size() - 1) {
+		    throw new CNAException(
+			    "You entered a coincidence table where no line with a instantiated effect exists or which is not according to minimal diversity condition.");
+		}
+	    } else {
+		System.out.println("SufTable\n" + sufTable);
+		indentifyMSUF(newOrderedOrigTable, sufTable);
+	    }
 	}
-	System.out.println("SufTable\n" + sufTable);
-	indentifyMSUF(originalTable, sufTable);
     }
 
     private void indentifyMSUF(CNATable originalTable, CNATable sufTable)
@@ -148,9 +156,7 @@ public class CNAlgorithm {
 
 	nec = msufTable.getNec();
 	nec.invert();
-	System.out.println("NEC: " + nec);
 	ArrayList<CNAList> negations = nec.negate(nec);
-	System.out.println("Negated: " + negations);
 
 	for (CNAList negatedNec : negations) {
 	    for (CNAList list : bundleTable) {
