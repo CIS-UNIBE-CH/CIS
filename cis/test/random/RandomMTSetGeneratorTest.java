@@ -22,6 +22,11 @@ import datastructures.random.RandomMTGeneratorHelper;
 import datastructures.random.RandomMTSetGenerator;
 
 /** Run Test 500 times because random stuff is going on */
+/*
+ * TODO Currently not tested: 1 or more bundle and 1 alter Fac, 1 bundle and 1
+ * or more alter factors, epi on all 3 levels, epi with all possible factor
+ * combinations.
+ */
 public class RandomMTSetGeneratorTest extends UnitTest {
     private RandomMTGeneratorHelper input;
 
@@ -32,14 +37,14 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    ArrayList<Integer> level = new ArrayList<Integer>();
 	    int bundlesPerLevel = 2;
 	    for (int j = 0; j < bundlesPerLevel; j++) {
-		level.add((int) (Math.random() * 2)+1);
+		level.add((int) (Math.random() * 2) + 1);
 	    }
 	    bundleSizes.add(level);
 	}
 
 	ArrayList<Integer> alterFactor = new ArrayList<Integer>();
 	for (int j = 0; j < levels; j++) {
-	    alterFactor.add((int) (Math.random() * 2)+1);
+	    alterFactor.add((int) (Math.random() * 2) + 1);
 	}
 
 	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor, false);
@@ -148,7 +153,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 		bundleSizes.add(level);
 	    } else {
 		for (int j = 0; j < bundlesPerLevel; j++) {
-		    level.add((int) (Math.random() * 2)+1);
+		    level.add((int) (Math.random() * 2) + 1);
 		}
 		bundleSizes.add(level);
 	    }
@@ -161,7 +166,7 @@ public class RandomMTSetGeneratorTest extends UnitTest {
 	    }
 	} else {
 	    for (int j = 0; j < levels; j++) {
-		alterFactor.add((int) (Math.random() * 2)+1);
+		alterFactor.add((int) (Math.random() * 2) + 1);
 	    }
 	}
 	input = new RandomMTGeneratorHelper(bundleSizes, alterFactor, false);
