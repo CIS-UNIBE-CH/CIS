@@ -110,7 +110,7 @@ public class CNATable extends ArrayList<CNAList> {
 	return bundleTable;
     }
 
-    public CNAList getNecList() {
+    public CNAList getNec() {
 	CNAList necList = new CNAList();
 	for (CNAList list : table) {
 	    String line = new String();

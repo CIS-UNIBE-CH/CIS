@@ -7,6 +7,8 @@ package datastructures.cna;
  * @license GPLv3, for more informations see Readme.mdown
  */
 
+import helpers.CombinationGenerator;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -32,12 +34,86 @@ public class CNAList extends ArrayList<String> {
 	return super.add(arg0);
     }
 
-    public void negate() {
+    public void invert() {
 	for (int k = 0; k < this.size(); k++) {
 	    this.set(k, this.get(k).replace("1", "x"));
 	    this.set(k, this.get(k).replace("0", "1"));
 	    this.set(k, this.get(k).replace("x", "0"));
 	}
+    }
+
+    public ArrayList<CNAList> negate(CNAList list) {
+	ArrayList<CNAList> negations = new ArrayList<CNAList>();
+
+	for (String str : list) {
+	    if (str.length() == 1) {
+		if (negations.size() == 0) {
+		    CNAList list1 = new CNAList();
+		    list1.add(str);
+		    negations.add(list1);
+		} else {
+		    for (CNAList list1 : negations) {
+			list1.add(str);
+		    }
+		}
+
+	    } else {
+		int size = str.length();
+		CNAList permutations = generatePermutations(size, str);
+
+		if (negations.size() == 0) {
+		    for (String perm : permutations) {
+			CNAList list1 = new CNAList();
+			list1.add(perm);
+			negations.add(list1);
+		    }
+		} else {
+		    ArrayList<CNAList> swap = new ArrayList<CNAList>();
+		    for (CNAList curList : negations) {
+			for (String perm : permutations) {
+			    CNAList clone = curList.clone(curList);
+			    clone.add(perm);
+			    swap.add(clone);
+			}
+		    }
+		    negations.clear();
+		    negations.addAll(swap);
+		}
+	    }
+	}
+	for (CNAList cur : negations) {
+	    cur.add("1");
+	}
+
+	return negations;
+    }
+
+    public CNAList generatePermutations(int size, String str) {
+	CNAList permutations = new CNAList();
+	String input[] = new String[2];
+	input[0] = "0";
+	input[1] = "1";
+	CombinationGenerator<String> generator = new CombinationGenerator<String>(
+		size, input);
+
+	for (String s[] : generator) {
+	    String cur = "";
+	    for (int i = 0; i < s.length; i++) {
+		cur += s[i];
+	    }
+	    permutations.add(cur);
+	}
+	CNAList list = new CNAList();
+	list.add(str);
+	list.invert();
+
+	for (int i = permutations.size() - 1; i >= 0; i--) {
+	    if (permutations.get(i).equals(list.get(0))) {
+		permutations.remove(i);
+	    }
+	}
+
+	return permutations;
     }
 
     public void swap(int first, int second) {

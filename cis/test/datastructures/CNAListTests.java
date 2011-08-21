@@ -33,7 +33,7 @@ public class CNAListTests extends UnitTest {
 
     @Test
     public void shouldNegate() {
-	list.negate();
+	list.invert();
 	assertEquals("0 2 3 ", list.toString());
     }
 

@@ -19,14 +19,14 @@ import datastructures.tree.MnecTree;
 import datastructures.tree.MsufTree;
 
 public class CNAlgorithm {
-    private CNATable originalTable;
+    private final CNATable originalTable;
     private CNAList effects;
     private CNATable sufTable;
     private CNATable msufTable;
-    private CNAList necList;
-    private ArrayList<MinimalTheorySet> sets;
+    private CNAList nec;
+    private final ArrayList<MinimalTheorySet> sets;
     private CNATable mnecTable;
-    private ArrayList<MinimalTheory> allTheories;
+    private final ArrayList<MinimalTheory> allTheories;
 
     public CNAlgorithm(CNATable table) throws CNAException {
 	originalTable = table;
@@ -146,26 +146,29 @@ public class CNAlgorithm {
 	CNATable bundleTable = msufTable.summarizeBundles(msufTable,
 		originalTable);
 
-	necList = msufTable.getNecList();
-	necList.negate();
-	// Add effect column
-	necList.add("1");
+	nec = msufTable.getNec();
+	nec.invert();
+	System.out.println("NEC: " + nec);
+	ArrayList<CNAList> negations = nec.negate(nec);
+	System.out.println("Negated: " + negations);
 
-	for (CNAList list : bundleTable) {
-	    if (list.equals(necList)) {
-		throw new CNAException(
-			"No necessary condition could be identified.");
+	for (CNAList negatedNec : negations) {
+	    for (CNAList list : bundleTable) {
+		if (list.equals(negatedNec)) {
+		    throw new CNAException(
+			    "No necessary condition could be identified.");
+		}
 	    }
 	}
 
-	this.necList = msufTable.getNecList();
-	identifyMNEC(necList, bundleTable, originalTable);
+	this.nec = msufTable.getNec();
+	identifyMNEC(nec, bundleTable, originalTable);
     }
 
     private void identifyMNEC(CNAList necList, CNATable bundleTable,
 	    CNATable originalTable) {
 
-	necList.negate();
+	necList.invert();
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	CNATreeNode root = new CNATreeNode(necList);
@@ -237,7 +240,7 @@ public class CNAlgorithm {
     }
 
     public CNAList getNecList() {
-	return necList;
+	return nec;
     }
 
     public CNAList getEffects() {
