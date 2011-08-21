@@ -1,11 +1,12 @@
-###Bachelor Thesis: Causal Inference Simulator  
+###Bachelor Thesis: Causal Inference Simulator (CIS)
 
 Our software provides an algorithm to calculate out of coincidence tables causal graphs. You can enter a coincidence table, a minimal theory or
-generate a random graph. We provide support for multiple theories, e.g. calculating out of a table a causal chain and it's corresponding 
-crossed epiphenomenon. Our software is complete webbased, all you need is a webbrowser. 
+generate a random graph. The implemented algorithm is described in Baumgartner, Uncovering deterministic causal structures: a Boolean approach, 2009. If you enter
+a non exhaustive coincidence table is entered by user this algorithm is able to calculate ambiguous causal graphs. Our software is a webapplication and is based on the Play! 
+framework (http://www.playframework.org/). 
  
 ####Authors  
-Jonas Ruef & Felix Langenegger (University of Berne Switzerland)
+Jonas Ruef & Felix Langenegger (University of Berne, Switzerland)
  
 ####License
 
