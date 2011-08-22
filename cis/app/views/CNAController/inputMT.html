@@ -33,6 +33,8 @@
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
 		<input type="hidden" name="generatedGraphString" value="${generatedGraphString}"/>
+		<input type="hidden" name="table" value="${table}"/>
+		<input type="hidden" name="coincTable" value="${coincTable}"/>
 		<input type="submit" name="cnaTest"        value="Calculate Graph"/>
 	#{/if}
 	#{else}

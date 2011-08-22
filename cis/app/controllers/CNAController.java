@@ -7,7 +7,6 @@ package controllers;
  * @license GPLv3, for more informations see Readme.mdown
  */
 
-import helpers.BaumgartnerSampleTable;
 import helpers.Timer;
 
 import java.util.ArrayList;
@@ -36,6 +35,10 @@ public class CNAController extends Controller {
     private static boolean showBundleNumRenderer;
     private static MinimalTheorySet theories;
     private static boolean makeEpi;
+
+    static final int NUMFACTORS = 13;
+    static final String MAILTo = "cis.unibe@arcadeweb.ch";
+    static final String MAILFrom = MAILTo;
 
     public static void setup() {
 	render();
@@ -74,12 +77,15 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() <= 9);
+	    boolean calc = (theories.getAllNames().size() <= NUMFACTORS);
 	    if (!calc) {
-		flash.error("Only up to 9 factors allowed.");
+		flash.error("Only up to " + NUMFACTORS + " factors allowed.");
 		params.flash();
 	    }
-	    render(calc, generatedGraphSource, generatedGraphString);
+	    MTSetToTable parser = new MTSetToTable(theories);
+	    CNATable table = parser.getCoincTable();
+	    String coincTable = table.toString();
+	    render(calc, generatedGraphSource, generatedGraphString, coincTable);
 	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
@@ -91,8 +97,8 @@ public class CNAController extends Controller {
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe.ch@arcadeweb.ch");
-		email.addTo("cis.unibe.ch@arcadeweb.ch");
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
 		email.setSubject("Error: IndexOutOfBoundsException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Random Gen\n" + msg);
@@ -111,7 +117,7 @@ public class CNAController extends Controller {
     }
 
     public static void calcCNAGraph(String generatedGraphSource,
-	    String generatedGraphString) {
+	    String generatedGraphString, String coincTable) {
 	try {
 	    timer = new Timer();
 	    MTSetToTable parser = new MTSetToTable(theories);
@@ -129,7 +135,6 @@ public class CNAController extends Controller {
 	    }
 
 	    String elapsedTime = timer.timeElapsed() + " ms";
-	    String coincTable = table.toString();
 	    boolean specialcase = false;
 	    render(elapsedTime, graphsView, generatedGraphSource,
 		    generatedGraphString, coincTable, specialcase);
@@ -153,7 +158,6 @@ public class CNAController extends Controller {
 		}
 
 		String elapsedTime = timer.timeElapsed() + " ms";
-		String coincTable = table.toString();
 		boolean specialcase = true;
 
 		render(elapsedTime, graphsView, generatedGraphSource,
@@ -170,40 +174,40 @@ public class CNAController extends Controller {
 	}
     }
 
-    public static void baumgartnerSample() {
-	timer = new Timer();
-	CNAlgorithm cnaAlgorithm;
-	try {
-	    cnaAlgorithm = new CNAlgorithm(
-		    new BaumgartnerSampleTable().getSampleTable());
-	    MinimalTheorySet theories = cnaAlgorithm.getSets().get(0);
-
-	    Graph graph = new Graph(theories);
-	    Renderer renderer = new Renderer();
-	    renderer.setShowEdgeLabels(showBundleNumRenderer);
-	    renderer.config(graph);
-	    String graphPath = renderer.getImageSource();
-	    String graphString = theories.toString();
-
-	    String elapsedTime = timer.timeElapsed() + " ms";
-
-	    render(elapsedTime, graphPath, graphString);
-	} catch (CNAException e) {
-	    flash.error(e.toString());
-	    params.flash();
-	    setup();
-	} catch (OutOfMemoryError e) {
-	    flash.error("Server is out of memory, please wait a minute.");
-	    params.flash();
-	    setup();
-	}
-    }
+    // public static void baumgartnerSample() {
+    // timer = new Timer();
+    // CNAlgorithm cnaAlgorithm;
+    // try {
+    // cnaAlgorithm = new CNAlgorithm(
+    // new BaumgartnerSampleTable().getSampleTable());
+    // MinimalTheorySet theories = cnaAlgorithm.getSets().get(0);
+    //
+    // Graph graph = new Graph(theories);
+    // Renderer renderer = new Renderer();
+    // renderer.setShowEdgeLabels(showBundleNumRenderer);
+    // renderer.config(graph);
+    // String graphPath = renderer.getImageSource();
+    // String graphString = theories.toString();
+    //
+    // String elapsedTime = timer.timeElapsed() + " ms";
+    //
+    // render(elapsedTime, graphPath, graphString);
+    // } catch (CNAException e) {
+    // flash.error(e.toString());
+    // params.flash();
+    // setup();
+    // } catch (OutOfMemoryError e) {
+    // flash.error("Server is out of memory, please wait a minute.");
+    // params.flash();
+    // setup();
+    // }
+    // }
 
     public static void inputTable(String table) {
 	CNATable cnatable = new CNATable("\r\n", ",", table);
 
-	if (cnatable.get(0).size() >= 9) {
-	    flash.error("Only up to 9 are factors allowed.");
+	if (cnatable.get(0).size() >= NUMFACTORS) {
+	    flash.error("Only up to " + NUMFACTORS + " factors allowed.");
 	    params.flash();
 	    setup();
 	} else if (cnatable.get(0).size() < 3) {
@@ -259,8 +263,8 @@ public class CNAController extends Controller {
 	} catch (ArrayIndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe.ch@arcadeweb.ch");
-		email.addTo("cis.unibe.ch@arcadeweb.ch");
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
 		email.setSubject("Error: IndexOutOfBoundsException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input Table\n" + msg);
@@ -274,8 +278,8 @@ public class CNAController extends Controller {
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe.ch@arcadeweb.ch");
-		email.addTo("cis.unibe.ch@arcadeweb.ch");
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
 		email.setSubject("Error: IndexOutOfBoundsException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input Table\n" + msg);
@@ -289,8 +293,8 @@ public class CNAController extends Controller {
 	} catch (IllegalArgumentException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe.ch@arcadeweb.ch");
-		email.addTo("cis.unibe.ch@arcadeweb.ch");
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
 		email.setSubject("Error: IllegalArgumentException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input Table\n" + msg);
@@ -325,8 +329,8 @@ public class CNAController extends Controller {
 		theorie = new MinimalTheory(factors, array[1]);
 		theories.add(theorie);
 	    }
-	    for(MinimalTheory theory: theories){
-		if(theory.getBundleFactors().size() < 2){
+	    for (MinimalTheory theory : theories) {
+		if (theory.getBundleFactors().size() < 2) {
 		    flash.error("Violation of Minimal Diversity pre-condition: Every MT must have at least two bundles, alternate factors, or a bundle and a alternate factor.");
 		    params.flash();
 		    setup();
@@ -339,9 +343,9 @@ public class CNAController extends Controller {
 
 	    String generatedGraphSource = renderer.getImageSource();
 	    String generatedGraphString = theories.toString();
-	    boolean calc = (theories.getAllNames().size() <= 9);
+	    boolean calc = (theories.getAllNames().size() <= NUMFACTORS);
 	    if (!calc) {
-		flash.error("Only up to 9 factors allowed.");
+		flash.error("Only up to " + NUMFACTORS + " factors allowed.");
 		params.flash();
 	    }
 	    render(generatedGraphSource, generatedGraphString, calc);
@@ -356,8 +360,8 @@ public class CNAController extends Controller {
 	} catch (IndexOutOfBoundsException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe.ch@arcadeweb.ch");
-		email.addTo("cis.unibe.ch@arcadeweb.ch");
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
 		email.setSubject("Error: IllegalArgumentException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input MT\n" + msg);
@@ -371,8 +375,8 @@ public class CNAController extends Controller {
 	} catch (IllegalArgumentException e) {
 	    try {
 		SimpleEmail email = new SimpleEmail();
-		email.setFrom("cis.unibe.ch@arcadeweb.ch");
-		email.addTo("cis.unibe.ch@arcadeweb.ch");
+		email.setFrom(MAILFrom);
+		email.addTo(MAILFrom);
 		email.setSubject("Error: IllegalArgumentException");
 		String msg = e.getStackTrace().toString();
 		email.setMsg("CNA Input MT\n" + msg);
