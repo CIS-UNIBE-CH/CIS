@@ -1,0 +1,134 @@
+/*********************** 
+basic page style
+************************/
+body {
+	background: #fff;
+	font-family: Helvetica, Veranda, Arial, sans-serif;
+}
+/*********************** 
+headings
+************************/
+h1 {
+	color: #000;
+	font-size: 20pt;
+}
+h1:first-child {
+	margin: 0px;
+}
+h2 {
+	color: #6666FF;
+	margin: 0;
+	font-size: 16pt;
+}
+h3 {
+	color: #6666FF;
+	font-size: 12pt;
+}
+/*********************** 
+links
+************************/
+a {
+	color: #6666FF;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:hover {
+	color: #c71c1c;
+}
+/*********************** 
+links
+************************/
+hr {
+	color: #c71c1c;	
+}
+/*---------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------*/
+/*********************** 
+main
+************************/
+div.main {
+	min-width: 780;
+	max-width: 980px;
+	min-height: 300px;
+	margin: 0 auto;
+}
+/*********************** 
+header
+************************/
+div.header {
+	margin:	0;
+	border-top: solid 1px #6666FF;
+	border-bottom: solid 1px #6666FF;
+		font-size: 10pt;
+}
+
+/*********************** 
+navigation
+************************/
+div.navigation {
+	padding: 10px;
+	color: #222222;
+	border-bottom: solid 1px #6666FF;
+}
+
+/*********************** 
+content
+************************/	
+div.content {
+	padding: 10px 10px;
+	font-size: 10pt;
+	color: #000;
+	min-height: 650px;
+}
+div.content a {
+	text-decoration: underline;
+}
+div.con {
+	float:left;
+	font-size: 10pt; 
+	width: 940px;
+}
+	
+div.news{
+	float:right;
+	border-left: solid 1px #6666FF;
+	min-height: 600px;
+	width: 200px;
+	padding-left: 10px;
+	font-size: 10pt; 
+}
+div.news date {
+		font-size: 8pt;
+}
+
+div.steps {
+	float:right;	
+}
+
+div.error {
+	margin-top:10px;
+	margin-bottom:10px;
+	font-size: 15px;
+	font-weight: normal;
+	color: #000000;
+	line-height: 30px;
+	text-indent: 14pt;
+	height: 30px;
+	/* CSS 3!*/
+	background-color:rgba(255,0,0,0.4);
+	
+}
+
+/*********************** 
+footer
+************************/
+div.footer {
+	text-align: right;
+	font-size: 0.7em;
+	color: #000;
+	padding: 3px;
+	border-top: solid 1px #6666FF;
+	border-bottom: solid 1px #6666FF;
+}
+/*---------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------*/

@@ -1,0 +1,60 @@
+<script type="text/javascript">		
+	$(document).ready(function() {
+		 $('#slickbox').hide();
+  	$('#slick-toggle').click(function() {
+    $('#slickbox').toggle(100);
+    return false;
+  	});
+});
+	$(document).ready(function() {
+		$('#orig').hide();
+	$('#orig-toggle').click(function() {
+	$('#orig').toggle(100);
+   	return false;
+ 	});
+});
+</script>
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h2>CNA Analysis - Graph Generation</h2>
+	#{if flash.error}
+		<div class="error">
+			${flash.error}
+		</div>
+	#{/if}
+	<div class="steps">
+	Step 2/3
+	</div>
+	<br>
+	<center>
+			<h3>Generated Graph</h3>
+		<center>
+		<img src="${generatedGraphSource}" />
+		<h3>${generatedGraphString}</h3>
+			<a href="#" id="orig-toggle">Show Coincidence Table</a>
+			<div id="orig">
+					<table>
+		#{list items:coincTable, as:'l'}
+			#{if l == "\n"}<tr>#{/if}
+			#{else}
+			<td>${l}</td>
+			#{/else}
+			#{if l == "\n"}</tr>#{/if}
+		#{/list}
+		</table>
+			</div>
+		</center>
+	<br/>
+	
+	#{if calc}
+	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
+		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
+		<input type="hidden" name="generatedGraphString" value="${generatedGraphString}"/>
+		<input type="hidden" name="table" value="${table}"/>
+		<input type="hidden" name="coincTable" value="${coincTable}"/>
+		<input type="submit" name="cnaTest"        value="Calculate Graph"/>
+	#{/if}
+	#{else}
+	#{/else}
+	</form>
+	

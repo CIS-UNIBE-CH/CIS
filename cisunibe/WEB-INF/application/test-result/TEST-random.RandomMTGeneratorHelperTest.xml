@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0.006" errors="0" skipped="0" tests="3" name="random.RandomMTGeneratorHelperTest">
+  <testcase classname="random.RandomMTGeneratorHelperTest" name="shouldRemoveZerosInBundles" time="0.002">
+      </testcase>
+  <testcase classname="random.RandomMTGeneratorHelperTest" name="shouldMakeAllZeroBundlesEmpty" time="0.002">
+      </testcase>
+  <testcase classname="random.RandomMTGeneratorHelperTest" name="shouldCreateLevelsList" time="0.002">
+      </testcase>
+</testsuite>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0.034" errors="0" skipped="0" tests="6" name="algorithms.CNATest">
+  <testcase classname="algorithms.CNATest" name="shouldTestIdentifySUF" time="0.006">
+      </testcase>
+  <testcase classname="algorithms.CNATest" name="shouldTestIdentifyMSUF" time="0.006">
+      </testcase>
+  <testcase classname="algorithms.CNATest" name="shouldTestIdentifyNEC" time="0.006">
+      </testcase>
+  <testcase classname="algorithms.CNATest" name="shouldTestIdentifyMNEC" time="0.006">
+      </testcase>
+  <testcase classname="algorithms.CNATest" name="shouldTestIdentifyMinimatTheorieSet" time="0.005">
+      </testcase>
+  <testcase classname="algorithms.CNATest" name="shouldTestWithGeneratedTable" time="0.005">
+      </testcase>
+</testsuite>

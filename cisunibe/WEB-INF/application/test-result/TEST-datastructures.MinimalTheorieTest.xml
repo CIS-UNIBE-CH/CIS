@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="5" name="datastructures.MinimalTheorieTest">
+  <testcase classname="datastructures.MinimalTheorieTest" name="shouldTestToString" time="0">
+      </testcase>
+  <testcase classname="datastructures.MinimalTheorieTest" name="shouldGetEffect" time="0">
+      </testcase>
+  <testcase classname="datastructures.MinimalTheorieTest" name="shouldGetFactors" time="0">
+      </testcase>
+  <testcase classname="datastructures.MinimalTheorieTest" name="shouldSetEffect" time="0">
+      </testcase>
+  <testcase classname="datastructures.MinimalTheorieTest" name="shouldSetFactors" time="0">
+      </testcase>
+</testsuite>

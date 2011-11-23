@@ -1,1 +1,6 @@
-play -> cobertura 2.1
+# Application dependencies
+    
+require:
+    - play -> capistrano 1.0.1
+    - play -> cobertura 2.1
+    
