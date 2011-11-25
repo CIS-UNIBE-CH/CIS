@@ -21,7 +21,7 @@ set :branch, "master"
 
 set :deploy_to, "/home/user/cis/"	# the directory where capistrano will setup it's env and clone your VCS and deploy current version etc...
 					# read this for more info about Capistrano deploy https://github.com/mpasternacki/capistrano-documentation-support-files/raw/master/default-execution-path/Capistrano%20Execution%20Path.jpg
-set :play_path, "/home/user/cis/cis/"		# this is the path in which play/play.bat can be found
+set :play_path, "/home/user/cis/current/cis/"		# this is the path in which play/play.bat can be found
 set :deploy_via, :remote_cache
 
 #################################################
