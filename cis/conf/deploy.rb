@@ -21,8 +21,8 @@ set :branch, "master"
 
 set :deploy_to, "/home/user/cis/"	# the directory where capistrano will setup it's env and clone your VCS and deploy current version etc...
 					# read this for more info about Capistrano deploy https://github.com/mpasternacki/capistrano-documentation-support-files/raw/master/default-execution-path/Capistrano%20Execution%20Path.jpg
-set :play_path, "CIS/cis/"		# this is the path in which play/play.bat can be found
-set :deploy_via, :copy
+set :play_path, "/home/user/cis/cis/"		# this is the path in which play/play.bat can be found
+set :deploy_via, :remote_cache
 
 #################################################
 # You can let it like that
@@ -40,6 +40,4 @@ set :use_sudo, false
 
 role :web, "130.92.151.134"                          # Your HTTP server, Apache/etc
 role :app, "130.92.151.134"                          # This may be the same as your `Web` server
-role :db,  "130.92.151.134", :primary => true 	   # This is where Rails migrations will run
-
-
+role :db,  "130.92.151.134", :primary => true 	     # This is where Rails migrations will run
