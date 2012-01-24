@@ -15,13 +15,13 @@ POST		/quadro/setup						QuadroTestController.setTable
 POST		/quadro/graph						QuadroTestController.calcQuadroGraph
 
 #CNA Tests
-GET			/cna/setup/1						CNAController.setup
-POST		/cna/setup/2						CNAController.prepare
-POST		/cna/setup							CNAController.generateGraph
-POST		/cna/graph							CNAController.calcCNAGraph
-POST		/cna/mtinput/setup/2				CNAController.inputMT
-POST		/cna/tableinput/graph				CNAController.inputTable
-POST		/cna/quickrun/graph					CNAController.baumgartnerSample
+GET			cna/setup/1						CNAController.setup
+POST		cna/setup/2						CNAController.prepare
+POST		cna/setup							CNAController.generateGraph
+POST		cna/graph							CNAController.calcCNAGraph
+POST		cna/mtinput/setup/2				CNAController.inputMT
+POST		cna/tableinput/graph				CNAController.inputTable
+POST		cna/quickrun/graph					CNAController.baumgartnerSample
 
 #CNA Tests
 GET			/input/setup						Input.setup
