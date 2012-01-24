@@ -19,14 +19,14 @@ public class VertexColorTransformer implements Transformer<Node, Paint> {
     public Paint transform(Node node) {
 	colors.clear();
 	colors.add(Color.lightGray);
-	colors.add(Color.magenta);
 	colors.add(Color.green);
-	colors.add(Color.orange);
 	colors.add(Color.red);
 	colors.add(Color.cyan);
 	colors.add(Color.gray);
-	colors.add(Color.pink);
 	colors.add(Color.yellow);
+	colors.add(Color.pink);
+	colors.add(Color.orange);
+	colors.add(Color.magenta);
 
 	if (node.isEffect()) {
 	    return new Color(255, 153, 0);
