@@ -16,19 +16,18 @@
 # MANDATORY CONFIG TO SET 
 set :application, "CIS"	# the name of the play application in general
 set :repository,  "git@github.com:CIS-UNIBE-CH/CIS.git"	# for ex: ssh://xxx@github.com/git/xxx/yyy.git
-set :scm, :git
+set :scm, :git 				# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :branch, "master"
 
-set :deploy_to, "/home/user/cis/"	# the directory where capistrano will setup it's env and clone your VCS and deploy current version etc...
+set :deploy_to, "~/cis"	# the directory where capistrano will setup it's env and clone your VCS and deploy current version etc...
 					# read this for more info about Capistrano deploy https://github.com/mpasternacki/capistrano-documentation-support-files/raw/master/default-execution-path/Capistrano%20Execution%20Path.jpg
-set :play_path, "/home/user/cis/current/cis/"		# this is the path in which play/play.bat can be found
+set :play_path, "/usr/play"		# this is the path in which play/play.bat can be found
 set :deploy_via, :remote_cache
-
 #################################################
 # You can let it like that
 set :shared_path, "#{deploy_to}/shared"
 set :app_pid, "#{shared_path}/pids/server.pid"
-set :app_path, "#{deploy_to}/current"
+set :app_path, "#{deploy_to}/current/cis"
 
 #################################################
 # MANDATORY SERVER CONFIG TO SET 
@@ -36,8 +35,8 @@ set :domain, "130.92.151.134"
 set :user, "user"
 set :password, "medea2"
 
-set :use_sudo, false
+# set :use_sudo, false
 
 role :web, "130.92.151.134"                          # Your HTTP server, Apache/etc
 role :app, "130.92.151.134"                          # This may be the same as your `Web` server
-role :db,  "130.92.151.134", :primary => true 	     # This is where Rails migrations will run
+role :db,  "130.92.151.134", :primary => true 	     
