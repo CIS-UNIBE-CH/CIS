@@ -1,0 +1,2708 @@
+Listening for transport dt_socket at address: 8000
+22:14:40,763 INFO  ~ Starting /home/user/cis/releases/20120124113751/cis
+22:14:41,149 WARN  ~ You're running Play! in DEV mode
+22:14:41,199 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+22:14:56,701 INFO  ~ Application 'Causal Inference Simulator' is now started !
+22:26:10,696 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+23:14:56,718 ERROR ~ 
+
+@6979hhbii
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+00:14:56,728 ERROR ~ 
+
+@6979hhbij
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+01:14:56,739 ERROR ~ 
+
+@6979hhbik
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+02:14:56,751 ERROR ~ 
+
+@6979hhbil
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+03:14:56,763 ERROR ~ 
+
+@6979hhbim
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+04:14:56,776 ERROR ~ 
+
+@6979hhbin
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+05:14:56,787 ERROR ~ 
+
+@6979hhbio
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+06:14:56,799 ERROR ~ 
+
+@6979hhbip
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+07:14:56,811 ERROR ~ 
+
+@6979hhbj0
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+08:14:56,823 ERROR ~ 
+
+@6979hhbj1
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+09:14:56,835 ERROR ~ 
+
+@6979hhbj2
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+10:14:56,846 ERROR ~ 
+
+@6979hhbj3
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+11:14:56,858 ERROR ~ 
+
+@6979hhbj4
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+12:14:56,870 ERROR ~ 
+
+@6979hhbj6
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+13:14:56,882 ERROR ~ 
+
+@6979hhbj8
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+14:14:56,893 ERROR ~ 
+
+@6979hhbj9
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+15:14:56,905 ERROR ~ 
+
+@6979hhbja
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+16:14:56,916 ERROR ~ 
+
+@6979hhbjb
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+17:14:56,928 ERROR ~ 
+
+@6979hhbjc
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+18:14:56,939 ERROR ~ 
+
+@6979hhbjd
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+19:14:56,951 ERROR ~ 
+
+@6979hhbje
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+19:46:43,239 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+19:48:01,745 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+19:48:24,472 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+19:48:42,926 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+19:49:04,600 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+19:51:03,783 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+20:14:56,961 ERROR ~ 
+
+@6979hhbjm
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+21:14:56,972 ERROR ~ 
+
+@6979hhbjn
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+22:14:56,983 ERROR ~ 
+
+@6979hhbjo
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+23:14:56,994 ERROR ~ 
+
+@6979hhbjp
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+00:14:57,005 ERROR ~ 
+
+@6979hhbk0
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+01:14:57,015 ERROR ~ 
+
+@6979hhbk1
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+02:14:57,026 ERROR ~ 
+
+@6979hhbk2
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+03:14:57,037 ERROR ~ 
+
+@6979hhbk3
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+04:14:57,047 ERROR ~ 
+
+@6979hhbk4
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+05:14:57,057 ERROR ~ 
+
+@6979hhbk5
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+06:14:57,072 ERROR ~ 
+
+@6979hhbk6
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+07:14:57,082 ERROR ~ 
+
+@6979hhbk7
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+08:14:57,091 ERROR ~ 
+
+@6979hhbk8
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+09:14:57,101 ERROR ~ 
+
+@6979hhbk9
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+10:14:57,112 ERROR ~ 
+
+@6979hhbka
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+11:14:57,122 ERROR ~ 
+
+@6979hhbkb
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+12:14:57,132 ERROR ~ 
+
+@6979hhbkc
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+13:14:57,143 ERROR ~ 
+
+@6979hhbkd
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+14:14:57,153 ERROR ~ 
+
+@6979hhbke
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+15:14:57,163 ERROR ~ 
+
+@6979hhbkf
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+16:14:57,171 ERROR ~ 
+
+@6979hhbkg
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+17:14:57,181 ERROR ~ 
+
+@6979hhbkh
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+18:14:57,191 ERROR ~ 
+
+@6979hhbki
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+19:14:57,201 ERROR ~ 
+
+@6979hhbkj
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+20:14:57,211 ERROR ~ 
+
+@6979hhbkk
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+21:14:57,221 ERROR ~ 
+
+@6979hhbkl
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+21:33:48,639 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:37:01,306 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:38:36,944 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:50:11,175 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:50:30,972 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:51:07,979 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:51:15,001 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:51:41,427 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:51:55,585 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:52:18,287 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:52:18,290 WARN  ~ The path for a staticDir route must end with / (GET /cna/public -> staticDir:public)
+21:52:29,426 WARN  ~ The path for a staticDir route must end with / (GET /contact -> staticDir:Application.contact)
+21:52:29,428 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:53:17,060 ERROR ~ Invalid route definition : GET contact staticDir:Application.contact
+21:53:17,062 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:56:23,800 WARN  ~ The path for a staticDir route must end with / (GET /index/{index} -> staticDir:Application.index)
+21:56:23,832 WARN  ~ The path for a staticDir route must end with / (GET /index/{index} -> staticDir:Application.index)
+21:56:23,855 ERROR ~ 
+
+@6979hhbl6
+Internal Server Error (500) for request GET //contact
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {index}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {index}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+21:56:44,977 WARN  ~ The path for a staticDir route must end with / (GET /index/{index} -> staticDir:Application.index)
+21:56:45,004 WARN  ~ The path for a staticDir route must end with / (GET /index/{index} -> staticDir:Application.index)
+21:56:45,025 ERROR ~ 
+
+@6979hhbl7
+Internal Server Error (500) for request GET //contact
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {index}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {index}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+21:56:45,676 WARN  ~ The path for a staticDir route must end with / (GET /index/{index} -> staticDir:Application.index)
+21:56:45,702 WARN  ~ The path for a staticDir route must end with / (GET /index/{index} -> staticDir:Application.index)
+21:56:45,722 ERROR ~ 
+
+@6979hhbl8
+Internal Server Error (500) for request GET //contact
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {index}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {index}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+21:56:52,384 ERROR ~ Invalid route definition : GET contact staticDir:Application.contact
+21:56:52,386 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:57:05,451 ERROR ~ Invalid route definition : GET contact Application.contact
+21:57:05,452 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:57:33,568 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:58:00,303 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:58:24,425 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+21:59:08,511 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:00:35,998 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:01:10,187 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:01:10,237 ERROR ~ 
+
+@6979hhblh
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/main.html around line 18)
+No route able to invoke action CNAController.setup with arguments {} was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:80)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:236)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:01:28,502 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:02:15,432 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:02:15,440 ERROR ~ 
+
+@6979hhblk
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/main.html around line 18)
+No route able to invoke action CNAController.setup with arguments {} was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:80)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:236)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:02:24,016 ERROR ~ 
+
+@6979hhbln
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/main.html around line 18)
+No route able to invoke action CNAController.setup with arguments {} was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:80)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:236)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:02:26,202 ERROR ~ 
+
+@6979hhbm0
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/main.html around line 18)
+No route able to invoke action CNAController.setup with arguments {} was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:80)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:236)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:08:28,252 WARN  ~ Ignoring {controller}.{action (static params must be specified as key:'value',...)
+22:08:28,252 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:)
+22:08:28,277 WARN  ~ Ignoring {controller}.{action (static params must be specified as key:'value',...)
+22:08:28,277 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:)
+22:08:28,298 ERROR ~ 
+
+@6979hhbm1
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:08:51,640 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:51,663 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:51,685 ERROR ~ 
+
+@6979hhbm2
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:08:52,293 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:52,315 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:52,333 ERROR ~ 
+
+@6979hhbm3
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:08:56,005 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:56,024 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:56,042 ERROR ~ 
+
+@6979hhbm4
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:08:57,493 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:57,510 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:57,528 ERROR ~ 
+
+@6979hhbm5
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:08:58,696 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:58,712 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:08:58,731 ERROR ~ 
+
+@6979hhbm6
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:09:00,688 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:09:00,708 WARN  ~ The path for a staticDir route must end with / (* /{controller}/{action} -> staticDir:{controller}.{action})
+22:09:00,728 ERROR ~ 
+
+@6979hhbm7
+Internal Server Error (500) for request GET //
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: unknow class: {controller}
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: unknow class: {controller}
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:361)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:619)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+22:11:27,004 ERROR ~ Invalid route definition : * cna staticDir:cna
+22:12:00,181 ERROR ~ Invalid route definition : * cna staticDir:cna
+22:12:15,890 ERROR ~ Invalid route definition : * cna staticDir:cna
+22:12:15,891 WARN  ~ Static route cannot have a dynamic host name
+22:12:15,910 ERROR ~ 
+
+@6979hhbm8
+Internal Server Error (500) for request GET //
+
+Oops: NullPointerException
+An unexpected error occured caused by exception NullPointerException: null
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:364)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at play.mvc.Router$Route.matches(Router.java:745)
+	at play.mvc.Router.route(Router.java:263)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:66)
+	... 1 more
+22:12:17,465 ERROR ~ 
+
+@6979hhbm9
+Internal Server Error (500) for request GET //
+
+Oops: NullPointerException
+An unexpected error occured caused by exception NullPointerException: null
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:364)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at play.mvc.Router$Route.matches(Router.java:745)
+	at play.mvc.Router.route(Router.java:263)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:66)
+	... 1 more
+22:12:41,331 ERROR ~ Invalid route definition : * cna staticDir:cna
+22:12:52,766 ERROR ~ 
+
+@6979hhbmb
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:13:11,596 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:13:11,596 ERROR ~ Invalid route definition : * cna staticDir:cna
+22:13:48,472 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:cna/public)
+22:13:51,426 ERROR ~ 
+
+@6979hhbmf
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:14:03,541 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:cna)
+22:14:03,546 ERROR ~ 
+
+@6979hhbmh
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:14:04,323 ERROR ~ 
+
+@6979hhbmj
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:14:53,798 ERROR ~ Invalid route definition : GET public staticDir:public
+22:14:53,803 ERROR ~ 
+
+@6979hhbml
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:14:54,786 ERROR ~ 
+
+@6979hhbmn
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:18:00,823 ERROR ~ 
+
+@6979hhbn1
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:22:17,785 ERROR ~ 
+
+@6979hhbnb
+stylesheets.main.css action not found
+
+Action not found
+Action stylesheets.main.css could not be found. Error raised is Controller controllers.stylesheets.main not found
+
+play.exceptions.ActionNotFoundException: Action stylesheets.main.css not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:436)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:76)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: Controller controllers.stylesheets.main not found
+	... 3 more
+22:22:17,792 ERROR ~ 
+
+@6979hhbnc
+javascripts.jquery-1.6.2.min.js action not found
+
+Action not found
+Action javascripts.jquery-1.6.2.min.js could not be found. Error raised is Controller controllers.javascripts.jquery-1.6.2.min not found
+
+play.exceptions.ActionNotFoundException: Action javascripts.jquery-1.6.2.min.js not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:436)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:76)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: Controller controllers.javascripts.jquery-1.6.2.min not found
+	... 3 more
+22:22:17,860 ERROR ~ 
+
+@6979hhbnd
+images.graph.png action not found
+
+Action not found
+Action images.graph.png could not be found. Error raised is Controller controllers.images.graph not found
+
+play.exceptions.ActionNotFoundException: Action images.graph.png not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:436)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:76)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: Controller controllers.images.graph not found
+	... 3 more
+22:24:43,642 ERROR ~ Invalid route definition : GET public staticDir:public
+22:24:48,666 ERROR ~ 
+
+@6979hhbni
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:24:57,704 ERROR ~ 
+
+@6979hhbnk
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+22:25:05,303 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+22:26:25,924 ERROR ~ 
+
+@6979hhbo1
+Internal Server Error (500) for request GET /
+
+No route found (In /app/views/Application/index.html around line 22)
+No route able to display file /public/images/graph.png was found.
+
+play.exceptions.NoRouteFoundException: No route found
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:78)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:211)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:21)
+	at play.mvc.Controller.renderTemplate(Controller.java:588)
+	at play.mvc.Controller.renderTemplate(Controller.java:568)
+	at play.mvc.Controller.render(Controller.java:623)
+	at controllers.Application.index(Application.java:15)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:408)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:403)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:176)
+	at Invocation.HTTP Request(Play!)
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.1, http://www.playframework.org
+~
+~ Ctrl+C to stop
+~ 
+
+Listening for transport dt_socket at address: 8000
+22:33:14,249 INFO  ~ Starting /home/user/cis/releases/20120124113751/cis
+22:33:14,628 WARN  ~ You're running Play! in DEV mode
+22:33:14,678 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+Listening for transport dt_socket at address: 37598
+22:33:17,327 INFO  ~ Starting /home/user/cis/releases/20120124113751/cis
+22:33:17,420 WARN  ~ You're running Play! in DEV mode
+22:33:17,465 ERROR ~ Could not bind on port 9000
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.1, http://www.playframework.org
+~
+~ Ctrl+C to stop
+~ 
+JPDA port 8000 is already used. Will try to use any free port for debugging
+
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.1, http://www.playframework.org
+~
+~ Ctrl+C to stop
+~ 
+
+Listening for transport dt_socket at address: 8000
+22:33:49,366 INFO  ~ Starting /home/user/cis/releases/20120124113751/cis
+22:33:49,459 WARN  ~ You're running Play! in DEV mode
+22:33:49,509 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+22:33:54,182 INFO  ~ Application 'Causal Inference Simulator' is now started !
+22:43:46,728 ERROR ~ Invalid route definition : GET Application.index
+22:53:00,641 ERROR ~ 
+
+@697o87jhb
+Internal Server Error (500) for request GET /
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: missing term before *
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Play.start(Play.java:448)
+	at play.Play.detectChanges(Play.java:533)
+	at play.Invoker$Invocation.init(Invoker.java:100)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: missing term before *
+	at jregex.Term.append(jregex/Term.java:415)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:632)
+	at play.mvc.Router.getRoute(Router.java:139)
+	at play.mvc.Router.appendRoute(Router.java:123)
+	at play.mvc.Router.parse(Router.java:198)
+	at play.mvc.Router.load(Router.java:51)
+	at play.mvc.Router.detectChanges(Router.java:218)
+	at play.Play.start(Play.java:419)
+	... 3 more
+23:53:14,611 ERROR ~ 
+
+@697o87ji1
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+00:53:14,622 ERROR ~ 
+
+@697o87ji2
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+01:53:14,631 ERROR ~ 
+
+@697o87ji3
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+02:53:14,641 ERROR ~ 
+
+@697o87ji4
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+03:53:14,652 ERROR ~ 
+
+@697o87ji5
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+04:53:14,662 ERROR ~ 
+
+@697o87ji6
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+05:53:14,673 ERROR ~ 
+
+@697o87ji7
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+06:53:14,683 ERROR ~ 
+
+@697o87ji8
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+07:53:14,692 ERROR ~ 
+
+@697o87ji9
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+08:53:14,702 ERROR ~ 
+
+@697o87jia
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+09:53:14,712 ERROR ~ 
+
+@697o87jib
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+10:53:14,722 ERROR ~ 
+
+@697o87jic
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+11:53:14,732 ERROR ~ 
+
+@697o87jid
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+12:53:14,742 ERROR ~ 
+
+@697o87jie
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+13:53:14,753 ERROR ~ 
+
+@697o87jif
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+14:53:14,763 ERROR ~ 
+
+@697o87jig
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+15:53:14,773 ERROR ~ 
+
+@697o87jih
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+16:53:14,783 ERROR ~ 
+
+@697o87jii
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+17:53:14,793 ERROR ~ 
+
+@697o87jij
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+18:53:14,803 ERROR ~ 
+
+@697o87jik
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+19:53:14,813 ERROR ~ 
+
+@697o87jil
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+20:53:14,823 ERROR ~ 
+
+@697o87jim
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+21:53:14,833 ERROR ~ 
+
+@697o87jin
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+22:53:14,843 ERROR ~ 
+
+@697o87jio
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+23:53:14,853 ERROR ~ 
+
+@697o87jip
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+00:53:14,863 ERROR ~ 
+
+@697o87jj0
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+01:53:14,872 ERROR ~ 
+
+@697o87jj1
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+02:53:14,882 ERROR ~ 
+
+@697o87jj2
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+03:53:14,892 ERROR ~ 
+
+@697o87jj3
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+04:53:14,902 ERROR ~ 
+
+@697o87jj4
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+05:53:14,912 ERROR ~ 
+
+@697o87jj5
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+06:53:14,922 ERROR ~ 
+
+@697o87jj6
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+07:53:14,932 ERROR ~ 
+
+@697o87jj7
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+08:53:14,942 ERROR ~ 
+
+@697o87jj8
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+09:53:14,953 ERROR ~ 
+
+@697o87jj9
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+10:53:14,964 ERROR ~ 
+
+@697o87jja
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+11:53:14,974 ERROR ~ 
+
+@697o87jjb
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+12:53:14,984 ERROR ~ 
+
+@697o87jjc
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+13:53:14,992 ERROR ~ 
+
+@697o87jjd
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+14:53:15,002 ERROR ~ 
+
+@697o87jje
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+15:53:15,012 ERROR ~ 
+
+@697o87jjf
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+16:53:15,022 ERROR ~ 
+
+@697o87jjg
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+17:53:15,032 ERROR ~ 
+
+@697o87jjh
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+18:53:15,042 ERROR ~ 
+
+@697o87jji
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+19:53:15,052 ERROR ~ 
+
+@697o87jjj
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+20:53:15,062 ERROR ~ 
+
+@697o87jjk
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+21:53:15,072 ERROR ~ 
+
+@697o87jjl
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+22:53:15,082 ERROR ~ 
+
+@697o87jjm
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+23:53:15,092 ERROR ~ 
+
+@697o87jjn
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+00:53:15,106 ERROR ~ 
+
+@697o87jjo
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+01:53:15,117 ERROR ~ 
+
+@697o87jjp
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+02:53:15,127 ERROR ~ 
+
+@697o87jk0
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+03:53:15,135 ERROR ~ 
+
+@697o87jk1
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+04:53:15,145 ERROR ~ 
+
+@697o87jk2
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+05:53:15,156 ERROR ~ 
+
+@697o87jk3
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+06:53:15,166 ERROR ~ 
+
+@697o87jk4
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+07:53:15,176 ERROR ~ 
+
+@697o87jk5
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+08:53:15,186 ERROR ~ 
+
+@697o87jk6
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+09:53:15,198 ERROR ~ 
+
+@697o87jk7
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+10:53:15,207 ERROR ~ 
+
+@697o87jk8
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+11:53:15,217 ERROR ~ 
+
+@697o87jk9
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+12:53:15,227 ERROR ~ 
+
+@697o87jka
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+13:53:15,237 ERROR ~ 
+
+@697o87jkb
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+14:53:15,248 ERROR ~ 
+
+@697o87jkc
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+15:53:15,258 ERROR ~ 
+
+@697o87jkd
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+16:53:15,267 ERROR ~ 
+
+@697o87jke
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+17:53:15,277 ERROR ~ 
+
+@697o87jkf
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+18:53:15,287 ERROR ~ 
+
+@697o87jkg
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+19:53:15,297 ERROR ~ 
+
+@697o87jkh
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+20:53:15,307 ERROR ~ 
+
+@697o87jki
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+21:53:15,317 ERROR ~ 
+
+@697o87jkj
+Error during job execution (jobs.Bootstrap)
+
+Execution exception (In /app/jobs/Bootstrap.java around line 13)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.jobs.Job.call(Job.java:119)
+	at Invocation.Job(Play!)
+Caused by: java.lang.NullPointerException
+	at jobs.Bootstrap.doJob(Bootstrap.java:13)
+	at play.jobs.Job.doJobWithResult(Job.java:37)
+	at play.jobs.Job.call(Job.java:110)
+	... 1 more
+22:24:00,737 WARN  ~ The path for a staticDir route must end with / (GET /public -> staticDir:public)
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.1, http://www.playframework.org
+~
+~ Ctrl+C to stop
+~ 
+

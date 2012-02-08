@@ -4,7 +4,7 @@
         <title>#{get 'title' /}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         #{stylesheet 'main.css' /}
-        <script src="@{'/public/javascripts/jquery-1.6.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <script src="@{'public/javascripts/jquery-1.6.2.min.js'}" type="text/javascript" charset="utf-8"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
@@ -14,7 +14,7 @@
        			Jonas Ruef and Felix Langenegger
        		</div><!-- end header -->
       		<div class="navigation">
-			<a href="/cna">Home</a> | 
+			<a href="/">Home</a> | 
 			<a href="@{CNAController.setup()}">CNA Analysis</a> |
 			<a href="@{QuadroTestController.setup()}">Simple Quadro Test</a> | 
 			<a href="@{Application.contact()}">Contact</a> 

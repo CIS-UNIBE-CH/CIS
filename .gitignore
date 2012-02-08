@@ -9,6 +9,7 @@
 /cis/eclipse/
 /cis/precompiled/
 /cis/public/images/graphs/
+/cis/conf/deploy.rb
 
 # do not commit all temporary play stuff
 /cis/cobertura.ser

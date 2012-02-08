@@ -43,7 +43,7 @@ public class Renderer {
     public Renderer() {
 	now = new Date();
 	dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmssS");
-	this.path = Play.applicationPath + "/public/images/graphs/";
+	this.path = Play.applicationPath + "//public/images/graphs/";
 	xPicSize = 1000;
 	yPicSize = 1000;
     }
@@ -127,7 +127,7 @@ public class Renderer {
     }
 
     public String getImageSource() {
-	return "/public/images/graphs/" + dateFormat.format(now).toString()
+	return "//public/images/graphs/" + dateFormat.format(now).toString()
 		+ ".png";
     }
 
