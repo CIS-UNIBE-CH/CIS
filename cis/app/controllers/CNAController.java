@@ -79,7 +79,8 @@ public class CNAController extends Controller {
 	    String generatedGraphString = theories.toString();
 	    boolean calc = (theories.getAllNames().size() <= NUMFACTORS);
 	    if (!calc) {
-		flash.error("Only up to " + NUMFACTORS + " factors allowed.");
+		int allowed = NUMFACTORS -1;
+		flash.error("Only up to " + allowed + " factors allowed.");
 		params.flash();
 	    }
 	    MTSetToTable parser = new MTSetToTable(theories);
