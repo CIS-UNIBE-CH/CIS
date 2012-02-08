@@ -2,43 +2,41 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Set context name (See application.conf)
-%{ cna = play.configuration.getProperty('war.context', '') }%
 
 # Home page
-GET		${cna}/index/{index}						Application.index
+GET	    /index/{index}						Application.index
 GET    	/                                     			Application.index
 
-GET		${cna}/contact								Application.contact
-GET		${cna}/disclaimer								Application.disclaimer
+GET		/contact								Application.contact
+GET	    /disclaimer								Application.disclaimer
 
 #SimpleQuadroTest
-GET		${cna}/quadro/setup						QuadroTestController.setup
-POST	${cna}/quadro/setup						QuadroTestController.setTable
-POST	${cna}/quadro/graph						QuadroTestController.calcQuadroGraph
+GET		/quadro/setup						QuadroTestController.setup
+POST	/quadro/setup						QuadroTestController.setTable
+POST	/quadro/graph						QuadroTestController.calcQuadroGraph
 
 #CNA Tests
-GET		${cna}/setup/1						CNAController.setup
-POST	${cna}/setup/2						CNAController.prepare
-POST	${cna}/setup							CNAController.generateGraph
-POST	${cna}/graph							CNAController.calcCNAGraph
-POST	${cna}/mtinput/setup/2				CNAController.inputMT
-POST	${cna}/tableinput/graph				CNAController.inputTable
-POST	${cna}/quickrun/graph					CNAController.baumgartnerSample
+GET		/setup/1						CNAController.setup
+POST	/setup/2						CNAController.prepare
+POST    /setup							CNAController.generateGraph
+POST	/graph							CNAController.calcCNAGraph
+POST	/mtinput/setup/2				CNAController.inputMT
+POST	/tableinput/graph				CNAController.inputTable
+POST	/quickrun/graph					CNAController.baumgartnerSample
 
 #CNA Tests
-GET		${cna}/input/setup						Input.setup
-POST	${cna}/input/graph						Input.calcCNAGraph
-GET		${cna}/draw/setup							DrawGraph.setup
-POST	${cna}/draw/graph							DrawGraph.drawGraph
+GET		/input/setup						Input.setup
+POST	/input/graph						Input.calcCNAGraph
+GET		/draw/setup							DrawGraph.setup
+POST	/draw/graph							DrawGraph.drawGraph
 
-GET		${cna}/testing/{step} 						Application.complexTesting
+GET		/testing/{step} 						Application.complexTesting
 
 # Map static resources from the /app/public folder to the /public path
-GET     	${cna}/public/             staticDir:public
+GET     /public/             staticDir:public
 
 # Catch all
-*      		${cna}/{controller}/{action}                  {controller}.{action}
+*      	/{controller}/{action}                  {controller}.{action}
 
 
 #/testing/{step}/{showTable}/{table}/{generatedGraphPath}/{generatedGraph}/{calculatedGraphPath}/{calculatedGraph}/{time}/{algorithmName}
