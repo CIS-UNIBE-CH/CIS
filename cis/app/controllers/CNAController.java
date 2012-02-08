@@ -36,7 +36,7 @@ public class CNAController extends Controller {
     private static MinimalTheorySet theories;
     private static boolean makeEpi;
 
-    static final int NUMFACTORS = 13;
+    static final int NUMFACTORS = 8;
     static final String MAILTo = "cis.unibe@arcadeweb.ch";
     static final String MAILFrom = MAILTo;
 
