@@ -44,10 +44,10 @@ namespace :deploy do
   
   desc "Copy all relevant files to the shared ordner"
   task :copy_serverfiles do
-    run "cp -nfs #{release_path}/Config\ Files\ Server/application.conf #{shared_path}/serverconfigs/"
-    run "cp -nfs #{release_path}/Config\ Files\ Server/routes #{shared_path}/serverconfigs/"
-    run "cp -nfs #{release_path}/Config\ Files\ Server/main.html #{shared_path}/serverconfigs/"
-    run "cp -nfs #{release_path}/Config\ Files\ Server/Renderer.java #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/serverconfigs/application.conf #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/serverconfigs/routes #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/serverconfigs/main.html #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/serverconfigs/Renderer.java #{shared_path}/serverconfigs/"
   end
   
   desc "Copy all relevant server files"
