@@ -11,6 +11,13 @@
 /cis/public/images/graphs/
 /cis/conf/deploy.rb
 
+#server specific files
+
+/cis/conf/application.conf
+/cis/conf/routes
+/cis/app/views/main.html
+/cis/app/models/Renderer.java
+
 # do not commit all temporary play stuff
 /cis/cobertura.ser
 /cis/logs

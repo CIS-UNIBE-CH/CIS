@@ -33,10 +33,33 @@ set :app_path, "#{deploy_to}/current/cis"
 # MANDATORY SERVER CONFIG TO SET 
 set :domain, "130.92.151.134"
 set :user, "user"
-set :password, "medea2"
 
 # set :use_sudo, false
 
 role :web, "130.92.151.134"                          # Your HTTP server, Apache/etc
 role :app, "130.92.151.134"                          # This may be the same as your `Web` server
 role :db,  "130.92.151.134", :primary => true 	     
+
+namespace :deploy do
+  
+  desc "Copy all relevant files to the shared ordner"
+  task :copy_serverfiles do
+    run "cp -nfs #{release_path}/Config\ Files\ Server/application.conf #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/Config\ Files\ Server/routes #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/Config\ Files\ Server/main.html #{shared_path}/serverconfigs/"
+    run "cp -nfs #{release_path}/Config\ Files\ Server/Renderer.java #{shared_path}/serverconfigs/"
+  end
+  
+  desc "Copy all relevant server files"
+  task :symlink_shared do
+    run "ln -nfs #{shared_path}/serverconfigs/application.conf #{release_path}/cis/conf/application.conf"
+    run "ln -nfs #{shared_path}/serverconfigs/routes #{release_path}/cis/conf/routes"  
+    run "ln -nfs #{shared_path}/serverconfigs/main.html #{release_path}/cis/app/views/main.html"
+    run "ln -nfs #{shared_path}/serverconfigs/Renderer.java  #{release_path}/cis/app/models/Renderer.java"    
+  end
+end
+
+after "deploy:update_code" do
+  deploy.copy_serverfiles
+  deploy.symlink_shared
+end
