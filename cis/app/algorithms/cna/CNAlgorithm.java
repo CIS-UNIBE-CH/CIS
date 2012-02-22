@@ -175,14 +175,17 @@ public class CNAlgorithm {
 	    CNATable originalTable) {
 
 	necList.invert();
+	
+	boolean stopWalk = false;
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	CNATreeNode root = new CNATreeNode(necList);
-	mnecTree = new MnecTree(root);
+	mnecTree = new MnecTree(root, bundleTable, mnecTable, stopWalk);
 
 	mnecTree.fillUpTree(root);
-	boolean stopWalk = false;
-	mnecTree.walk(root, bundleTable, mnecTable, stopWalk);
+	
+	new Thread(mnecTree).start();
+//	mnecTree.w(root, bundleTable, mnecTable, stopWalk);
 	mnecTable.removeDuplicated();
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();

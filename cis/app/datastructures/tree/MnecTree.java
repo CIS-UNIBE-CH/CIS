@@ -12,14 +12,29 @@ import java.util.ArrayList;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
-public class MnecTree extends CNATree {
-
-    public MnecTree(CNATreeNode node) {
-	super(node);
+public class MnecTree extends CNATree implements Runnable {
+    private final CNATreeNode parent;
+    private final CNATable bundleTable;
+    private final CNATable mnecTable;
+    private final boolean stopWalk;
+    private final CNATreeNode node;
+    
+    
+    public MnecTree(CNATreeNode parent, CNATable bundleTable, CNATable mnecTable, boolean stopWalk) {
+	super(parent);
+	this.parent = parent;
+	this.node = parent;
+	this.bundleTable = bundleTable;
+	this.mnecTable = mnecTable;
+	this.stopWalk = stopWalk;
+    }
+    
+    @Override
+    public void run(){
+	walk(parent, bundleTable, mnecTable, stopWalk);
     }
 
-    public void walk(CNATreeNode parent, CNATable bundleTable,
-	    CNATable mnecTable, boolean stopWalk) {
+    public void walk(CNATreeNode parent, CNATable bundleTable, CNATable mnecTable, boolean stopWalk) {
 	int childsFound = 0;
 	for (int j = 0; j < parent.getChildCount(); j++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(j);
