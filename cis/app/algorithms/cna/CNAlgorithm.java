@@ -135,16 +135,22 @@ public class CNAlgorithm {
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
 	    CNAList list = (CNAList) sufTable.get(i).clone();
-
+	    boolean stopWalk = false;
+	    
 	    list.remove(list.size() - 1);
 	    CNATreeNode root = new CNATreeNode(list);
-	    msufTree = new MsufTree(root);
+	    
+	    msufTree = new MsufTree(root, originalTable, msufTable, stopWalk);
+	    
 	    msufTree.fillUpTree(root);
+		
+	    new Thread(msufTree).start();
 
-	    boolean stopWalk = false;
 	    msufTree.walk(root, originalTable, msufTable, stopWalk);
-	    msufTable.removeDuplicated();
+//	    msufTable.removeDuplicated();
 	}
+	
+	msufTable.removeDuplicated();
 	System.out.println("MsufTable\n" + msufTable);
 	identifyNEC(msufTable, originalTable);
     }

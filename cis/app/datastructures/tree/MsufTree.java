@@ -10,10 +10,26 @@ package datastructures.tree;
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
-public class MsufTree extends CNATree {
+public class MsufTree extends CNATree implements Runnable{
+    private CNATreeNode parent;
+    private final CNATable originalTable;
+    private final CNATable msufTable;
+    private final boolean stopWalk;
+    private CNATreeNode node;
     
-    public MsufTree(CNATreeNode node) {
-	super(node);
+    public MsufTree(CNATreeNode parent, CNATable originalTable,
+	    CNATable msufTable, boolean stopWalk) {
+	super(parent);
+	this.parent = node;
+	this.parent = parent;
+	this.originalTable = originalTable;
+	this.msufTable = msufTable;
+	this.stopWalk = stopWalk;
+    }
+    
+    @Override
+    public void run(){
+	walk(parent, originalTable, msufTable, stopWalk);
     }
 
     public void walk(CNATreeNode parent, CNATable originalTable,
