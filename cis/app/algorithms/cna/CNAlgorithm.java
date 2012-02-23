@@ -8,6 +8,8 @@ package algorithms.cna;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import datastructures.cna.CNAList;
 import datastructures.cna.CNAListComparator;
@@ -132,26 +134,47 @@ public class CNAlgorithm {
 	    throws CNAException {
 	MsufTree msufTree;
 	msufTable = new CNATable();
+
+	CopyOnWriteArrayList<CNATable> threadSafeList = new CopyOnWriteArrayList<CNATable>();
+	CountDownLatch latch = new CountDownLatch(sufTable.size()-2);
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
+	    CNATable msufTableThread = new CNATable();
 	    CNAList list = (CNAList) sufTable.get(i).clone();
 	    boolean stopWalk = false;
-	    
+
 	    list.remove(list.size() - 1);
 	    CNATreeNode root = new CNATreeNode(list);
-	    
-	    msufTree = new MsufTree(root, originalTable, msufTable, stopWalk);
-	    
-	    msufTree.fillUpTree(root);
-		
-	    new Thread(msufTree).start();
 
-	    msufTree.walk(root, originalTable, msufTable, stopWalk);
-//	    msufTable.removeDuplicated();
+	    msufTree = new MsufTree(root, originalTable, msufTableThread,
+		    stopWalk);
+	    msufTree.fillUpTree(root);
+	    Thread thread = new Thread(msufTree);
+	    thread.start();
+//	    msufTree.walk(root, originalTable, msufTableThread, stopWalk);
+	    threadSafeList.add(msufTableThread);
+	    latch.countDown();
+	    System.out.println("Thread" + i);
 	}
 	
+	try {
+	    latch.await();
+	} catch (InterruptedException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} // Wait for countdown
+	
+//	System.out.println("MsufTable\n" + msufTable);
+	System.out.println("ThreadSafe List:\n" + threadSafeList);
+	for (CNATable table : threadSafeList) {
+	    for (CNAList list : table) {
+		msufTable.add(list);
+	    }
+	}
 	msufTable.removeDuplicated();
+
 	System.out.println("MsufTable\n" + msufTable);
+
 	identifyNEC(msufTable, originalTable);
     }
 
@@ -181,17 +204,14 @@ public class CNAlgorithm {
 	    CNATable originalTable) {
 
 	necList.invert();
-	
-	boolean stopWalk = false;
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	CNATreeNode root = new CNATreeNode(necList);
-	mnecTree = new MnecTree(root, bundleTable, mnecTable, stopWalk);
+	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);
-	
-	new Thread(mnecTree).start();
-//	mnecTree.w(root, bundleTable, mnecTable, stopWalk);
+	boolean stopWalk = false;
+	mnecTree.walk(root, bundleTable, mnecTable, stopWalk);
 	mnecTable.removeDuplicated();
 
 	ArrayList<MinimalTheory> mtList = new ArrayList<MinimalTheory>();
