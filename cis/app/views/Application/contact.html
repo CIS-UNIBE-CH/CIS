@@ -1,11 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Contact' /}
 <h2>Contact</h2>
+<hr>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
 		</div>
 	#{/if}
+<ul>
+<li><strong>Questions, Suggestions or Bugs: </strong><a href="mailto:cis.unibe.ch@gmail.com">Send us a Mail</a></li>
 <br>
-<br>
-<p><strong>Questions, Suggestions or Bugs: </strong><a href="mailto:cis.unibe.ch@gmail.com">Send us a Mail</a></p>
+<li><strong>Find us on github: </strong><a href="https://github.com/CIS-UNIBE-CH/CIS" target="new">https://github.com/CIS-UNIBE-CH/CIS</a></li>
+</ul>

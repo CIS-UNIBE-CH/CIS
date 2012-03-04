@@ -15,8 +15,9 @@
 });
 </script>
 #{extends 'main.html' /}
-#{set title:'Home' /}
-<h2>CNA Analysis - Graph Generation</h2>
+#{set title:'Random Graph Generation' /}
+<h2>Random Graph Generation</h2>
+<hr>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
@@ -25,9 +26,7 @@
 	<div class="steps">
 	Step 2/3
 	</div>
-	<br>
-	<center>
-			<h3>Generated Graph</h3>
+	<h3>Generated Graph</h3>
 		<center>
 		<img src="${generatedGraphSource}" />
 		<h3>${generatedGraphString}</h3>
@@ -44,8 +43,6 @@
 		</table>
 			</div>
 		</center>
-	<br/>
-	
 	#{if calc}
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>

@@ -79,7 +79,7 @@ public class CNAController extends Controller {
 	    String generatedGraphString = theories.toString();
 	    boolean calc = (theories.getAllNames().size() <= NUMFACTORS);
 	    if (!calc) {
-		int allowed = NUMFACTORS -1;
+		int allowed = NUMFACTORS - 1;
 		flash.error("Only up to " + allowed + " factors allowed.");
 		params.flash();
 	    }
@@ -349,7 +349,18 @@ public class CNAController extends Controller {
 		flash.error("Only up to " + NUMFACTORS + " factors allowed.");
 		params.flash();
 	    }
-	    render(generatedGraphSource, generatedGraphString, calc);
+	    MTSetToTable parser;
+	    try {
+		parser = new MTSetToTable(theories);
+		CNATable table = parser.getCoincTable();
+		String coincTable = table.toString();
+		render(generatedGraphSource, generatedGraphString, calc,
+			coincTable);
+	    } catch (CNAException e) {
+		flash.error("Sorry, something went very wrong!");
+		params.flash();
+		setup();
+	    }
 	} catch (OutOfMemoryError e) {
 	    flash.error("Server is out of memory, please wait a minute.");
 	    params.flash();

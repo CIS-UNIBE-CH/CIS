@@ -1,23 +1,22 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
-<h2>CNA Analysis - MT Input, Graph Generation</h2>
+#{set title:'Minimal Theory Input' /}
+<h2>Minimal Theory Input</h2>
+<hr>
 	#{if flash.error}
 		<div class="error">
 			${flash.error}
 		</div>
 	#{/if}
-	<h3>Generated Graph</h3>
 	<div class="steps">
 	Step 2/3
 	</div>
+	<h3>Generated Graph</h3>
 	<center>
-		<img src="${generatedGraphSource}" />
-		<h3>${generatedGraphString}</h3>
-<font size="1">Note: X and Y factors will not be shown in picture<br> to keep the graph readable.</font>
-	</center>
+	<img src="${generatedGraphSource}" />
+	<h3>${generatedGraphString}</h3>
+	<font size="1">Note: X and Y factors will not be shown in picture<br> to keep the graph readable.</font>
 	#{if table}
 	<h3>Coincidence Table</h3>
-	<center>
 		<table>
 		#{list items:table, as:'l'}
 			#{if l == "/n"}<tr>#{/if}
@@ -27,8 +26,8 @@
 			#{if l == "/n"}</tr>#{/if}
 		#{/list}
 		</table>
-	</center>
 	#{/if}
+	</center>
 	#{if calc}
 	<form action="@{CNAController.calcCNAGraph()}" method="POST" >
 		<input type="hidden" name="generatedGraphSource" value="${generatedGraphSource}"/>
