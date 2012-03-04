@@ -32,7 +32,9 @@
 		Calculation Time: ${elapsedTime}
 		<br>
 		<br>
-		Marked as no Effect: ${notEffects}
+		#{if notEffects}
+		Marked as no effect: ${notEffects}
+		#{/if}
 		<br />
 		<br />
 			#{list items:graphsView, as:'l'}
