@@ -204,7 +204,17 @@ public class CNAController extends Controller {
     // }
     // }
 
-    public static void inputTable(String table) {
+    public static void inputTable(String table, String notEffects) {
+	CNAList notEffectsList;
+	if (notEffects.length() == 0) {
+	    notEffectsList = null;
+	} else {
+	    notEffects = notEffects.replaceAll(" ", "");
+	    System.out.println("NotEffects: " + notEffects.length());
+	    notEffectsList = new CNAList(",", notEffects);
+	    System.out.println("Not EffectsList: " + notEffectsList);
+	}
+
 	CNATable cnatable = new CNATable("\r\n", ",", table);
 
 	if (cnatable.get(0).size() >= NUMFACTORS) {
@@ -219,7 +229,7 @@ public class CNAController extends Controller {
 	try {
 	    ArrayList<String> graphsView = new ArrayList<String>();
 	    timer = new Timer();
-	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable);
+	    CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable, notEffectsList);
 	    for (MinimalTheorySet set : cnaAlgorithm.getSets()) {
 		Graph graph = new Graph(set);
 		Renderer renderer = new Renderer();
@@ -231,12 +241,13 @@ public class CNAController extends Controller {
 
 	    String elapsedTime = timer.timeElapsed() + " ms";
 	    boolean specialcase = false;
-	    render(elapsedTime, graphsView, specialcase);
+	    render(elapsedTime, graphsView, specialcase, notEffects);
 	} catch (OutOfMemoryError e) {
 	    try {
 		ArrayList<String> graphsView = new ArrayList<String>();
 		timer = new Timer();
-		CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable);
+		CNAlgorithm cnaAlgorithm = new CNAlgorithm(cnatable,
+			notEffectsList);
 
 		ArrayList<MinimalTheory> theories = cnaAlgorithm
 			.getAllTheories();
@@ -317,7 +328,7 @@ public class CNAController extends Controller {
 	    MinimalTheory theorie;
 	    for (String str : list) {
 		factors = new CNAList();
-		String[] array = str.split("=>");
+		String[] array = str.split("<=>");
 		String[] fac = array[0].split("v");
 		for (int i = 0; i < fac.length; i++) {
 		    factors.add(fac[i]);

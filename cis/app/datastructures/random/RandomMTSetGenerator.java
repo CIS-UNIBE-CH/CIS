@@ -15,9 +15,9 @@ import datastructures.mt.MinimalTheory;
 import datastructures.mt.MinimalTheorySet;
 
 public class RandomMTSetGenerator {
-    private CNATable namesOriginal;
+    private final CNATable namesOriginal;
     private CNATable names;
-    private MinimalTheorySet set;
+    private final MinimalTheorySet set;
     private ArrayList<ArrayList<Object>> levels;
     private boolean makeEpi;
 
@@ -43,11 +43,12 @@ public class RandomMTSetGenerator {
     public void generateFactorNames() {
 	for (int i = 65; i <= (65 + 22); i++) {
 	    String curLetter = "" + (char) i;
-	    String curLetterNegative = "¬" + (char) i;
 	    CNAList list = new CNAList();
 	    list.add(curLetter);
-	    list.add(curLetterNegative);
 	    namesOriginal.add(list);
+	}
+	for(int i = 0; i < namesOriginal.size(); i++){
+	    System.out.println("Name: " + namesOriginal.get(i));
 	}
 	names = namesOriginal.clone();
     }
@@ -80,8 +81,7 @@ public class RandomMTSetGenerator {
 	    bundle = "";
 	    for (int i = 0; i < number; i++) {
 		int random = randomIndex(names.size());
-		int randomSec = randomNegativePositiv();
-		String factor = names.get(random).get(randomSec);
+		String factor = names.get(random).get(0);
 		bundle += factor;
 		// If here is no remove, factor could appear in more than
 		// one bundle in same MT
@@ -96,8 +96,7 @@ public class RandomMTSetGenerator {
 	String factor = "";
 	for (int i = 0; i < noOfAlterFactors; i++) {
 	    int random = randomIndex(names.size());
-	    int randomSec = randomNegativePositiv();
-	    factor = names.get(random).get(randomSec);
+	    factor = names.get(random).get(0);
 	    theory.addBundle(factor);
 	    names.remove(random);
 	}
@@ -177,11 +176,6 @@ public class RandomMTSetGenerator {
 
     public int randomIndex(int size) {
 	return (int) (Math.random() * (size - 1));
-    }
-
-    // Value set to 1.4 because we want more positive than negative effects.
-    public int randomNegativePositiv() {
-	return ((int) (Math.random() * 1.4));
     }
 
     public CNATable getNamesOriginal() {

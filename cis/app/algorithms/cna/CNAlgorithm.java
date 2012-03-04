@@ -29,11 +29,23 @@ public class CNAlgorithm {
     private final ArrayList<MinimalTheorySet> sets;
     private CNATable mnecTable;
     private final ArrayList<MinimalTheory> allTheories;
+    private CNAList notEffectsList;
 
     public CNAlgorithm(CNATable table) throws CNAException {
 	originalTable = table;
 	sets = new ArrayList<MinimalTheorySet>();
 	allTheories = new ArrayList<MinimalTheory>();
+
+	identifyPE(originalTable);
+    }
+
+    public CNAlgorithm(CNATable table, CNAList notEffectsList)
+	    throws CNAException {
+	originalTable = table;
+	sets = new ArrayList<MinimalTheorySet>();
+	allTheories = new ArrayList<MinimalTheory>();
+	this.notEffectsList = notEffectsList;
+
 	identifyPE(originalTable);
     }
 
@@ -76,6 +88,10 @@ public class CNAlgorithm {
 	if (effects.size() < 1) {
 	    throw new CNAException("No effects could be identified.");
 	}
+	if (notEffectsList != null) {
+	    removeNotEffects();
+	}
+
 	run(effects, originalTable);
     }
 
@@ -90,7 +106,9 @@ public class CNAlgorithm {
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
 	    for (int i = 0; i < effects.size(); i++) {
-		if (originalTable.get(0).get(col).equals(effects.get(i))) {
+		String curEffect = effects.get(i);
+		curEffect = effects.get(0);
+		if (originalTable.get(0).get(col).equals(curEffect)) {
 		    indexes.add(col);
 		}
 	    }
@@ -136,7 +154,7 @@ public class CNAlgorithm {
 	msufTable = new CNATable();
 
 	CopyOnWriteArrayList<CNATable> threadSafeList = new CopyOnWriteArrayList<CNATable>();
-	CountDownLatch latch = new CountDownLatch(sufTable.size()-2);
+	CountDownLatch latch = new CountDownLatch(sufTable.size() - 2);
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
 	    CNATable msufTableThread = new CNATable();
@@ -151,20 +169,20 @@ public class CNAlgorithm {
 	    msufTree.fillUpTree(root);
 	    Thread thread = new Thread(msufTree);
 	    thread.start();
-//	    msufTree.walk(root, originalTable, msufTableThread, stopWalk);
+	    // msufTree.walk(root, originalTable, msufTableThread, stopWalk);
 	    threadSafeList.add(msufTableThread);
 	    latch.countDown();
 	    System.out.println("Thread" + i);
 	}
-	
+
 	try {
 	    latch.await();
 	} catch (InterruptedException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} // Wait for countdown
-	
-//	System.out.println("MsufTable\n" + msufTable);
+
+	// System.out.println("MsufTable\n" + msufTable);
 	System.out.println("ThreadSafe List:\n" + threadSafeList);
 	for (CNATable table : threadSafeList) {
 	    for (CNAList list : table) {
@@ -219,7 +237,12 @@ public class CNAlgorithm {
 	    CNAList mtNames = new CNAList();
 	    for (int i = 0; i < list.size(); i++) {
 		if (!list.get(i).equals("$")) {
-		    mtNames.add(bundleTable.get(0).get(i));
+		    // When factor is negative
+		    if (list.get(i).equals("1")) {
+			mtNames.add("¬" + bundleTable.get(0).get(i));
+		    } else {
+			mtNames.add(bundleTable.get(0).get(i));
+		    }
 		}
 	    }
 	    MinimalTheory theory = new MinimalTheory(mtNames, originalTable
@@ -255,8 +278,28 @@ public class CNAlgorithm {
 	}
 
     }
+    
+    /** Helpers */
+    private void removeNotEffects() {
+	for (int i = effects.size() - 1; i >= 0; i--) {
+	    String effect = effects.get(i);
+	    // Somehow when parsing user input to cnatable there are some
+	    // " " left. This line eliminates them.
+	    effect = effect.substring(0, 1);
+	    for (int j = 0; j < notEffectsList.size(); j++) {
+		String notEffect = notEffectsList.get(j);
+		notEffect = notEffect.replace(' ', '_');
+		System.out.println("Vergleich: " + "[" + effect + "]" + " = "
+			+ "[" + notEffect + "]");
+		if (effect.equals(notEffect)) {
+		    effects.remove(i);
+		    break;
+		}
+	    }
+	}
+    }
 
-    // Getters and Setters
+    /** Getter and Setters */
 
     public CNATable getOriginalTable() {
 	return originalTable;
