@@ -107,7 +107,6 @@ public class CNAlgorithm {
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
 	    for (int i = 0; i < effects.size(); i++) {
 		String curEffect = effects.get(i);
-		curEffect = effects.get(0);
 		if (originalTable.get(0).get(col).equals(curEffect)) {
 		    indexes.add(col);
 		}
@@ -283,14 +282,9 @@ public class CNAlgorithm {
     private void removeNotEffects() {
 	for (int i = effects.size() - 1; i >= 0; i--) {
 	    String effect = effects.get(i);
-	    // Somehow when parsing user input to cnatable there are some
-	    // " " left. This line eliminates them.
-	    effect = effect.substring(0, 1);
 	    for (int j = 0; j < notEffectsList.size(); j++) {
 		String notEffect = notEffectsList.get(j);
 		notEffect = notEffect.replace(' ', '_');
-		System.out.println("Vergleich: " + "[" + effect + "]" + " = "
-			+ "[" + notEffect + "]");
 		if (effect.equals(notEffect)) {
 		    effects.remove(i);
 		    break;

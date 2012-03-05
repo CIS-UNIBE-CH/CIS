@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class CNATable extends ArrayList<CNAList> {
-    private ArrayList<CNAList> table;
+    private final ArrayList<CNAList> table;
 
     public CNATable() {
 	table = new ArrayList<CNAList>();
@@ -24,6 +24,7 @@ public class CNATable extends ArrayList<CNAList> {
 	for (int i = 0; i < array.length; i++) {
 	    String temp = array[i];
 	    temp = temp.replace("\n", "");
+	    temp = temp.replace("\t", "");
 	    temp = temp.replace(" ", "");
 	    table.add(new CNAList(regexList, temp));
 	}
