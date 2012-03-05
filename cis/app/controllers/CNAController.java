@@ -107,7 +107,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Sorry, something went very wrong!");
+	    flash.error("Something went wrong. Please try again or contact us.");
 	    params.flash();
 	    setup();
 	} catch (OutOfMemoryError e) {
@@ -167,11 +167,41 @@ public class CNAController extends Controller {
 		flash.error(e1.toString());
 		params.flash();
 		setup();
+	    } catch (InterruptedException e2) {
+		try {
+		    SimpleEmail email = new SimpleEmail();
+		    email.setFrom(MAILFrom);
+		    email.addTo(MAILTo);
+		    email.setSubject("Error: InterruptedException");
+		    String msg = e.getStackTrace().toString();
+		    email.setMsg("CNA Input Table\n" + msg);
+		    Mail.send(email);
+		} catch (EmailException e1) {
+		    e1.printStackTrace();
+		}
+		flash.error("Something went very wrong! Please try again or contact us.");
+		params.flash();
+		setup();
 	    }
 	} catch (CNAException e) {
 	    flash.error(e.toString());
 	    params.flash();
 	    setup();
+	} catch (InterruptedException e) {
+	    try {
+		    SimpleEmail email = new SimpleEmail();
+		    email.setFrom(MAILFrom);
+		    email.addTo(MAILTo);
+		    email.setSubject("Error: InterruptedException");
+		    String msg = e.getStackTrace().toString();
+		    email.setMsg("CNA Input Table\n" + msg);
+		    Mail.send(email);
+		} catch (EmailException e1) {
+		    e1.printStackTrace();
+		}
+		flash.error("Something went very wrong! Please try again or contact us.");
+		params.flash();
+		setup();
 	}
     }
 
@@ -210,9 +240,7 @@ public class CNAController extends Controller {
 	    notEffectsList = null;
 	} else {
 	    notEffects = notEffects.replaceAll(" ", "");
-	    System.out.println("NotEffects: " + notEffects.length());
 	    notEffectsList = new CNAList(",", notEffects);
-	    System.out.println("Not EffectsList: " + notEffectsList);
 	}
 
 	CNATable cnatable = new CNATable("\r\n", ",", table);
@@ -267,6 +295,21 @@ public class CNAController extends Controller {
 		flash.error(e1.toString());
 		params.flash();
 		setup();
+	    } catch (InterruptedException e2) {
+		try {
+		    SimpleEmail email = new SimpleEmail();
+		    email.setFrom(MAILFrom);
+		    email.addTo(MAILTo);
+		    email.setSubject("Error: InterruptedException");
+		    String msg = e.getStackTrace().toString();
+		    email.setMsg("CNA Input Table\n" + msg);
+		    Mail.send(email);
+		} catch (EmailException e1) {
+		    e1.printStackTrace();
+		}
+		flash.error("Something went very wrong! Please try again or contact us.");
+		params.flash();
+		setup();
 	    }
 	} catch (CNAException e) {
 	    flash.error(e.toString());
@@ -284,7 +327,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Sorry, something went very wrong!");
+	    flash.error("Something went wrong. Please try again or contact us.");
 	    params.flash();
 	    setup();
 	} catch (IndexOutOfBoundsException e) {
@@ -299,7 +342,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Sorry, something went very wrong!");
+	    flash.error("Something went wrong. Please try again or contact us.");
 	    params.flash();
 	    setup();
 	} catch (IllegalArgumentException e) {
@@ -314,9 +357,24 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Sorry, something went very wrong!");
+	    flash.error("Something went wrong. Please try again or contact us.");
 	    params.flash();
 	    setup();
+	} catch (InterruptedException e) {
+	    try {
+		    SimpleEmail email = new SimpleEmail();
+		    email.setFrom(MAILFrom);
+		    email.addTo(MAILTo);
+		    email.setSubject("Error: InterruptedException");
+		    String msg = e.getStackTrace().toString();
+		    email.setMsg("CNA Input Table\n" + msg);
+		    Mail.send(email);
+		} catch (EmailException e1) {
+		    e1.printStackTrace();
+		}
+		flash.error("Something went very wrong! Please try again or contact us.");
+		params.flash();
+		setup();
 	}
     }
 
@@ -368,7 +426,7 @@ public class CNAController extends Controller {
 		render(generatedGraphSource, generatedGraphString, calc,
 			coincTable);
 	    } catch (CNAException e) {
-		flash.error("Sorry, something went very wrong!");
+		flash.error("Something went wrong. Please try again or contact us.");
 		params.flash();
 		setup();
 	    }
@@ -392,7 +450,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Sorry, something went very wrong!");
+	    flash.error("Something went wrong. Please try again or contact us.");
 	    params.flash();
 	    setup();
 	} catch (IllegalArgumentException e) {
@@ -407,7 +465,7 @@ public class CNAController extends Controller {
 	    } catch (EmailException e1) {
 		e1.printStackTrace();
 	    }
-	    flash.error("Sorry, something went very wrong!");
+	    flash.error("Something went wrong. Please try again or contact us.");
 	    params.flash();
 	    setup();
 	}

@@ -47,9 +47,6 @@ public class RandomMTSetGenerator {
 	    list.add(curLetter);
 	    namesOriginal.add(list);
 	}
-	for(int i = 0; i < namesOriginal.size(); i++){
-	    System.out.println("Name: " + namesOriginal.get(i));
-	}
 	names = namesOriginal.clone();
     }
 

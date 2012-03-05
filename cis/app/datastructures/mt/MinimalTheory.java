@@ -32,7 +32,6 @@ public class MinimalTheory {
 	
 	
 	for (int i = 0; i < bundles.size() - 1; i++) {
-	    System.out.println("Bundle: " + i + " " + bundles.get(i));
 	    output += bundles.get(i) + "X" + (i + 1) + " ∨ ";
 	}
 	output += bundles.get(bundles.size() - 1) + "X" + bundles.size()
