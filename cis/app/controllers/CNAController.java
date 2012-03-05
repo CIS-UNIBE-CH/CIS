@@ -10,6 +10,7 @@ package controllers;
 import helpers.Timer;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import models.Renderer;
 
@@ -182,6 +183,18 @@ public class CNAController extends Controller {
 		flash.error("Something went very wrong! Please try again or contact us.");
 		params.flash();
 		setup();
+	    } catch (ExecutionException e3) {
+		try {
+		    SimpleEmail email = new SimpleEmail();
+		    email.setFrom(MAILFrom);
+		    email.addTo(MAILTo);
+		    email.setSubject("Error: ExecutionException");
+		    String msg = e.getStackTrace().toString();
+		    email.setMsg("CNA Input Table\n" + msg);
+		    Mail.send(email);
+		} catch (EmailException e1) {
+		    e1.printStackTrace();
+		}
 	    }
 	} catch (CNAException e) {
 	    flash.error(e.toString());
@@ -189,19 +202,30 @@ public class CNAController extends Controller {
 	    setup();
 	} catch (InterruptedException e) {
 	    try {
-		    SimpleEmail email = new SimpleEmail();
-		    email.setFrom(MAILFrom);
-		    email.addTo(MAILTo);
-		    email.setSubject("Error: InterruptedException");
-		    String msg = e.getStackTrace().toString();
-		    email.setMsg("CNA Input Table\n" + msg);
-		    Mail.send(email);
-		} catch (EmailException e1) {
-		    e1.printStackTrace();
-		}
-		flash.error("Something went very wrong! Please try again or contact us.");
-		params.flash();
-		setup();
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
+		email.setSubject("Error: InterruptedException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		e1.printStackTrace();
+	    }
+	    flash.error("Something went very wrong! Please try again or contact us.");
+	    params.flash();
+	    setup();
+	} catch (ExecutionException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
+		email.setSubject("Error: ExecutionException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+	    } catch (EmailException e1) {
+		e1.printStackTrace();
+	    }
 	}
     }
 
@@ -310,6 +334,17 @@ public class CNAController extends Controller {
 		flash.error("Something went very wrong! Please try again or contact us.");
 		params.flash();
 		setup();
+	    } catch (ExecutionException e3) {
+		try {
+		    SimpleEmail email = new SimpleEmail();
+		    email.setFrom(MAILFrom);
+		    email.addTo(MAILTo);
+		    email.setSubject("Error: ExecutionException");
+		    String msg = e.getStackTrace().toString();
+		    email.setMsg("CNA Input Table\n" + msg);
+		} catch (EmailException e1) {
+		    e1.printStackTrace();
+		}
 	    }
 	} catch (CNAException e) {
 	    flash.error(e.toString());
@@ -362,19 +397,30 @@ public class CNAController extends Controller {
 	    setup();
 	} catch (InterruptedException e) {
 	    try {
-		    SimpleEmail email = new SimpleEmail();
-		    email.setFrom(MAILFrom);
-		    email.addTo(MAILTo);
-		    email.setSubject("Error: InterruptedException");
-		    String msg = e.getStackTrace().toString();
-		    email.setMsg("CNA Input Table\n" + msg);
-		    Mail.send(email);
-		} catch (EmailException e1) {
-		    e1.printStackTrace();
-		}
-		flash.error("Something went very wrong! Please try again or contact us.");
-		params.flash();
-		setup();
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
+		email.setSubject("Error: InterruptedException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+		Mail.send(email);
+	    } catch (EmailException e1) {
+		e1.printStackTrace();
+	    }
+	    flash.error("Something went very wrong! Please try again or contact us.");
+	    params.flash();
+	    setup();
+	} catch (ExecutionException e) {
+	    try {
+		SimpleEmail email = new SimpleEmail();
+		email.setFrom(MAILFrom);
+		email.addTo(MAILTo);
+		email.setSubject("Error: ExecutionException");
+		String msg = e.getStackTrace().toString();
+		email.setMsg("CNA Input Table\n" + msg);
+	    } catch (EmailException e1) {
+		e1.printStackTrace();
+	    }
 	}
     }
 

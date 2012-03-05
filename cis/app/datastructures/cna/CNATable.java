@@ -132,7 +132,7 @@ public class CNATable extends ArrayList<CNAList> {
     }
 
     public String getEffect() {
-	String effect = table.get(0).get(table.get(0).size()-1);
+	String effect = table.get(0).get(table.get(0).size() - 1);
 	return effect;
     }
 

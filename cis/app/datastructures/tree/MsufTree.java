@@ -7,16 +7,18 @@ package datastructures.tree;
  * @license GPLv3, for more informations see Readme.mdown
  */
 
+import java.util.concurrent.Callable;
+
 import datastructures.cna.CNAList;
 import datastructures.cna.CNATable;
 
-public class MsufTree extends CNATree implements Runnable{
+public class MsufTree extends CNATree implements Callable<CNATable> {
     private CNATreeNode parent;
     private final CNATable originalTable;
     private final CNATable msufTable;
     private final boolean stopWalk;
     private CNATreeNode node;
-    
+
     public MsufTree(CNATreeNode parent, CNATable originalTable,
 	    CNATable msufTable, boolean stopWalk) {
 	super(parent);
@@ -26,10 +28,11 @@ public class MsufTree extends CNATree implements Runnable{
 	this.msufTable = msufTable;
 	this.stopWalk = stopWalk;
     }
-    
+
     @Override
-    public void run(){
+    public CNATable call() {
 	walk(parent, originalTable, msufTable, stopWalk);
+	return msufTable;
     }
 
     public void walk(CNATreeNode parent, CNATable originalTable,
@@ -46,15 +49,15 @@ public class MsufTree extends CNATree implements Runnable{
 		&& !compare(parent.getCoincLine(), originalTable)) {
 	    msufTable.add(parent.getCoincLine());
 	}
-	if(compare(parent.getCoincLine(), originalTable)){
+	if (compare(parent.getCoincLine(), originalTable)) {
 	    stopWalk = true;
 	}
 	for (int i = 0; i < parent.getChildCount(); i++) {
 	    CNATreeNode child = (CNATreeNode) parent.getChildAt(i);
-	    
+
 	    if (!child.isLeaf() && !stopWalk) {
 		walk(child, originalTable, msufTable, stopWalk);
-	    } else if(!stopWalk){
+	    } else if (!stopWalk) {
 		if (!compare(child.getCoincLine(), originalTable)) {
 		    msufTable.add(child.getCoincLine());
 		}

@@ -36,7 +36,7 @@ abstract class CNATree extends DefaultTreeModel {
 	    }
 	}
     }
-    
+
     /**
      * Helper for fillUpTree(). Sets the $ character.
      */

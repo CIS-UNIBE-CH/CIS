@@ -8,8 +8,11 @@ package algorithms.cna;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import datastructures.cna.CNAList;
 import datastructures.cna.CNAListComparator;
@@ -31,7 +34,8 @@ public class CNAlgorithm {
     private final ArrayList<MinimalTheory> allTheories;
     private CNAList notEffectsList;
 
-    public CNAlgorithm(CNATable table) throws CNAException, InterruptedException {
+    public CNAlgorithm(CNATable table) throws CNAException,
+	    InterruptedException, ExecutionException {
 	originalTable = table;
 	sets = new ArrayList<MinimalTheorySet>();
 	allTheories = new ArrayList<MinimalTheory>();
@@ -40,7 +44,7 @@ public class CNAlgorithm {
     }
 
     public CNAlgorithm(CNATable table, CNAList notEffectsList)
-	    throws CNAException, InterruptedException {
+	    throws CNAException, InterruptedException, ExecutionException {
 	originalTable = table;
 	sets = new ArrayList<MinimalTheorySet>();
 	allTheories = new ArrayList<MinimalTheory>();
@@ -54,9 +58,11 @@ public class CNAlgorithm {
      * 
      * @param originalTable
      * @throws CNAException
-     * @throws InterruptedException 
+     * @throws InterruptedException
+     * @throws ExecutionException
      */
-    private void identifyPE(CNATable originalTable) throws CNAException, InterruptedException {
+    private void identifyPE(CNATable originalTable) throws CNAException,
+	    InterruptedException, ExecutionException {
 	effects = new CNAList();
 	CNATable table = originalTable.clone();
 	CNAListComparator comparator = new CNAListComparator();
@@ -101,10 +107,11 @@ public class CNAlgorithm {
      * 
      * @param effects
      * @throws CNAException
-     * @throws InterruptedException 
+     * @throws InterruptedException
+     * @throws ExecutionException
      */
     private void run(CNAList effects, CNATable originalTable)
-	    throws CNAException, InterruptedException {
+	    throws CNAException, InterruptedException, ExecutionException {
 	ArrayList<Integer> indexes = new ArrayList<Integer>();
 	for (int col = 0; col < originalTable.get(0).size(); col++) {
 	    for (int i = 0; i < effects.size(); i++) {
@@ -123,10 +130,11 @@ public class CNAlgorithm {
      * 
      * @param table
      * @throws CNAException
-     * @throws InterruptedException 
+     * @throws InterruptedException
+     * @throws ExecutionException
      **/
     private void identifySUF(CNATable originalTable, ArrayList<Integer> indexes)
-	    throws CNAException, InterruptedException {
+	    throws CNAException, InterruptedException, ExecutionException {
 	CNATable newOrderedOrigTable = new CNATable();
 	for (int i = 0; i < indexes.size(); i++) {
 	    newOrderedOrigTable = originalTable.clone();
@@ -151,48 +159,43 @@ public class CNAlgorithm {
     }
 
     private void indentifyMSUF(CNATable originalTable, CNATable sufTable)
-	    throws CNAException, InterruptedException {
+	    throws CNAException, InterruptedException, ExecutionException {
 	MsufTree msufTree;
 	msufTable = new CNATable();
 
-	CopyOnWriteArrayList<CNATable> threadSafeList = new CopyOnWriteArrayList<CNATable>();
+	// Controls how many threads run at the same time
+	ExecutorService threadPool = Executors.newFixedThreadPool(10);
+	CompletionService<CNATable> pool = new ExecutorCompletionService<CNATable>(
+		threadPool);
 
-	//	CountDownLatch latch = new CountDownLatch(sufTable.size() - 2);
-	
-	CountDownLatch latch = new CountDownLatch(8);
 	// i = 1 because first line holds factor names.
 	for (int i = 1; i < sufTable.size(); i++) {
 	    CNATable msufTableThread = new CNATable();
+
+	    /** None Threading stuff */
 	    CNAList list = (CNAList) sufTable.get(i).clone();
 	    boolean stopWalk = false;
-
 	    list.remove(list.size() - 1);
 	    CNATreeNode root = new CNATreeNode(list);
+	    /** None Threading stuff */
 
 	    msufTree = new MsufTree(root, originalTable, msufTableThread,
 		    stopWalk);
 	    msufTree.fillUpTree(root);
-	    Thread thread = new Thread(msufTree);
-	    thread.start();
-	    // msufTree.walk(root, originalTable, msufTableThread, stopWalk);
-	    threadSafeList.add(msufTableThread);
-	    latch.countDown();
-	    System.out.println("LatchCount: " + latch.getCount());
-//	    System.out.println("Thread" + i);
+	    pool.submit(msufTree);
+	    System.out.println("Run: " + i);
 	}
 
-	
-	latch.await();
-
-	// System.out.println("MsufTable\n" + msufTable);
-//	System.out.println("ThreadSafe List:\n" + threadSafeList);
-	for (CNATable table : threadSafeList) {
-	    for (CNAList list : table) {
+	for (int i = 1; i < sufTable.size(); i++) {
+	    CNATable curTable;
+	    curTable = pool.take().get();
+	    for (CNAList list : curTable) {
 		msufTable.add(list);
 	    }
 	}
-	msufTable.removeDuplicated();
 
+	threadPool.shutdown();
+	msufTable.removeDuplicated();
 	System.out.println("MsufTable\n" + msufTable);
 
 	identifyNEC(msufTable, originalTable);
@@ -280,7 +283,7 @@ public class CNAlgorithm {
 	}
 
     }
-    
+
     /** Helpers */
     private void removeNotEffects() {
 	for (int i = effects.size() - 1; i >= 0; i--) {
