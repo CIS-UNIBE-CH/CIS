@@ -16,14 +16,16 @@
       		<div class="navigation">
 			<a href="/">Home</a> | 
 			<a href="@{CNAController.setup()}">CNA Analysis</a> |
-			<a href="@{QuadroTestController.setup()}">Simple Quadro Test</a> | 
+			<!--<a href="@{QuadroTestController.setup()}">Simple Quadro Test</a> | -->
 			<a href="@{Application.contact()}">Contact</a> 
        		</div><!-- end navigation -->
        		<div class="content">
        		#{doLayout /}
        		</div><!-- end content -->
        		<div class="footer">
-       		Last changed: 29/07/2011
+       		<script language="Javascript">
+				document.write("This page was last modified on: " + document.lastModified +"");
+			</script>
        		</div><!-- end footer -->
        	</div><!--  end main -->
 
