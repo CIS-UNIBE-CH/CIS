@@ -29,13 +29,11 @@ public class MinimalTheory {
     public String toString() {
 	assert (bundles.size() != 0 && effect.length() != 0);
 	String output = new String();
-	
-	
+
 	for (int i = 0; i < bundles.size() - 1; i++) {
-	    output += bundles.get(i) + "X" + (i + 1) + " ∨ ";
+	    output += bundles.get(i) + " ∨ ";
 	}
-	output += bundles.get(bundles.size() - 1) + "X" + bundles.size()
-		+ " ∨ " + "Y" + effect + " <=> " + effect;
+	output += bundles.get(bundles.size() - 1) + " <=> " + effect;
 	return output;
     }
 

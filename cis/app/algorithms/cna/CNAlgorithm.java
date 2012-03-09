@@ -183,7 +183,7 @@ public class CNAlgorithm {
 		    stopWalk);
 	    msufTree.fillUpTree(root);
 	    pool.submit(msufTree);
-	    System.out.println("Run: " + i);
+	    // System.out.println("Run: " + i);
 	}
 
 	for (int i = 1; i < sufTable.size(); i++) {
@@ -243,11 +243,25 @@ public class CNAlgorithm {
 	    for (int i = 0; i < list.size(); i++) {
 		if (!list.get(i).equals("$")) {
 		    // When factor is negative
-		    if (list.get(i).equals("1")) {
-			mtNames.add("¬" + bundleTable.get(0).get(i));
+		    if (list.get(i).length() > 1) {
+			String bundleCoinc = list.get(i);
+			String bundle = new String();
+			for (int j = 0; j < bundleCoinc.length(); j++) {
+			    if (bundleCoinc.charAt(j) == '1') {
+				bundle += "¬" + bundleTable.get(0).get(i).charAt(j);
+			    } else {
+				bundle += bundleTable.get(0).get(i).charAt(j);
+			    }
+			}
+			mtNames.add(bundle);
 		    } else {
-			mtNames.add(bundleTable.get(0).get(i));
+			if (list.get(i).equals("1")) {
+			    mtNames.add("¬" + bundleTable.get(0).get(i));
+			} else {
+			    mtNames.add(bundleTable.get(0).get(i));
+			}
 		    }
+
 		}
 	    }
 	    MinimalTheory theory = new MinimalTheory(mtNames, originalTable
