@@ -220,6 +220,7 @@ public class CNAlgorithm {
 	}
 
 	this.nec = msufTable.getNec();
+	System.out.println("NecTable\n" + nec);
 	identifyMNEC(nec, bundleTable, originalTable);
     }
 
@@ -230,6 +231,7 @@ public class CNAlgorithm {
 	MnecTree mnecTree;
 	mnecTable = new CNATable();
 	CNATreeNode root = new CNATreeNode(necList);
+	System.out.println("rootNodes: " + root.toString());
 	mnecTree = new MnecTree(root);
 
 	mnecTree.fillUpTree(root);

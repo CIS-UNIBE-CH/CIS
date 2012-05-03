@@ -432,7 +432,7 @@ public class CNAController extends Controller {
 	    MinimalTheory theorie;
 	    for (String str : list) {
 		factors = new CNAList();
-		String[] array = str.split("<=>");
+		String[] array = str.split("\\<=\\>");
 		String[] fac = array[0].split("v");
 		for (int i = 0; i < fac.length; i++) {
 		    factors.add(fac[i]);
